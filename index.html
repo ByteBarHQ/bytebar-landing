@@ -19,6 +19,7 @@
 }
 *{box-sizing:border-box; margin:0; padding:0}
 html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:84px}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
 img,svg{max-width:100%; display:block}
@@ -44,7 +45,17 @@ a{color:inherit}
 .btn-light{background:#fff; color:var(--navy); box-shadow:0 5px 0 rgba(255,255,255,.35)}
 .btn-light:active{transform:translateY(4px); box-shadow:0 1px 0 rgba(255,255,255,.35)}
 
-/* ============ Nav ============ */
+/* ============ Sim loading overlay (exam card click feedback) ============ */
+#sim-loader{position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center;
+  background:rgba(246,241,230,.96); backdrop-filter:blur(8px)}
+#sim-loader.on{display:flex}
+#sim-loader .sl-card{text-align:center; padding:40px}
+#sim-loader .sl-spin{width:56px; height:56px; margin:0 auto 20px; border-radius:50%;
+  border:5px solid var(--line); border-top-color:var(--cyan); animation:slspin .8s linear infinite}
+@keyframes slspin{to{transform:rotate(360deg)}}
+#sim-loader .sl-txt{font-weight:800; font-size:18px; color:var(--navy)}
+#sim-loader .sl-sub{font-size:14px; color:var(--mut); margin-top:6px}
+@media(prefers-reduced-motion:reduce){#sim-loader .sl-spin{animation:none; border-top-color:var(--line)}}
 .nav{position:sticky; top:0; z-index:50; background:rgba(246,241,230,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line)}
 .nav-inner{display:flex; align-items:center; justify-content:space-between; height:68px}
 .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:19px; letter-spacing:.28em; color:var(--navy)}
@@ -825,6 +836,16 @@ renderPicker();
     else if(c.indexOf('kubectl')===0||c.indexOf('k ')===0){ line('<span class="err">Pip:</span> Hmm, I don\u2019t know that one yet in the demo. Try <span class="ok">kubectl get pods</span>.'); }
     else { line('<span class="err">Pip:</span> That\u2019s not a kubectl command. This is a Kubernetes terminal — try <span class="ok">help</span>.'); }
     line('');
+  });
+})();
+</script>
+<div id="sim-loader" aria-hidden="true"><div class="sl-card"><div class="sl-spin"></div><div class="sl-txt">Loading the simulator…</div><div class="sl-sub">Grabbing 16,000 questions — one sec.</div></div></div>
+<script>
+/* Exam card click feedback: show loading overlay before cross-origin nav */
+(function(){
+  var loader = document.getElementById('sim-loader');
+  document.querySelectorAll('a.exam, a[href*="sim-preview"]').forEach(function(a){
+    a.addEventListener('click', function(){ loader.classList.add('on'); });
   });
 })();
 </script>
