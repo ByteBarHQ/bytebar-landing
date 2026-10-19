@@ -844,8 +844,19 @@ renderPicker();
 /* Exam card click feedback: show loading overlay before cross-origin nav */
 (function(){
   var loader = document.getElementById('sim-loader');
-  document.querySelectorAll('a.exam, a[href*="sim-preview"]').forEach(function(a){
-    a.addEventListener('click', function(){ loader.classList.add('on'); });
+  var lt = loader.querySelector('.sl-txt');
+  var ls = loader.querySelector('.sl-sub');
+  document.querySelectorAll('a[href*="sim-preview"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if(a.href.indexOf('buy=1') !== -1){
+        lt.textContent = 'Opening Pro checkout…';
+        ls.textContent = 'One payment · Yours forever.';
+      } else {
+        lt.textContent = 'Loading the simulator…';
+        ls.textContent = 'Grabbing 16,000 questions — one sec.';
+      }
+      loader.classList.add('on');
+    });
   });
 })();
 </script>
