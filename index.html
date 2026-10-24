@@ -392,6 +392,73 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 @media(max-width:1000px){.steps.steps4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.steps.steps4{grid-template-columns:1fr} .rc-top{flex-direction:column; text-align:center} .rc-head .rc-t{font-size:11.5px; letter-spacing:.06em} .rc-head{padding:12px 16px}}
 </style>
+<style id="v2-overrides">
+
+/* ===== V2 COMMON — Midnight Pro discipline on the current page ===== */
+.hero{background:
+  url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27260%27%20height%3D%27260%27%20viewBox%3D%270%200%20260%20260%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%237ee7f7%27%20stroke-opacity%3D%270.05%27%20stroke-width%3D%271.5%27%3E%3Cpath%20d%3D%27M20%2040h80v50h70%27%2F%3E%3Cpath%20d%3D%27M240%20200h-90v-60h-60%27%2F%3E%3Cpath%20d%3D%27M40%20230v-70h60%27%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%27%237ee7f7%27%20fill-opacity%3D%270.055%27%3E%3Ccircle%20cx%3D%27100%27%20cy%3D%2790%27%20r%3D%273.5%27%2F%3E%3Ccircle%20cx%3D%27150%27%20cy%3D%27140%27%20r%3D%273.5%27%2F%3E%3Ccircle%20cx%3D%27100%27%20cy%3D%27160%27%20r%3D%273.5%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") top left repeat,
+  radial-gradient(900px 480px at 85% -10%, rgba(27,58,122,.55), transparent 60%),
+  radial-gradient(700px 420px at 8% 0%, rgba(11,143,196,.13), transparent 60%),
+  linear-gradient(180deg,#0a1a3a 0%, #0b1e42 55%, #0a1a38 100%)}
+.hero::before{background:
+  radial-gradient(700px 340px at 10% 6%, rgba(126,231,247,.05), transparent 70%),
+  radial-gradient(560px 320px at 90% 18%, rgba(245,166,35,.05), transparent 70%)}
+.hero h1{color:#ffffff}
+.hero h1 .strike{color:#8fa5c8}
+.hero h1 .strike::after{background:var(--gold)}
+.hero p.def{color:#d7e3f5}
+.hero p.sub{color:#9db4dd}
+.sticker{background:rgba(255,255,255,.07); color:#dbe7fa; border:1px solid rgba(255,255,255,.22); box-shadow:none}
+.hero-note{color:#9db4dd}
+.hero-note b{color:var(--gold)}
+.hero .btn-primary{background:transparent; color:#fff; border:2px solid rgba(255,255,255,.42);
+  box-shadow:none; text-shadow:none}
+.hero .btn-primary:hover{border-color:#fff; filter:none}
+.hero .btn-primary:active{transform:translateY(2px); box-shadow:none}
+.report-card{border:1px solid rgba(255,255,255,.28); box-shadow:0 30px 60px rgba(2,8,23,.5)}
+.rc-sample{color:#cfe3f5; background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
+.rc-verdict p b{color:#2e7d5b}
+.rc-ring circle[stroke="#0d9d6c"]{stroke:#35a06f}
+.rc-bar > div[style*="#0d9d6c"]{background:#35a06f !important}
+.rc-bar > div[style*="#c77408"]{background:#c08a35 !important}
+.rc-bar > div[style*="#d63a3a"]{background:#c05a52 !important}
+.rc-dom .dp[style*="#0d9d6c"]{color:#2e7d5b !important}
+.rc-dom .dp[style*="#c77408"]{color:#a8742a !important}
+.rc-dom .dp[style*="#d63a3a"]{color:#b34a44 !important}
+.rc-dom.weak{border-color:#e4cf9e}
+.stats-strip{background:#0a1a38; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
+.stat b{color:#fff}
+.stat span{color:#8fa5c8}
+.stat + .stat{border-left:1px solid rgba(255,255,255,.14)}
+@media(max-width:700px){.stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.14)}}
+.marquee{margin-top:0}
+
+
+/* ===== V5 QUIET — maximum restraint, flat ===== */
+.hero{background:#0a1a38}
+.hero::before{display:none}
+.hero .btn-gold{background:var(--gold); box-shadow:none}
+.hero .btn-gold:active{transform:translateY(1px); box-shadow:none}
+.hero .btn-primary{border-width:1.5px; border-color:rgba(255,255,255,.35)}
+.sticker{transform:none; border-radius:10px; letter-spacing:.18em}
+.hero-pip .pip-tag{box-shadow:none; border-width:1.5px}
+.report-card{border-radius:16px; box-shadow:0 10px 30px rgba(2,8,23,.32)}
+.hero h1{letter-spacing:-.02em}
+.stats-strip{border-bottom:none}
+.stat b{font-weight:800}
+
+/* ===== V6 — V3 spec sheet, restyled in the quiet language ===== */
+.spec-strip{padding:34px 0 40px}
+.spec-head{font-size:12px; font-weight:700; letter-spacing:.24em; color:#8fa5c8; text-transform:uppercase; margin-bottom:8px}
+.spec-grid{display:grid; grid-template-columns:1fr 1fr; column-gap:64px}
+.spec-row{display:flex; justify-content:space-between; align-items:baseline; gap:18px;
+  padding:13px 2px; border-top:1px solid rgba(255,255,255,.10)}
+.spec-row span{font-size:15px; font-weight:500; color:#9db4dd}
+.spec-row b{font-size:19px; font-weight:800; color:#fff; white-space:nowrap; font-variant-numeric:tabular-nums}
+.spec-row.gold b{color:var(--gold)}
+@media(max-width:700px){.spec-grid{grid-template-columns:1fr} .spec-row b{font-size:17px}}
+
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -464,13 +531,20 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
   </div>
 </header>
 
-<!-- ============ STATS STRIP (Tier-1) ============ -->
-<div class="stats-strip">
-  <div class="wrap stats-in">
-    <div class="stat"><b>28</b><span>Certification exams</span></div>
-    <div class="stat"><b>28,000</b><span>Exam-style questions</span></div>
-    <div class="stat"><b>1,000</b><span>Questions per exam</span></div>
-    <div class="stat"><b>100%</b><span>Answers explained</span></div>
+<!-- ============ SPEC SHEET (V3 block, quiet restyle) ============ -->
+<div class="stats-strip spec-strip">
+  <div class="wrap">
+    <div class="spec-head">The spec sheet</div>
+    <div class="spec-grid">
+      <div class="spec-row"><span>Certification exams</span><b>28</b></div>
+      <div class="spec-row"><span>Exam-style questions</span><b>28,000</b></div>
+      <div class="spec-row"><span>Questions per exam</span><b>1,000</b></div>
+      <div class="spec-row"><span>Answers explained</span><b>100%</b></div>
+      <div class="spec-row"><span>Free taste, every exam</span><b>10 questions</b></div>
+      <div class="spec-row"><span>Subscription</span><b>None — ever</b></div>
+      <div class="spec-row gold"><span>Price</span><b>$9.99 one-time</b></div>
+      <div class="spec-row"><span>Yours</span><b>Forever</b></div>
+    </div>
   </div>
 </div>
 
