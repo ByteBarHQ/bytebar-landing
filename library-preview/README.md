@@ -7,8 +7,8 @@ not linked from any live page, `noindex` on every page.**
 ## Pages
 - `index.html` — library home: header-zone search ("Find your topic"),
   Continue Learning rail (progress-driven), goal picker, vendor filter
-  chips, cover grid for all 13 ByteBar books, Tealight Nursing shelf,
-  simulator band.
+  chips, cover grid for all 13 ByteBar books, Nursing shelf (warm palette
+  as a category cue), simulator band.
 - `course.html?book=<slug>` — course page: progress header, chapter rows
   with watched / up-next / in-production states, Final Exam capstone
   routing to the simulator. Security+ is fully populated from the real
@@ -45,6 +45,13 @@ Upload this folder's contents to `ByteBarHQ/bytebar-landing` at
 preview used) → https://bytebarhq.com/library-preview/
 Do NOT touch the repo root `index.html` or `library/` — those are the
 live homepage and live library pages.
+
+## Branding note (2026-11-11)
+The nursing shelf was originally headed "Tealight Nursing"; per Cori's
+call it is now simply **Nursing** — a ByteBar category, not a separate
+brand (if YouTube isn't restored, nursing is absorbed into ByteBar, as it
+already is on Etsy). No user-facing "Tealight" strings remain anywhere in
+the preview; the warm palette stays as a quiet category cue only.
 
 ## Known staging notes
 - Home-card lesson counts come from the 2026-11-10 playlist snapshot and

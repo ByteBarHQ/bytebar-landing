@@ -296,10 +296,10 @@ window.BB = (function () {
   /* ---------------- HOME ---------------- */
   function initHome() {
     var itGrid = document.getElementById("itGrid");
-    var teaGrid = document.getElementById("tealightGrid");
+    var nurseGrid = document.getElementById("nursingGrid");
     function renderGrids() {
       itGrid.innerHTML = BOOKS.filter(function (b) { return b.shelf === "it"; }).map(cardHTML).join("");
-      teaGrid.innerHTML = BOOKS.filter(function (b) { return b.shelf === "nursing"; }).map(cardHTML).join("");
+      nurseGrid.innerHTML = BOOKS.filter(function (b) { return b.shelf === "nursing"; }).map(cardHTML).join("");
       applyFilter();
     }
     function renderRail() {
@@ -352,13 +352,13 @@ window.BB = (function () {
         return n;
       }
       itVisible = scan(itGrid, "it");
-      teaVisible = scan(teaGrid, "nursing");
+      teaVisible = scan(nurseGrid, "nursing");
       document.getElementById("itSection").classList.toggle("hidden", currentFilter === "nursing");
-      var teaSec = document.getElementById("tealightSection");
-      teaSec.classList.toggle("hidden", !(currentFilter === "all" || currentFilter === "nursing"));
+      var nurseSec = document.getElementById("nursingSection");
+      nurseSec.classList.toggle("hidden", !(currentFilter === "all" || currentFilter === "nursing"));
       document.getElementById("itNoResults").style.display =
         (itVisible === 0 && currentFilter !== "nursing") ? "block" : "none";
-      document.getElementById("tealightNoResults").style.display =
+      document.getElementById("nursingNoResults").style.display =
         (teaVisible === 0 && (currentFilter === "all" || currentFilter === "nursing")) ? "block" : "none";
     }
     document.querySelectorAll("#chips .chip").forEach(function (chip) {
@@ -368,7 +368,7 @@ window.BB = (function () {
         currentFilter = chip.getAttribute("data-filter");
         applyFilter();
         if (currentFilter === "nursing") {
-          document.getElementById("tealightSection").scrollIntoView({ behavior: "smooth" });
+          document.getElementById("nursingSection").scrollIntoView({ behavior: "smooth" });
         }
       });
     });
@@ -378,7 +378,7 @@ window.BB = (function () {
       firstjob: { text: '<b>First IT job?</b> Start with <b>A+</b> or <b>Network+</b> — their <span class="free">Start Here chapters are free</span>, and both books build from zero.', cta: "Watch A+ Start Here — free", book: "aplus" },
       security: { text: '<b>Most people start with Security+.</b> Its <span class="free">Start Here chapter is free</span> — 4 minutes, and you\'ll know exactly how the book teaches.', cta: "Watch Security+ Start Here — free", book: "secplus" },
       cloud:    { text: '<b>Cloud route:</b> begin with <b>Cloud Practitioner (CLF-C02)</b> — the shortest book in the library — or go straight at <b>AZ-104</b>. <span class="free">Start Here is free</span> either way.', cta: "Watch Cloud Practitioner Start Here — free", book: "clf" },
-      nursing:  { text: '<b>Nursing exams live on the Tealight shelf.</b> <b>TEAS 7</b> and <b>NCLEX-RN</b> both open with a <span class="free">free Start Here chapter</span>.', cta: "Watch TEAS 7 Start Here — free", book: "teas7" }
+      nursing:  { text: '<b>Nursing is in the Library too.</b> <b>TEAS 7</b> and <b>NCLEX-RN</b> both open with a <span class="free">free Start Here chapter</span> — same books, same final exams, just scroll to the Nursing section.', cta: "Watch TEAS 7 Start Here — free", book: "teas7" }
     };
     var recoLine = document.getElementById("recoLine");
     var recoCta = document.getElementById("recoCta");

@@ -32,7 +32,7 @@ BOOKS = [
     ("clf",      "clf_c02",           "Cloud Practitioner",        "CLF-C02",  "AWS",       "aws",     "#4ADE80", "Foundations",  "~1 h 10 m",  "clf-c02 aws cloud practitioner foundations"),
 ]
 
-TEALIGHT = [
+NURSING = [
     # slug, name, code, vendor, accent, level, meta line, search, units (None = TOC titles not in structured data)
     ("teas7",    "TEAS 7",    "TEAS 7",   "ATI",     "#F2C572", "Foundations",  "Start Here + 50-question marathon · ~1 h 05 m", "teas 7 ati nursing entrance",
      [("Start Here — TEAS 7, Mapped", None), ("TEAS 7 Marathon — 50 Questions, Every Answer Taught", None)]),
@@ -63,7 +63,7 @@ def main():
             "meta": "%d lessons · %s%s" % (len(chapters), total, extra),
             "search": search, "chapters": chapters,
         })
-    for slug, name, code, vendor, acc, lvl, meta, search, units in TEALIGHT:
+    for slug, name, code, vendor, acc, lvl, meta, search, units in NURSING:
         chapters = None
         if units:
             chapters = [{"n": i, "title": t, "yt": None, "dur": None}
