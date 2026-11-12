@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteBar Simulator — Home · v2</title><style>
 :root{
-  --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
-  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
-  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
+  --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
+  --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
   --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
   --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-  --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+  --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
   --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -53,7 +53,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
 header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
 .top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
-.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
+.top-nav a{color:inherit;text-decoration:none;}
 .top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
 .top-nav .on{color:var(--ink);font-weight:600;}
 .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
@@ -85,6 +86,7 @@ footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:fle
 footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
 footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
 footer.site .fl span{white-space:nowrap;}
+footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 /* video frame (sheet 06-D system) */
 .vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
 .vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
@@ -175,7 +177,7 @@ footer.site .fl span{white-space:nowrap;}
 .warmwrap .ghead .callout{color:var(--warmgold);}
 .warmwrap .xrow{background:var(--warmpanel);border-color:var(--warmline);}
 .warmwrap .xrow .xn b{color:var(--warmink);}
-.warmwrap .xrow .xn span{color:var(--warmmuted);opacity:.75;}
+.warmwrap .xrow .xn span{color:var(--warmmuted);}
 .warmwrap .xrow .xs{color:var(--warmmuted);}
 .warmwrap .xrow .xs b{color:var(--warmink);}
 @media (max-width:760px){
@@ -191,8 +193,8 @@ footer.site .fl span{white-space:nowrap;}
 }
 </style></head>
 <body><header class="top"><div class="top-in">
-<div class="masthead">B Y T E B A R</div>
-<div class="top-nav"><span class="navlink">Library</span><span class="on">Simulator</span><div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div></div>
+<a class="masthead" href="index.html">B Y T E B A R</a>
+<div class="top-nav"><a class="navlink" href="library.html">Library</a><a class="on" href="sim.html">Simulator</a><div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div></div>
 </div></header>
 <div class="wrap">
   <div class="phead">
@@ -229,12 +231,12 @@ footer.site .fl span{white-space:nowrap;}
     <i class="reg tl"></i><i class="reg br"></i>
     <div class="sgrid">
       <div>
-        <div class="callout" style="color:var(--cyan)">Sampling — Sheet 00</div>
+        <div class="callout" style="color:var(--cyan)">Free · No account · No card</div>
         <h3>Try 10 questions free.</h3>
         <p><b>Real questions, real explanations</b> — taken from the full room's own questions. No account, no card. See exactly how the room measures you before you ever pay.</p>
       </div>
       <div class="scta">
-        <span class="btn btn-pri" style="width:100%">Start the free 10</span>
+        <a class="btn btn-pri" style="width:100%" href="sampling.html">Start the free 10</a>
         <span class="callout snote">Scored on the spot · Explanations included</span>
       </div>
     </div>
@@ -278,7 +280,7 @@ footer.site .fl span{white-space:nowrap;}
   <p style="font-size:13.5px;color:var(--faint);margin-top:26px;line-height:1.6;">Every sitting is timed, every answer explained, every score drawn onto <b style="color:var(--muted)">your sheet</b> — readiness by domain, never a single mystery number.</p>
 </div>
 <footer class="site"><div class="frow">
-<div><div class="masthead" style="margin-bottom:12px;">B Y T E B A R</div>
+<div><a class="masthead" href="index.html" style="display:block;width:max-content;margin-bottom:12px;">B Y T E B A R</a>
 <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
-<div class="fl"><span>Library</span><span>Simulator</span><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
+<div class="fl"><a href="library.html">Library</a><a href="sim.html">Simulator</a><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
 </div></footer></body></html>

@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteBar Library — Study View · v2</title><style>
 :root{
-  --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
-  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
-  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
+  --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
+  --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
   --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
   --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-  --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+  --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
   --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -53,7 +53,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
 header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
 .top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
-.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
+.top-nav a{color:inherit;text-decoration:none;}
 .top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
 .top-nav .on{color:var(--ink);font-weight:600;}
 .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
@@ -85,6 +86,7 @@ footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:fle
 footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
 footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
 footer.site .fl span{white-space:nowrap;}
+footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 /* video frame (sheet 06-D system) */
 .vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
 .vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
@@ -195,8 +197,8 @@ footer.site .fl span{white-space:nowrap;}
 }
 </style></head>
 <body><header class="top"><div class="top-in">
-<div class="masthead">B Y T E B A R</div>
-<div class="top-nav"><span class="on">Library</span><span class="navlink">Simulator</span><div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div></div>
+<a class="masthead" href="index.html">B Y T E B A R</a>
+<div class="top-nav"><a class="on" href="library.html">Library</a><a class="navlink" href="sim.html">Simulator</a><div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div></div>
 </div></header>
 <div class="wrap">
   <div class="crumb">
@@ -233,7 +235,7 @@ footer.site .fl span{white-space:nowrap;}
             <h3>Sheet 09 — completed.</h3>
             <p>Nine of thirty-one. Next figure on the drawing: <b>Fig. 10 — Segmentation &amp; VLANs</b>, 14 minutes, drawn on one line.</p>
           </div>
-          <span class="btn btn-pri">Start Fig. 10</span>
+          <a class="btn btn-pri" href="study.html">Start Fig. 10</a>
         </div>
         <div class="pip">
           <div class="pav"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg><span class="dot"></span></div>
@@ -246,7 +248,7 @@ footer.site .fl span{white-space:nowrap;}
       <div class="rail">
         <h4><span>Chapter index — the drawing set</span><span style="color:var(--cyan)">9 / 31</span></h4>
 <div class="figrow"><span class="fno">FIG. 00</span><span class="ft">How this book works</span><span class="ffree">FREE</span></div><div class="figrow done"><span class="fno">FIG. 01</span><span class="ft">Security concepts, first principles</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 02</span><span class="ft">Threat actors &amp; motivations</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 03</span><span class="ft">Malware, drawn plainly</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 04</span><span class="ft">Social engineering &amp; phishing</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 05</span><span class="ft">Cryptography — the working parts</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 06</span><span class="ft">PKI &amp; certificates</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 07</span><span class="ft">Identity &amp; access management</span><span class="fstamp">Completed</span></div><div class="figrow done"><span class="fno">FIG. 08</span><span class="ft">Network architecture</span><span class="fstamp">Completed</span></div><div class="figrow now"><span class="fno">FIG. 09</span><span class="ft">Firewalls — first decision</span><span class="playn">▶ PLAYING</span></div><div class="figrow"><span class="fno">FIG. 10</span><span class="ft">Segmentation &amp; VLANs</span></div><div class="figrow"><span class="fno">FIG. 11</span><span class="ft">Wireless, secured</span></div><div class="figrow"><span class="fno">FIG. 12</span><span class="ft">Incident response</span></div><div class="figrow final"><span class="fno">FIG. 31</span><span class="ft">Final Exam — in the Simulator</span></div>
-        <div class="railfoot">Fig. 13–30 · every chapter in blueprint order<br>Final exam drawn last — sat in the Simulator</div>
+        <div class="railfoot">Fig. 13–30 · every chapter in blueprint order<br>Final exam — Fig. 31, sat in the Simulator</div>
       </div>
     </div>
   </div>
@@ -274,7 +276,7 @@ footer.site .fl span{white-space:nowrap;}
   <p style="font-size:13.5px;color:var(--faint);margin-top:22px;line-height:1.6;">Your sheet travels with you — the same figures, stamps, and readiness appear in the Simulator, so the book and the exam room are always reading from one drawing.</p>
 </div>
 <footer class="site"><div class="frow">
-<div><div class="masthead" style="margin-bottom:12px;">B Y T E B A R</div>
+<div><a class="masthead" href="index.html" style="display:block;width:max-content;margin-bottom:12px;">B Y T E B A R</a>
 <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
-<div class="fl"><span>Library</span><span>Simulator</span><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
+<div class="fl"><a href="library.html">Library</a><a href="sim.html">Simulator</a><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
 </div></footer></body></html>

@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteBar — Sampling · v2</title><style>
 :root{
-  --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
-  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
-  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
+  --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
+  --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
   --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
   --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-  --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+  --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
   --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -53,7 +53,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
 header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
 .top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
-.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
+.top-nav a{color:inherit;text-decoration:none;}
 .top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
 .top-nav .on{color:var(--ink);font-weight:600;}
 .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
@@ -85,6 +86,7 @@ footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:fle
 footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
 footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
 footer.site .fl span{white-space:nowrap;}
+footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 /* video frame (sheet 06-D system) */
 .vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
 .vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
@@ -166,23 +168,24 @@ footer.site .fl span{white-space:nowrap;}
 .adds{margin-top:16px;font-size:14.5px;color:var(--muted);line-height:1.65;}
 .adds b{color:var(--ink);font-weight:600;}
 .wallwrap{position:relative;}
-.lockedsheet{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:26px 28px;opacity:.62;}
+.lockedsheet{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:26px 28px;opacity:.8;}
+.lockedsheet .lockrow .fno,.lockedsheet .callout{color:var(--muted);}
 .lockrow{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--muted);}
 .lockrow:last-child{border-bottom:none;}
 .lockrow .fno{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);flex:0 0 52px;}
 .lockrow .lk{margin-left:auto;color:var(--faint);display:flex;}
 .buysheet{background:#FFFFFF;color:#0A1428;border-radius:20px;padding:30px 32px;max-width:640px;margin:-34px auto 0;position:relative;box-shadow:0 34px 80px rgba(2,6,18,.6);z-index:2;}
-.buysheet .bk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#7A8699;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.buysheet .bk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#5A6B84;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .buysheet h4{font-size:23px;font-weight:700;letter-spacing:-.015em;margin:12px 0 4px;color:#0A1428;}
 .buysheet .bsub{font-size:14px;color:#5A6B84;line-height:1.55;}
 .unlock{margin-top:18px;border-top:1px solid #E4E9F2;}
 .unlock div{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid #E4E9F2;font-size:14.5px;color:#33445E;line-height:1.5;}
 .unlock b{color:#0A1428;font-weight:600;}
-.unlock .ck{color:#0E9F6E;font-weight:700;}
+.unlock .ck{color:#0B7A55;font-weight:700;}
 .bs-foot{display:flex;align-items:center;gap:20px;margin-top:20px;flex-wrap:wrap;}
 .bs-amt{font-size:44px;font-weight:700;letter-spacing:-.025em;line-height:1;color:#0A1428;}
-.bs-amt .g{color:#B57F16;font-size:16px;font-weight:700;}
-.bs-per{font-size:12.5px;color:#7A8699;line-height:1.55;flex:1;min-width:170px;}
+.bs-amt .g{color:#9C6D0E;font-size:16px;font-weight:700;}
+.bs-per{font-size:12.5px;color:#5A6B84;line-height:1.55;flex:1;min-width:170px;}
 @media (max-width:760px){
   .score{flex-wrap:wrap;} .score>div{flex:1 1 100%;border-left:none;border-top:1px solid var(--line);} .score>div:first-child{border-top:none;}
   .buysheet{padding:24px 20px;margin-top:-26px;}
@@ -190,19 +193,19 @@ footer.site .fl span{white-space:nowrap;}
 }
 </style></head>
 <body><header class="top"><div class="top-in">
-<div class="masthead">B Y T E B A R</div>
-<div class="top-nav"><span class="navlink">Library</span><span class="navlink">Simulator</span><span class="btn btn-sec" style="height:42px;font-size:14px;">Sign in</span></div>
+<a class="masthead" href="index.html">B Y T E B A R</a>
+<div class="top-nav"><a class="navlink" href="library.html">Library</a><a class="navlink" href="sim.html">Simulator</a><span class="btn btn-sec" style="height:42px;font-size:14px;">Sign in</span></div>
 </div></header>
 <div class="wrap">
   <div class="phead">
     <i class="reg tl"></i><i class="reg br"></i>
     <div class="eyebrow">Sampling — the first pages</div>
     <h1>Sample the <span class="thin">real thing.</span></h1>
-    <p class="lede principle">The free parts are not a demo — they're <b>the first pages of the same drawing</b>. Watch a full chapter, sit ten real questions, and meet the wall only when the drawing asks to continue.</p>
+    <p class="lede principle">The free parts are not a demo — they're <b>the first pages of the same book</b>. Watch a full chapter, sit ten real questions, and see exactly where the free pages end.</p>
   </div>
 
   <div class="step">
-    <div class="shead"><span class="sno">Panel 1</span><h3>Watch — the full first chapter, free</h3><span>the full first chapter, not a trailer</span></div>
+    <div class="shead"><span class="sno">01</span><h3>Watch — the full first chapter, free</h3><span>the full first chapter, not a trailer</span></div>
     <div class="panel" style="padding:22px;">
       <div class="vframe">
         <div class="grid-bg"></div>
@@ -225,15 +228,15 @@ footer.site .fl span{white-space:nowrap;}
         <span class="fchip2"><b>Free</b> · in every book</span>
         <span class="fchip2">No card</span>
         <span class="fchip2">No account needed to start</span>
-        <span class="fchip2">Security+ shown · 17 books open the same way</span>
+        <span class="fchip2">All 17 books open this way</span>
       </div>
     </div>
   </div>
 
   <div class="step">
-    <div class="shead"><span class="sno">Panel 2</span><h3>Try — 10 real questions</h3><span>scored honestly, explained fully</span></div>
+    <div class="shead"><span class="sno">02</span><h3>Try — 10 real questions</h3><span>scored honestly, explained fully</span></div>
     <div class="panel qmini">
-      <div class="qhead"><span>Security+ SY0-701 · Free 10 — finished</span><span class="callout">Question 4 of 10 · shown with its answer</span></div>
+      <div class="qhead"><span>Security+ SY0-701 · Free 10 — finished</span><span class="callout">Review · question 4 of 10</span></div>
       <div class="qbar"><i></i></div>
       <div class="qstem">A security analyst notices repeated failed login attempts from a single external IP against the VPN gateway. Which action should be taken FIRST?</div>
       <div class="opt"><span class="k">A</span><span>Disable the VPN gateway until the attempts stop</span></div>
@@ -251,18 +254,18 @@ footer.site .fl span{white-space:nowrap;}
   </div>
 
   <div class="step">
-    <div class="shead"><span class="sno">Panel 3</span><h3>The wall — drawn kindly</h3><span>it appears once, and says exactly what it opens</span></div>
+    <div class="shead"><span class="sno">03</span><h3>Where the free pages end</h3><span>one unlock — everything after it opens</span></div>
     <div class="wallwrap">
       <div class="lockedsheet">
-        <div class="callout" style="margin-bottom:8px;">Security+ — the drawing continues</div>
-<div class="lockrow"><span class="fno">FIG. 01</span><span>Security concepts, first principles</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div><div class="lockrow"><span class="fno">FIG. 02</span><span>Threat actors &amp; motivations</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div><div class="lockrow"><span class="fno">FIG. 03</span><span>Malware, drawn plainly</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div>
+        <div class="callout" style="margin-bottom:8px;">Security+ — the book continues</div>
+<div class="lockrow"><span class="fno">FIG. 01</span><span>Security concepts, first principles</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A90B5" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div><div class="lockrow"><span class="fno">FIG. 02</span><span>Threat actors &amp; motivations</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A90B5" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div><div class="lockrow"><span class="fno">FIG. 03</span><span>Malware, drawn plainly</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A90B5" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div>
         <div class="lockrow"><span class="fno">···</span><span>Fig. 04–30 · in blueprint order</span></div>
-        <div class="lockrow"><span class="fno" style="color:var(--gold)">FIG. 31</span><span style="color:var(--gold)">Final Exam — in the Simulator</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div>
+        <div class="lockrow"><span class="fno" style="color:var(--gold)">FIG. 31</span><span style="color:var(--gold)">Final Exam — in the Simulator</span><span class="lk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A90B5" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div>
       </div>
       <div class="buysheet">
         <div class="bk"><span>ByteBar Complete</span><span>Sheet 06-C — the buy sheet</span></div>
-        <h4>Everything past this sheet, opens.</h4>
-        <div class="bsub">One unlock — no tiers, no per-book pricing. The wall never appears inside a book again.</div>
+        <h4>Everything past this point opens.</h4>
+        <div class="bsub">One unlock — no tiers, no per-book pricing. Everything in the Library and the Simulator, open at once.</div>
         <div class="unlock">
           <div><span class="ck">✓</span><span><b>All 31 chapters</b> of Security+ — and every other book in the Library</span></div>
           <div><span class="ck">✓</span><span><b>The Final Exam</b> for each book, sat in the Simulator</span></div>
@@ -272,16 +275,16 @@ footer.site .fl span{white-space:nowrap;}
         <div class="bs-foot">
           <div class="bs-amt num">$14.99 <span class="g">— everything</span></div>
           <div class="bs-per">One-time · USD · yours forever<br>Already own the Simulator? Your Library unlocks free.</div>
-          <span class="btn btn-pri">Get ByteBar Complete</span>
+          <a class="btn btn-pri" href="buy.html">Get ByteBar Complete</a>
         </div>
       </div>
     </div>
   </div>
 
-  <p style="font-size:13.5px;color:var(--faint);margin-top:34px;line-height:1.6;max-width:720px;">That's the whole offer: nothing watered down, nothing faked, one honest wall. If the first pages don't convince you, the rest was never going to.</p>
+  <div style="margin-top:36px;"><p style="font-size:15px;color:var(--muted);line-height:1.6;max-width:720px;">The first pages are free either way — everything after them is one unlock, and it stays open.</p><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;"><a class="btn btn-pri" href="buy.html">Get ByteBar Complete — $14.99</a><a class="btn btn-sec" href="library.html">Browse the library first</a></div></div>
 </div>
 <footer class="site"><div class="frow">
-<div><div class="masthead" style="margin-bottom:12px;">B Y T E B A R</div>
+<div><a class="masthead" href="index.html" style="display:block;width:max-content;margin-bottom:12px;">B Y T E B A R</a>
 <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
-<div class="fl"><span>Library</span><span>Simulator</span><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
+<div class="fl"><a href="library.html">Library</a><a href="sim.html">Simulator</a><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
 </div></footer></body></html>

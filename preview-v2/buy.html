@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteBar Complete — Checkout · v2</title><style>
 :root{
-  --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
-  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
-  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
+  --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
+  --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
   --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
   --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-  --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+  --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
   --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -53,7 +53,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
 header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
 .top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
-.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
+.top-nav a{color:inherit;text-decoration:none;}
 .top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
 .top-nav .on{color:var(--ink);font-weight:600;}
 .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
@@ -85,6 +86,7 @@ footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:fle
 footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
 footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
 footer.site .fl span{white-space:nowrap;}
+footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 /* video frame (sheet 06-D system) */
 .vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
 .vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
@@ -145,19 +147,19 @@ footer.site .fl span{white-space:nowrap;}
 .buy-head p{font-size:16px;color:var(--muted);line-height:1.6;max-width:520px;}
 .buy-head p b{color:var(--ink);font-weight:600;}
 .sheet{background:#FFFFFF;color:#0A1428;border-radius:22px;padding:34px 36px;box-shadow:0 40px 90px rgba(2,6,18,.65);position:relative;}
-.sheet .sk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#7A8699;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.sheet .sk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#5A6B84;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .sheet h2{font-size:24px;font-weight:700;letter-spacing:-.015em;margin:14px 0 2px;}
 .sheet .ssub{font-size:14px;color:#5A6B84;line-height:1.55;}
 .fld{margin-top:20px;}
 .fld label{display:block;font-size:13px;font-weight:600;color:#33445E;margin-bottom:8px;}
 .fld .inp{width:100%;height:50px;border:1px solid #C9D4E6;border-radius:11px;padding:0 15px;font-size:16px;color:#0A1428;background:#FBFCFE;display:flex;align-items:center;}
-.fld .inp.ph{color:#8A99B5;}
-.fld .hint{font-size:12.5px;color:#7A8699;margin-top:7px;line-height:1.5;}
+.fld .inp.ph{color:#5A6B84;}
+.fld .hint{font-size:12.5px;color:#5A6B84;margin-top:7px;line-height:1.5;}
 .wallet{display:flex;gap:10px;margin:18px 0 4px;}
 .wallet div{flex:1;height:50px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15.5px;}
 .wallet .apay{background:#000;color:#fff;}
 .wallet .gpay{background:#fff;color:#0A1428;border:1px solid #C9D4E6;}
-.ordiv{display:flex;align-items:center;gap:12px;color:#8A99B5;font-size:12px;margin:16px 0 4px;}
+.ordiv{display:flex;align-items:center;gap:12px;color:#5A6B84;font-size:12px;margin:16px 0 4px;}
 .ordiv::before,.ordiv::after{content:"";flex:1;height:1px;background:#E4E9F2;}
 .cardrow{display:flex;gap:10px;}
 .cardrow .inp{flex:1;min-width:0;}
@@ -167,38 +169,25 @@ footer.site .fl span{white-space:nowrap;}
 .spec .srow .r{text-align:right;white-space:nowrap;}
 .spec .total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 2px;}
 .spec .total .t{font-size:15.5px;font-weight:700;color:#0A1428;}
-.spec .total .a{font-size:30px;font-weight:700;color:#B57F16;letter-spacing:-.015em;}
+.spec .total .a{font-size:30px;font-weight:700;color:#9C6D0E;letter-spacing:-.015em;}
 .paybtn{width:100%;margin-top:18px;height:54px;font-size:17px;}
 .secure{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#5A6B84;margin-top:16px;line-height:1.5;}
-.sheet .fine{font-size:12.5px;color:#7A8699;line-height:1.6;margin-top:10px;}
+.sheet .fine{font-size:12.5px;color:#5A6B84;line-height:1.6;margin-top:10px;}
 .proofline{display:flex;align-items:center;gap:9px;margin-top:16px;padding-top:16px;border-top:1px solid #E4E9F2;font-size:13.5px;color:#33445E;}
 .proofline .stars{color:#00B67A;letter-spacing:2px;font-size:14px;}
 .grand{margin-top:16px;border:1px solid rgba(245,181,84,.4);background:rgba(245,181,84,.07);border-radius:14px;padding:16px 20px;font-size:14px;color:var(--muted);line-height:1.6;}
 .grand b{color:var(--gold);font-weight:700;}
-.postbuy{margin-top:26px;}
-.postbuy .pb-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-.pb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;}
-.pb-card{border:1px solid var(--line2);border-radius:16px;background:var(--panel2);padding:18px 20px;}
-.toast2{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line2);border-left:3px solid var(--green);border-radius:12px;background:var(--panel2);padding:16px 18px;height:100%;}
-.toast2 .tt{flex:1;}
-.toast2 .tt b{font-size:14.5px;font-weight:700;display:block;}
-.toast2 .tt span{font-size:13px;color:var(--muted);line-height:1.5;display:block;margin-top:3px;}
-.toast2 .x{color:var(--faint);font-size:14px;}
-.postbuy .cbadge{white-space:nowrap;}
-.pb-card .plabel{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:9px;}
-.pb-card .plabel b{color:var(--ink);font-weight:600;}
 @media (max-width:760px){
   .buy-wrap{padding:0 18px 60px;}
   .buy-head h1{font-size:32px;}
   .sheet{padding:26px 20px;}
   .cardrow{flex-wrap:wrap;} .cardrow .inp{flex:1 1 100%;}
   .cardrow .inp.half{flex:1 1 40%;}
-  .pb-grid{grid-template-columns:1fr;}
 }
 </style></head>
 <body><header class="top"><div class="top-in">
-<div class="masthead">B Y T E B A R</div>
-<div class="top-nav"><span class="navlink">Library</span><span class="navlink">Simulator</span><span class="btn btn-sec" style="height:42px;font-size:14px;">Sign in</span></div>
+<a class="masthead" href="index.html">B Y T E B A R</a>
+<div class="top-nav"><a class="navlink" href="library.html">Library</a><a class="navlink" href="sim.html">Simulator</a><span class="btn btn-sec" style="height:42px;font-size:14px;">Sign in</span></div>
 </div></header>
 <div class="buy-wrap">
   <div class="buy-head">
@@ -244,31 +233,9 @@ footer.site .fl span{white-space:nowrap;}
 
   <div class="grand"><b>Already own the Simulator?</b> You bought it at $9.99 — the Library unlocks <b>free</b>. Sign in with your purchase email and the gold dot is already on your account. Nothing to pay here.</div>
 
-  <div class="postbuy">
-    <div class="pb-head"><span class="callout" style="color:var(--cyan)">After the payment — what you see first</span></div>
-    <div class="pb-grid">
-      <div class="toast2">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2.6" style="flex:0 0 auto;margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
-        <div class="tt"><b>Welcome — everything is unlocked</b><span>Your sheet is open. Start anywhere; Fig. 00 of every book is already yours.</span></div>
-        <span class="x">✕</span>
-      </div>
-      <div class="pb-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div>
-          <span class="cbadge">ByteBar Complete</span>
-        </div>
-        <div class="plabel"><b>Resume Ch 9 · 12 min left</b><span>Security+</span></div>
-        <div class="bar"><i style="width:64%"></i></div>
-        <div style="display:flex;gap:10px;margin-top:14px;">
-          <span class="btn btn-pri" style="flex:1;height:44px;font-size:14.5px;">Continue</span>
-          <span class="btn btn-sec" style="height:44px;font-size:14.5px;">Exam room</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <footer class="site"><div class="frow">
-<div><div class="masthead" style="margin-bottom:12px;">B Y T E B A R</div>
+<div><a class="masthead" href="index.html" style="display:block;width:max-content;margin-bottom:12px;">B Y T E B A R</a>
 <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
-<div class="fl"><span>Library</span><span>Simulator</span><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
+<div class="fl"><a href="library.html">Library</a><a href="sim.html">Simulator</a><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
 </div></footer></body></html>
