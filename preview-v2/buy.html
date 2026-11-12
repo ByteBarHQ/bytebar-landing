@@ -4,23 +4,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteBar Complete — Checkout · v2</title><style>
 :root{
-  --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
-  --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
-  --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
+  --bg:#081226; --bg2:#0A1730; --panel:#152747; --panel2:#1B3055;
+  --line:rgba(148,178,255,.20); --line2:rgba(148,178,255,.30);
+  --ink:#F2F7FE; --muted:#C6D7F0; --faint:#93A9CF;
   --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
   --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-  --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
+  --warmbg:#221419; --warmpanel:#2E1B20; --warmline:rgba(242,197,114,.26); --warmink:#F8EEDD; --warmmuted:#DEC09E; --warmgold:#F2C572;
   --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{background:#050914;}
+html{background:#060C1C;}
 body{color:var(--ink);
   font-family:"Avenir Next","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   background:
-    radial-gradient(900px 480px at 12% -80px, rgba(56,150,255,.12), rgba(56,150,255,0) 62%),
-    radial-gradient(700px 380px at 92% -60px, rgba(34,211,238,.05), rgba(34,211,238,0) 60%),
-    linear-gradient(180deg,#070D1D 0%,#060B18 34%,#050914 100%);
+    radial-gradient(1100px 560px at 12% -80px, rgba(56,150,255,.16), rgba(56,150,255,0) 62%),
+    radial-gradient(760px 420px at 92% -60px, rgba(34,211,238,.07), rgba(34,211,238,0) 60%),
+    linear-gradient(180deg,#0A1730 0%,#081226 34%,#060C1C 100%);
   min-height:100vh;position:relative;overflow-x:hidden;}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
   background:linear-gradient(rgba(148,178,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.026) 1px,transparent 1px);
@@ -29,7 +29,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
 body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");}
 .num{font-variant-numeric:tabular-nums lining-nums;}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
 .reg{position:absolute;width:15px;height:15px;pointer-events:none;opacity:.55;}
 .reg::before,.reg::after{content:"";position:absolute;background:var(--cyan);}
 .reg::before{left:7px;top:0;width:1px;height:15px;}
@@ -39,9 +39,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 .reg.warm::before,.reg.warm::after{background:var(--warmgold);}
 .callout{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;}
 .callout b{color:var(--muted);font-weight:400;}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;}
-.panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:30px;}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 24px;border-radius:11px;font-size:16px;font-weight:700;border:1px solid transparent;cursor:pointer;text-decoration:none;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;display:flex;align-items:center;gap:14px;}
+.eyebrow::after{content:"";height:1px;width:104px;background:linear-gradient(90deg,rgba(34,211,238,.5),transparent);}
+.panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0) 46%),var(--panel);padding:28px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;height:50px;padding:0 24px;border-radius:11px;font-size:16px;font-weight:700;border:1px solid transparent;cursor:pointer;text-decoration:none;}
 .btn-pri{background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
 .btn-sec{background:transparent;border-color:var(--line2);color:var(--ink);font-weight:600;}
 .btn-ghost{color:var(--cyan);font-weight:600;height:46px;padding:0 10px;}
@@ -50,12 +51,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mi
 .cbadge{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--gold);background:rgba(245,181,84,.10);border:1px solid rgba(245,181,84,.35);border-radius:999px;padding:6px 14px;display:inline-block;}
 .ltag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:var(--panel2);border-radius:999px;padding:6px 12px;display:inline-block;}
 /* header */
-header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
+header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0)),#0A1730;}
 header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
-.top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
-.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
+.masthead{font-size:13.5px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;text-decoration:none;}
 .top-nav a{color:inherit;text-decoration:none;}
-.top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
+.top-nav{display:flex;align-items:center;gap:26px;font-size:14px;color:var(--muted);}
 .top-nav .on{color:var(--ink);font-weight:600;}
 .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
 .acctchip .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#12325A,#0B1D38);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;position:relative;font-size:12px;font-weight:700;color:var(--ink);}
@@ -68,27 +69,29 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height
 .phead h1 .thin{color:var(--muted);}
 .phead p.lede{font-size:17.5px;line-height:1.6;color:var(--muted);max-width:640px;}
 .phead p.lede b{color:var(--ink);font-weight:600;}
-.sec-head{display:flex;align-items:baseline;gap:18px;margin:56px 0 24px;}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin:64px 0 24px;}
 .sec-head .no{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.14em;}
 .sec-head h2{font-size:29px;font-weight:700;letter-spacing:-.018em;}
 .sec-head span{font-size:13.5px;color:var(--faint);}
 /* spec strip */
-.specstrip{display:flex;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);overflow:hidden;}
-.specstrip>div{flex:1;padding:22px 24px 18px;border-left:1px solid var(--line);}
+.specstrip{display:flex;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0) 46%),var(--panel);overflow:hidden;}
+.specstrip>div{flex:1;padding:20px 22px 18px;border-left:1px solid var(--line);}
 .specstrip>div:first-child{border-left:none;}
-.specstrip .n{font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1;}
+.specstrip .n{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1;}
 .specstrip .n small{font-size:19px;color:var(--muted);font-weight:600;}
 .specstrip .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:9px;line-height:1.5;}
 .specstrip .gold{color:var(--gold);}
 /* footer */
-footer.site{border-top:1px solid var(--line);margin-top:72px;padding-top:28px;position:relative;z-index:1;}
-footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start;}
-footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
-footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
-footer.site .fl span{white-space:nowrap;}
-footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
-/* video frame (sheet 06-D system) */
-.vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
+footer.site{border-top:1px solid var(--line);margin-top:72px;padding:32px 0 108px;position:relative;z-index:1;}
+footer.site .wrap{padding-bottom:0;}
+footer.site .fcols{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+footer.site .col h5{font-size:13px;font-weight:700;margin-bottom:11px;}
+footer.site .col a{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;text-decoration:none;}
+footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px;margin-top:26px;}
+.askbubble{position:absolute;right:26px;bottom:26px;width:58px;height:58px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px rgba(2,6,18,.55);z-index:6;}
+.askbubble .dot{position:absolute;top:2px;right:2px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--panel);}
+/* video frame system */
+.vframe{position:relative;border-radius:14px;background:#081226;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
 .vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
 .vframe svg.traces{position:absolute;inset:0;opacity:.06;}
 .vf-in{position:relative;height:100%;padding:5.5% 5.5% 12%;display:flex;flex-direction:column;}
@@ -115,7 +118,7 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 .vf-ctl .tm{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;white-space:nowrap;}
 .ctlplay{flex:0 0 auto;width:0;height:0;border-left:11px solid var(--cyan);border-top:7px solid transparent;border-bottom:7px solid transparent;}
 @media (max-width:760px){
-  .wrap{padding:0 18px 60px;}
+  .wrap{padding:0 18px;}
   .phead{padding-top:44px;}
   .phead h1{font-size:40px;letter-spacing:-.027em;}
   .phead p.lede{font-size:16px;}
@@ -125,8 +128,11 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
   .specstrip{flex-wrap:wrap;}
   .specstrip>div{flex:1 1 42%;padding:18px;border-left:none;border-top:1px solid var(--line);}
   .specstrip>div:nth-child(-n+2){border-top:none;}
-  .specstrip .n{font-size:30px;}
-  .top-nav .navlink{display:none;}
+  .specstrip .n{font-size:28px;}
+  .specstrip .l{font-size:9.5px;}
+  .top-nav a{display:none;}
+  .top-in{height:60px;}
+  .askbubble{right:16px;bottom:16px;}
   .vf-h{font-size:18px;} .vf-mast{font-size:10px;} .vf-cap span{font-size:10.5px;}
   .vf-cap{bottom:14%;}
   .vf-diagram{display:none;} .vf-fig{display:none;}
@@ -141,22 +147,22 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 
 
 .buy-wrap{max-width:640px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
-.buy-head{padding:52px 0 26px;text-align:left;position:relative;}
+.buy-head{padding:64px 0 26px;text-align:left;position:relative;}
 .buy-head h1{font-size:40px;font-weight:700;letter-spacing:-.025em;line-height:1.05;margin:16px 0 12px;}
 .buy-head h1 .thin{color:var(--muted);}
 .buy-head p{font-size:16px;color:var(--muted);line-height:1.6;max-width:520px;}
 .buy-head p b{color:var(--ink);font-weight:600;}
-.sheet{background:#FFFFFF;color:#0A1428;border-radius:22px;padding:34px 36px;box-shadow:0 40px 90px rgba(2,6,18,.65);position:relative;}
+.sheet{background:#FFFFFF;color:#0A1428;border-radius:20px;padding:34px 36px;box-shadow:0 40px 90px rgba(2,6,18,.65);position:relative;}
 .sheet .sk{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#5A6B84;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .sheet h2{font-size:24px;font-weight:700;letter-spacing:-.015em;margin:14px 0 2px;}
 .sheet .ssub{font-size:14px;color:#5A6B84;line-height:1.55;}
 .fld{margin-top:20px;}
 .fld label{display:block;font-size:13px;font-weight:600;color:#33445E;margin-bottom:8px;}
-.fld .inp{width:100%;height:50px;border:1px solid #C9D4E6;border-radius:11px;padding:0 15px;font-size:16px;color:#0A1428;background:#FBFCFE;display:flex;align-items:center;}
+.fld .inp{width:100%;height:50px;border:1px solid #C9D4E6;border-radius:11px;padding:0 15px;font-size:16px;color:#0A1428;background:#FBFCFE;display:flex;align-items:center;font-family:inherit;}
 .fld .inp.ph{color:#5A6B84;}
 .fld .hint{font-size:12.5px;color:#5A6B84;margin-top:7px;line-height:1.5;}
 .wallet{display:flex;gap:10px;margin:18px 0 4px;}
-.wallet div{flex:1;height:50px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15.5px;}
+.wallet button{flex:1;height:50px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15.5px;font-family:inherit;cursor:pointer;border:1px solid transparent;}
 .wallet .apay{background:#000;color:#fff;}
 .wallet .gpay{background:#fff;color:#0A1428;border:1px solid #C9D4E6;}
 .ordiv{display:flex;align-items:center;gap:12px;color:#5A6B84;font-size:12px;margin:16px 0 4px;}
@@ -180,41 +186,42 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
 @media (max-width:760px){
   .buy-wrap{padding:0 18px 60px;}
   .buy-head h1{font-size:32px;}
-  .sheet{padding:26px 20px;}
+  .sheet{padding:22px;}
+  .buy-head{padding-top:44px;}
   .cardrow{flex-wrap:wrap;} .cardrow .inp{flex:1 1 100%;}
   .cardrow .inp.half{flex:1 1 40%;}
 }
 </style></head>
 <body><header class="top"><div class="top-in">
 <a class="masthead" href="index.html">B Y T E B A R</a>
-<div class="top-nav"><a class="navlink" href="library.html">Library</a><a class="navlink" href="sim.html">Simulator</a><span class="btn btn-sec" style="height:42px;font-size:14px;">Sign in</span></div>
+<div class="top-nav"><a class="navlink" href="library.html">Library</a><a class="navlink" href="sim.html">Simulator</a><span class="btn btn-sec" style="height:44px;font-size:14px;">Sign in</span></div>
 </div></header>
 <div class="buy-wrap">
   <div class="buy-head">
     <i class="reg tl"></i><i class="reg br"></i>
     <div class="eyebrow">ByteBar Complete · Checkout</div>
-    <h1>One sheet. <span class="thin">Everything on it.</span></h1>
+    <h1>One page. <span class="thin">Everything on it.</span></h1>
     <p>The Library and the Simulator, drawn on a single page — <b>one payment, no subscription</b>, and the receipt shows "ByteBar" only.</p>
   </div>
 
   <div class="sheet">
-    <div class="sk"><span>Sheet 06-C — the buy sheet</span><span>bytebarhq.com</span></div>
+    <div class="sk"><span>Checkout</span><span>bytebarhq.com</span></div>
     <h2>ByteBar Complete</h2>
     <div class="ssub">The Library + the Simulator — every book, every exam, yours forever.</div>
 
     <div class="fld">
       <label>Email</label>
-      <div class="inp">you@example.com</div>
+      <input class="inp" type="email" placeholder="you@example.com" autocomplete="email">
       <div class="hint">This becomes your account — your sign-in link and receipt go here.</div>
     </div>
 
-    <div class="wallet"><div class="apay">Apple&nbsp;Pay</div><div class="gpay">G&nbsp;Pay</div></div>
+    <div class="wallet"><button type="button" class="apay">Apple&nbsp;Pay</button><button type="button" class="gpay">G&nbsp;Pay</button></div>
     <div class="ordiv">or pay with card</div>
     <div class="fld" style="margin-top:6px;">
       <div class="cardrow">
-        <div class="inp ph">Card number</div>
-        <div class="inp ph half">MM / YY</div>
-        <div class="inp ph half">CVC</div>
+        <input class="inp ph" type="text" inputmode="numeric" placeholder="Card number" autocomplete="cc-number">
+        <input class="inp ph half" type="text" inputmode="numeric" placeholder="MM / YY" autocomplete="cc-exp">
+        <input class="inp ph half" type="text" inputmode="numeric" placeholder="CVC" autocomplete="cc-csc">
       </div>
     </div>
 
@@ -225,7 +232,7 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
       <div class="total"><span class="t">Total</span><span class="a">$14.99</span></div>
     </div>
 
-    <span class="btn btn-pri paybtn">Pay $14.99</span>
+    <button type="button" class="btn btn-pri paybtn">Pay $14.99</button>
     <div class="secure"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5A6B84" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Secured by Square · Receipt shows "ByteBar" only</span></div>
     <div class="fine">Unlocks the moment you check out — sign in anywhere with your checkout email.<br>If it doesn't work as described, refunds are available for 14 days.</div>
     <div class="proofline"><span class="stars">★★★★★</span><span><b style="color:#0A1428">Rated on Trustpilot</b> · read candidate reviews</span></div>
@@ -234,8 +241,12 @@ footer.site .fl a{color:inherit;text-decoration:none;white-space:nowrap;}
   <div class="grand"><b>Already own the Simulator?</b> You bought it at $9.99 — the Library unlocks <b>free</b>. Sign in with your purchase email and the gold dot is already on your account. Nothing to pay here.</div>
 
 </div>
-<footer class="site"><div class="frow">
-<div><a class="masthead" href="index.html" style="display:block;width:max-content;margin-bottom:12px;">B Y T E B A R</a>
-<div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
-<div class="fl"><a href="library.html">Library</a><a href="sim.html">Simulator</a><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
-</div></footer></body></html>
+<footer class="site"><div class="wrap">
+      <div class="fcols">
+        <div class="col"><h5>Product</h5><a href="library.html">Library</a><a href="sim.html">Simulator</a><a href="index.html">ByteBar Complete</a></div>
+        <div class="col"><h5>Help</h5><a>FAQ</a><a>Contact</a></div>
+        <div class="col"><h5>Legal</h5><a>Privacy</a><a>Terms</a><a>Refunds</a></div>
+        <div class="col"><h5>Proof</h5><a>★★★★★ Rated on Trustpilot</a><a>28 exams · 1,000 questions each</a></div>
+      </div>
+      <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, or any exam vendor. Privacy, Terms and Refunds are linked on every page.</div>
+    </div></footer><div class="askbubble"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.9"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.9A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4" stroke-linecap="round"/></svg><span class="dot"></span></div></body></html>

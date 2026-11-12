@@ -7,20 +7,20 @@
 <title>ByteBar — Every exam. Taught, then tested.</title>
 <style>
   :root{
-    --bg:#060B18; --bg2:#080F1F; --panel:#0E1930; --panel2:#122036;
-    --line:rgba(148,178,255,.15); --line2:rgba(148,178,255,.22);
-    --ink:#E9EFFA; --muted:#A3B8D8; --faint:#7A90B5;
+    --bg:#081226; --bg2:#0A1730; --panel:#152747; --panel2:#1B3055;
+    --line:rgba(148,178,255,.20); --line2:rgba(148,178,255,.30);
+    --ink:#F2F7FE; --muted:#C6D7F0; --faint:#93A9CF;
     --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
     --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
-    --warmbg:#1A1013; --warmpanel:#241619; --warmline:rgba(242,197,114,.20); --warmink:#F4E7D3; --warmmuted:#D2B696; --warmgold:#F2C572;
+    --warmbg:#221419; --warmpanel:#2E1B20; --warmline:rgba(242,197,114,.26); --warmink:#F8EEDD; --warmmuted:#DEC09E; --warmgold:#F2C572;
     --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:
-      radial-gradient(1000px 520px at 12% -140px, rgba(56,150,255,.10), rgba(56,150,255,0) 62%),
-      radial-gradient(760px 420px at 96% -80px, rgba(34,211,238,.05), rgba(34,211,238,0) 60%),
-      linear-gradient(180deg,#070D1D 0%,#060B18 460px,#050914 100%);
-    background-color:#050914;color:var(--ink);
+      radial-gradient(1100px 560px at 12% -140px, rgba(56,150,255,.16), rgba(56,150,255,0) 62%),
+      radial-gradient(760px 420px at 96% -80px, rgba(34,211,238,.07), rgba(34,211,238,0) 60%),
+      linear-gradient(180deg,#0A1730 0%,#081226 460px,#060C1C 100%);
+    background-color:#060C1C;color:var(--ink);
     font-family:"Avenir Next","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   .num{font-variant-numeric:tabular-nums lining-nums;}
@@ -46,19 +46,21 @@
   .eyebrow::after{content:"";height:1px;width:104px;background:linear-gradient(90deg,rgba(34,211,238,.5),transparent);}
   /* header */
   header.site{position:relative;z-index:5;border-bottom:1px solid var(--line);
-    background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0)),#060D1F;}
+    background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0)),#0A1730;}
   header.site::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
-  .h-in{max-width:1240px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;gap:26px;}
+  .h-in{max-width:1180px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;gap:26px;}
   .masthead{font-size:13.5px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
   nav.main{display:flex;gap:26px;font-size:14px;}
   nav.main a{color:var(--muted);text-decoration:none;}
   nav.main a.on{color:var(--ink);font-weight:600;}
   .hsearch{flex:0 1 320px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);padding:8px 10px 8px 13px;margin-left:6px;}
   .hsearch .ph{flex:1;font-size:13px;color:var(--faint);white-space:nowrap;overflow:hidden;}
+  .hsearch input.ph{border:none;background:transparent;outline:none;font-family:inherit;min-width:0;}
+  .hsearch input.ph::placeholder{color:var(--faint);}
   .kbd{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;background:var(--panel);}
   .h-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
-  .signin{height:44px;padding:0 18px;border:1px solid var(--line2);border-radius:10px;background:transparent;color:var(--ink);font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;}
-  .getbtn{height:44px;padding:0 18px;border-radius:10px;background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
+  .signin{height:44px;padding:0 18px;border:1px solid var(--line2);border-radius:11px;background:transparent;color:var(--ink);font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;}
+  .getbtn{height:44px;padding:0 18px;border-radius:11px;background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
   .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 15px 5px 5px;background:var(--panel2);}
   .acctchip .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#12325A,#0B1D38);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;position:relative;}
   .acctchip .av .gdot{position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--panel2);}
@@ -86,13 +88,13 @@
   .proofline .dot{color:var(--faint);}
   /* spec strip */
   .specstrip{margin-top:34px;border-top:1px solid var(--line);display:flex;}
-  .specstrip div{flex:1;padding:18px 22px 4px;border-left:1px solid var(--line);min-width:0;}
+  .specstrip div{flex:1;padding:20px 22px 6px;border-left:1px solid var(--line);min-width:0;}
   .specstrip div:first-child{border-left:none;padding-left:2px;}
-  .specstrip .n{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1;white-space:nowrap;}
-  .specstrip .l{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:8px;line-height:1.5;}
+  .specstrip .n{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1;white-space:nowrap;}
+  .specstrip .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:8px;line-height:1.5;}
   .specstrip .n.goldn{color:var(--gold);}
   /* sample draft panel */
-  .draft{position:relative;border:1px dashed rgba(148,178,255,.25);border-radius:14px;padding:20px 24px;background:rgba(6,11,24,.55);display:flex;gap:18px;align-items:center;}
+  .draft{position:relative;border:1px dashed rgba(148,178,255,.25);border-radius:20px;padding:20px 24px;background:rgba(10,20,40,.5);display:flex;gap:18px;align-items:center;}
   .draft .playbtn{flex:0 0 auto;}
   .draft .dt{font-size:16.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35;}
   .draft .ds{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:3px;}
@@ -100,14 +102,14 @@
   .playbtn{width:46px;height:46px;border-radius:50%;background:linear-gradient(180deg,#3ADBF2,#1EC8E6);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(34,211,238,.22);}
   /* sections */
   section.blk{padding:64px 0 4px;position:relative;}
-  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:28px;flex-wrap:wrap;}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:24px;flex-wrap:wrap;}
   .sec-head .no{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.14em;}
   .sec-head h2{font-size:29px;font-weight:700;letter-spacing:-.018em;}
   .sec-head span{font-size:13.5px;color:var(--faint);}
-  .panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:28px;}
+  .panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0) 46%),var(--panel);padding:28px;}
   .panel h4.ph{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:18px;display:flex;justify-content:space-between;gap:12px;}
   /* cover system — one frame, per-book accent var + motif */
-  .cover{--acc:var(--cyan);position:relative;border-radius:12px;background:#081226;padding:14px;overflow:hidden;}
+  .cover{--acc:var(--cyan);position:relative;border-radius:14px;background:#0C1B36;padding:14px;overflow:hidden;}
   .cover .frame{border:2px solid #fff;border-radius:4px;padding:24px 16px 18px;position:relative;text-align:center;}
   .cover .frame::before,.cover .frame::after{content:"";position:absolute;width:14px;height:14px;border:3px solid var(--acc);}
   .cover .frame::before{top:-3px;left:-3px;border-right:none;border-bottom:none;}
@@ -120,11 +122,11 @@
   .cover .ct{font-size:27px;font-weight:700;line-height:1.07;margin-top:4px;letter-spacing:-.01em;color:#fff;}
   .cover .ctype{font-size:9px;font-weight:700;letter-spacing:.3em;color:var(--acc);margin-top:9px;}
   .cover .div{width:34px;height:2px;background:var(--acc);margin:11px auto 8px;}
-  .cover .spec{font-size:8px;letter-spacing:.11em;color:#A3B8D8;line-height:1.5;}
+  .cover .spec{font-size:8px;letter-spacing:.11em;color:#C6D7F0;line-height:1.5;}
   .cover .motif{margin-top:11px;color:var(--acc);opacity:.85;display:flex;justify-content:center;}
-  .cover.warmbg{background:#170C0E;}
+  .cover.warmbg{background:#1D0F12;}
   /* book card */
-  .card{min-width:0;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:15px;}
+  .card{min-width:0;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0) 46%),var(--panel);padding:15px;}
   .card h3{font-size:16.5px;font-weight:700;letter-spacing:-.01em;margin:14px 2px 5px;color:var(--ink);}
   .card .meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin:0 2px;line-height:1.6;}
   .card .rowline{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap;}
@@ -137,8 +139,8 @@
   .ring{width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--cyan) 0 64%, rgba(148,178,255,.12) 64% 100%);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
   .ring span{width:43px;height:43px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
   .cbadge{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--gold);background:rgba(245,181,84,.10);border:1px solid rgba(245,181,84,.35);border-radius:999px;padding:6px 14px;display:inline-block;}
-  /* offer (board Sheet 05) */
-  .offer{position:relative;border:1px solid var(--line2);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0) 38%),var(--panel);box-shadow:0 24px 60px rgba(2,6,18,.5);overflow:hidden;}
+  /* offer panel */
+  .offer{position:relative;border:1px solid var(--line2);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0) 46%),var(--panel);box-shadow:0 24px 60px rgba(2,6,18,.5);overflow:hidden;}
   .offer-grid{display:grid;grid-template-columns:1.35fr 1fr;}
   .offer-l{padding:34px 36px;}
   .offer-l h3{font-size:27px;font-weight:700;letter-spacing:-.018em;margin:12px 0 6px;}
@@ -148,7 +150,7 @@
   .inc div{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--muted);line-height:1.5;}
   .inc b{color:var(--ink);font-weight:600;}
   .inc .ck{color:var(--green);font-weight:700;}
-  .offer-r{border-left:1px solid var(--line);padding:34px 36px;background:rgba(6,11,24,.35);display:flex;flex-direction:column;}
+  .offer-r{border-left:1px solid var(--line);padding:34px 36px;background:rgba(10,20,40,.30);display:flex;flex-direction:column;}
   .offer-r .plabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:flex;justify-content:space-between;}
   .offer-r .amt{font-size:58px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:16px 0 2px;white-space:nowrap;}
   .offer-r .amt .gold{color:var(--gold);font-size:20px;font-weight:700;letter-spacing:-.01em;}
@@ -159,7 +161,7 @@
   .proof b{color:var(--ink);font-weight:600;}
   /* faq */
   .faq{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .faq .qa{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:22px 24px;}
+  .faq .qa{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:22px 24px;}
   .faq .q{font-size:16.5px;font-weight:700;letter-spacing:-.01em;display:flex;gap:12px;align-items:baseline;}
   .faq .q .fno{font-family:var(--mono);font-size:10.5px;color:var(--cyan);letter-spacing:.12em;flex:0 0 auto;}
   .faq .a{font-size:14.5px;color:var(--muted);line-height:1.62;margin-top:9px;}
@@ -173,11 +175,11 @@
   /* ask bubble (fixed in production; absolute-bottom for the static render) */
   .askbubble{position:absolute;right:26px;bottom:26px;width:58px;height:58px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px rgba(2,6,18,.55);z-index:6;}
   .askbubble .dot{position:absolute;top:2px;right:2px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--panel);}
-  .figcap{position:absolute;right:24px;bottom:-6px;}
+  
 
   .sheets{display:grid;grid-template-columns:1fr 44px 1fr;gap:0;align-items:stretch;}
   .sheetjoin{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:22px;color:var(--cyan);}
-  .sheetpanel .mini{max-width:300px;}
+  .sheetpanel .mini{max-width:300px;margin:0 auto;}
   .sheetpanel h3{font-size:22px;font-weight:700;letter-spacing:-.015em;margin:18px 0 4px;}
   .sheetpanel .sub{font-size:14.5px;color:var(--muted);line-height:1.6;}
   .plist{margin-top:16px;border-top:1px solid var(--line);}
@@ -224,8 +226,8 @@
     .specstrip{margin-top:26px;flex-wrap:wrap;}
     .specstrip div{flex:1 1 40%;padding:14px 12px 2px;}
     .specstrip div:nth-child(3){border-left:none;padding-left:2px;}
-    .specstrip .n{font-size:27px;}
-    .specstrip .l{font-size:8.5px;}
+    .specstrip .n{font-size:28px;}
+    .specstrip .l{font-size:9.5px;}
     section.blk{padding:46px 0 2px;}
     .sec-head h2{font-size:24px;}
     .sec-head span{display:none;}
@@ -257,7 +259,7 @@
 </style>
 </head>
 <body>
-<div class="page"><div class="gridfx"></div><div class="grainfx"></div><header class="site"><div class="h-in"><a class="masthead" href="index.html">B Y T E B A R</a><nav class="main"><a class="" href="library.html">Library</a><a class="" href="sim.html">Simulator</a><a class="on" href="index.html">Complete</a></nav><div class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3B8D8" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg><span class="ph">Search a topic, exam, or code…</span><span class="kbd">/</span></div><div class="h-right"><span class="signin">Sign in</span><a class="getbtn" href="buy.html">Get ByteBar Complete</a></div></div></header><div class="hero"><svg class="traces" width="620" height="430" viewBox="0 0 620 430" fill="none" stroke="#94B2FF" stroke-width="1.5">
+<div class="page"><div class="gridfx"></div><div class="grainfx"></div><header class="site"><div class="h-in"><a class="masthead" href="index.html">B Y T E B A R</a><nav class="main"><a class="" href="library.html">Library</a><a class="" href="sim.html">Simulator</a><a class="on" href="index.html">Complete</a></nav><div class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6D7F0" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg><input class="ph" type="text" placeholder="Search a topic, exam, or code…"><span class="kbd">/</span></div><div class="h-right"><span class="signin">Sign in</span><a class="getbtn" href="buy.html">Get ByteBar Complete</a></div></div></header><div class="hero"><svg class="traces" width="620" height="430" viewBox="0 0 620 430" fill="none" stroke="#94B2FF" stroke-width="1.5">
     <path d="M620 60 H420 V150 H300"/><circle cx="300" cy="150" r="4.5"/>
     <path d="M620 170 H490 V260 H388"/><circle cx="388" cy="260" r="4.5"/>
     <path d="M620 300 H530"/><path d="M452 0 V84 H356"/><circle cx="356" cy="84" r="4.5"/>
@@ -285,10 +287,10 @@
       </div>
       <div class="proofline" style="margin-top:20px;"><span class="stars">★★★★★</span><span><b>Rated on Trustpilot</b></span><span class="dot">·</span><span>read candidate reviews</span></div>
     </div></div><section class="blk"><div class="wrap">
-      <div class="sec-head"><span class="no">01</span><h2>Two sheets, one drawing set</h2><span>the library teaches it — the simulator proves it</span></div>
+      <div class="sec-head"><span class="no">01</span><h2>Learn it, then prove it.</h2><span>two halves — one system</span></div>
       <div class="sheets">
         <div class="panel sheetpanel">
-          <h4 class="ph"><span>Sheet A — The Library</span><span class="callout">Watch</span></h4>
+          <h4 class="ph"><span>The Library</span><span style="color:var(--cyan)">Watch</span></h4>
           <div class="mini"><div class="cover" style="--acc:#3896FF"><div class="frame"><i class="cnr tr"></i><i class="cnr bl"></i><div class="cb">B Y T E B A R</div><div class="code">SY0-701</div><div class="ct">Security+</div><div class="ctype">Complete Book</div><div class="div"></div><div class="spec">31 CHAPTERS · FINAL EXAM INCLUDED</div><div class="motif"><svg width="96" height="40" viewBox="0 0 96 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M48 3 L63 8.5 V20 C63 29.5 56.5 34.5 48 37.5 C39.5 34.5 33 29.5 33 20 V8.5 Z"/><path d="M48 9 V31" opacity=".45"/></svg></div></div></div></div>
           <h3>The Library — watch.</h3>
           <p class="sub">Complete video books — one book per exam, every chapter in its exact seat.</p>
@@ -300,7 +302,7 @@
         </div>
         <div class="sheetjoin">+</div>
         <div class="panel sheetpanel">
-          <h4 class="ph"><span>Sheet B — The Simulator</span><span class="callout">Practice</span></h4>
+          <h4 class="ph"><span>The Simulator</span><span style="color:var(--cyan)">Practice</span></h4>
           <div class="qmini">
       <div class="qhead"><span>Security+ SY0-701 · Question 12 of 30</span><span class="callout">24:10 left</span></div>
       <div class="qbar"><i></i></div>
@@ -313,7 +315,7 @@
           <div class="plist">
             <div><span class="ck">✓</span><span><b>28 exams · 1,000 exam-style questions each</b> — the complete bank for every exam</span></div>
             <div><span class="ck">✓</span><span><b>Readiness scores</b> by domain — misses point back to the chapter</span></div>
-            <div><span class="ck">✓</span><span><b>Every book ends in its final exam</b> — the simulator is the last sheet</span></div>
+            <div><span class="ck">✓</span><span><b>Every book ends in its final exam</b> — taken in the simulator, scored like the real thing</span></div>
           </div>
         </div>
       </div>
@@ -333,7 +335,7 @@
           </div>
         </div>
         <div class="offer-r">
-          <div class="plabel"><span>One-time · USD</span><span>Sheet 05</span></div>
+          <div class="plabel"><span>One-time · USD</span><span>Yours forever</span></div>
           <div class="amt num">$14.99 <span class="gold">— everything</span></div>
           <div class="per">One-time payment · No subscription · Yours forever</div>
           <div style="height:20px"></div>
