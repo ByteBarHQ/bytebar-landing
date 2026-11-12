@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ByteBar Library — Find your topic</title>
+<meta name="description" content="Complete video books for certification exams — taught in blueprint order, nothing skipped, and every book ends in a real final exam. Free with an account. No subscription.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="library.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="masthead">B Y T E B A R</div>
+    <div class="top-right"><span class="here">Library</span><a class="dim sim" href="https://sim.bytebarhq.com">Simulator</a><span id="authArea"></span></div>
+  </div>
+</header>
+
+<!-- ================= SEARCH HERO ================= -->
+<section class="hero">
+  <svg class="hero-traces" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 800 300">
+    <g stroke="#7DD8F0" stroke-width="1.5" fill="none">
+      <path d="M-10 44 H200 L232 76 H470"/>
+      <path d="M810 258 H560 L524 226 H300"/>
+    </g>
+    <g fill="#7DD8F0"><circle cx="470" cy="76" r="4"/><circle cx="300" cy="226" r="4"/></g>
+  </svg>
+  <div class="wrap hero-in">
+    <div class="eyebrow">The Library</div>
+    <h1>Find your topic.</h1>
+    <p class="sub">Complete video books for certification exams — taught in blueprint order, nothing skipped, and every book ends in a real final exam.</p>
+    <form class="searchbar" id="searchForm" action="#" onsubmit="return false;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8CA0BE" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+      <input id="searchInput" type="search" placeholder="Find your topic — “AZ-104”, “NCLEX”…" aria-label="Search the library">
+      <button class="go" type="submit">Search</button>
+    </form>
+    <div class="proofline"><b>No subscription</b> &nbsp;·&nbsp; <b>Free with an account</b> &nbsp;·&nbsp; <b>Mapped to official exam objectives</b></div>
+  </div>
+</section>
+
+<!-- ================= CONTINUE LEARNING ================= -->
+<section class="section hidden" id="continueSection">
+  <div class="wrap">
+    <div class="sec-head"><h2>Continue learning</h2><span class="count" id="continueCount"></span></div>
+    <p class="sec-sub">Pick up exactly where you left off — your place is saved in every book.</p>
+    <div class="rail" id="continueRail"></div>
+  </div>
+</section>
+
+<!-- ================= NEW HERE ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="newhere" style="margin-top:2px;">
+      <div class="eyebrow">New here?</div>
+      <h3>Start with your goal — we'll point you at the right topic.</h3>
+      <p>No wandering a catalog. Tell us where you're headed and start with the free first chapter on that topic.</p>
+      <div class="goals">
+        <button class="goal" data-goal="firstjob" type="button">First IT job</button>
+        <button class="goal" data-goal="security" type="button">Security career</button>
+        <button class="goal" data-goal="cloud" type="button">Cloud &amp; AWS</button>
+        <button class="goal" data-goal="nursing" type="button">Nursing exams</button>
+      </div>
+      <p class="reco" id="recoLine"><b>Most people start with Security+.</b> Its <span class="free">Start Here chapter is free</span> — 4 minutes, and you'll know exactly how the book teaches.</p>
+      <div class="cta-row">
+        <a class="cta" id="recoCta" href="watch.html?book=secplus&amp;ch=0">Watch Security+ Start Here — free</a>
+        <span class="cta-note">Every book's first chapter is free. No card, no trial clock — an account just remembers your place.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BROWSE : IT BOOKS ================= -->
+<section class="section" id="itSection">
+  <div class="wrap">
+    <div class="sec-head"><h2>Browse the library</h2><span class="count">13 IT books · 4 nursing</span></div>
+    <p class="sec-sub">Each book is taught start to finish in blueprint order — and ends with its simulator final exam.</p>
+    <div class="chips" id="chips">
+      <button class="chip on" data-filter="all" type="button">All books</button>
+      <button class="chip" data-filter="comptia" type="button">CompTIA</button>
+      <button class="chip" data-filter="aws" type="button">AWS</button>
+      <button class="chip" data-filter="cisco" type="button">Cisco</button>
+      <button class="chip" data-filter="more" type="button">Cloud &amp; More</button>
+      <button class="chip" data-filter="nursing" type="button">Nursing</button>
+    </div>
+    <div class="grid" id="itGrid"></div>
+    <p class="noresults" id="itNoResults">No IT topics match that — try the exam code (like “AZ-104”) or browse Nursing below.</p>
+  </div>
+</section>
+
+<!-- ================= TEALIGHT SHELF ================= -->
+<section class="shelf-tealight" id="tealightSection">
+  <div class="wrap inner">
+    <div class="sec-head"><h2><span class="glowdot"></span>Tealight Nursing</h2><span class="count">4 books</span></div>
+    <p class="sec-sub">Nursing exam books — taught the same way: in order, in plain English, ending in a final exam.</p>
+    <div class="grid" id="tealightGrid"></div>
+    <p class="noresults" id="tealightNoResults">No nursing topics match that search.</p>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR BAND ================= -->
+<section>
+  <div class="wrap">
+    <div class="simband">
+      <div class="s-main">
+        <div class="eyebrow">The final exam — for every book</div>
+        <h3>Ready for test day?</h3>
+        <p>Every book above ends in the Practice Exam Simulator: timed, scored, with a domain-by-domain breakdown of exactly what to study next.</p>
+      </div>
+      <div class="s-cta">
+        <div class="price">$9.99 — all 28 exams<small>One price · one time · yours for good</small></div>
+        <a class="open" href="https://sim.bytebarhq.com" target="_blank" rel="noopener">Open the simulator →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="f-in">
+    <div class="brand">B Y T E B A R</div>
+    bytebarhq.com · Independent study support. Not affiliated with CompTIA, Cisco, Microsoft, AWS, ISC2, CNCF, ATI, or NCSBN.
+  </div>
+</footer>
+
+<dialog id="authDlg">
+  <div class="auth-in">
+    <div class="eyebrow">Your account</div>
+    <h3>Sign in to the Library</h3>
+    <p>One account for the Library and the Simulator. We email you a sign-in link — no password to remember.</p>
+    <form>
+      <input type="email" required placeholder="you@example.com" autocomplete="email" aria-label="Email address">
+      <button class="cta" type="submit" style="text-align:center;">Email me a sign-in link</button>
+      <div class="msg"></div>
+    </form>
+    <div class="close-row"><button type="button" data-close>Close</button></div>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="streams.js"></script>
+<script src="library.js"></script>
+</body>
+</html>

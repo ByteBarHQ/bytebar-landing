@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course — ByteBar Library</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="library.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="masthead">B Y T E B A R</div>
+    <div class="top-right"><a class="here" href="index.html">Library</a><a class="dim sim" href="https://sim.bytebarhq.com">Simulator</a><span id="authArea"></span></div>
+  </div>
+</header>
+
+<main id="courseRoot"></main>
+
+<dialog id="authDlg">
+  <div class="auth-in">
+    <div class="eyebrow">Your account</div>
+    <h3>Sign in to the Library</h3>
+    <p>One account for the Library and the Simulator. We email you a sign-in link — no password to remember.</p>
+    <form>
+      <input type="email" required placeholder="you@example.com" autocomplete="email" aria-label="Email address">
+      <button class="cta" type="submit" style="text-align:center;">Email me a sign-in link</button>
+      <div class="msg"></div>
+    </form>
+    <div class="close-row"><button type="button" data-close>Close</button></div>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="streams.js"></script>
+<script src="library.js"></script>
+</body>
+</html>
