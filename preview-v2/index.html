@@ -86,6 +86,48 @@
   .proofline .stars{color:#00B67A;letter-spacing:2px;font-size:14.5px;}
   .proofline b{color:var(--ink);font-weight:600;}
   .proofline .dot{color:var(--faint);}
+  /* ===== landing-only: cream header + centered live-style hero (Cori's pick, 2026-11-12) ===== */
+  header.cream{position:relative;z-index:5;background:#F6F1E6;border-bottom:1px solid #E6DCC4;}
+  .c-in{max-width:1180px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;gap:26px;}
+  a.cbrand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none;}
+  .cbrand .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0B1E42,#1B3A7A);display:flex;align-items:center;justify-content:center;color:#7EE7F7;font-size:17px;font-weight:900;box-shadow:0 3px 0 rgba(11,30,66,.35);}
+  .cbrand .word{font-size:16.5px;font-weight:900;letter-spacing:.30em;color:#0B1E42;white-space:nowrap;}
+  nav.cnav{display:flex;gap:26px;font-size:14.5px;margin-left:8px;}
+  nav.cnav a{color:#57503E;text-decoration:none;font-weight:600;}
+  nav.cnav a.on{color:#0B1E42;}
+  .c-right{margin-left:auto;display:flex;align-items:center;}
+  .csignin{font-size:14.5px;font-weight:600;color:#0B1E42;white-space:nowrap;}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto;line-height:0;}
+  .hero-c{text-align:center;}
+  .hpill{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.30em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);border-radius:999px;padding:11px 22px 11px 25px;background:rgba(148,178,255,.08);}
+  .hero-c h1.display{margin-left:auto;margin-right:auto;}
+  .hero-c h1.display .goldw{color:var(--gold);}
+  .hero-c .lede{margin-left:auto;margin-right:auto;}
+  .hero-pip{display:flex;flex-direction:column;align-items:center;margin-top:32px;}
+  .hero-pip svg{width:172px;height:172px;filter:drop-shadow(0 14px 30px rgba(30,120,232,.30));}
+  .pip-tag{position:relative;margin-top:16px;background:#fff;color:#22304A;border-radius:999px;padding:12px 24px;font-size:16.5px;font-weight:700;box-shadow:0 12px 28px rgba(2,6,18,.35);white-space:nowrap;}
+  .pip-tag::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:14px;height:14px;background:#fff;}
+  .pip-tag b{color:#0873A0;}
+  .hero-ctas-live{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:32px;}
+  .hero-ctas-live a{display:flex;align-items:center;justify-content:center;width:min(430px,100%);height:58px;border-radius:14px;font-size:16.5px;font-weight:700;text-decoration:none;padding:0 22px;text-align:center;}
+  .hcta-outline{border:1.5px solid var(--line2);color:var(--ink);background:rgba(148,178,255,.04);}
+  .hcta-gold{background:linear-gradient(180deg,#FFC95E,#F5B544);color:#33230A;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 12px 28px rgba(245,181,84,.22);}
+  .hero-c .tickrow{justify-content:center;}
+  .hero-c .draft{margin-left:auto;margin-right:auto;}
+  .hero-c .specstrip{margin-left:auto;margin-right:auto;}
+  .hero-c .proofline{justify-content:center;}
+  .hero-c .draft,.hero-c .specstrip{text-align:left;}
+  @media (max-width:760px){
+    .c-in{padding:0 18px;height:60px;gap:14px;}
+    nav.cnav{display:none;} .c-right{display:none;}
+    .burger{display:block;}
+    .hpill{font-size:11px;letter-spacing:.24em;padding:10px 18px 10px 21px;}
+    .hero-pip{margin-top:26px;}
+    .hero-pip svg{width:150px;height:150px;}
+    .pip-tag{font-size:15px;padding:11px 20px;white-space:normal;text-align:center;}
+    .hero-ctas-live{margin-top:26px;}
+    .hero-ctas-live a{height:56px;font-size:16px;white-space:normal;}
+  }
   /* spec strip */
   .specstrip{margin-top:34px;border-top:1px solid var(--line);display:flex;}
   .specstrip div{flex:1;padding:20px 22px 6px;border-left:1px solid var(--line);min-width:0;}
@@ -259,19 +301,21 @@
 </style>
 </head>
 <body>
-<div class="page"><div class="gridfx"></div><div class="grainfx"></div><header class="site"><div class="h-in"><a class="masthead" href="index.html">B Y T E B A R</a><nav class="main"><a class="" href="library.html">Library</a><a class="" href="sim.html">Simulator</a><a class="on" href="index.html">Complete</a></nav><div class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6D7F0" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg><input class="ph" type="text" placeholder="Search a topic, exam, or code…"><span class="kbd">/</span></div><div class="h-right"><span class="signin">Sign in</span><a class="getbtn" href="buy.html">Get ByteBar Complete</a></div></div></header><div class="hero"><svg class="traces" width="620" height="430" viewBox="0 0 620 430" fill="none" stroke="#94B2FF" stroke-width="1.5">
-    <path d="M620 60 H420 V150 H300"/><circle cx="300" cy="150" r="4.5"/>
-    <path d="M620 170 H490 V260 H388"/><circle cx="388" cy="260" r="4.5"/>
-    <path d="M620 300 H530"/><path d="M452 0 V84 H356"/><circle cx="356" cy="84" r="4.5"/>
-  </svg><div class="wrap">
-      <div class="eyebrow">ByteBar Complete — one system</div>
-      <h1 class="display">Every exam.<br>Taught, then <span class="thin">tested.</span></h1>
+<div class="page"><div class="gridfx"></div><div class="grainfx"></div><header class="cream"><div class="c-in"><a class="cbrand" href="index.html"><span class="mark">B</span><span class="word">BYTEBAR</span></a><nav class="cnav"><a href="library.html">Library</a><a href="sim.html">Simulator</a><a class="on" href="index.html">Complete</a></nav><div class="c-right"><span class="csignin">Sign in</span></div><button class="burger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B1E42" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header><div class="hero hero-c"><div class="wrap">
+      <span class="hpill">Watch it · then prove it</span>
+      <h1 class="display">Every exam.<br>Taught, then <span class="goldw">tested.</span></h1>
       <p class="lede">One system for the whole certification: <b>17 video books</b> that teach every exam in plain English, in blueprint order — and the <b>practice exam simulator</b> that proves you are ready. Watch it, then prove it.</p>
-      <div class="tickrow"><span><b>✓</b>No ads</span><span><b>✓</b>No algorithm</span><span><b>✓</b>No subscription</span><span><b>✓</b>Yours forever</span></div>
-      <div class="btnrow" style="margin-top:26px;">
-        <a class="btn btn-pri" href="buy.html">Get ByteBar Complete</a>
-        <a class="btn btn-sec" href="library.html">Browse the library</a>
+      <div class="hero-pip">
+        <svg viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><defs><radialGradient id="piph-bodyG" cx="0.38" cy="0.30" r="0.95"><stop offset="0" stop-color="#9ADCFF"/><stop offset="0.45" stop-color="#45ACFF"/><stop offset="0.78" stop-color="#2FA4FF"/><stop offset="1" stop-color="#1E78E8"/></radialGradient><linearGradient id="piph-leafG" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#8FE3A5"/><stop offset="0.55" stop-color="#46C767"/><stop offset="1" stop-color="#2E8B47"/></linearGradient><radialGradient id="piph-shadG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#0B1E42" stop-opacity="0.20"/><stop offset="1" stop-color="#0B1E42" stop-opacity="0"/></radialGradient></defs><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#piph-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#piph-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#piph-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#piph-bodyG)"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#piph-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#piph-leafG)" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><path d="M41,65 Q48,69.5 55,65" stroke="#22304A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+        <div class="pip-tag">Hi, I'm <b>Pip</b>! 🌱 Your study buddy.</div>
       </div>
+      <!-- HERO-CTAS — go-live swap point: the two hero calls to action -->
+      <div class="hero-ctas-live">
+        <a class="hcta-outline" href="sampling.html">Prove it — try 10 free questions</a>
+        <a class="hcta-gold" href="buy.html">Get ByteBar Complete — $14.99</a>
+      </div>
+      <!-- /HERO-CTAS -->
+      <div class="tickrow"><span><b>✓</b>No ads</span><span><b>✓</b>No algorithm</span><span><b>✓</b>No subscription</span><span><b>✓</b>Yours forever</span></div>
       <div class="draft" style="margin-top:26px;max-width:860px;">
         <i class="reg tl" style="top:8px;left:8px"></i><i class="reg br" style="bottom:8px;right:8px"></i>
         <span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#04202B"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span>
