@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ByteBar Simulator — Home · v2</title><style>
+:root{
+  --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
+  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
+  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
+  --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
+  --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+  --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#050914;}
+body{color:var(--ink);
+  font-family:"Avenir Next","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  background:
+    radial-gradient(900px 480px at 12% -80px, rgba(56,150,255,.12), rgba(56,150,255,0) 62%),
+    radial-gradient(700px 380px at 92% -60px, rgba(34,211,238,.05), rgba(34,211,238,0) 60%),
+    linear-gradient(180deg,#070D1D 0%,#060B18 34%,#050914 100%);
+  min-height:100vh;position:relative;overflow-x:hidden;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background:linear-gradient(rgba(148,178,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.026) 1px,transparent 1px);
+  background-size:124px 124px;
+  -webkit-mask-image:linear-gradient(180deg,black 0%,transparent 88%);mask-image:linear-gradient(180deg,black 0%,transparent 88%);}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");}
+.num{font-variant-numeric:tabular-nums lining-nums;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+.reg{position:absolute;width:15px;height:15px;pointer-events:none;opacity:.55;}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--cyan);}
+.reg::before{left:7px;top:0;width:1px;height:15px;}
+.reg::after{left:0;top:7px;width:15px;height:1px;}
+.reg.tl{top:14px;left:14px;} .reg.tr{top:14px;right:14px;}
+.reg.bl{bottom:14px;left:14px;} .reg.br{bottom:14px;right:14px;}
+.reg.warm::before,.reg.warm::after{background:var(--warmgold);}
+.callout{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;}
+.callout b{color:var(--muted);font-weight:400;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;}
+.panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:30px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 24px;border-radius:11px;font-size:16px;font-weight:700;border:1px solid transparent;cursor:pointer;text-decoration:none;}
+.btn-pri{background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
+.btn-sec{background:transparent;border-color:var(--line2);color:var(--ink);font-weight:600;}
+.btn-ghost{color:var(--cyan);font-weight:600;height:46px;padding:0 10px;}
+.bar{height:5px;border-radius:999px;background:rgba(148,178,255,.13);overflow:hidden;}
+.bar i{display:block;height:100%;background:var(--cyan);border-radius:999px;}
+.cbadge{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--gold);background:rgba(245,181,84,.10);border:1px solid rgba(245,181,84,.35);border-radius:999px;padding:6px 14px;display:inline-block;}
+.ltag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:var(--panel2);border-radius:999px;padding:6px 12px;display:inline-block;}
+/* header */
+header.top{border-bottom:1px solid var(--line);position:relative;z-index:2;}
+header.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 24px;gap:14px;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+.top-nav{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);}
+.top-nav .on{color:var(--ink);font-weight:600;}
+.acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px 5px 5px;background:var(--panel2);}
+.acctchip .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#12325A,#0B1D38);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;position:relative;font-size:12px;font-weight:700;color:var(--ink);}
+.acctchip .av .gdot{position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--panel2);}
+.acctchip .an{font-size:13.5px;font-weight:600;line-height:1.1;}
+.acctchip .ac{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;}
+/* page hero */
+.phead{position:relative;padding:64px 0 8px;}
+.phead h1{font-size:64px;line-height:.99;font-weight:700;letter-spacing:-.03em;margin:20px 0 18px;}
+.phead h1 .thin{color:var(--muted);}
+.phead p.lede{font-size:17.5px;line-height:1.6;color:var(--muted);max-width:640px;}
+.phead p.lede b{color:var(--ink);font-weight:600;}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin:56px 0 24px;}
+.sec-head .no{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.14em;}
+.sec-head h2{font-size:29px;font-weight:700;letter-spacing:-.018em;}
+.sec-head span{font-size:13.5px;color:var(--faint);}
+/* spec strip */
+.specstrip{display:flex;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);overflow:hidden;}
+.specstrip>div{flex:1;padding:22px 24px 18px;border-left:1px solid var(--line);}
+.specstrip>div:first-child{border-left:none;}
+.specstrip .n{font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1;}
+.specstrip .n small{font-size:19px;color:var(--muted);font-weight:600;}
+.specstrip .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:9px;line-height:1.5;}
+.specstrip .gold{color:var(--gold);}
+/* footer */
+footer.site{border-top:1px solid var(--line);margin-top:72px;padding-top:28px;position:relative;z-index:1;}
+footer.site .frow{max-width:1180px;margin:0 auto;padding:0 24px 34px;display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start;}
+footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;max-width:640px;}
+footer.site .fl{display:flex;gap:14px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end;}
+footer.site .fl span{white-space:nowrap;}
+/* video frame (sheet 06-D system) */
+.vframe{position:relative;border-radius:14px;background:#060B18;border:1px solid var(--line2);aspect-ratio:16/9;overflow:hidden;}
+.vframe .grid-bg{position:absolute;inset:0;background:linear-gradient(rgba(148,178,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,255,.03) 1px,transparent 1px);background-size:64px 64px;opacity:.7;}
+.vframe svg.traces{position:absolute;inset:0;opacity:.06;}
+.vf-in{position:relative;height:100%;padding:5.5% 5.5% 12%;display:flex;flex-direction:column;}
+.vf-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.vf-mast{font-size:14px;font-weight:700;letter-spacing:.42em;color:var(--cyan);}
+.vf-wm{font-size:11px;color:#8A8FA3;opacity:.8;}
+.vf-badge{align-self:flex-start;margin-top:3%;background:var(--azure);color:#081428;font-weight:700;font-size:12.5px;border-radius:7px;padding:4px 12px;}
+.vf-h{font-size:27px;font-weight:700;line-height:1.12;letter-spacing:-.015em;margin-top:2%;max-width:92%;}
+.vf-h em{font-style:normal;color:var(--azure);}
+.vf-diagram{margin-top:2.6%;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:11px;color:#C9CEDE;max-width:86%;width:max-content;}
+.vf-diagram .node{border:1px solid var(--line2);border-radius:6px;padding:4px 9px;background:var(--panel2);white-space:nowrap;}
+.vf-diagram .node.key{border-color:var(--azure);color:var(--azure);}
+.vf-diagram .arr{color:var(--faint);}
+.vf-fig{margin-top:9px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;}
+.vf-fig b{color:var(--muted);font-weight:400;}
+.vf-play{position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(11,20,36,.72);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+.vf-play::after{content:"";border-left:19px solid var(--cyan);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px;}
+.vf-cap{position:absolute;left:0;right:0;bottom:9.5%;text-align:center;}
+.vf-cap span{background:rgba(0,0,0,.55);color:#fff;font-weight:700;font-size:14px;padding:4px 12px;border-radius:6px;}
+.vf-cap b{color:var(--azure);}
+.vf-ctl{position:absolute;left:5.5%;right:5.5%;bottom:4.5%;display:flex;align-items:center;gap:12px;}
+.vf-ctl .track{flex:1;height:4px;border-radius:999px;background:rgba(148,178,255,.18);overflow:hidden;}
+.vf-ctl .track i{display:block;height:100%;background:var(--cyan);}
+.vf-ctl .tm{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;white-space:nowrap;}
+.ctlplay{flex:0 0 auto;width:0;height:0;border-left:11px solid var(--cyan);border-top:7px solid transparent;border-bottom:7px solid transparent;}
+@media (max-width:760px){
+  .wrap{padding:0 18px 60px;}
+  .phead{padding-top:44px;}
+  .phead h1{font-size:40px;letter-spacing:-.027em;}
+  .phead p.lede{font-size:16px;}
+  .sec-head h2{font-size:24px;}
+  .sec-head span{display:none;}
+  .panel{padding:22px;}
+  .specstrip{flex-wrap:wrap;}
+  .specstrip>div{flex:1 1 42%;padding:18px;border-left:none;border-top:1px solid var(--line);}
+  .specstrip>div:nth-child(-n+2){border-top:none;}
+  .specstrip .n{font-size:30px;}
+  .top-nav .navlink{display:none;}
+  .vf-h{font-size:18px;} .vf-mast{font-size:10px;} .vf-cap span{font-size:10.5px;}
+  .vf-cap{bottom:14%;}
+  .vf-diagram{display:none;} .vf-fig{display:none;}
+  .vf-badge{font-size:9.5px;} .vf-wm{font-size:8px;}
+  .vf-play{width:48px;height:48px;top:64%;}
+  .vf-play::after{border-left-width:14px;border-top-width:9px;border-bottom-width:9px;}
+  .phead .reg.br{display:none;}
+  .vframe .reg.bl,.vframe .reg.br{display:none;}
+  .vf-h .tail{display:none;}
+  .hidephone{display:none;}
+}
+
+
+.ready{margin-top:34px;}
+.ready .rgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:0;}
+.ready .rl{padding:6px 30px 6px 0;border-right:1px solid var(--line);}
+.ready .rr{padding:6px 0 6px 30px;}
+.ringrow{display:flex;gap:20px;align-items:center;}
+.ring{flex:0 0 74px;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--cyan) 0 82%, rgba(148,178,255,.12) 82% 100%);display:flex;align-items:center;justify-content:center;}
+.ring span{width:58px;height:58px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.trend{display:flex;gap:10px;align-items:baseline;margin-top:16px;font-size:14px;color:var(--muted);flex-wrap:wrap;}
+.trend .up{color:var(--green);font-weight:700;}
+.nextfig{border:1px dashed rgba(148,178,255,.25);border-radius:12px;padding:16px 18px;}
+.nextfig .t{font-size:16.5px;font-weight:700;line-height:1.45;margin-top:8px;}
+.nextfig p{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:6px;}
+.sample{margin-top:16px;border-color:rgba(34,211,238,.35);background:linear-gradient(180deg,rgba(34,211,238,.06),rgba(34,211,238,0) 55%),var(--panel);}
+.sample .sgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;}
+.sample h3{font-size:25px;font-weight:700;letter-spacing:-.015em;margin:10px 0 8px;}
+.sample p{font-size:15px;color:var(--muted);line-height:1.6;}
+.sample p b{color:var(--ink);font-weight:600;}
+.sample .scta{display:flex;flex-direction:column;gap:12px;align-items:stretch;}
+.sample .snote{text-align:center;}
+.idx-group{margin-top:26px;}
+.idx-group:first-of-type{margin-top:6px;}
+.ghead{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+.ghead .gname{font-size:15px;font-weight:700;letter-spacing:.02em;}
+.ghead .callout{color:var(--cyan);}
+.xgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.xrow{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(148,178,255,.035),rgba(148,178,255,0) 60%),var(--panel);padding:15px 18px;}
+.xrow .dot{flex:0 0 9px;width:9px;height:9px;border-radius:50%;}
+.xrow .xn{flex:1;min-width:0;}
+.xrow .xn b{font-size:15.5px;font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.xrow .xn span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;}
+.xrow .xs{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;text-align:right;line-height:1.7;white-space:nowrap;}
+.xrow .xs b{color:var(--ink);font-weight:400;}
+.warmwrap{border:1px solid var(--warmline);border-radius:20px;background:var(--warmbg);padding:26px 28px;margin-top:26px;position:relative;}
+.warmwrap .ghead .gname{color:var(--warmink);}
+.warmwrap .ghead .callout{color:var(--warmgold);}
+.warmwrap .xrow{background:var(--warmpanel);border-color:var(--warmline);}
+.warmwrap .xrow .xn b{color:var(--warmink);}
+.warmwrap .xrow .xn span{color:var(--warmmuted);opacity:.75;}
+.warmwrap .xrow .xs{color:var(--warmmuted);}
+.warmwrap .xrow .xs b{color:var(--warmink);}
+@media (max-width:760px){
+  .ready .rgrid{grid-template-columns:1fr;}
+  .ready .rl{border-right:none;padding:0 0 20px;}
+  .ready .rr{padding:20px 0 0;border-top:1px solid var(--line);}
+  .sample .sgrid{grid-template-columns:1fr;}
+  .sample .reg.tl,.warmwrap .reg.tl{display:none;}
+  .xgrid{grid-template-columns:1fr;}
+  .xrow{flex-wrap:wrap;row-gap:7px;}
+  .xrow .xs{flex:1 1 100%;text-align:left;padding-left:23px;}
+  .warmwrap{padding:20px;}
+}
+</style></head>
+<body><header class="top"><div class="top-in">
+<div class="masthead">B Y T E B A R</div>
+<div class="top-nav"><span class="navlink">Library</span><span class="on">Simulator</span><div class="acctchip"><div class="av">C<span class="gdot"></span></div><div><div class="an">Account</div><div class="ac">Complete</div></div></div></div>
+</div></header>
+<div class="wrap">
+  <div class="phead">
+    <i class="reg tl"></i><i class="reg br"></i>
+    <div class="eyebrow">The Simulator · Exam Index</div>
+    <h1>Prove it.</h1>
+    <p class="lede">You watched it in the Library. Now sit the room: <b>28 exams, 1,000 exam-style questions each</b>, timed like the real day — with a readiness score that tells you the truth before the test center does.</p>
+  </div>
+
+  <div class="panel ready">
+    <div class="rgrid">
+      <div class="rl">
+        <div class="callout">Your last figure — <b>Security+ SY0-701 · Timed mode</b></div>
+        <div class="ringrow" style="margin-top:18px;">
+          <div class="ring"><span class="num">82%</span></div>
+          <div>
+            <div style="font-size:19px;font-weight:700;">Readiness — Security+</div>
+            <div class="trend" style="margin-top:5px;"><span class="up">▲ 8 pts</span><span>from 74% · last 3 sittings</span></div>
+          </div>
+        </div>
+        <div class="trend num"><span>STRONG — <b style="color:var(--ink)">Network security</b></span><span style="color:var(--faint)">·</span><span>NEXT FOCUS — <b style="color:var(--ink)">Cryptography</b></span></div>
+      </div>
+      <div class="rr">
+        <div class="nextfig">
+          <div class="callout" style="color:var(--cyan)">Your next figure</div>
+          <div class="t">Beat 82% on a full timed sitting.</div>
+          <p>One figure at a time. The room re-measures every domain the moment you finish.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel sample">
+    <i class="reg tl"></i><i class="reg br"></i>
+    <div class="sgrid">
+      <div>
+        <div class="callout" style="color:var(--cyan)">Sampling — Sheet 00</div>
+        <h3>Try 10 questions free.</h3>
+        <p><b>Real questions, real explanations</b> — taken from the full room's own questions. No account, no card. See exactly how the room measures you before you ever pay.</p>
+      </div>
+      <div class="scta">
+        <span class="btn btn-pri" style="width:100%">Start the free 10</span>
+        <span class="callout snote">Scored on the spot · Explanations included</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head"><span class="no">01</span><h2>The index</h2><span>28 exams — one price bought all of them · no per-exam pricing, ever</span></div>
+
+  <div class="idx-group">
+    <div class="ghead"><span class="gname">CompTIA</span><span class="callout">7 exams</span></div>
+    <div class="xgrid">
+<div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Security+</b><span>SY0-701</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Network+</b><span>N10-009</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Linux+</b><span>XK0-005</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>A+</b><span>Core 1 · Core 2</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>CySA+</b><span>CS0-003</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>PenTest+</b><span>PT0-003</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>SecAI+</b><span>CY0-001</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div>
+    </div>
+  </div>
+  <div class="idx-group">
+    <div class="ghead"><span class="gname">AWS</span><span class="callout">5 exams</span></div>
+    <div class="xgrid">
+<div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>Solutions Architect — Associate</b><span>SAA-C03</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>Cloud Practitioner</b><span>CLF-C02</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>AI Practitioner</b><span>AIF-C01</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>Developer — Associate</b><span>DVA-C03</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>Solutions Architect — Professional</b><span>SAP-C02</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div>
+    </div>
+  </div>
+  <div class="idx-group">
+    <div class="ghead"><span class="gname">Cisco · Microsoft</span><span class="callout">5 exams</span></div>
+    <div class="xgrid">
+<div class="xrow"><span class="dot" style="background:#22D3EE"></span><div class="xn"><b>CCNA</b><span>200-301</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Azure Administrator</b><span>AZ-104</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Azure Fundamentals</b><span>AZ-900</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Azure Security Engineer</b><span>AZ-500</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#3896FF"></span><div class="xn"><b>Security Operations Analyst</b><span>SC-200</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div>
+    </div>
+  </div>
+  <div class="idx-group">
+    <div class="ghead"><span class="gname">ISC2 · Kubernetes · More</span><span class="callout">7 exams</span></div>
+    <div class="xgrid">
+<div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>CISSP</b><span>ISC2</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F59E0B"></span><div class="xn"><b>Certified in Cybersecurity</b><span>CC · ISC2</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F43F5E"></span><div class="xn"><b>Certified Kubernetes Administrator</b><span>CKA</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F43F5E"></span><div class="xn"><b>Certified Kubernetes Application Developer</b><span>CKAD</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#8B5CF6"></span><div class="xn"><b>Terraform Associate</b><span>004 · HashiCorp</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#10B981"></span><div class="xn"><b>Google Cloud — Professional Architect</b><span>GCP</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#E879F9"></span><div class="xn"><b>ITIL 4 Foundation</b><span>PeopleCert</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div>
+    </div>
+  </div>
+
+  <div class="warmwrap">
+    <i class="reg tl warm"></i><i class="reg br warm"></i>
+    <div class="ghead"><span class="gname">Nursing</span><span class="callout">4 exams</span></div>
+    <div class="xgrid">
+<div class="xrow"><span class="dot" style="background:#F2C572"></span><div class="xn"><b>NCLEX-RN</b><span>Registered Nurse</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F2C572"></span><div class="xn"><b>NCLEX-PN</b><span>Practical Nurse</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F2C572"></span><div class="xn"><b>ATI TEAS 7</b><span>Nursing entrance</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div><div class="xrow"><span class="dot" style="background:#F2C572"></span><div class="xn"><b>HESI A2</b><span>Nursing entrance</span></div><div class="xs num"><b>1,000</b> QUESTIONS<br>READINESS · TIMED MODE</div></div>
+    </div>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--faint);margin-top:26px;line-height:1.6;">Every sitting is timed, every answer explained, every score drawn onto <b style="color:var(--muted)">your sheet</b> — readiness by domain, never a single mystery number.</p>
+</div>
+<footer class="site"><div class="frow">
+<div><div class="masthead" style="margin-bottom:12px;">B Y T E B A R</div>
+<div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, ISC2, or any exam vendor.</div></div>
+<div class="fl"><span>Library</span><span>Simulator</span><span>Help &amp; FAQ</span><span>Privacy</span><span>Terms</span><span>Refunds</span></div>
+</div></footer></body></html>

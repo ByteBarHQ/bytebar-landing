@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security+ (SY0-701) — ByteBar Library</title>
+<style>
+  :root{
+    --bg:#060B18; --bg2:#080F1F; --panel:#0B1424; --panel2:#0D1729;
+    --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
+    --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+    --cyan:#22D3EE; --cyan-ink:#04202B; --green:#3ECF8E; --red:#F87171; --gold:#F5B544;
+    --azure:#3896FF; --emerald:#10B981; --cgold:#F59E0B; --rose:#F43F5E; --violet:#8B5CF6; --magenta:#E879F9;
+    --warmbg:#150D10; --warmpanel:#1E1214; --warmline:rgba(242,197,114,.14); --warmink:#F4E7D3; --warmmuted:#C4A68C; --warmgold:#F2C572;
+    --mono:"Noto Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:
+      radial-gradient(1000px 520px at 12% -140px, rgba(56,150,255,.10), rgba(56,150,255,0) 62%),
+      radial-gradient(760px 420px at 96% -80px, rgba(34,211,238,.05), rgba(34,211,238,0) 60%),
+      linear-gradient(180deg,#070D1D 0%,#060B18 460px,#050914 100%);
+    background-color:#050914;color:var(--ink);
+    font-family:"Avenir Next","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .num{font-variant-numeric:tabular-nums lining-nums;}
+  .page{position:relative;overflow:hidden;}
+  .gridfx{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(rgba(148,178,255,.028) 1px,transparent 1px),linear-gradient(90deg, rgba(148,178,255,.028) 1px,transparent 1px);
+    background-size:124px 124px;background-position:center 0;
+    -webkit-mask-image:linear-gradient(180deg,black 0px,transparent 1500px);mask-image:linear-gradient(180deg,black 0px,transparent 1500px);}
+  .grainfx{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;}
+  /* registration cross — the signature device */
+  .reg{position:absolute;width:15px;height:15px;pointer-events:none;opacity:.55;z-index:3;}
+  .reg::before,.reg::after{content:"";position:absolute;background:var(--cyan);}
+  .reg::before{left:7px;top:0;width:1px;height:15px;}
+  .reg::after{left:0;top:7px;width:15px;height:1px;}
+  .reg.tl{top:14px;left:14px;} .reg.tr{top:14px;right:14px;}
+  .reg.bl{bottom:14px;left:14px;} .reg.br{bottom:14px;right:14px;}
+  .reg.warm::before,.reg.warm::after{background:var(--warmgold);}
+  .callout{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;}
+  .callout b{color:var(--muted);font-weight:400;}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;display:flex;align-items:center;gap:14px;}
+  .eyebrow::after{content:"";height:1px;width:104px;background:linear-gradient(90deg,rgba(34,211,238,.5),transparent);}
+  /* header */
+  header.site{position:relative;z-index:5;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0)),#060D1F;}
+  header.site::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);}
+  .h-in{max-width:1240px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;gap:26px;}
+  .masthead{font-size:13.5px;font-weight:700;letter-spacing:.42em;color:var(--cyan);white-space:nowrap;}
+  nav.main{display:flex;gap:26px;font-size:14px;}
+  nav.main a{color:var(--muted);text-decoration:none;}
+  nav.main a.on{color:var(--ink);font-weight:600;}
+  .hsearch{flex:0 1 320px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);padding:8px 10px 8px 13px;margin-left:6px;}
+  .hsearch .ph{flex:1;font-size:13px;color:var(--faint);white-space:nowrap;overflow:hidden;}
+  .kbd{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;background:var(--panel);}
+  .h-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
+  .signin{height:44px;padding:0 18px;border:1px solid var(--line2);border-radius:10px;background:transparent;color:var(--ink);font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;}
+  .getbtn{height:44px;padding:0 18px;border-radius:10px;background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
+  .acctchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:5px 15px 5px 5px;background:var(--panel2);}
+  .acctchip .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#12325A,#0B1D38);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;position:relative;}
+  .acctchip .av .gdot{position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--panel2);}
+  .acctchip .an{font-size:13.5px;font-weight:600;line-height:1.15;}
+  .acctchip .ac{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;}
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:50px;padding:0 24px;border-radius:11px;font-size:16px;font-weight:700;border:1px solid transparent;cursor:pointer;white-space:nowrap;}
+  .btn-pri{background:linear-gradient(180deg,#3ADBF2,#1EC8E6);color:var(--cyan-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 26px rgba(34,211,238,.16);}
+  .btn-sec{background:transparent;border-color:var(--line2);color:var(--ink);font-weight:600;}
+  .btn-sec .gold{color:var(--gold);font-weight:700;}
+  .btn-ghost{color:var(--cyan);font-weight:600;height:46px;padding:0 10px;}
+  .btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  /* hero */
+  .hero{position:relative;padding:64px 0 8px;}
+  .hero svg.traces{position:absolute;right:-10px;top:0;height:430px;opacity:.07;pointer-events:none;}
+  h1.display{font-size:78px;line-height:.99;font-weight:700;letter-spacing:-.033em;margin-top:24px;max-width:920px;}
+  h1.display .thin{color:var(--muted);}
+  .lede{margin-top:22px;font-size:18px;line-height:1.62;color:var(--muted);max-width:640px;}
+  .lede b{color:var(--ink);font-weight:600;}
+  .tickrow{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font-size:13.5px;color:var(--muted);}
+  .tickrow span b{color:var(--cyan);font-weight:700;margin-right:6px;}
+  .proofline{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);flex-wrap:wrap;}
+  .proofline .stars{color:#00B67A;letter-spacing:2px;font-size:14.5px;}
+  .proofline b{color:var(--ink);font-weight:600;}
+  .proofline .dot{color:var(--faint);}
+  /* spec strip */
+  .specstrip{margin-top:34px;border-top:1px solid var(--line);display:flex;}
+  .specstrip div{flex:1;padding:18px 22px 4px;border-left:1px solid var(--line);min-width:0;}
+  .specstrip div:first-child{border-left:none;padding-left:2px;}
+  .specstrip .n{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1;white-space:nowrap;}
+  .specstrip .l{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:8px;line-height:1.5;}
+  .specstrip .n.goldn{color:var(--gold);}
+  /* sample draft panel */
+  .draft{position:relative;border:1px dashed rgba(148,178,255,.25);border-radius:14px;padding:20px 24px;background:rgba(6,11,24,.55);display:flex;gap:18px;align-items:center;}
+  .draft .playbtn{flex:0 0 auto;}
+  .draft .dt{font-size:16.5px;font-weight:700;letter-spacing:-.01em;line-height:1.35;}
+  .draft .ds{font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:3px;}
+  .draft .go{margin-left:auto;flex:0 0 auto;color:var(--cyan);font-weight:700;font-size:14.5px;white-space:nowrap;}
+  .playbtn{width:46px;height:46px;border-radius:50%;background:linear-gradient(180deg,#3ADBF2,#1EC8E6);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(34,211,238,.22);}
+  /* sections */
+  section.blk{padding:64px 0 4px;position:relative;}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:28px;flex-wrap:wrap;}
+  .sec-head .no{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.14em;}
+  .sec-head h2{font-size:29px;font-weight:700;letter-spacing:-.018em;}
+  .sec-head span{font-size:13.5px;color:var(--faint);}
+  .panel{position:relative;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:28px;}
+  .panel h4.ph{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:18px;display:flex;justify-content:space-between;gap:12px;}
+  /* cover system — one frame, per-book accent var + motif */
+  .cover{--acc:var(--cyan);position:relative;border-radius:12px;background:#081226;padding:14px;overflow:hidden;}
+  .cover .frame{border:2px solid #fff;border-radius:4px;padding:24px 16px 18px;position:relative;text-align:center;}
+  .cover .frame::before,.cover .frame::after{content:"";position:absolute;width:14px;height:14px;border:3px solid var(--acc);}
+  .cover .frame::before{top:-3px;left:-3px;border-right:none;border-bottom:none;}
+  .cover .frame::after{bottom:-3px;right:-3px;border-left:none;border-top:none;}
+  .cover .cnr{position:absolute;width:14px;height:14px;border:3px solid var(--acc);}
+  .cover .cnr.tr{top:-3px;right:-3px;border-left:none;border-bottom:none;}
+  .cover .cnr.bl{bottom:-3px;left:-3px;border-right:none;border-top:none;}
+  .cover .cb{font-size:8.5px;font-weight:700;letter-spacing:.42em;color:var(--acc);}
+  .cover .code{font-size:15px;font-weight:700;letter-spacing:.18em;color:var(--acc);margin-top:9px;}
+  .cover .ct{font-size:27px;font-weight:700;line-height:1.07;margin-top:4px;letter-spacing:-.01em;color:#fff;}
+  .cover .ctype{font-size:9px;font-weight:700;letter-spacing:.3em;color:var(--acc);margin-top:9px;}
+  .cover .div{width:34px;height:2px;background:var(--acc);margin:11px auto 8px;}
+  .cover .spec{font-size:8px;letter-spacing:.11em;color:#8CA0BE;line-height:1.5;}
+  .cover .motif{margin-top:11px;color:var(--acc);opacity:.85;display:flex;justify-content:center;}
+  .cover.warmbg{background:#170C0E;}
+  /* book card */
+  .card{min-width:0;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(148,178,255,.045),rgba(148,178,255,0) 46%),var(--panel);padding:15px;}
+  .card h3{font-size:16.5px;font-weight:700;letter-spacing:-.01em;margin:14px 2px 5px;color:var(--ink);}
+  .card .meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin:0 2px;line-height:1.6;}
+  .card .rowline{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap;}
+  .freetag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--green);border:1px solid rgba(62,207,142,.38);border-radius:999px;padding:5px 11px;text-transform:uppercase;}
+  .ltag{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);background:var(--panel2);border-radius:999px;padding:6px 12px;}
+  .bar{height:5px;border-radius:999px;background:rgba(148,178,255,.13);overflow:hidden;}
+  .bar i{display:block;height:100%;background:var(--cyan);border-radius:999px;}
+  .prog .plabel{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);margin-bottom:9px;flex-wrap:wrap;}
+  .prog .plabel b{color:var(--ink);font-weight:600;}
+  .ring{width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--cyan) 0 64%, rgba(148,178,255,.12) 64% 100%);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .ring span{width:43px;height:43px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+  .cbadge{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--gold);background:rgba(245,181,84,.10);border:1px solid rgba(245,181,84,.35);border-radius:999px;padding:6px 14px;display:inline-block;}
+  /* offer (board Sheet 05) */
+  .offer{position:relative;border:1px solid var(--line2);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0) 38%),var(--panel);box-shadow:0 24px 60px rgba(2,6,18,.5);overflow:hidden;}
+  .offer-grid{display:grid;grid-template-columns:1.35fr 1fr;}
+  .offer-l{padding:34px 36px;}
+  .offer-l h3{font-size:27px;font-weight:700;letter-spacing:-.018em;margin:12px 0 6px;}
+  .offer-l .tagline{font-size:15.5px;color:var(--muted);}
+  .offer-l .eyebrow::after{display:none;}
+  .inc{margin-top:22px;border-top:1px solid var(--line);}
+  .inc div{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--muted);line-height:1.5;}
+  .inc b{color:var(--ink);font-weight:600;}
+  .inc .ck{color:var(--green);font-weight:700;}
+  .offer-r{border-left:1px solid var(--line);padding:34px 36px;background:rgba(6,11,24,.35);display:flex;flex-direction:column;}
+  .offer-r .plabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:flex;justify-content:space-between;}
+  .offer-r .amt{font-size:58px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:16px 0 2px;white-space:nowrap;}
+  .offer-r .amt .gold{color:var(--gold);font-size:20px;font-weight:700;letter-spacing:-.01em;}
+  .offer-r .per{font-size:13.5px;color:var(--muted);line-height:1.55;}
+  .fineprint{font-size:12.5px;color:var(--faint);line-height:1.6;margin-top:14px;}
+  .proof{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:18px;font-size:13.5px;color:var(--muted);flex-wrap:wrap;}
+  .proof .stars{color:#00B67A;letter-spacing:2px;font-size:14px;}
+  .proof b{color:var(--ink);font-weight:600;}
+  /* faq */
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .faq .qa{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:22px 24px;}
+  .faq .q{font-size:16.5px;font-weight:700;letter-spacing:-.01em;display:flex;gap:12px;align-items:baseline;}
+  .faq .q .fno{font-family:var(--mono);font-size:10.5px;color:var(--cyan);letter-spacing:.12em;flex:0 0 auto;}
+  .faq .a{font-size:14.5px;color:var(--muted);line-height:1.62;margin-top:9px;}
+  .faq .a b{color:var(--ink);font-weight:600;}
+  /* footer */
+  footer.site{border-top:1px solid var(--line);margin-top:72px;padding:32px 0 108px;position:relative;}
+  footer.site .fcols{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;}
+  footer.site .col h5{font-size:13px;font-weight:700;margin-bottom:11px;}
+  footer.site .col a{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;text-decoration:none;}
+  footer.site .disc{font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px;margin-top:26px;}
+  /* ask bubble (fixed in production; absolute-bottom for the static render) */
+  .askbubble{position:absolute;right:26px;bottom:26px;width:58px;height:58px;border-radius:50%;background:var(--panel2);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px rgba(2,6,18,.55);z-index:6;}
+  .askbubble .dot{position:absolute;top:2px;right:2px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--panel);}
+  .figcap{position:absolute;right:24px;bottom:-6px;}
+
+  .crumb{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:30px;}
+  .bookhead{display:grid;grid-template-columns:330px 1fr;gap:38px;margin-top:22px;align-items:start;}
+  .bookhead .cover{padding:18px;}
+  .bookhead .cover .frame{padding:32px 18px 24px;}
+  .bookhead .cover .cb{font-size:10px;}
+  .bookhead .cover .code{font-size:19px;margin-top:12px;}
+  .bookhead .cover .ct{font-size:40px;}
+  .bookhead .cover .ctype{font-size:10.5px;margin-top:12px;}
+  .bookhead .cover .spec{font-size:9.5px;}
+  .bookhead .cover .motif svg{width:120px;height:50px;}
+  .bookhead h1{font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1;margin-top:16px;}
+  .bookgrid{display:grid;grid-template-columns:1fr 348px;gap:20px;margin-top:8px;align-items:start;}
+  .idx{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.04),rgba(148,178,255,0) 30%),var(--panel);overflow:hidden;position:relative;}
+  .idx-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;}
+  .idx-head .t{font-size:17px;font-weight:700;letter-spacing:-.01em;}
+  .irow{display:flex;align-items:center;gap:16px;padding:15px 24px;border-bottom:1px solid var(--line);}
+  .irow:last-child{border-bottom:none;}
+  .irow.free{background:rgba(56,150,255,.055);}
+  .irow .ttl{flex:1;min-width:0;}
+  .irow .ttl b{font-size:15.5px;font-weight:600;letter-spacing:-.005em;display:block;line-height:1.35;}
+  .irow .ttl .sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;color:var(--faint);text-transform:uppercase;margin-top:4px;}
+  .irow .st{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+  .chchip{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:8px;background:var(--azure);color:#081428;font-weight:700;font-size:13.5px;flex:0 0 auto;}
+  .chchip.start{background:var(--panel2);border:1px solid var(--line2);color:var(--cyan);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;}
+  .chchip.exam{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;}
+  .freetag2{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--green);border:1px solid rgba(62,207,142,.4);border-radius:999px;padding:5px 12px;text-transform:uppercase;}
+  .idxnote{padding:14px 24px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);line-height:1.55;}
+  .idxnote b{color:var(--ink);font-weight:600;}
+  .idxmore{padding:13px 24px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;border-bottom:1px solid var(--line);}
+  .examrow{background:linear-gradient(180deg,rgba(148,178,255,.06),rgba(148,178,255,0)),var(--panel2);}
+  .rail{display:flex;flex-direction:column;gap:16px;}
+  .offer-mini{border:1px solid var(--line2);border-radius:20px;background:linear-gradient(180deg,rgba(148,178,255,.05),rgba(148,178,255,0) 38%),var(--panel);padding:26px;position:relative;overflow:hidden;}
+  .offer-mini .amt{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:14px 0 2px;white-space:nowrap;}
+  .offer-mini .amt .gold{color:var(--gold);font-size:16.5px;font-weight:700;}
+  .ownerbox{border:1px dashed rgba(148,178,255,.28);border-radius:20px;background:rgba(6,11,24,.5);padding:24px 26px;position:relative;}
+  @media (max-width:760px){
+    .bookhead{grid-template-columns:1fr;}
+    .bookhead .cover{max-width:320px;}
+    .bookhead h1{font-size:42px;}
+    .bookgrid{grid-template-columns:1fr;}
+    .irow{padding:14px 18px;gap:12px;}
+    .examrow{flex-wrap:wrap;}
+    .examrow .ttl{flex:1 1 calc(100% - 96px);}
+    .examrow .st{order:3;width:100%;justify-content:flex-end;}
+    .idx-head{padding:18px;}
+  }
+
+  @media (max-width:760px){
+    .wrap{padding:0 18px;}
+    .h-in{padding:0 18px;gap:14px;height:60px;}
+    nav.main{display:none;} .hsearch{display:none;} .getbtn{display:none;}
+    .hero{padding:40px 0 4px;}
+    h1.display{font-size:44px;letter-spacing:-.028em;margin-top:18px;}
+    .lede{font-size:16.5px;margin-top:16px;}
+    .eyebrow::after{width:52px;}
+    .specstrip{margin-top:26px;flex-wrap:wrap;}
+    .specstrip div{flex:1 1 40%;padding:14px 12px 2px;}
+    .specstrip div:nth-child(3){border-left:none;padding-left:2px;}
+    .specstrip .n{font-size:27px;}
+    .specstrip .l{font-size:8.5px;}
+    section.blk{padding:46px 0 2px;}
+    .sec-head h2{font-size:24px;}
+    .sec-head span{display:none;}
+    .panel{padding:22px;}
+    .offer-grid{grid-template-columns:1fr;}
+    .offer-r{border-left:none;border-top:1px solid var(--line);}
+    .offer-l,.offer-r{padding:26px 22px;}
+    .offer-r .amt{font-size:48px;}
+    .faq{grid-template-columns:1fr;}
+    .draft{flex-wrap:wrap;padding:18px;}
+    .draft .go{margin-left:0;}
+    .btn{white-space:normal;text-align:center;}
+    .cover{padding:10px;}
+    .cover .frame{padding:16px 9px 12px;}
+    .cover .ct{font-size:17px;}
+    .cover .code{font-size:12.5px;margin-top:7px;}
+    .cover .cb{font-size:7.5px;}
+    .cover .ctype{font-size:8px;margin-top:7px;}
+    .cover .spec{font-size:7px;}
+    .cover .motif{margin-top:8px;}
+    .cover .motif svg{width:64px;height:27px;}
+    footer.site{margin-top:52px;}
+    .askbubble{right:16px;bottom:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="page"><div class="gridfx"></div><div class="grainfx"></div><header class="site"><div class="h-in"><div class="masthead">B Y T E B A R</div><nav class="main"><a class="on">Library</a><a class="">Simulator</a><a class="">Complete</a></nav><div class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8CA0BE" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg><span class="ph">Search a topic, exam, or code…</span><span class="kbd">/</span></div><div class="h-right"><span class="signin">Sign in</span><span class="getbtn">Get ByteBar Complete</span></div></div></header><div class="wrap">
+      <div class="crumb"><span class="callout">Library — CompTIA — <b>Security+ (SY0-701)</b></span><span class="callout">Sheet 03</span></div>
+      <div class="bookhead">
+        <div><div class="cover" style="--acc:#3896FF"><div class="frame"><i class="cnr tr"></i><i class="cnr bl"></i><div class="cb">B Y T E B A R</div><div class="code">SY0-701</div><div class="ct">Security+</div><div class="ctype">Complete Book</div><div class="div"></div><div class="spec">31 CHAPTERS · FINAL EXAM INCLUDED</div><div class="motif"><svg width="96" height="40" viewBox="0 0 96 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M48 3 L63 8.5 V20 C63 29.5 56.5 34.5 48 37.5 C39.5 34.5 33 29.5 33 20 V8.5 Z"/><path d="M48 9 V31" opacity=".45"/></svg></div></div></div><div class="callout" style="margin-top:12px;">Fig. — the book, as one sheet</div></div>
+        <div>
+          <div class="eyebrow">CompTIA Security+ · SY0-701</div>
+          <h1>Security+</h1>
+          <p class="lede" style="max-width:560px;">The complete Security+ book — every SY0-701 domain taught in plain English, in blueprint order, foundations first. The first chapter free, thirty chapters, then the final exam that proves it.</p>
+          <div class="specstrip num" style="margin-top:26px;">
+            <div><div class="n">31</div><div class="l">Chapters on the sheet</div></div>
+            <div><div class="n">7H 24M</div><div class="l">Total runtime</div></div>
+            <div><div class="n">5</div><div class="l">Domains, exam order</div></div>
+            <div><div class="n">1,000</div><div class="l">Final-exam questions</div></div>
+          </div>
+          <div class="btnrow" style="margin-top:26px;">
+            <span class="btn btn-pri"><svg width="17" height="17" viewBox="0 0 24 24" fill="#04202B"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg> Watch the first chapter — free</span>
+            <span class="btn btn-sec">Get ByteBar Complete — <span class="gold">$14.99</span></span>
+          </div>
+          <div class="proofline" style="margin-top:18px;"><span class="stars">★★★★★</span><span><b>Rated on Trustpilot</b></span><span class="dot">·</span><span>No card for the free chapter</span><span class="dot">·</span><span><b>$14.99 — everything</b>, one time</span></div>
+        </div>
+      </div>
+    </div><section class="blk" style="padding-top:44px;"><div class="wrap">
+      <div class="bookgrid">
+        <div class="idx">
+          <div class="idx-head"><span class="t">The sheet index — every chapter, in order</span><span class="callout">Fig. — Security+ SY0-701</span></div>
+          <div class="irow free"><span class="chchip start">Intro</span><div class="ttl"><b>How This Book Works: The Complete Book, Mapped</b><div class="sub">The map — five domains, one book · 3:14</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn" style="width:42px;height:42px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="#04202B"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></div><div class="idxnote">The first chapter is free — the real opening of this book, no card. <b>Chapters 1–30 unlock with ByteBar Complete.</b></div><div class="irow"><span class="chchip">CH 1</span><div class="ttl"><b>Security Foundations First: CIA, AAA &amp; Controls</b><div class="sub">Domain 1 · Concepts</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 2</span><div class="ttl"><b>Cryptography and PKI Made Simple</b><div class="sub">Domain 1 · Concepts</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 3</span><div class="ttl"><b>Symmetric vs Asymmetric Encryption</b><div class="sub">Domain 1 · Concepts</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 4</span><div class="ttl"><b>Who Signs Your Certificate? PKI's Chain of Trust</b><div class="sub">Domain 1 · Concepts</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 5</span><div class="ttl"><b>Zero Trust Explained: Trust Nothing</b><div class="sub">Domain 1 · Concepts</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 6</span><div class="ttl"><b>Threats &amp; Attack Vectors: Know Your Enemy</b><div class="sub">Domain 2 · Threats</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 7</span><div class="ttl"><b>How Hackers Actually Attack</b><div class="sub">Domain 2 · Threats</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="irow"><span class="chchip">CH 8</span><div class="ttl"><b>Spot Every Phish in 15 Seconds</b><div class="sub">Domain 2 · Threats</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span class="callout">Locked</span></div></div><div class="idxmore">Chapters 9–30 — in blueprint order</div><div class="irow examrow"><span class="chchip exam">Exam</span><div class="ttl"><b>The Final Exam — Security+ (SY0-701)</b><div class="sub">Sheet 31 — the final exam · 1,000 questions · readiness score</div></div><div class="st"><span class="callout" style="color:var(--cyan)">In the Simulator</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5D7092" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div></div>
+        </div>
+        <div class="rail">
+          <div class="offer-mini">
+            <i class="reg tl"></i><i class="reg br"></i>
+            <span class="cbadge">ByteBar Complete</span>
+            <div class="amt num">$14.99 <span class="gold">— everything</span></div>
+            <div class="per" style="font-size:13.5px;color:var(--muted);line-height:1.55;">One-time payment · No subscription · Yours forever</div>
+            <div class="inc" style="margin-top:18px;">
+              <div><span class="ck">✓</span><span><b>This book, unlocked</b> — all 31 chapters + the final exam</span></div>
+              <div><span class="ck">✓</span><span><b>Every other book too</b> — 17 books · 200+ chapters</span></div>
+              <div><span class="ck">✓</span><span><b>The Simulator</b> — 28 exams · 1,000 questions each</span></div>
+            </div>
+            <div style="height:18px"></div>
+            <span class="btn btn-pri" style="width:100%">Get ByteBar Complete</span>
+            <div class="fineprint">Unlocks the moment you check out — sign in anywhere with your checkout email. If it doesn't work as described, refunds are available for 14 days.</div>
+            <div class="proof"><span class="stars">★★★★★</span><span><b>Rated on Trustpilot</b></span></div>
+          </div>
+          <div class="ownerbox">
+            <span class="callout" style="color:var(--cyan)">Owners see</span>
+            <div style="display:flex;gap:16px;align-items:center;margin-top:16px;">
+              <div class="ring"><span>64%</span></div>
+              <div class="prog" style="flex:1;">
+                <div class="plabel"><b>Resume Ch 9 · 12 min left</b><span>Security+</span></div>
+                <div class="bar"><i style="width:64%"></i></div>
+              </div>
+            </div>
+            <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-top:14px;">Signed in, your place is kept for you — your progress, your resume point and the final exam, exactly where you left them.</p>
+          </div>
+        </div>
+      </div>
+    </div></section><footer class="site"><div class="wrap">
+      <div class="fcols">
+        <div class="col"><h5>Product</h5><a>Library</a><a>Simulator</a><a>ByteBar Complete</a></div>
+        <div class="col"><h5>Help</h5><a>FAQ</a><a>Contact</a></div>
+        <div class="col"><h5>Legal</h5><a>Privacy</a><a>Terms</a><a>Refunds</a></div>
+        <div class="col"><h5>Proof</h5><a>★★★★★ Rated on Trustpilot</a><a>28 exams · 1,000 questions each</a></div>
+      </div>
+      <div class="disc">ByteBar is an independent study resource and is not affiliated with CompTIA, Cisco, AWS, Microsoft, or any exam vendor. Privacy, Terms and Refunds are linked on every page.</div>
+    </div></footer><div class="askbubble"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.9"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.9A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4" stroke-linecap="round"/></svg><span class="dot"></span></div></div>
+</body>
+</html>
