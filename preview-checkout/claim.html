@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ByteBar — Claim your free Library</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="masthead">B Y T E B A R</div>
+    <div class="secure">
+      <svg width="13" height="15" viewBox="0 0 24 28" fill="none" stroke="#8CA0BE" stroke-width="2.4"><rect x="3" y="11" width="18" height="14" rx="2.5"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Owner claim
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="border-bottom:none;">
+  <div class="wrap hero-in" style="padding-bottom:20px;">
+    <div class="eyebrow">Already bought the Simulator?</div>
+    <h1>Your Library is free.</h1>
+    <p class="sub">You paid $9.99 for the Simulator — that's the full ByteBar Complete price. ByteBar is one offer now, so the Library unlocks for you at no charge. Prove ownership once, below, and both products live on your account from then on.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ============ STATE: granted ============ -->
+  <div id="state-granted" class="hidden">
+    <div class="owner" style="margin-top:6px;">
+      <div class="ocheck">✓</div>
+      <div>
+        <h3>Done — the Library is yours</h3>
+        <p>Both products are on this account now. <b>No payment was needed, and none ever will be for this.</b></p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="pcard">
+        <div class="p-eyebrow"><span class="eyebrow">The Library</span><span class="lvl owned">✓ Yours</span></div>
+        <h3>Every book. Every chapter.</h3>
+        <p class="p-sub">Complete video books in blueprint order — each ends in the simulator final exam you already own.</p>
+        <div class="pricerow">
+          <div class="price" style="font-size:14px;color:var(--muted);font-weight:550;">17 books · 200+ chapters</div>
+          <a class="cta" href="https://bytebarhq.com/library">Open the Library</a>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="p-eyebrow"><span class="eyebrow">The Simulator</span><span class="lvl owned">✓ Yours</span></div>
+        <h3>Practice like it's test day.</h3>
+        <p class="p-sub">All 28 exams, already unlocked — exactly as they were.</p>
+        <div class="pricerow">
+          <div class="price" style="font-size:14px;color:var(--muted);font-weight:550;">28 exams · yours forever</div>
+          <a class="cta ghost" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STATE: claim form ============ -->
+  <div id="state-form">
+    <div class="panel">
+      <h2>Fastest: your license key</h2>
+      <p class="fnote" style="margin-top:6px;">The key from your original Simulator purchase receipt. Enter it once — it's attached to your account for good.</p>
+      <div class="flabel">Email — the account to unlock</div>
+      <input class="finput" id="key-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+      <div class="flabel">License key</div>
+      <input class="finput" id="key-value" type="text" autocomplete="off" placeholder="BB19-…">
+      <div class="errbar" id="key-error"></div>
+      <div style="margin-top:20px;">
+        <button class="cta block" id="key-btn" type="button">Claim with my key</button>
+      </div>
+    </div>
+
+    <div class="divider">or</div>
+
+    <div class="panel">
+      <h2>Use the email you bought with</h2>
+      <p class="fnote" style="margin-top:6px;">We'll send that email a sign-in link. Tap it, come back to this page, and your Library unlocks — the tap is the proof the mailbox is yours.</p>
+      <div class="flabel">Purchase email</div>
+      <input class="finput" id="email-value" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+      <div class="okbar" id="email-ok">If that email matches a Simulator purchase, a sign-in link is on its way. Tap it, then return to this page.</div>
+      <div class="errbar" id="email-error"></div>
+      <div style="margin-top:20px;">
+        <button class="cta block" id="email-btn" type="button">Email me a sign-in link</button>
+      </div>
+    </div>
+
+    <div class="promise">
+      <svg width="17" height="19" viewBox="0 0 24 27" fill="none" stroke="#22D3EE" stroke-width="2"><path d="M12 2l8 3v6c0 5.2-3.4 9.4-8 11C7.4 20.4 4 16.2 4 11V5l8-3z"/><path d="M8.5 12l2.4 2.4L15.5 9.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><b>Nothing about your access changes either way.</b> Your Simulator keeps working exactly as it does today — this page only adds the Library. Stuck? Email <b>bytebarco@proton.me</b> with your purchase email and we'll attach it by hand.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site">
+  <div class="f-in">
+    <div class="brand">B Y T E B A R</div>
+    One account covers the Library and the Simulator, on any device.<br>
+    Questions? bytebarco@proton.me
+  </div>
+</footer>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPABASE_URL = "https://duutviqszajmmoskvdfy.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
+const CLAIM_URL_FN = SUPABASE_URL + "/functions/v1/claim-ownership";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const supa = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function showGranted() {
+  document.getElementById("state-form").classList.add("hidden");
+  document.getElementById("state-granted").classList.remove("hidden");
+}
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add("on");
+}
+
+// Arriving signed in (magic link from Path B, or an existing session):
+// the session itself is the mailbox proof — finalize the grant.
+async function finalizeIfSignedIn() {
+  const { data } = await supa.auth.getSession();
+  const session = data?.session;
+  if (!session) return;
+  try {
+    const res = await fetch(CLAIM_URL_FN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + session.access_token,
+        "apikey": SUPABASE_ANON_KEY,
+      },
+      body: JSON.stringify({ action: "finalize" }),
+    });
+    const out = await res.json();
+    if (out?.granted) showGranted();
+  } catch (e) { /* form below still works */ }
+}
+
+// Path A — license key
+document.getElementById("key-btn").addEventListener("click", async (ev) => {
+  const btn = ev.currentTarget;
+  const email = (document.getElementById("key-email").value || "").trim().toLowerCase();
+  const key = (document.getElementById("key-value").value || "").trim();
+  document.getElementById("key-error").classList.remove("on");
+  if (!EMAIL_RE.test(email)) { showErr("key-error", "Enter the email the unlock should land on."); return; }
+  if (!key) { showErr("key-error", "Enter your license key — it's on your original purchase receipt."); return; }
+  btn.disabled = true;
+  try {
+    const res = await fetch(CLAIM_URL_FN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "apikey": SUPABASE_ANON_KEY,
+      },
+      body: JSON.stringify({ action: "key", email, key }),
+    });
+    const out = await res.json().catch(() => null);
+    if (out?.granted) { showGranted(); return; }
+    if (out?.error === "key_claimed_other") {
+      showErr("key-error", "That key is already attached to a different email. Use the email you bought with (second option below), or email bytebarco@proton.me.");
+    } else if (out?.error === "invalid_key") {
+      showErr("key-error", "That key doesn't match our records — check it against your receipt and try again.");
+    } else {
+      showErr("key-error", "That didn't finish — try again, or email bytebarco@proton.me and we'll attach it by hand.");
+    }
+  } catch (e) {
+    showErr("key-error", "Something went wrong reaching us — try again in a moment.");
+  }
+  btn.disabled = false;
+});
+
+// Path B — purchase email
+document.getElementById("email-btn").addEventListener("click", async (ev) => {
+  const btn = ev.currentTarget;
+  const email = (document.getElementById("email-value").value || "").trim().toLowerCase();
+  document.getElementById("email-error").classList.remove("on");
+  if (!EMAIL_RE.test(email)) { showErr("email-error", "That email doesn't look right — check it and try again."); return; }
+  btn.disabled = true;
+  try {
+    await fetch(CLAIM_URL_FN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "apikey": SUPABASE_ANON_KEY,
+      },
+      body: JSON.stringify({ action: "email", email }),
+    });
+    // Same confirmation whether or not the email matched (by design).
+    document.getElementById("email-ok").classList.add("on");
+  } catch (e) {
+    showErr("email-error", "Something went wrong reaching us — try again in a moment.");
+  }
+  btn.disabled = false;
+});
+
+finalizeIfSignedIn();
+</script>
+
+</body>
+</html>

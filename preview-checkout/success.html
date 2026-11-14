@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ByteBar — You're in</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="masthead">B Y T E B A R</div>
+    <div class="secure" id="hdr-state">
+      <svg width="13" height="15" viewBox="0 0 24 28" fill="none" stroke="#8CA0BE" stroke-width="2.4"><rect x="3" y="11" width="18" height="14" rx="2.5"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Secure checkout
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ STATE: confirming (webhook not landed yet) ============ -->
+  <div id="state-confirming">
+    <div class="done-head">
+      <div class="spin"></div>
+      <div class="eyebrow">One moment</div>
+      <h1>Confirming your payment…</h1>
+      <p class="sub">Square has your payment — we're lighting up your account now. This usually takes a few seconds; don't close the page.</p>
+      <div class="orderline">ByteBar Complete &nbsp;·&nbsp; $9.99 &nbsp;·&nbsp; One-time</div>
+    </div>
+  </div>
+
+  <!-- ============ STATE: confirmed (mock 3-success) ============ -->
+  <div id="state-done" class="hidden">
+    <div class="done-head">
+      <div class="done-ring">✓</div>
+      <div class="eyebrow">Payment confirmed</div>
+      <h1>You're in.</h1>
+      <p class="sub">Everything is unlocked on your account. Your <b>receipt and a sign-in link</b> are on their way to <b id="buyer-email">your email</b> for your other devices.</p>
+      <div class="orderline">ByteBar Complete &nbsp;·&nbsp; $9.99 &nbsp;·&nbsp; One-time<span id="ref-line"></span></div>
+    </div>
+
+    <div class="stack">
+      <div class="pcard">
+        <div class="p-eyebrow"><span class="eyebrow">The Library</span><span class="lvl owned">✓ Yours</span></div>
+        <h3>Start with your book.</h3>
+        <p class="p-sub">Every book opens with a first chapter that teaches you how the whole book works — a few minutes that set up everything after it.</p>
+        <div class="pricerow">
+          <div class="price" style="font-size:14px;color:var(--muted);font-weight:550;">17 books · 200+ chapters</div>
+          <a class="cta" href="https://bytebarhq.com/library">Open the Library</a>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="p-eyebrow"><span class="eyebrow">The Simulator</span><span class="lvl owned">✓ Yours</span></div>
+        <h3>Or sit a final exam.</h3>
+        <p class="p-sub">All 28 exams are unlocked — full banks, timed sims, terminal tasks, and a readiness score after every run.</p>
+        <div class="pricerow">
+          <div class="price" style="font-size:14px;color:var(--muted);font-weight:550;">28 exams · 1,000 questions each</div>
+          <a class="cta" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pip">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8.5" fill="#12365A" stroke="#22D3EE" stroke-width="1.4"/><circle cx="9.2" cy="12" r="1.3" fill="#E9EFFA"/><circle cx="14.8" cy="12" r="1.3" fill="#E9EFFA"/><path d="M9 16c1 .9 2 1.3 3 1.3S14 16.9 15 16" stroke="#E9EFFA" stroke-width="1.4" stroke-linecap="round"/><path d="M12 4.5c0-1.4 1-2.3 2.4-2.5.1 1.3-.7 2.3-2 2.5" fill="#3ECF8E"/></svg>
+      <div>
+        <div class="pip-name">PIP · YOUR STUDY BUDDY</div>
+        <div class="pip-line">Nice — everything's yours. Most people watch one first chapter, then take that exam's first timed run to get a baseline. I'll keep your place in both.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STATE: fallback (webhook lagging) ============ -->
+  <div id="state-fallback" class="hidden">
+    <div class="done-head">
+      <div class="done-ring">✓</div>
+      <div class="eyebrow">Payment received</div>
+      <h1>Check your email.</h1>
+      <p class="sub">Your payment went through — your sign-in link is on its way to <b id="fallback-email">your email</b>. Tap it and everything unlocks: the Library and the Simulator, on this account, forever. If it isn't there in a few minutes, check spam — or email us at <b>bytebarco@proton.me</b> and we'll sort it.</p>
+      <div class="orderline">ByteBar Complete &nbsp;·&nbsp; $9.99 &nbsp;·&nbsp; One-time</div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site">
+  <div class="f-in">
+    <div class="brand">B Y T E B A R</div>
+    Yours forever — no subscription, ever. Need anything? bytebarco@proton.me<br>
+    Refunds: 14 days if anything's defective — the ByteBar promise.
+  </div>
+</footer>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+// Success page: poll entitlement-status with the checkout reference
+// until the webhook lands (normally seconds). The webhook — never the
+// payment response — is the grant, so this page renders "confirmed"
+// only when the ledger says completed. On lag it falls back to the
+// email copy instead of hanging (spec §3).
+const SUPABASE_URL = "https://duutviqszajmmoskvdfy.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
+const STATUS_URL = SUPABASE_URL + "/functions/v1/entitlement-status";
+const POLL_MS = 2500;
+const MAX_TRIES = 30; // ≈75 seconds, then the fallback state
+
+const params = new URLSearchParams(window.location.search);
+const ref = params.get("ref") || "";
+let email = "";
+try { email = sessionStorage.getItem("bb_checkout_email") || ""; } catch (e) {}
+if (email) {
+  document.getElementById("buyer-email").textContent = email;
+  document.getElementById("fallback-email").textContent = email;
+}
+if (ref) {
+  document.getElementById("ref-line").textContent =
+    " · Ref " + ref.replace(/[^a-zA-Z0-9]/g, "").slice(0, 8).toUpperCase();
+}
+
+function show(id) {
+  for (const s of ["state-confirming", "state-done", "state-fallback"]) {
+    document.getElementById(s).classList.toggle("hidden", s !== id);
+  }
+  if (id === "state-done") {
+    document.getElementById("hdr-state").innerHTML =
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg> Payment confirmed';
+  }
+}
+
+async function pollOnce() {
+  const res = await fetch(STATUS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+      "apikey": SUPABASE_ANON_KEY,
+    },
+    body: JSON.stringify({ reference_id: ref }),
+  });
+  return res.json();
+}
+
+async function run() {
+  if (!ref) {
+    // No reference (e.g. arrived via the email sign-in link): read the
+    // signed-in state instead.
+    const supa = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data } = await supa.auth.getSession();
+    if (data?.session) {
+      try {
+        const res = await fetch(STATUS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + data.session.access_token,
+            "apikey": SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({}),
+        });
+        const st = await res.json();
+        if (st && (st.owns_sim || st.owns_library)) { show("state-done"); return; }
+      } catch (e) {}
+    }
+    show("state-fallback");
+    return;
+  }
+  for (let i = 0; i < MAX_TRIES; i++) {
+    try {
+      const st = await pollOnce();
+      if (st && st.status === "completed" && (st.owns_sim || st.owns_library)) {
+        show("state-done");
+        return;
+      }
+      if (st && st.status === "refunded") {
+        show("state-fallback");
+        return;
+      }
+    } catch (e) { /* transient — keep polling */ }
+    await new Promise((r) => setTimeout(r, POLL_MS));
+  }
+  show("state-fallback");
+}
+
+run();
+</script>
+
+</body>
+</html>
