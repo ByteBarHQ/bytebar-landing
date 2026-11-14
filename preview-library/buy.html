@@ -250,6 +250,26 @@ a.irow.free:hover{background:#e2f1fb}
 .idxnote b{color:var(--navy)}
 .simlink{color:var(--cyan-d); font-weight:800; font-size:12px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap}
 @media(max-width:560px){.irow{padding:14px 16px; gap:11px} .idxnote{padding:13px 16px}}
+.acctcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow);
+  padding:24px 22px; margin-top:20px; scroll-margin-top:90px}
+.acctcard h3{font-size:16.5px; font-weight:800; color:var(--navy); margin:0 0 8px}
+.acctcard p{font-size:13.5px; color:var(--mut); line-height:1.55; margin:0}
+.acctcard p b{color:var(--navy)}
+.acct-form{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+.acct-form input{flex:1 1 190px; min-width:0; padding:12px 14px; border:1.5px solid var(--line); border-radius:12px;
+  font-size:14.5px; font-family:inherit; color:var(--ink); background:#fff}
+.acct-form input:focus{outline:2px solid var(--cyan); outline-offset:1px}
+.acct-status{font-size:13px; line-height:1.5; margin-top:10px}
+.acct-status:empty{margin-top:0}
+.acct-status.ok{color:var(--green-d); font-weight:700}
+.acct-status.err{color:#b3261e; font-weight:700}
+.acct-who{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:14px; color:var(--ink)}
+.acct-who .em{font-weight:800; color:var(--navy); word-break:break-all}
+.sbtn{display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:12px;
+  border:1.5px solid var(--line); background:#fff; color:var(--navy); font-weight:800; font-size:13px;
+  cursor:pointer; font-family:inherit}
+.sbtn:hover{background:#f3ecdb}
 
 /* ============ Buy sheet (preview set, live idiom) ============ */
 .buy-wrap{max-width:640px; margin:0 auto; padding:0 22px}

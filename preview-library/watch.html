@@ -250,6 +250,26 @@ a.irow.free:hover{background:#e2f1fb}
 .idxnote b{color:var(--navy)}
 .simlink{color:var(--cyan-d); font-weight:800; font-size:12px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap}
 @media(max-width:560px){.irow{padding:14px 16px; gap:11px} .idxnote{padding:13px 16px}}
+.acctcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow);
+  padding:24px 22px; margin-top:20px; scroll-margin-top:90px}
+.acctcard h3{font-size:16.5px; font-weight:800; color:var(--navy); margin:0 0 8px}
+.acctcard p{font-size:13.5px; color:var(--mut); line-height:1.55; margin:0}
+.acctcard p b{color:var(--navy)}
+.acct-form{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+.acct-form input{flex:1 1 190px; min-width:0; padding:12px 14px; border:1.5px solid var(--line); border-radius:12px;
+  font-size:14.5px; font-family:inherit; color:var(--ink); background:#fff}
+.acct-form input:focus{outline:2px solid var(--cyan); outline-offset:1px}
+.acct-status{font-size:13px; line-height:1.5; margin-top:10px}
+.acct-status:empty{margin-top:0}
+.acct-status.ok{color:var(--green-d); font-weight:700}
+.acct-status.err{color:#b3261e; font-weight:700}
+.acct-who{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:14px; color:var(--ink)}
+.acct-who .em{font-weight:800; color:var(--navy); word-break:break-all}
+.sbtn{display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:12px;
+  border:1.5px solid var(--line); background:#fff; color:var(--navy); font-weight:800; font-size:13px;
+  cursor:pointer; font-family:inherit}
+.sbtn:hover{background:#f3ecdb}
 
 /* ============ Watch page (preview set, live idiom) ============ */
 .watchsec{padding:6px 0 10px}
@@ -271,7 +291,14 @@ a.irow.free:hover{background:#e2f1fb}
   font-weight:800; letter-spacing:.12em; text-transform:uppercase}
 .backlink{display:inline-block; margin-top:20px; color:var(--cyan-d); text-decoration:none; font-size:14.5px; font-weight:700}
 .backlink:hover{text-decoration:underline}
-@media(max-width:560px){.wtitle{font-size:27px}}
+.ppanel{position:absolute; inset:0; display:flex; flex-direction:column; gap:14px; align-items:center; justify-content:center;
+  text-align:center; padding:24px; color:#b9cdf0}
+.ppanel h2{color:#fff; font-size:23px; line-height:1.25; letter-spacing:-.01em}
+.ppanel p{font-size:14.5px; line-height:1.6; max-width:450px}
+.ppanel .rowlinks{display:flex; gap:14px 18px; align-items:center; flex-wrap:wrap; justify-content:center}
+.ppanel a.txtlink{color:#7ee7f7; font-weight:700; text-decoration:none; font-size:14.5px}
+.ppanel a.txtlink:hover{text-decoration:underline}
+@media(max-width:560px){.wtitle{font-size:27px} .ppanel h2{font-size:20px}}
 </style>
 </head>
 
@@ -294,15 +321,33 @@ a.irow.free:hover{background:#e2f1fb}
 </nav>
 
 <div class="wrap"><section class="watchsec">
-  <div class="crumb"><span><a href="index.html">Library</a> · CompTIA · <a href="book-secplus.html"><b style="color:var(--navy)">Security+ (SY0-701)</b></a></span><span class="crumb-r">First chapter · Free</span></div>
-  <h1 class="wtitle">How This Book Works: The Complete Book, Mapped</h1>
-  <p class="wsub">The first chapter of the Security+ book — the whole map before Chapter 1: five domains, thirty chapters, and the final exam at the end. <span style="color:var(--navy); font-weight:700">3:14 · No card, no account.</span></p>
+  <div class="crumb"><span><a href="index.html">Library</a> · CompTIA · <a href="book-secplus.html"><b style="color:var(--navy)">Security+ (SY0-701)</b></a></span><span class="crumb-r" id="crumbR">First chapter · Free</span></div>
+  <h1 class="wtitle" id="wtitle">How This Book Works: The Complete Book, Mapped</h1>
+  <p class="wsub" id="wsub">The first chapter of the Security+ book — the whole map before Chapter 1: five domains, thirty chapters, and the final exam at the end. <span style="color:var(--navy); font-weight:700">3:14 · No card, no account.</span></p>
   <div class="pframe">
     <div class="pstate" id="pstate"><div>Connecting to the player…</div></div>
-    <iframe id="bbPlayer" title="Security+ — How This Book Works: The Complete Book, Mapped" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture" allowfullscreen="true" loading="lazy" style="display:none"></iframe>
+    <div class="ppanel" id="ppanel" style="display:none"></div>
+    <iframe id="bbPlayer" title="Security+ chapter player" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture" allowfullscreen="true" loading="lazy" style="display:none"></iframe>
   </div>
-  <div><span class="freetag">FIRST CHAPTER FREE</span></div>
-  <a class="nextcard" href="buy.html"><span class="chchip">CH 1</span><div class="ttl"><b>Up next: Security Foundations First: CIA, AAA &amp; Controls</b><div class="sub">Chapters 1–30 unlock with ByteBar Complete</div></div><div class="st"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+  <div id="wtag"><span class="freetag">FIRST CHAPTER FREE</span></div>
+  
+<div class="acctcard" id="acctCard">
+  <h3>Sign in to your library</h3>
+  <div id="acctOut">
+    <p><b>Already own ByteBar Complete?</b> Enter the email you checked out with and we’ll send you a sign-in link — no password. Signed in, every chapter your account owns opens right here.</p>
+    <form class="acct-form" id="acctForm">
+      <input type="email" id="acctEmail" placeholder="you@example.com" autocomplete="email" required>
+      <button class="btn btn-primary" type="submit">Email me a sign-in link</button>
+    </form>
+    <div class="acct-status" id="acctStatus"></div>
+  </div>
+  <div id="acctIn" style="display:none">
+    <div class="acct-who"><span>Signed in as <span class="em" id="acctWho"></span></span><button class="sbtn" id="acctOutBtn" type="button">Sign out</button></div>
+    <p style="margin-top:10px">You’re signed in on this device — chapters your account owns open right in the player.</p>
+  </div>
+</div>
+
+  <a class="nextcard" id="nextCard" href="buy.html"><span class="chchip" id="nextChip">CH 1</span><div class="ttl"><b id="nextTitle">Up next: Security Foundations First: CIA, AAA &amp; Controls</b><div class="sub" id="nextSub">Unlocks with ByteBar Complete</div></div><div class="st" id="nextSt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
   <a class="backlink" href="book-secplus.html">← Back to the chapter index</a>
 </section></div>
 
@@ -359,49 +404,280 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-/* Free-chapter player: ask the signing service for a fresh signed embed
-   link, then hand it to the Bunny player. The signing key never reaches
-   this page — the service checks, signs, and returns only the URL. */
+/* Account panel + shared session state (window.BB). Chapter rows on the
+   book page and the player on the watch page subscribe to session
+   changes; entitlement itself is checked by the signing service. */
+(function () {
+  var SB_URL = "https://duutviqszajmmoskvdfy.supabase.co";
+  var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
+  var PLAYBTN = "<span class=\"playbtn\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"#fff\"><path d=\"M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z\"/></svg></span>";
+  var LOCKHTML = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.1\"><rect x=\"4.5\" y=\"10.5\" width=\"15\" height=\"9.5\" rx=\"2\"/><path d=\"M8 10.5V7a4 4 0 0 1 8 0v3.5\"/></svg><span>Locked</span>";
+  var BB = window.BB = window.BB || {};
+  BB.session = null;
+  BB._known = false;
+  BB._subs = [];
+  BB.onSession = function (fn) {
+    BB._subs.push(fn);
+    if (BB._known) fn(BB.session);
+  };
+  function emit() {
+    BB._subs.forEach(function (f) { try { f(BB.session); } catch (e) {} });
+  }
+  BB.sb = null;
+  if (window.supabase && window.supabase.createClient) {
+    try { BB.sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { BB.sb = null; }
+  }
+  if (BB.sb) {
+    BB.sb.auth.getSession().then(function (r) {
+      BB.session = (r && r.data && r.data.session) || null;
+      BB._known = true;
+      emit();
+    });
+    BB.sb.auth.onAuthStateChange(function (_evt, s) {
+      BB.session = s || null;
+      BB._known = true;
+      emit();
+    });
+  } else {
+    BB._known = true;
+  }
+
+  function paint(session) {
+    var out = document.getElementById("acctOut");
+    var inn = document.getElementById("acctIn");
+    if (out && inn) {
+      if (session && session.user) {
+        document.getElementById("acctWho").textContent = session.user.email || "";
+        out.style.display = "none";
+        inn.style.display = "block";
+      } else {
+        out.style.display = "block";
+        inn.style.display = "none";
+      }
+    }
+    document.querySelectorAll(".chrow").forEach(function (row) {
+      var st = row.querySelector(".chst");
+      if (session) {
+        row.setAttribute("href", "watch.html?chapter=" + row.getAttribute("data-ch"));
+        if (st) st.innerHTML = PLAYBTN;
+      } else {
+        row.setAttribute("href", "buy.html");
+        if (st) st.innerHTML = LOCKHTML;
+      }
+    });
+  }
+  BB.onSession(paint);
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("acctForm");
+    if (form) {
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var status = document.getElementById("acctStatus");
+        var email = document.getElementById("acctEmail").value.trim();
+        if (!BB.sb) {
+          status.className = "acct-status err";
+          status.textContent = "Sign-in isn’t reachable right now — please try again in a moment.";
+          return;
+        }
+        status.className = "acct-status";
+        status.textContent = "Sending your sign-in link…";
+        BB.sb.auth.signInWithOtp({
+          email: email,
+          options: { emailRedirectTo: window.location.href }
+        }).then(function (r) {
+          if (r.error) {
+            status.className = "acct-status err";
+            status.textContent = "That email didn’t go through — check the address and try again.";
+          } else {
+            status.className = "acct-status ok";
+            status.textContent = "Link sent — check " + email + " and tap the sign-in link in that email.";
+          }
+        });
+      });
+    }
+    var outBtn = document.getElementById("acctOutBtn");
+    if (outBtn) {
+      outBtn.addEventListener("click", function () {
+        if (BB.sb) BB.sb.auth.signOut();
+      });
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* Chapter player. Reads ?chapter=N (0-30), then asks the signing service
+   for a signed embed link for that chapter: signed-in visitors send
+   their session, everyone else sends the public key. The service
+   decides who may watch — this page only renders its answer: the
+   player (200), the ByteBar Complete panel (403), or a plain
+   not-available note (404). */
 (function () {
   var SIGN_URL = "https://duutviqszajmmoskvdfy.supabase.co/functions/v1/library-sign-url";
   var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
+  var META = {"0": {"t": "How This Book Works: The Complete Book, Mapped", "r": "3:14"}, "1": {"t": "Security Foundations First: CIA, AAA & Controls", "r": "15:57"}, "2": {"t": "Cryptography and PKI Made Simple", "r": "12:52"}, "3": {"t": "Symmetric vs Asymmetric Encryption", "r": "6:53"}, "4": {"t": "Who Signs Your Certificate? PKI's Chain of Trust", "r": "8:00"}, "5": {"t": "Zero Trust Explained: Trust Nothing", "r": "10:20"}, "6": {"t": "Threats & Attack Vectors: Know Your Enemy", "r": "11:51"}, "7": {"t": "How Hackers Actually Attack", "r": "9:42"}, "8": {"t": "Spot Every Phish in 15 Seconds", "r": "8:06"}, "9": {"t": "Malware Types Explained: Trojans, Worms, RATs", "r": "11:18"}, "10": {"t": "Security Architecture: Zero Trust & Segmentation", "r": "9:27"}, "11": {"t": "Firewalls, IDS & VPNs: The Security+ Trio", "r": "11:43"}, "12": {"t": "That Free WiFi Is a Trap (WPA2 vs WPA3)", "r": "9:32"}, "13": {"t": "DLP Caught This File Mid-Transfer", "r": "9:40"}, "14": {"t": "Security Operations: The SOC's Whole Map", "r": "14:48"}, "15": {"t": "IAM: The Access Mistakes Security+ Loves", "r": "10:53"}, "16": {"t": "Kerberos, LDAP, SAML & OAuth Explained", "r": "8:04"}, "17": {"t": "Think Like a SOC Analyst", "r": "9:36"}, "18": {"t": "Incident Response: The Order Security+ Tests", "r": "8:22"}, "19": {"t": "Ransomware: How One Click Owns Your Network", "r": "8:57"}, "20": {"t": "Governance Decoded: Risk, Audits & Accountability", "r": "18:38"}, "21": {"t": "Risk: The Security+ Math Nobody Practices", "r": "11:59"}, "22": {"t": "A $20 USB Stick Beats a $2M Firewall", "r": "13:44"}, "23": {"t": "A Scan Lists Doors. A Pen Test Opens Them.", "r": "14:37"}, "24": {"t": "Policy vs Standard: Who Actually Signs What?", "r": "17:00"}, "25": {"t": "Claims Don\u2019t Pass. Evidence Does.", "r": "16:43"}, "26": {"t": "Your Vendor Is Your Attack Surface", "r": "15:50"}, "27": {"t": "Your Default Install Is an Open Door", "r": "16:20"}, "28": {"t": "10 Tools the Security+ Exam Wants You to Confuse", "r": "17:39"}, "29": {"t": "The Phish Worked Because Training Didn\u2019t", "r": "17:16"}, "30": {"t": "Change Management: Stop the 2 AM Outage", "r": "17:22"}};
+  var SIM_URL = "https://sim.bytebarhq.com/";
+  var PLAYBTN = "<span class=\"playbtn\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"#fff\"><path d=\"M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z\"/></svg></span>";
+  var LOCKHTML = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.1\"><rect x=\"4.5\" y=\"10.5\" width=\"15\" height=\"9.5\" rx=\"2\"/><path d=\"M8 10.5V7a4 4 0 0 1 8 0v3.5\"/></svg><span>Locked</span>";
+
+  var params = new URLSearchParams(window.location.search);
+  var raw = params.get("chapter");
+  var n = raw === null ? 0 : parseInt(raw, 10);
+  var valid = !isNaN(n) && n >= 0 && n <= 30 && !!META[n];
+
   var frame = document.getElementById("bbPlayer");
   var state = document.getElementById("pstate");
+  var panel = document.getElementById("ppanel");
+  var mode = "idle";
+
+  function showState(html) {
+    panel.style.display = "none";
+    frame.style.display = "none";
+    state.style.display = "flex";
+    state.innerHTML = html;
+  }
+  function showPanel(html) {
+    state.style.display = "none";
+    frame.style.display = "none";
+    panel.innerHTML = html;
+    panel.style.display = "flex";
+  }
+  function showPlayer(url) {
+    state.style.display = "none";
+    panel.style.display = "none";
+    frame.src = url;
+    frame.style.display = "block";
+  }
 
   function fail() {
-    state.style.display = "flex";
-    frame.style.display = "none";
-    state.innerHTML = "<div>Couldn’t load this video</div>" +
-      '<button class="btn btn-primary" id="retryBtn" type="button">Try again</button>';
-    document.getElementById("retryBtn").addEventListener("click", load);
+    mode = "error";
+    showState("<div>Couldn’t load this video</div>" +
+      '<button class="btn btn-primary" id="retryBtn" type="button">Try again</button>');
+    document.getElementById("retryBtn").addEventListener("click", function () {
+      mode = "idle";
+      load();
+    });
+  }
+
+  function showComplete() {
+    mode = "locked";
+    showPanel("<h2>This chapter comes with ByteBar Complete</h2>" +
+      "<p>Owners watch every chapter of this book — and every other book in the Library, plus the full Simulator — for <b style='color:#fff'>$9.99, one time</b>. No subscription, yours forever.</p>" +
+      '<a class="btn btn-gold btn-lg" href="buy.html">Get ByteBar Complete — $9.99</a>' +
+      "<p style='font-size:13px'>Already own it? Sign in below with your purchase email and this chapter opens.</p>");
+  }
+
+  function showNA() {
+    mode = "na";
+    showPanel("<h2>This chapter isn’t available yet</h2>" +
+      "<p>It hasn’t been added to this book’s shelf yet. The first chapter is free to watch — start there, or browse the full chapter index.</p>" +
+      '<div class="rowlinks"><a class="btn btn-primary" href="watch.html">Watch the free first chapter</a>' +
+      '<a class="txtlink" href="book-secplus.html">See the chapter index →</a></div>');
+  }
+
+  function bearer() {
+    var s = window.BB && window.BB.session;
+    return (s && s.access_token) || ANON_KEY;
   }
 
   function load() {
-    state.style.display = "flex";
-    state.innerHTML = "<div>Connecting to the player…</div>";
+    mode = "loading";
+    showState("<div>Connecting to the player…</div>");
     fetch(SIGN_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + ANON_KEY,
+        "Authorization": "Bearer " + bearer(),
         "apikey": ANON_KEY
       },
-      body: JSON.stringify({ book: "secplus", chapter: 0, videoId: "5b4c8375-31ed-468f-8b7b-74e8eedbcd02" })
+      body: JSON.stringify({ book: "secplus", chapter: n })
     }).then(function (res) {
-      return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+      return res.json().then(function (data) {
+        return { status: res.status, data: data };
+      });
     }).then(function (r) {
-      if (r.ok && r.data && r.data.url) {
-        frame.src = r.data.url;
-        frame.style.display = "block";
-        state.style.display = "none";
+      if (r.status === 200 && r.data && r.data.url) {
+        mode = "playing";
+        showPlayer(r.data.url);
+      } else if (r.status === 403) {
+        showComplete();
+      } else if (r.status === 404) {
+        showNA();
       } else {
         fail();
       }
     }).catch(fail);
   }
 
-  load();
+  function paintNext(session) {
+    var card = document.getElementById("nextCard");
+    if (!valid) {
+      card.style.display = "none";
+      return;
+    }
+    var chip = document.getElementById("nextChip");
+    var ttl = document.getElementById("nextTitle");
+    var sub = document.getElementById("nextSub");
+    var st = document.getElementById("nextSt");
+    if (n >= 30) {
+      card.setAttribute("href", SIM_URL);
+      chip.className = "chchip exam";
+      chip.textContent = "Exam";
+      ttl.textContent = "The Final Exam — Security+ (SY0-701)";
+      sub.textContent = "The final exam · 1,000 questions · readiness score";
+      st.innerHTML = '<span class="simlink">In the Simulator →</span>';
+      return;
+    }
+    var m = n + 1;
+    chip.className = "chchip";
+    chip.textContent = "CH " + m;
+    ttl.textContent = "Up next: " + META[m].t;
+    if (session) {
+      card.setAttribute("href", "watch.html?chapter=" + m);
+      sub.textContent = "Chapter " + m + " · " + META[m].r;
+      st.innerHTML = PLAYBTN;
+    } else {
+      card.setAttribute("href", "buy.html");
+      sub.textContent = "Unlocks with ByteBar Complete";
+      st.innerHTML = LOCKHTML;
+    }
+  }
+
+  /* Headings for the requested chapter. */
+  if (valid) {
+    document.getElementById("wtitle").textContent = META[n].t;
+    document.title = META[n].t + " — Security+ (SY0-701) · ByteBar Library";
+    document.getElementById("crumbR").textContent =
+      n === 0 ? "First chapter · Free" : "Chapter " + n + " of 30";
+    if (n > 0) {
+      document.getElementById("wsub").innerHTML =
+        "Chapter " + n + " of 30 in the Security+ (SY0-701) book, taught in blueprint order. " +
+        "<span style='color:var(--navy); font-weight:700'>" + META[n].r + " · Part of ByteBar Complete.</span>";
+      document.getElementById("wtag").innerHTML =
+        '<span class="micro">Chapter ' + n + " of 30 · Security+ (SY0-701)</span>";
+    }
+  } else {
+    document.getElementById("wtitle").textContent = "Chapter not available";
+    document.getElementById("wsub").textContent =
+      "That link doesn’t point at a chapter in this book. Start with the free first chapter, or browse the full chapter index.";
+    document.getElementById("crumbR").textContent = "Security+ (SY0-701)";
+    document.getElementById("wtag").innerHTML = "";
+  }
+
+  if (window.BB && BB.onSession) {
+    BB.onSession(function (session) {
+      paintNext(session);
+      if (valid && (mode === "idle" || mode === "locked")) load();
+    });
+  } else {
+    paintNext(null);
+    if (valid) load();
+  }
+  if (!valid) showNA();
 })();
 </script>
 
