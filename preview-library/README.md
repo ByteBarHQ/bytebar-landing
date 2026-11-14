@@ -48,6 +48,18 @@ book/watch/buy are generated from live-idiom templates in
 `build_preview.py`. The v2 sources in
 `hidden_files/site-overhaul-2026-11-12/` are untouched.
 
+## Share card (2026-11-14 polish)
+
+The set's og:image is its own asset, `og-image.png` — the framed
+BYTEBAR / IT Exam Prep brand card, polished per Cori's screenshot
+notes: content block measured and centered in the frame, the stray
+rule under the wordmark removed (the accent divider now sits between
+the product-type line and the spec line), the "bytebarhq.com" line
+replaced by the spec line "VIDEO BOOKS · FIRST CHAPTER FREE IN EVERY
+BOOK", and the circuit traces masked out of the type zone. Built by
+`build_og_card.py` (the root `/og-image.png` that fronts the live
+homepage is a separate file and is untouched).
+
 ## How the signing works
 
 Bunny library **809286** ("ByteBar Library") has Embed view token
