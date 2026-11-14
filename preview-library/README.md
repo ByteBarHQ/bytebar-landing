@@ -1,5 +1,20 @@
 # ByteBar Library — production-wiring preview (STAGED, not live)
 
+> **PROMOTED TO LIVE 2026-11-14** (Cori: "wire this up overall, sim
+> and library"). `build_preview.py` now takes a target: `live` emits
+> the same four pages without `noindex` into `live-dist/`, and
+> `deploy_live.py` publishes them to `bytebarhq.com/library/` in one
+> commit with the homepage (which gained a Library section; its nav
+> already linked `/library/`). The live home also carries a Simulator
+> door under the price card ("Practice Exam Simulator — included with
+> ByteBar Complete"), added by the builder for both targets. The
+> homepage received a full tidy pass in the same launch (Library-first
+> nav order, ByteBar Complete naming on purchase CTAs, YouTube
+> link/framing removed). This preview tree stays up, untouched, as the
+> review surface. `/library/index.html` previously served the
+> simulator's exam index; the per-exam pages under `/library/` are
+> unchanged.
+
 The customer path of the owned library, wired end to end. **Preview
 only**: these pages deploy to `bytebarhq.com/preview-library/`, carry
 `noindex`, and are not linked from any live page. The live `/library`,
