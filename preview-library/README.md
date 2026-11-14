@@ -1,27 +1,52 @@
 # ByteBar Library — production-wiring preview (STAGED, not live)
 
-The first end-to-end proof of the owned library's customer path, built
-2026-11-14 from the approved surfaces. **Preview only**: these pages deploy
-to `bytebarhq.com/preview-library/`, carry `noindex`, and are not linked
-from any live page. The live `/library`, homepage, and simulator are
-untouched.
+The customer path of the owned library, wired end to end. **Preview
+only**: these pages deploy to `bytebarhq.com/preview-library/`, carry
+`noindex`, and are not linked from any live page. The live `/library`,
+homepage, and simulator are untouched.
 
 ## The tap-through
 
 1. `index.html` — the approved library home ("Find your book"). The
-   Security+ card is wired: its name opens the book page, **Watch free**
-   opens the player.
+   Security+ card is wired: cover and name open the book page, **Watch
+   free** opens the player. Every "Get ByteBar Complete" goes to the buy
+   sheet. The other books' cards keep their approved state (Watch free →
+   the "Sample the real thing" section), and that section now carries
+   real links: the Security+ first chapter, the simulator, the buy sheet.
 2. `book-secplus.html` — the Security+ book page with the **full
    31-chapter index**: the first chapter free and playable, Chapters 1–30
-   shown locked under ByteBar Complete framing, the Final Exam row seating
-   into the Simulator.
+   locked — each locked row leads to the buy sheet — and the Final Exam
+   row seating into the Simulator. Chapter titles are the book's real
+   titles (from `scripts/secplus/*.narr.json`); total runtime is the
+   measured 6H 17M of the banked chapters.
 3. `watch.html` — the free first chapter's player. On load it asks the
-   signing service for a fresh signed Bunny embed URL and hands it to the
-   player iframe. Nothing unsigned is ever embedded (Bunny's token
-   authentication would refuse it anyway).
-4. `buy.html` — the approved ByteBar Complete checkout surface, $9.99.
-   Design only until the Square checkout build
-   (`~/workspace/your_files/bytebar-square-checkout-spec-20261111.md`) lands.
+   signing service for a fresh signed Bunny embed URL and hands it to
+   the player iframe. Nothing unsigned is ever embedded (Bunny's token
+   authentication would refuse it anyway). The "Up next" card leads to
+   the buy sheet; the back link returns to the chapter index.
+4. `buy.html` — the ByteBar Complete sheet, $9.99. Until the Square
+   checkout build (`~/workspace/your_files/bytebar-square-checkout-spec-20261111.md`)
+   lands, the sheet carries no fake card fields: its one action,
+   "Continue to secure checkout", hands off to the simulator storefront,
+   where Complete is actually sold at $9.99 today — the same destination
+   the approved library home's price card used. The Square build swaps
+   the handoff for native fields on this same sheet.
+
+## Finish pass (2026-11-14, Cori: "needs a little clean up so it doesn't
+feel like a mock")
+
+The first build mixed two design systems: the home in the live site's
+clothes, the book/watch/buy pages in the shelved v2 dark system — a
+different header, footer, and buttons, dead footer links (FAQ / Contact
+/ Privacy / Terms / Refunds with no href), an inert header search and
+Sign-in span, inert locked chapter rows, an unverified five-star
+Trustpilot claim, a wrong total runtime (7H 24M), four chapter titles
+that weren't the chapters' real titles, no meta descriptions, and no
+favicon. All four pages are now built on the one live system (the
+builder extracts the library home's stylesheet as the shared core);
+book/watch/buy are generated from live-idiom templates in
+`build_preview.py`. The v2 sources in
+`hidden_files/site-overhaul-2026-11-12/` are untouched.
 
 ## How the signing works
 
@@ -35,23 +60,15 @@ catalog (the free first chapter mints for anyone; paid chapters will
 require the account's Pro flag — the simulator's existing entitlement,
 grandfathered), and returns only the signed URL.
 
-## What stands between this preview and a playing chapter
-
-Two steps, both in human hands (see the function's `DEPLOY.md`):
-
-1. **Deploy** `library-sign-url` to the Supabase project
-   (`duutviqszajmmoskvdfy`) — dashboard paste or `supabase functions deploy`.
-2. **Paste the Bunny token authentication key** into the function's
-   secrets as `BUNNY_TOKEN_AUTH_KEY` (Bunny dashboard → ByteBar Library →
-   Security → General → "Token authentication key").
-
-Until both land, `watch.html` shows its designed "Couldn't load this
-video" state — that is the honest preview state, not a bug.
+**Status: LIVE.** The function is deployed and `BUNNY_TOKEN_AUTH_KEY` is
+set (both done 2026-11-14 with Cori's approval); the preview player
+plays the free chapter end to end, verified live 2026-11-14.
 
 ## Rebuild / redeploy
 
-- `python3 build_preview.py` — regenerates the four pages from the
-  approved sources in `hidden_files/site-overhaul-2026-11-12/`.
+- `python3 build_preview.py` — regenerates the four pages (index from
+  the approved `library-live.html` source; book/watch/buy from the
+  live-idiom templates in the builder, sharing that source's CSS).
 - `python3 deploy_preview.py` — pushes this folder's pages to
   `ByteBarHQ/bytebar-landing` at `preview-library/` via the Git Data API
   (the same route the TikTok poster uses for staging) and verifies the
