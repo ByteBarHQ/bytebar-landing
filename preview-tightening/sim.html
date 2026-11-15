@@ -5299,11 +5299,18 @@ function renderResumeBanner(){
   const r=getResume(); if(!r) return;
   const exam=EXAMS.find(e=>e.slug===r.slug);
   const label=r.mode==="sim" ? "simulation" : (r.mode==="custom" ? "custom quiz" : "practice");
-  let sub;
+  /* Progress stated plainly (audit P1-6): how many of the set are
+     answered, and which question you're on — no bare percentages.
+     Only signed-in users ever see this banner (getResume gates it). */
+  const total=r.bank.length;
+  const answeredCount=(r.mode==="sim"||(r.mode==="custom"&&r.timed))
+    ? (r.answers||[]).filter(a=>a!==null&&a!==undefined).length
+    : r.bank.filter(q=>q.__res).length;
+  let sub=answeredCount+" of "+total+" answered · on question "+(r.idx+1)+" of "+total;
   if(r.mode==="sim"){
     const ms=Math.max(0,r.deadline-Date.now());
-    sub="Q "+(r.idx+1)+" of "+r.bank.length+" · "+Math.floor(ms/60000)+":"+String(Math.floor(ms%60000/1000)).padStart(2,"0")+" left";
-  } else sub="Q "+(r.idx+1)+" of "+r.bank.length+" · untimed";
+    sub+=" · "+Math.floor(ms/60000)+":"+String(Math.floor(ms%60000/1000)).padStart(2,"0")+" left";
+  } else if(!(r.mode==="custom"&&r.timed)) sub+=" · untimed";
   const bar=document.createElement("div"); bar.className="resumebar";
   bar.innerHTML='<div class="ri">⏯</div><div class="rt"><b>Resume your '+exam.code+' '+label+'</b><span>'+sub+' — pick up right where you left off.</span></div>';
   const go=document.createElement("button"); go.className="btn"; go.textContent="Resume";
@@ -5457,6 +5464,7 @@ async function startPractice(slug){
   if(!(examFormat(slug).types.indexOf("terminal")!==-1)){
     try{ await ensureBank(slug); }catch(e){ if(window.BB&&BB.toast) BB.toast("Could not load questions \u2014 check your connection and try again."); return; }
   }
+  clearResume(); /* the mode door is the one fresh start: it replaces any saved session */
   const bank=buildPracticeBank(slug);
   S={mode:"practice",exam,bank,idx:0,score:0,misses:[],answered:false,t0:Date.now()};
   document.documentElement.style.setProperty("--qacc",exam.accent);
@@ -5618,6 +5626,7 @@ $("brief-start").addEventListener("click",async ()=>{
     try{ await ensureBank(curExam.slug); }catch(e){ if(window.BB&&BB.toast) BB.toast("Could not load questions \u2014 check your connection and try again."); return; }
   }
   if(fmt.types.indexOf("cat")!==-1){ startCAT(curExam.slug); return; }
+  clearResume(); /* fresh start from the Begin door replaces any saved session */
   const bank=buildSimBank(curExam.slug);
   S={mode:"sim",exam:curExam,bank,idx:0,score:0,misses:[],answers:new Array(bank.length).fill(null),
      flags:new Array(bank.length).fill(false),t0:Date.now(),submitted:false,
@@ -5890,7 +5899,7 @@ function renderQ(){
     const opts=box.children;
     opts[q.answer].classList.add("correct");
     if(q.__res==="wrong"){
-      const miss=S.misses.find(m=>m.q===q);
+      const miss=S.misses.find(m=>m.q===q||(typeof m.mi==="number"&&m.mi===S.idx));
       if(miss && opts[miss.picked]) opts[miss.picked].classList.add("wrong");
     }
     showExplanation(q, q.__res==="right");
@@ -5934,7 +5943,7 @@ function renderMulti(q,box){
       const opts=box.querySelectorAll(".opt");
       q.answers.forEach(a=>opts[a].classList.add("correct"));
       if(q.__res==="wrong"||q.__res==="partial"){
-        const miss=S.misses.find(m=>m.q===q);
+        const miss=S.misses.find(m=>m.q===q||(typeof m.mi==="number"&&m.mi===S.idx));
         (miss&&miss.picked||[]).forEach(p=>{ if(opts[p]&&q.answers.indexOf(p)===-1) opts[p].classList.add("wrong"); });
       }
       showExplanationMS(q, q.__res==="right", q.__res==="partial");
@@ -6000,7 +6009,7 @@ function showExplanationMS(q, wasRight, partial){
   if(wasRight){
     head='<div class="exhead"><span class="mascot">'+mascotSVG("happy",42)+'</span><span class="exic">✓</span> Correct — nice work</div>';
   } else if(partial){
-    const miss=(typeof S!=="undefined"&&S&&S.misses)?S.misses.find(m=>m.q===q):null;
+    const miss=(typeof S!=="undefined"&&S&&S.misses)?S.misses.find(m=>m.q===q||(typeof m.mi==="number"&&m.mi===S.idx)):null;
     const pk=q.__resPicked||(miss&&miss.picked)||[];
     head='<div class="exhead"><span class="mascot">'+mascotSVG("encourage",42)+'</span><span class="exic">◐</span> Partial — '+msEarned(q,pk)+' of '+(q.answers||[]).length+'</div>';
   } else {
@@ -7752,12 +7761,15 @@ function saveResume(){
   if(!S||S.submitted) return;
   if(S.mode==="cat") return; /* CAT sessions are forward-only; finish in one sitting */
   if(S.mode==="deck") return; /* deck progress saves per-answer in the deck store, never as a resume */
+  if(!currentUser()) return; /* Resume is account-gated (Cori 2026-11-15):
+     a free account counts, but guests never persist a resumable
+     session — a guest always starts fresh. */
   try{
     const data={mode:S.mode, slug:S.exam.slug, idx:S.idx, t0:S.t0, score:S.score,
-      misses:S.misses, answers:S.answers||null, flags:S.flags||null, strikes:S.strikes||null, timed:!!S.timed,
+      misses:(S.misses||[]).map(m=>({q:m.q, picked:(m.picked===undefined?null:m.picked), terminal:m.terminal?true:undefined, mi:S.bank.indexOf(m.q)})), answers:S.answers||null, flags:S.flags||null, strikes:S.strikes||null, timed:!!S.timed, streak:S.streak||0, bestStreak:S.bestStreak||0, xpEarned:S.xpEarned||0,
       minutes:S.minutes||0,
       bank:S.bank.map(q=>({q:q.q||q.task||"",options:q.options||null,answer:(q.answer!=null?q.answer:null),
-        answers:q.answers||null,sata:q.sata||null,explain:q.explain,domain:q.domain,__res:q.__res||null,
+        answers:q.answers||null,sata:q.sata||null,explain:q.explain,domain:q.domain,__res:q.__res||null,__resScore:(typeof q.__resScore==="number"?q.__resScore:null),__resPicked:q.__resPicked||null,
         caseId:q.caseId||null,caseOrd:q.caseOrd||null,caseN:q.caseN||null,caseTitle:q.caseTitle||null,scenario:q.scenario||null,
         kind:q.kind||"mcq",task:q.task||null,ctx:q.ctx||null,accept:q.accept||null,
         hints:q.hints||null,solution:q.solution||null,_revealed:!!q._revealed,_lastInput:q._lastInput||null})),
@@ -7767,6 +7779,10 @@ function saveResume(){
 }
 function clearResume(){ try{ localStorage.removeItem(resumeKey()); }catch(e){} }
 function getResume(){
+  /* Account gate (Cori 2026-11-15): resume exists only for signed-in
+     users (a free account counts). A guest's leftover key is cleared
+     on sight, never resurrected — guests always start fresh. */
+  if(!currentUser()){ try{ localStorage.removeItem("bb_resume_guest"); }catch(e){} return null; }
   try{
     const r=JSON.parse(localStorage.getItem(resumeKey())||"null");
     if(!r||!r.bank||!r.bank.length) return null;
@@ -7776,6 +7792,7 @@ function getResume(){
   }catch(e){ return null; }
 }
 function resumeExam(){
+  if(!currentUser()) return; /* account-gated — see getResume() */
   const r=getResume(); if(!r) return;
   const exam=EXAMS.find(e=>e.slug===r.slug);
   curExam=exam;
@@ -7791,6 +7808,9 @@ function resumeExam(){
   show("screen-exam"); renderExamChrome(); renderQ();
   if(simLike){ deadline=r.deadline; startTimer(true); }
   buddyInit();
+  /* buddyInit zeroes the session counters; put back the ones this
+     session had actually earned so its streak / XP story continues. */
+  if(typeof r.streak==="number"){ S.streak=r.streak; S.bestStreak=r.bestStreak||0; S.xpEarned=r.xpEarned||0; paintHud(); }
 }
 
 /* ============================================================
