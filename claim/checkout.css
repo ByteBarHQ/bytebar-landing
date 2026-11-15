@@ -33,7 +33,7 @@ header.top{border-bottom:1px solid var(--line);background:rgba(6,11,24,.92);}
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
 .hero-traces{position:absolute;inset:0;opacity:.05;pointer-events:none;}
-.hero-in{position:relative;padding:34px 0 28px;}
+.hero-in{position:relative;padding-top:34px;padding-bottom:28px;}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;}
 h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-.01em;margin:12px 0 10px;}
 .hero p.sub{font-size:15.5px;line-height:1.55;color:var(--muted);}
