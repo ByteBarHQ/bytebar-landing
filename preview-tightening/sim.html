@@ -2041,6 +2041,63 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
 #bb-boot .bb-boot-txt{font-weight:800; font-size:18px; color:#0b1e42; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 #bb-boot .bb-boot-sub{font-size:14px; color:#6f695c; margin-top:6px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 @media(prefers-reduced-motion:reduce){#bb-boot .bb-boot-spin{animation:none}}
+
+/* ============================================================
+   PHASE 1 (2026-11-15) — persistent progress strip + results
+   reveal. One contained card under the nav; Design System v2
+   motion (cubic-bezier(.2,0,0,1), rise 480ms, fade 240ms,
+   distances <16px, nothing loops). Tasteful by design: a
+   single slim row, icons + numbers, no extra chrome.
+   ============================================================ */
+.hudwrap{max-width:1120px; margin:0 auto; padding:12px 22px 0;}
+.hudwrap-exam{max-width:1280px; margin:0 auto; padding:10px 22px 0;}
+.hudstrip{
+  display:flex; align-items:center; gap:14px;
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:9px 16px; box-shadow:0 4px 14px rgba(11,30,66,.06);
+  font-size:13.5px; color:var(--ink);
+}
+.hudstrip.hidden{display:none;}
+.hud-lvl{
+  flex:none; background:var(--navy); color:#fff; font-weight:800; font-size:12px;
+  letter-spacing:.04em; padding:5px 11px; border-radius:999px; white-space:nowrap;
+  max-width:44vw; overflow:hidden; text-overflow:ellipsis;
+}
+.hud-barwrap{flex:1 1 auto; display:flex; align-items:center; gap:10px; min-width:0;}
+.hud-bar{flex:1 1 auto; min-width:52px; height:8px; background:var(--line); border-radius:99px; overflow:hidden;}
+.hud-bar i{display:block; height:100%; width:0; border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#ffc53d);
+  transition:width .6s cubic-bezier(.2,0,0,1);}
+.hud-xptxt{flex:none; font-weight:700; color:var(--navy); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.hud-tonext{color:var(--mut); font-weight:600;}
+.hud-streak{flex:none; display:inline-flex; align-items:center; gap:5px; font-weight:800; color:var(--navy); white-space:nowrap;}
+.hud-streak .flame{display:inline-flex;}
+.hud-streak .flame svg{width:17px; height:17px;}
+.hud-freeze{flex:none; font-weight:700; color:#4a7ca8; white-space:nowrap;}
+.hud-sess{flex:1 1 auto; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric:tabular-nums;}
+.hudstrip.sess .hud-prog{display:none;}
+.hudstrip:not(.sess) .hud-sess{display:none;}
+@media (max-width:640px){
+  .hudwrap{padding:10px 14px 0;}
+  .hudwrap-exam{padding:8px 14px 0;}
+  .hudstrip{gap:9px; padding:8px 12px; font-size:12.5px;}
+  .hud-tonext{display:none;}
+  .hud-bar{min-width:40px;}
+  .hud-lvl{padding:4px 9px; font-size:11px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .hud-bar i{transition:none;}
+}
+
+/* Staged results reveal: verdict -> Pip -> score count-up -> XP
+   count-up -> record/watch. Armed only by stageResultsReveal();
+   reduced motion never arms (everything simply appears). */
+.rescard.rv-armed [data-rv]{opacity:0; transform:translateY(8px);}
+.rescard [data-rv].rv-in{opacity:1; transform:none;
+  transition:opacity .24s ease, transform .48s cubic-bezier(.2,0,0,1);}
+@media (prefers-reduced-motion: reduce){
+  .rescard [data-rv]{transition:none;}
+}
 </style>
 
 <!-- ================= HOME ================= -->
@@ -2075,6 +2132,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap home-slots">
     <div id="resume-slot"></div>
     <div id="streak-slot"></div>
@@ -2089,7 +2147,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
       <p class="def">Full-length, timed exam simulations built from real exam objectives — with instant explanations and domain-level score reports that show exactly where you stand.</p>
       <div class="hero-pip">
         <svg class="pip-big" viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#pipv3-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-bodyG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(28 55 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><path d="M41,65 Q48,69.5 55,65" stroke="#22304A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
-        <div class="pip-tag">Hi, I'm <b>Pip</b>! Your study buddy.</div>
+        <div class="pip-tag">🌱 Hi, I'm <b>Pip</b>! Your study buddy.</div>
       </div>
       <div class="hero-ctas">
         <button class="btn btn-gold btn-lg hdr-gopro" onclick="openPaywall()">Get ByteBar Complete — $9.99</button>
@@ -2244,6 +2302,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="modes-back">← All exams</button>
     <div class="hero" style="margin-bottom:22px;">
@@ -2265,13 +2324,13 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
         <span class="mchip" style="--mc:#fdf1de;">🎯</span>
         <h3>Exam Simulation</h3>
         <p id="modes-sim-p">The full question bank under real exam conditions. This is the closest thing to test day.</p>
-        <ul id="sim-feats"><li>Exam-realistic questions · timer · auto-submit</li><li>Domain-level score report &amp; readiness prediction</li><li>Custom quiz builder — pick your domains and length</li><li>Performance analytics &amp; study plan</li></ul>
+        <ul id="sim-feats"><li>Exam-realistic questions · timer · auto-submit</li><li>Domain-level score report &amp; readiness prediction</li><li>Custom quiz builder — your domains, your rules</li><li>Performance analytics &amp; study plan</li></ul>
         <div class="price">$9.99 <small>one-time · simulator + video library</small></div>
       </button>
       <button class="modecard hidden" id="mode-deck">
         <span class="mchip" style="--mc:#e8f1fd;">🗂</span>
         <h3>Your Misses</h3>
-        <p>Every question you miss, saved in one place. Answer each one right twice to clear it.</p>
+        <p>Questions that beat you, saved for a rematch. Answer each one right twice to clear it from the deck.</p>
         <ul><li id="deck-count-line">Nothing saved right now</li><li>Explanation after every answer</li><li>Progress saves as you go</li></ul>
         <div class="price" id="deck-price">Saved by your account</div>
       </button>
@@ -2299,6 +2358,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="deck-back">← All exams</button>
     <div class="hero" style="margin-bottom:22px;">
@@ -2328,6 +2388,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="brief-back">← Choose mode</button>
     <div class="brief">
@@ -2359,6 +2420,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     <button class="endbtn" id="endbtn">End exam</button>
   </div></div>
   <div class="qtrackwrap" aria-hidden="true"><div class="qtrack"><div id="qtrackfill"></div><i class="qm" data-m="25" style="left:25%"></i><i class="qm" data-m="50" style="left:50%"></i><i class="qm" data-m="75" style="left:75%"></i></div></div>
+  <div class="hudwrap-exam"><div class="hudstrip hud-exam hidden" data-hud="exam"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-sess"></span></div></div>
   <div class="exambody">
     <div class="qcard">
       <div class="qhead">
@@ -2366,7 +2428,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
         <button class="flagbtn" id="flagbtn">⚑ Flag for review</button>
       </div>
       <div class="qdomain hidden" id="qdomain"></div>
-      <div id="coachline" class="coachline"><span class="mascot" id="coachmascot"></span><span id="coachtext">One question at a time.</span></div>
+      <div id="coachline" class="coachline"><span class="mascot" id="coachmascot"></span><span id="coachtext">Let's go — you've got this.</span></div>
       <div id="casepanel" class="casepanel hidden">
         <div class="casehead"><span class="casebadge">📋 <span id="caselabel">Case study</span></span><span class="casetitle" id="casetitle"></span><button type="button" class="casetoggle" id="casetoggle">Hide</button></div>
         <div class="casebody" id="casebody"></div>
@@ -2379,7 +2441,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
           <div class="termchrome">
             <span class="tdots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="tprog" id="termprog">task 1/17</span>
-            <span class="tproctor" id="termproctor" title="Your proctor"></span>
+            <span class="tproctor" id="termproctor" title="Your proctor is quietly rooting for you"></span>
           </div>
           <div id="termout" aria-live="polite"></div>
           <div class="termline"><span class="tprompt">candidate@cluster:~$</span><input id="terminput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type your command and press Run"></div>
@@ -2426,23 +2488,24 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap"><div class="reswrap">
     <div class="rescard">
       <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);" id="res-exam">Exam results</div>
-      <div><span class="passfail" id="res-passfail">–</span></div>
-      <div class="pipblock hidden" id="res-pip"></div>
-      <div class="res-scoreline hidden" id="res-scoreline"></div>
-      <div class="xpline hidden" id="res-xpline"></div>
-      <div class="recordbanner hidden" id="res-record"></div>
-      <div class="watchchap hidden" id="res-watch"></div>
+      <div data-rv="1"><span class="passfail" id="res-passfail">–</span></div>
+      <div class="pipblock hidden" id="res-pip" data-rv="2"></div>
+      <div class="res-scoreline hidden" id="res-scoreline" data-rv="3"></div>
+      <div class="xpline hidden" id="res-xpline" data-rv="4"></div>
+      <div class="recordbanner hidden" id="res-record" data-rv="5"></div>
+      <div class="watchchap hidden" id="res-watch" data-rv="6"></div>
       <div class="btnrow res-secondary" style="justify-content:center;">
         <button class="btn ghost" id="res-retake">Retake simulation</button>
         <button class="btn ghost" id="res-share">⤴ Share score</button>
       </div>
-      <div class="res-trust hidden" id="res-trust">Finding ByteBar helpful? <a href="https://www.trustpilot.com/review/bytebarhq.com" target="_blank" rel="noopener">Leave a quick review on Trustpilot</a> — it helps other candidates find us.</div>
-      <div id="res-acctnudge"></div>
+      <div class="res-trust hidden" id="res-trust" data-rv="6">Finding ByteBar helpful? <a href="https://www.trustpilot.com/review/bytebarhq.com" target="_blank" rel="noopener">Leave a quick review on Trustpilot</a> — it helps other candidates find us.</div>
+      <div id="res-acctnudge" data-rv="4"></div>
       <div class="readiness hidden" id="res-readiness">
-        <h4>Exam readiness</h4>
+        <h4>📊 Exam readiness</h4>
         <div class="rsub" id="res-rsub">Based on your logged attempts for this exam.</div>
         <div class="rflex">
           <div class="rringwrap">
@@ -2486,6 +2549,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="dash-back">← Home</button>
     <div class="hero" style="margin-bottom:24px;">
@@ -2535,6 +2599,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="profile-back">← Home</button>
     <div class="profilehead">
@@ -2580,6 +2645,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="builder-back">← Home</button>
     <div class="hero" style="margin-bottom:24px;">
@@ -2709,7 +2775,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     <p id="unlock-desc">—</p>
     <div class="xp" id="unlock-xp">+50 XP</div>
     <div class="btnrow" style="justify-content:center;margin-top:18px;">
-      <button class="btn" id="unlock-ok" style="padding:12px 34px;font-size:15px;">Got it</button>
+      <button class="btn" id="unlock-ok" style="padding:12px 34px;font-size:15px;">Nice</button>
     </div>
   </div>
 </div>
@@ -2723,7 +2789,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     <p id="lvlup-desc">—</p>
     <div class="xp" id="lvlup-xp">—</div>
     <div class="btnrow" style="justify-content:center;margin-top:18px;">
-      <button class="btn" id="lvlup-ok" style="padding:12px 34px;font-size:15px;">Continue</button>
+      <button class="btn" id="lvlup-ok" style="padding:12px 34px;font-size:15px;">Let's go</button>
     </div>
   </div>
 </div>
@@ -2731,7 +2797,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
 <!-- ================= PRO TEASER (free preview) ================= -->
 <div id="teaseov" class="unlockov hidden">
   <div class="unlockcard teasecard">
-    <div class="uk">Unlock with Complete</div>
+    <div class="uk">Almost yours…</div>
     <div id="tease-mascot" class="resmascot"></div>
     <span class="ubi" id="tease-icon">🏆</span>
     <h2 id="tease-name">—</h2>
@@ -4573,6 +4639,7 @@ function show(id){
     if(on && !REDUCED()){ el.classList.remove("screen-enter"); void el.offsetWidth; el.classList.add("screen-enter"); }
   });
   window.scrollTo(0,0);
+  paintHud();
 }
 
 /* ================= persistent home navigation =================
@@ -4942,11 +5009,11 @@ function flameSVG(streak){
    Duolingo energy: every correct answer feels rewarding, every
    wrong answer feels like encouragement, never punishment.
    ============================================================ */
-const PRAISE=["Amazing!","Nice work!","You got it!","Exactly right!","Brilliant!","Well done.","Correct."];
-const WRONG_MSGS=["Good try — the explanation below has it.","That one's tricky — check the explanation.","Every miss teaches something. The explanation is below.","Tough one. The explanation below walks through it."];
-const STREAK_MSGS={3:"3 in a row — nice work.",5:"5 in a row. Keep going.",8:"8 in a row — strong run.",10:"10 in a row. Outstanding."};
-const MILESTONES={25:"Quarter down — nice pace.",50:"Halfway there.",75:"Final stretch — nearly there."};
-const COACH_OPENERS=["One question at a time.","Trust your prep.","Read each question carefully, then answer."];
+const PRAISE=["Amazing!","Nice work!","You got it!","Exactly right!","Brilliant!","That's the way!","Clean!"];
+const WRONG_MSGS=["Good try — you'll get the next one.","That one's tricky — the explanation has the key.","No stress — every miss is a lesson banked.","Tough one. Read the why below."];
+const STREAK_MSGS={3:"You're on fire! 3 in a row 🔥",5:"Unstoppable — 5 straight!",8:"8 in a row?! Legend energy.",10:"DOUBLE DIGITS. Absolutely elite."};
+const MILESTONES={25:"Quarter down — nice pace.",50:"Halfway there! Keep rolling.",75:"Final stretch — finish strong!"};
+const COACH_OPENERS=["Let's go — you've got this.","Time to cook. Trust your prep.","One question at a time — let's roll."];
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 
 function coachSay(text, mood, cool){
@@ -4966,6 +5033,7 @@ function buddyInit(){
   coachSay(pick(COACH_OPENERS), "idle", true);
   renderStreak();
   paintTrack();
+  paintHud();
 }
 function renderStreak(){
   const pill=$("streakpill"); if(!pill) return;
@@ -4993,6 +5061,80 @@ function paintTrack(){
     m.classList.toggle("hit", pct>=parseInt(m.dataset.m,10));
   });
   return pct;
+}
+
+/* ============================================================
+   PHASE 1 (2026-11-15) — persistent progress strip.
+   One contained strip under the nav on every screen: level ·
+   XP bar to next level · day streak · banked freezes. Guests
+   (no saved record) see no strip on browse screens — the strip
+   only ever shows real progress. In the exam screen it is
+   mode-aware: live modes mirror the career strip with XP
+   projected from session earnings; a timed sim / CAT shows
+   neutral session info only (exam · question · answered) —
+   test-day pure, no game data mid-sim. No sound anywhere:
+   Cori parked the sound kit 2026-11-15.
+   ============================================================ */
+function hudFill(strip, sig, fill){
+  if(strip.dataset.sig===sig) return;
+  strip.dataset.sig=sig; fill();
+}
+function hudPaintProg(strip, lv, xp, pct, r){
+  const lvl=strip.querySelector(".hud-lvl"); if(lvl) lvl.textContent="★ "+lv.name;
+  const bar=strip.querySelector(".hud-bar i"); if(bar) bar.style.width=pct+"%";
+  const xt=strip.querySelector(".hud-xptxt");
+  if(xt) xt.innerHTML=xp.toLocaleString()+" XP"+(lv.next
+    ? ' <span class="hud-tonext">· '+(lv.next-xp).toLocaleString()+" to "+escapeHtml(lv.nextName)+"</span>"
+    : ' <span class="hud-tonext">· top level</span>');
+  const st=strip.querySelector(".hud-streak");
+  if(st){ const d=dayStreak(r); st.innerHTML=d>0?flameSVG(d)+"<b>"+d+"</b>":""; st.title=d+"-day streak"; }
+  const fz=strip.querySelector(".hud-freeze");
+  if(fz){ const f=r.streakFreeze||0; fz.textContent=f>0?"❄ ×"+f:""; fz.title="Streak freezes banked"; }
+}
+function paintHud(){
+  const r=userRec();
+  document.querySelectorAll("[data-hud]").forEach(strip=>{
+    if(strip.dataset.hud==="exam"){
+      if(!S || !S.exam){ strip.classList.add("hidden"); strip.dataset.sig=""; return; }
+      const timed = S.mode==="sim" || S.mode==="cat" || (S.mode==="custom" && S.timed);
+      if(timed){
+        const qp=$("qprog") ? $("qprog").textContent : "";
+        let ans="";
+        if(S.mode!=="cat"){
+          const a=(S.answers||[]).filter(x=>x!==null).length;
+          const fl=(S.flags||[]).filter(Boolean).length;
+          ans=" · "+a+" answered"+(fl?" · "+fl+" flagged":"");
+        }
+        strip.classList.remove("hidden"); strip.classList.add("sess");
+        hudFill(strip, "sess|"+S.exam.slug+"|"+qp+"|"+ans, ()=>{
+          const s=strip.querySelector(".hud-sess");
+          if(s) s.textContent=S.exam.code+" · "+qp+ans;
+        });
+        return;
+      }
+      if(r){
+        const proj=r.xp+(S.xpEarned||0), lv=levelFor(proj);
+        const pct=lv.next?Math.round((proj-lv.cur)/(lv.next-lv.cur)*100):100;
+        strip.classList.remove("hidden"); strip.classList.remove("sess");
+        hudFill(strip, "live|"+proj+"|"+dayStreak(r)+"|"+(r.streakFreeze||0),
+          ()=>hudPaintProg(strip, lv, proj, pct, r));
+      } else {
+        strip.classList.remove("hidden"); strip.classList.add("sess");
+        hudFill(strip, "guest|"+(S.xpEarned||0), ()=>{
+          const s=strip.querySelector(".hud-sess");
+          if(s) s.textContent="Session XP +"+(S.xpEarned||0);
+        });
+      }
+      return;
+    }
+    /* browse screens: signed-in progress only */
+    if(!r){ strip.classList.add("hidden"); strip.dataset.sig=""; return; }
+    const lv=levelFor(r.xp);
+    const pct=lv.next?Math.round((r.xp-lv.cur)/(lv.next-lv.cur)*100):100;
+    strip.classList.remove("hidden");
+    hudFill(strip, "browse|"+r.xp+"|"+dayStreak(r)+"|"+(r.streakFreeze||0),
+      ()=>hudPaintProg(strip, lv, r.xp, pct, r));
+  });
 }
 
 function buddyOnMilestone(){
@@ -5030,6 +5172,7 @@ function buddyOnAnswer(wasRight){
     renderStreak();
   }
   buddyOnMilestone();
+  paintHud();
 }
 function checkMidQuizLevel(){
   const r=userRec(); if(!r||!S) return;
@@ -5114,8 +5257,8 @@ function renderStreakBanner(){
   const studiedToday=r.activeDays.includes(todayStr());
   let msg, mood="idle";
   if(s>0&&studiedToday){ msg="Streak safe — you studied today."; mood="happy"; }
-  else if(s>0){ msg="Study today to keep your streak going."; mood="encourage"; }
-  else if(best>0){ msg="Your streak reset. Study today to start a new one."; mood="encourage"; }
+  else if(s>0){ msg="Study today to keep it burning."; mood="encourage"; }
+  else if(best>0){ msg="Your streak reset. Start a new one today — Pip believes in you."; mood="encourage"; }
   else { msg="Study 3 days in a row to earn Warming Up."; mood="idle"; }
   const mult=pro&&s>=7;
   const freezeBit=pro
@@ -5143,7 +5286,7 @@ function renderLibraryPanel(){
   if(!isPro()) return;
   const card=document.createElement("div");
   card.className="libcard";
-  card.innerHTML='<div class="libcard-tx">Your video library is included with Complete<span>Watch the books chapter by chapter — same account, already unlocked.</span></div>'+
+  card.innerHTML='<div class="libcard-tx">📚 Your video library is included with Complete<span>Watch the books chapter by chapter — same account, already unlocked.</span></div>'+
     '<a class="btn libcard-btn" href="https://bytebarhq.com/library/">Open the Library →</a>';
   slot.appendChild(card);
 }
@@ -5185,7 +5328,7 @@ function renderModes(slug){
     const items=[
       fmt.count+" "+unit+" · "+fmt.minutes+"-minute timer · auto-submit",
       "Domain-level score report & readiness prediction",
-      "Custom quiz builder — pick your domains and length",
+      "Custom quiz builder — your domains, your rules",
       "Performance analytics & study plan"
     ];
     if(fmt.types[0]==="terminal") items[1]="Hands-on tasks — type real commands, like the real exam";
@@ -5657,7 +5800,7 @@ function renderExamChrome(){
 function paintPalette(){
   if(S.mode==="cat"){
     $("palsub").textContent="Adaptive CAT · question "+(S.idx+1)+" of "+S.cat.minQ+"–"+S.cat.maxQ;
-    $("qprog").textContent="Q "+(S.idx+1); paintTrack(); return;
+    $("qprog").textContent="Q "+(S.idx+1); paintTrack(); paintHud(); return;
   }
   const grid=$("palgrid").children;
   for(let i=0;i<grid.length;i++){
@@ -5669,6 +5812,7 @@ function paintPalette(){
   }
   $("qprog").textContent="Q "+(S.idx+1)+" / "+S.bank.length;
   paintTrack();
+  paintHud();
 }
 /* NGN case-study panel (Phase A3): the scenario stays pinned above every
    item of its study, in its own contained region — the question screen
@@ -5839,7 +5983,10 @@ function answerMS(q){
   q.__resScore=frac; q.__resPicked=picked;
   S.score+=frac;
   deckOnAnswer(q, wasRight);
-  showExplanationMS(q, wasRight, partial);
+  /* Phase 1 verdict beat: same breath as answer() — verdict first,
+     explanation a moment later, guarded against fast navigation. */
+  const _vIdx=S.idx;
+  setTimeout(()=>{ if(S && S.idx===_vIdx && S.answered && !S.submitted) showExplanationMS(q, wasRight, partial); }, REDUCED()?0:280);
   opts.forEach(o=>o.disabled=true);
   const chk=$("ms-check"); if(chk) chk.disabled=true;
   buddyOnAnswer(wasRight); paintPalette(); saveResume();
@@ -5918,7 +6065,7 @@ function termSubmit(){
     termDone(q,false);
   } else {
     const left=3-q._attempts;
-    termPrint("✗ Not quite — that didn't match. "+left+" attempt"+(left>1?"s":"")+" left.", "terr");
+    termPrint("✗ Not quite — that didn't match. "+left+" attempt"+(left>1?"s":"")+" left, you've got this.", "terr");
     const hint=$("termhint");
     if(hint && q.hints[q._attempts-1]){
       hint.innerHTML="";
@@ -5981,7 +6128,12 @@ function answer(i,btn){
     if(!wasRight){ btn.classList.add("wrong"); S.misses.push({q, picked:i}); q.__res="wrong"; }
     else { S.score++; q.__res="right"; }
     deckOnAnswer(q, wasRight);
-    showExplanation(q, wasRight);
+    /* Phase 1 verdict beat: the card flash, Pip's reaction and the XP
+       float land on this frame (buddyOnAnswer below); the explanation
+       follows a breath later so the verdict reads first. Guarded so a
+       fast Next tap never paints a stale explanation forward. */
+    const _vIdx=S.idx;
+    setTimeout(()=>{ if(S && S.idx===_vIdx && S.answered && !S.submitted) showExplanation(q, wasRight); }, REDUCED()?0:280);
     [...opts].forEach(o=>o.disabled=true);
     buddyOnAnswer(wasRight);
     paintPalette();
@@ -6285,6 +6437,54 @@ function weakestDomainOf(doms){
 }
 
 /* ================= results ================= */
+/* ============================================================
+   PHASE 1 (2026-11-15) — staged results reveal.
+   The verdict lands first, then Pip's line, then the score
+   counts up, then XP counts up, then the record/watch lines —
+   Design System v2 motion (one easing family, rise 480ms,
+   fade 240ms, 8px travel, nothing loops). All final values are
+   already written by finishExam before this runs; the reveal
+   only sequences their appearance. Reduced motion: never
+   armed — everything simply appears, exactly as before.
+   ============================================================ */
+function countUpText(el, from, to, dur, fmt){
+  if(!el) return;
+  if(REDUCED() || from===to){ el.textContent=fmt(to); return; }
+  const t0=performance.now();
+  const step=t=>{
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(from+(to-from)*e));
+    if(p<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function stageResultsReveal(rv){
+  const card=document.querySelector("#screen-results .rescard");
+  if(!card || !rv) return;
+  const items=[...card.querySelectorAll("[data-rv]")];
+  if(REDUCED()){ items.forEach(el=>el.classList.add("rv-in")); return; }
+  card.classList.add("rv-armed");
+  items.forEach(el=>el.classList.remove("rv-in"));
+  const inEl=k=>{ card.querySelectorAll('[data-rv="'+k+'"]').forEach(el=>el.classList.add("rv-in")); };
+  setTimeout(()=>inEl("1"), 80);
+  setTimeout(()=>inEl("2"), 360);
+  setTimeout(()=>{
+    inEl("3");
+    const sl=$("res-scoreline");
+    if(sl && !sl.classList.contains("hidden"))
+      countUpText(sl, 0, rv.pct, 600, v=>v+"% on "+S.exam.code+" · "+fmtPts(rv.score)+" of "+rv.n+" correct");
+  }, 640);
+  setTimeout(()=>{
+    inEl("4");
+    const xl=$("res-xpline");
+    if(xl && !xl.classList.contains("hidden") && rv.gained>0)
+      countUpText(xl, 0, rv.gained, 600, v=>"+"+v.toLocaleString()+" XP earned"+(v>=rv.gained && rv.mult>1 ? " · 2x streak bonus 🔥" : ""));
+  }, 940);
+  setTimeout(()=>{ inEl("5"); inEl("6"); }, 1240);
+  /* Safety: whatever happens, everything is fully shown by 2.1s. */
+  setTimeout(()=>{ card.classList.remove("rv-armed"); items.forEach(el=>el.classList.add("rv-in")); }, 2100);
+}
+
 function finishExam(expired){
   clearInterval(timerId);
   clearResume();
@@ -6378,7 +6578,7 @@ function finishExam(expired){
     const why=c.maxed?("after the full "+c.maxQ+" questions"):("with 95% confidence after "+c.n+" questions");
     const rEx=$("res-exam");
     if(rEx) rEx.insertAdjacentHTML("afterend",
-      '<div class="catverdict '+(decision==="pass"?"pass":"fail")+'">'+
+      '<div data-rv="2" class="catverdict '+(decision==="pass"?"pass":"fail")+'">'+
       '<div class="cvk">'+(decision==="pass"?"✓ ABOVE THE PASSING STANDARD":"✗ BELOW THE PASSING STANDARD")+'</div>'+
       '<div class="cvs">Adaptive engine decided '+why+' · ability estimate '+(c.theta>=0?"+":"")+c.theta.toFixed(2)+'</div></div>');
     const pf2=$("res-passfail");
@@ -6591,7 +6791,7 @@ function finishExam(expired){
       else if(fmt && fmt.types && fmt.types.indexOf("cat") !== -1) passNote = ' · Adaptive passing standard';
       up.innerHTML =
         '<div class="pp-mascot"><span class="mascot-slot floaty">' + mascotSVG("excited", 60) + '</span></div>' +
-        '<div class="pp-head">Your full results are in Complete</div>' +
+        '<div class="pp-head">You just scratched the surface</div>' +
         '<div class="pp-sub">That was ' + CONFIG.PRACTICE_COUNT + ' questions out of ' + QCOUNT_DISPLAY_TXT + '. Here\'s what Complete unlocks for ' + curExam.code + ':</div>' +
         '<div class="pp-progress"><div class="pp-progress-label"><b>' + CONFIG.PRACTICE_COUNT + '</b> of <b>' + QCOUNT_DISPLAY_TXT + '</b> questions tried' + passNote + '</div></div>' +
         '<div class="pp-teaser"><div class="pp-teaser-title">Your domain breakdown <span class="pp-lock">🔒 Complete</span></div>' +
@@ -6625,6 +6825,7 @@ function finishExam(expired){
   /* progress: record attempt, badges, readiness (logged-in users) */
   const nudge=$("res-acctnudge");
   if(nudge) nudge.innerHTML="";
+  let rvData={pct, gained:0, mult:1, score, n};
   if(currentUser()){
     const r0=userRec(), xpBefore=r0?r0.xp:0, lvlBefore=levelFor(xpBefore).name;
     const detBefore=r0?readinessDetail(r0, S.exam.slug):null;
@@ -6648,6 +6849,7 @@ function finishExam(expired){
     const r1=userRec(), lvlAfter=r1?levelFor(r1.xp).name:lvlBefore;
     renderReadinessPanel(S.exam.slug);
     const gained=rec?rec.gained:0, xpLine=$("res-xpline");
+    rvData.gained=gained; rvData.mult=(rec&&rec.mult)||1;
     if(xpLine && gained>0){
       xpLine.classList.remove("hidden");
       xpLine.textContent="+"+gained.toLocaleString()+" XP earned"+(rec&&rec.mult>1?" · 2x streak bonus 🔥":"");
@@ -6691,6 +6893,7 @@ function finishExam(expired){
   const rc=document.querySelector("#screen-results .rescard");
   if(rc){ rc.classList.toggle("passed",pass); rc.classList.toggle("failed",!pass); }
   show("screen-results");
+  stageResultsReveal(rvData);
 }
 
 /* ============================================================
@@ -6917,6 +7120,7 @@ function refreshAccount(){
     if(r){ pill.classList.remove("hidden"); pill.textContent="★ "+label; }
     else pill.classList.add("hidden");
   }
+  paintHud();
 }
 function openAccountMenu(){
   const u=currentUser(); if(!u){ openAuth(); return; }
@@ -7794,24 +7998,24 @@ async function renderDeck(slug, stats){
   const r=userRec(); if(!r){ openAuth(); return; }
   await deckReconcile(r, slug);
   $("deck-title").textContent=exam.name+" — your misses";
-  $("deck-sub").textContent=exam.code+" · answer each saved question right twice to clear it";
+  $("deck-sub").textContent=exam.code+" · beat each saved question twice to clear it";
   const keys=deckKeys(r, slug);
   const pip=$("deck-pip"), body=$("deck-body");
   pip.classList.add("hidden"); pip.innerHTML="";
   let html="";
-  if(stats&&stats.seen) html+='<p style="margin-top:0;">Session done — <b>'+stats.beaten+'</b> cleared this time, <b>'+keys.length+'</b> still saved.</p>';
+  if(stats&&stats.seen) html+='<p style="margin-top:0;">Session done — <b>'+stats.beaten+'</b> beaten this time, <b>'+keys.length+'</b> still saved.</p>';
   if(!keys.length){
     if(r.deckHad&&r.deckHad[slug]){
-      renderPipBlock(pip,"proud","Deck cleared. Every saved question, answered right twice.","pip-hop",72);
+      renderPipBlock(pip,"proud","Deck cleared. Every one of those used to beat you.","pip-hop",72);
     } else {
-      renderPipBlock(pip,"happy","Nothing saved here yet.","pip-hop",72);
+      renderPipBlock(pip,"happy","Nothing saved here. Go miss a few — I'll keep them safe.","pip-hop",72);
     }
-    html+='<p>Nothing saved right now. Misses from any '+exam.code+' run land here automatically.</p>';
+    html+='<p>Nothing in this deck right now. Misses from any '+exam.code+' run land here automatically.</p>';
   } else {
     const inProg=keys.filter(k=>((r.missDeck[slug][k]||{}).c||0)>0).length;
-    html+='<p style="margin-top:0;"><b>'+keys.length+'</b> question'+(keys.length===1?"":"s")+' saved'+(inProg?(" · "+inProg+" one correct answer from clearing"):"")+'.</p>'+
+    html+='<p style="margin-top:0;"><b>'+keys.length+'</b> question'+(keys.length===1?"":"s")+' saved'+(inProg?(" · "+inProg+" one win from cleared"):"")+'.</p>'+
       '<p>Sessions run up to 20 questions at a time, with the explanation after every answer. Progress saves as you go — leave whenever you like.</p>'+
-      '<button class="btn" id="deck-start" type="button">Start session</button>';
+      '<button class="btn" id="deck-start" type="button">Start deck session</button>';
   }
   body.innerHTML=html;
   const sb=$("deck-start"); if(sb) sb.addEventListener("click",()=>startDeck(slug));
