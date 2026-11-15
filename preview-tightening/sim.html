@@ -1655,6 +1655,7 @@ br.tbr{display:none;}
 #screen-results .pipblock{margin:18px 0 4px;}
 #screen-results .pipline{font-size:21px; font-weight:800; color:var(--ink); line-height:1.42; max-width:340px;}
 .res-scoreline{font-size:15px; font-weight:800; color:var(--navy); text-align:center; margin-top:10px;}
+.res-unans{font-size:13.5px; font-weight:700; color:var(--mut); text-align:center; margin-top:6px;}
 .btnrow.res-secondary{margin-top:14px;}
 .btnrow.res-secondary .btn{flex:1; text-align:center; padding:13px 10px; font-size:15px;}
 .res-trust{margin-top:22px; font-size:14.5px; color:var(--mut); line-height:1.55; text-align:center;}
@@ -2495,6 +2496,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
       <div data-rv="1"><span class="passfail" id="res-passfail">–</span></div>
       <div class="pipblock hidden" id="res-pip" data-rv="2"></div>
       <div class="res-scoreline hidden" id="res-scoreline" data-rv="3"></div>
+      <div class="res-unans hidden" id="res-unans" data-rv="3"></div>
       <div class="xpline hidden" id="res-xpline" data-rv="4"></div>
       <div class="recordbanner hidden" id="res-record" data-rv="5"></div>
       <div class="watchchap hidden" id="res-watch" data-rv="6"></div>
@@ -6517,14 +6519,28 @@ function finishExam(expired){
     }
   });
   if(live){ score=S.score; misses.push(...S.misses);
-    /* rebuild domain stats for live modes */
+    /* Rebuild domain stats for live modes — ANSWERED questions only
+       (fix 2026-11-15): a practice set finished early used to count
+       every unreached question in its domain's total, so the results
+       Pip line and breakdown blamed domains for questions the user
+       never saw ("Domain 2 cost you 6 questions" after answering 2).
+       Unreached questions now count only in `unans` below and get
+       their own honest line on the results screen. Domains with zero
+       answered questions drop out of `doms` entirely, so every
+       consumer of this object (results breakdown, Pip/watch weakest
+       domain, free-pitch teaser, recordAttempt → domainAgg →
+       dashboard + readiness) sees answered-only math. Deferred modes
+       (sim, timed custom, CAT) are NOT touched: there an unanswered
+       question is a real exam miss by design. */
     Object.keys(doms).forEach(k=>{doms[k]={t:0,c:0};});
     S.bank.forEach((q,i)=>{
-      const d=q.domain||"General"; doms[d].t++;
-      if(q.__res) doms[d].c+=(typeof q.__resScore==="number")?q.__resScore:(q.__res==="right"?1:0);
+      const d=q.domain||"General";
+      if(q.__res){ doms[d].t++; doms[d].c+=(typeof q.__resScore==="number")?q.__resScore:(q.__res==="right"?1:0); }
       else misses.push({q, picked:null});
     });
+    Object.keys(doms).forEach(k=>{ if(!doms[k].t) delete doms[k]; });
   }
+  const unans = live ? S.bank.reduce((a,q)=>a+(q.__res?0:1),0) : 0;
   const pct=Math.round(score/n*100);
   const passMark=passPct(S.exam.slug);
   const pass=pct>=passMark;
@@ -6557,6 +6573,15 @@ function finishExam(expired){
   if(sl){
     if(currentUser()){ sl.textContent=pct+"% on "+S.exam.code+" · "+fmtPts(score)+" of "+n+" correct"; sl.classList.remove("hidden"); }
     else sl.classList.add("hidden");
+  }
+  /* Unanswered line (2026-11-15): live modes finished early name the
+     unreached questions plainly, as their own line — they are never
+     folded into a domain's losses. Deferred/sim modes never show it:
+     there the review screen already lists unanswered questions. */
+  const uaEl=$("res-unans");
+  if(uaEl){
+    if(live&&unans>0){ uaEl.textContent=unans+" question"+(unans===1?"":"s")+" left unanswered"; uaEl.classList.remove("hidden"); }
+    else uaEl.classList.add("hidden");
   }
 
   /* Free preview guard (Cori 2026-10-18): the 10-question taste shows score only.
@@ -6607,7 +6632,14 @@ function finishExam(expired){
         const p=c/t, m=t-c;
         if(p<wPct||(p===wPct&&m>wMiss)){ wd=d; wPct=p; wMiss=m; }
       });
-      if(wd) renderPipBlock(pipRes,"sympathetic",wd+" cost you "+wMiss+" question"+(wMiss===1?"":"s")+" — your misses are saved, and we'll fix them.","pip-settle",76);
+      /* Only blame a domain for questions actually missed in it
+         (2026-11-15): with answered-only domain math, an early finish
+         where everything answered was right leaves wMiss at 0 — the
+         unanswered line above carries that story instead of a false
+         "cost you 0 questions". Clear the block so no stale Pip line
+         from a previous attempt can linger. */
+      if(wd&&wMiss>0) renderPipBlock(pipRes,"sympathetic",wd+" cost you "+wMiss+" question"+(wMiss===1?"":"s")+" — your misses are saved, and we'll fix them.","pip-settle",76);
+      else { pipRes.innerHTML=""; pipRes.classList.add("hidden"); }
     }
     /* Trustpilot ask: PASS results only. The 2026-11-11 cleanup moved it
        off the not-yet screen — a pass is the right moment for the ask. */
