@@ -94,19 +94,36 @@
   </div>
 </footer>
 
-<script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-// Success page: poll entitlement-status with the checkout reference
-// until the webhook lands (normally seconds). The webhook — never the
-// payment response — is the grant, so this page renders "confirmed"
-// only when the ledger says completed. On lag it falls back to the
-// email copy instead of hanging (spec §3).
+<script>
+/* Watchdog (classic script, no imports): if the main logic below fails
+   to start for ANY reason — CDN hiccup, blocked module, old browser —
+   this timer still fires and moves the page off the spinner. A buyer
+   must never stare at "Confirming" forever. */
+window.__bbAlive = false;
+window.__bbWatchdog = setTimeout(function () {
+  if (!window.__bbAlive) {
+    for (const s of ["state-confirming", "state-done", "state-fallback"]) {
+      document.getElementById(s).classList.toggle("hidden", s !== "state-fallback");
+    }
+  }
+}, 90000);
+</script>
+<script>
+/* Success page: poll entitlement-status with the checkout reference
+   until the webhook lands (normally seconds). The webhook — never the
+   payment response — is the grant, so this page renders "confirmed"
+   only when the ledger says completed. On lag it first softens the
+   copy (~20s), keeps polling quietly, and finally falls back to the
+   email state (~5 min) instead of hanging (spec §3). No top-level
+   imports: the Supabase client is only needed for the rare no-ref
+   branch and is imported lazily there, so nothing external can block
+   the polling path. */
 const SUPABASE_URL = "https://duutviqszajmmoskvdfy.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
 const STATUS_URL = SUPABASE_URL + "/functions/v1/entitlement-status";
 const POLL_MS = 2500;
-const MAX_TRIES = 30; // ≈75 seconds, then the fallback state
+const SOFTEN_AT = 8;    // ~20s: swap in the "taking longer" copy
+const MAX_TRIES = 120;  // ~5 min, then the fallback state
 
 const params = new URLSearchParams(window.location.search);
 const ref = params.get("ref") || "";
@@ -145,13 +162,16 @@ async function pollOnce() {
 }
 
 async function run() {
+  window.__bbAlive = true;
   if (!ref) {
     // No reference (e.g. arrived via the email sign-in link): read the
-    // signed-in state instead.
-    const supa = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { data } = await supa.auth.getSession();
-    if (data?.session) {
-      try {
+    // signed-in state instead. The Supabase client is imported lazily
+    // so it can never block the normal path.
+    try {
+      const mod = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+      const supa = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { data } = await supa.auth.getSession();
+      if (data?.session) {
         const res = await fetch(STATUS_URL, {
           method: "POST",
           headers: {
@@ -163,8 +183,8 @@ async function run() {
         });
         const st = await res.json();
         if (st && (st.owns_sim || st.owns_library)) { show("state-done"); return; }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
     show("state-fallback");
     return;
   }
@@ -180,6 +200,12 @@ async function run() {
         return;
       }
     } catch (e) { /* transient — keep polling */ }
+    if (i === SOFTEN_AT) {
+      const sub = document.querySelector("#state-confirming .sub");
+      if (sub) {
+        sub.textContent = "Taking a little longer than usual — Square is still confirming. You can safely leave this page: the moment it lands, your sign-in link arrives by email and everything unlocks.";
+      }
+    }
     await new Promise((r) => setTimeout(r, POLL_MS));
   }
   show("state-fallback");
