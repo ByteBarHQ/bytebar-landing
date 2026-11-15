@@ -2069,7 +2069,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
       <a class="nl" href="#pricing">Pricing</a>
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
-      <span class="lvlpill hidden" id="home-lvlpill"></span><span id="home-acctslot"><button class="acctbtn" id="home-acctbtn" onclick="openAuth()">Sign in</button></span><button class="btn btn-gold hdr-gopro" id="home-gopro" onclick="openPaywall()">Get ByteBar Complete — $9.99</button><div class="probadge free" id="home-probadge">Free preview</div>
+      <span class="lvlpill hidden" id="home-lvlpill"></span><span id="home-acctslot"><button class="acctbtn" id="home-acctbtn" onclick="openAuth()">Sign In</button></span><button class="btn btn-gold hdr-gopro" id="home-gopro" onclick="openPaywall()">Get ByteBar Complete — $9.99</button><div class="probadge free hidden" id="home-probadge">Free preview</div>
     </div>
   </div>
 </nav>
@@ -2239,7 +2239,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
       <a class="nl" href="https://bytebarhq.com/#pricing">Pricing</a>
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
-      <span id="modes-acctslot"><button class="acctbtn" id="modes-acctbtn" onclick="openAuth()">Sign in</button></span><button class="btn btn-gold hdr-gopro" onclick="openPaywall()">Get ByteBar Complete — $9.99</button><div class="probadge free" id="modes-probadge">Free preview</div>
+      <span id="modes-acctslot"><button class="acctbtn" id="modes-acctbtn" onclick="openAuth()">Sign In</button></span><button class="btn btn-gold hdr-gopro" onclick="openPaywall()">Get ByteBar Complete — $9.99</button><div class="probadge free hidden" id="modes-probadge">Free preview</div>
     </div>
   </div>
 </nav>
@@ -4647,10 +4647,15 @@ function syncProFromAccount(){
   refreshBadges();
 }
 function refreshBadges(){
+  /* Nav badge is an account-state badge: hidden in the logged-out default
+     (the landing's nav row carries Sign In + the gold button only). It
+     appears once a state exists to badge — signed in, or Complete
+     activated on this device. */
+  const badgeOn = !!currentUser() || isPro();
   ["home-probadge","modes-probadge"].forEach(id=>{
     const el=$(id); if(!el) return;
     el.textContent = isPro()? "Complete unlocked" : "Free preview";
-    el.className = "probadge" + (isPro()? "" : " free");
+    el.className = "probadge" + (isPro()? "" : " free") + (badgeOn? "" : " hidden");
   });
   const lt=$("sim-locktag"); if(lt) lt.style.display = isPro()? "none":"";
   /* Home topbar Go Pro button: free users only */
@@ -6912,7 +6917,7 @@ function refreshAccount(){
       slot.appendChild(b);
     } else {
       const b=document.createElement("button");
-      b.className="acctbtn"; b.textContent="Sign in";
+      b.className="acctbtn"; b.textContent="Sign In";
       b.addEventListener("click",openAuth);
       slot.appendChild(b);
     }
