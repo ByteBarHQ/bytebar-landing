@@ -1,0 +1,179 @@
+/* ByteBar checkout — production build.
+   Tokens & components lifted from the checkout mocks
+   (checkout-design-2026-11-11/mocks/checkout.css), which inherit the
+   library design system: navy #060B18, cyan #22D3EE, panel/line system,
+   pill CTAs, spec-sheet proof lines. Additions for the live build are
+   marked PROD. */
+:root{
+  --bg:#060B18; --bg2:#080F1F;
+  --panel:#0B1424; --panel2:#0D1729;
+  --line:rgba(148,178,255,.10); --line2:rgba(148,178,255,.16);
+  --ink:#E9EFFA; --muted:#8CA0BE; --faint:#5D7092;
+  --cyan:#22D3EE; --green:#3ECF8E; --red:#F0766B;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--bg);}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Avenir Next",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+.hidden{display:none !important;} /* PROD: state sections */
+
+/* ---------- header (same as library) ---------- */
+header.top{border-bottom:1px solid var(--line);background:rgba(6,11,24,.92);}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1180px;margin:0 auto;padding:0 20px;}
+.masthead{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--cyan);}
+.secure{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);}
+.secure svg{flex:none;}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
+.hero-traces{position:absolute;inset:0;opacity:.05;pointer-events:none;}
+.hero-in{position:relative;padding:34px 0 28px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.34em;color:var(--cyan);text-transform:uppercase;}
+h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-.01em;margin:12px 0 10px;}
+.hero p.sub{font-size:15.5px;line-height:1.55;color:var(--muted);}
+.proofline{margin-top:16px;font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase;line-height:1.9;}
+.proofline b{color:var(--muted);font-weight:600;}
+
+/* ---------- product / bundle cards ---------- */
+.stack{padding:22px 0 6px;display:flex;flex-direction:column;gap:14px;}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;}
+.pcard .p-eyebrow{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.pcard h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:9px 0 5px;}
+.pcard .p-sub{font-size:14px;line-height:1.5;color:var(--muted);}
+.lvl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line2);border-radius:5px;padding:3px 7px;white-space:nowrap;}
+.lvl.hot{color:#06222B;background:var(--cyan);border-color:var(--cyan);}
+.lvl.owned{color:var(--green);border-color:rgba(62,207,142,.45);}
+.spec{list-style:none;margin:15px 0 2px;border-top:1px solid var(--line);}
+.spec li{display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.45;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);}
+.spec li:last-child{border-bottom:none;}
+.spec .tick{color:var(--cyan);font-size:12px;flex:none;}
+.spec .dim{color:var(--muted);}
+.pricerow{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:16px;}
+.price{font-size:27px;font-weight:750;letter-spacing:-.01em;line-height:1;}
+.price small{display:block;font-size:12px;font-weight:500;color:var(--faint);margin-top:5px;letter-spacing:.02em;}
+.price .strike{font-size:15px;font-weight:550;color:var(--faint);text-decoration:line-through;margin-right:8px;vertical-align:3px;}
+.cta{display:inline-block;font-size:13.5px;font-weight:600;color:#06222B;background:var(--cyan);border-radius:999px;padding:11px 18px;white-space:nowrap;}
+.cta.ghost{color:var(--cyan);background:none;border:1px solid rgba(34,211,238,.45);}
+.cta.block{display:block;text-align:center;width:100%;padding:14px 18px;font-size:15px;}
+.cta[disabled]{opacity:.55;cursor:wait;} /* PROD */
+.bundle{
+  border:1px solid rgba(34,211,238,.4);border-radius:14px;padding:20px;
+  background:linear-gradient(180deg,#0C1A2E,#0A1424);
+}
+.save{font-size:12.5px;color:var(--green);font-weight:600;margin-top:5px;}
+
+/* ---------- owner banner ---------- */
+.owner{
+  display:flex;gap:12px;align-items:flex-start;margin:22px 0 0;
+  background:var(--panel);border:1px solid rgba(62,207,142,.35);border-radius:14px;padding:16px 18px;
+}
+.owner .ocheck{
+  flex:none;width:24px;height:24px;border-radius:99px;border:1px solid rgba(62,207,142,.55);
+  color:var(--green);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.owner h3{font-size:16px;font-weight:650;}
+.owner p{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:3px;}
+.owner p b{color:var(--ink);font-weight:600;}
+
+/* ---------- guarantee strip ---------- */
+.promise{
+  display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;
+  border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(11,20,36,.55);
+}
+.promise svg{flex:none;margin-top:1px;}
+.promise p{font-size:13.5px;line-height:1.55;color:var(--muted);}
+.promise p b{color:var(--ink);font-weight:600;}
+
+/* ---------- order summary ---------- */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;}
+.panel + .panel{margin-top:14px;}
+.panel h2{font-size:16.5px;font-weight:700;letter-spacing:-.01em;}
+.orow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:14.5px;padding:10px 0;border-bottom:1px solid var(--line);}
+.orow .oname{color:var(--ink);}
+.orow .oname small{display:block;color:var(--faint);font-size:12px;margin-top:2px;}
+.orow .oamt{font-weight:600;white-space:nowrap;}
+.orow.discount .oname,.orow.discount .oamt{color:var(--green);}
+.orow.total{border-bottom:none;padding-top:14px;align-items:flex-end;}
+.orow.total .oname{font-size:15px;font-weight:650;}
+.orow.total .oname small{font-size:12px;font-weight:500;}
+.orow.total .oamt{font-size:24px;font-weight:750;letter-spacing:-.01em;}
+
+/* ---------- form ---------- */
+.flabel{font-size:10.5px;font-weight:700;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin:18px 0 8px;}
+.finput{
+  background:var(--panel);border:1px solid var(--line2);border-radius:10px;
+  padding:13px 14px;font-size:15.5px;color:var(--ink);width:100%;
+}
+input.finput{font:inherit;outline:none;} /* PROD: real input */
+input.finput:focus{border-color:rgba(34,211,238,.55);}
+.finput.focus{border-color:rgba(34,211,238,.55);}
+.fnote{font-size:12.5px;line-height:1.5;color:var(--faint);margin-top:8px;}
+.express{display:flex;gap:10px;}
+.xbtn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  border-radius:10px;padding:13px 10px;font-size:15.5px;font-weight:600;
+}
+/* PROD: in the live build the express row holds Square SDK containers —
+   Square renders its own Apple Pay / Google Pay buttons inside them.
+   Containers stay hidden until the SDK confirms the method is available. */
+.xslot{flex:1;display:none;}
+.xslot.on{display:block;}
+.xslot > div{width:100%;height:48px;}
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0 4px;color:var(--faint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+.divider:before,.divider:after{content:"";flex:1;height:1px;background:var(--line);}
+.cardbox{background:var(--panel);border:1px solid var(--line2);border-radius:10px;overflow:hidden;}
+/* PROD: Square's single unified card field (hosted iframe) mounts here. */
+#card-container{min-height:52px;padding:6px 8px;}
+.sq-note{font-size:12.5px;line-height:1.5;color:var(--faint);margin-top:8px;}
+.lockline{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:12.5px;line-height:1.55;color:var(--faint);}
+.lockline svg{flex:none;margin-top:1px;}
+.lockline b{color:var(--muted);font-weight:600;}
+/* PROD: inline error surface — plain language, nothing charged. */
+.errbar{
+  display:none;margin-top:14px;border:1px solid rgba(240,118,107,.5);
+  background:rgba(240,118,107,.08);border-radius:10px;padding:12px 14px;
+  font-size:13.5px;line-height:1.5;color:#F5B8B2;
+}
+.errbar.on{display:block;}
+.okbar{
+  display:none;margin-top:14px;border:1px solid rgba(62,207,142,.45);
+  background:rgba(62,207,142,.07);border-radius:10px;padding:12px 14px;
+  font-size:13.5px;line-height:1.5;color:#BDEED3;
+}
+.okbar.on{display:block;}
+
+/* ---------- success ---------- */
+.done-head{text-align:center;padding:38px 0 6px;}
+.done-ring{
+  width:68px;height:68px;margin:0 auto 18px;border-radius:99px;
+  border:1.5px solid rgba(34,211,238,.6);color:var(--cyan);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  background:rgba(34,211,238,.06);
+}
+.done-head h1{margin-top:10px;}
+.done-head .sub{font-size:15px;line-height:1.6;color:var(--muted);max-width:440px;margin:0 auto;}
+.done-head .sub b{color:var(--ink);font-weight:600;}
+.orderline{margin-top:14px;font-size:12px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase;}
+/* PROD: confirming spinner (success page, waiting on the webhook). */
+.spin{
+  width:54px;height:54px;margin:0 auto 18px;border-radius:99px;
+  border:2px solid rgba(34,211,238,.25);border-top-color:var(--cyan);
+  animation:bbspin 1s linear infinite;
+}
+@keyframes bbspin{to{transform:rotate(360deg);}}
+.pip{
+  display:flex;gap:11px;align-items:flex-start;margin:20px 0 4px;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;text-align:left;
+}
+.pip .pip-name{font-size:10px;font-weight:700;letter-spacing:.26em;color:var(--cyan);margin-bottom:3px;}
+.pip .pip-line{font-size:14px;line-height:1.5;color:var(--ink);}
+
+footer.site{padding:26px 0 38px;border-top:1px solid var(--line);margin-top:34px;}
+footer.site .f-in{max-width:640px;margin:0 auto;padding:0 20px;font-size:12.5px;color:var(--faint);line-height:1.7;}
+footer.site .brand{color:var(--muted);letter-spacing:.3em;font-size:11px;font-weight:700;}
