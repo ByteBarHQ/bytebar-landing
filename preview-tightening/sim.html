@@ -3338,7 +3338,7 @@ function ensureBank(slug){
   if(BANKS[slug]) return Promise.resolve(BANKS[slug]);
   if(!_bankPromises[slug]){
     _bankVeil(true);
-    _bankPromises[slug] = fetch("data/" + slug + ".json")
+    _bankPromises[slug] = fetch("https://sim.bytebarhq.com/sim-preview/data/" + slug + ".json")
       .then(function(r){ if(!r.ok) throw new Error("bank " + slug + " HTTP " + r.status); return r.json(); })
       .then(function(qs){ BANKS[slug] = qs; _bankVeil(false); return qs; })
       .catch(function(e){ delete _bankPromises[slug]; _bankVeil(false); throw e; });
