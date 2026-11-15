@@ -2099,6 +2099,61 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
 @media (prefers-reduced-motion: reduce){
   .rescard [data-rv]{transition:none;}
 }
+
+/* ============================================================
+   PHASE 2 (2026-11-15) — goals & the return loop. Same card
+   family as the streak banner / library card: cream gradient,
+   gold border, one contained card per surface, Design System
+   v2 motion only (cubic-bezier(.2,0,0,1), nothing loops).
+   ============================================================ */
+.hud-goal{flex:none; font-weight:800; color:var(--navy); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.goalcard{display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#fffdf4,#fdf6e3);
+  border:2px solid #f0d9a0; border-radius:18px; padding:12px 16px; margin-bottom:16px; box-shadow:var(--shadow);}
+.goalcard.met{border-color:#bfe6d4; background:linear-gradient(135deg,#f4fbf7,#fdf6e3);}
+.goal-ic{font-size:30px; line-height:1; flex:none; filter:drop-shadow(0 2px 4px rgba(240,150,20,.35));}
+.goal-mid{flex:1; min-width:0;}
+.goal-top{display:flex; align-items:center; gap:9px; flex-wrap:wrap;}
+.goal-top b{font-size:15px; color:var(--navy);}
+.goal-state{font-size:12px; font-weight:800; color:#7c2d12; background:linear-gradient(180deg,#ffd97a,#f0ad3c);
+  border-radius:20px; padding:2px 9px; white-space:nowrap;}
+.goal-sub{font-size:13px; color:var(--mut); margin-top:2px;}
+.goal-change{flex:none; font:inherit; font-size:13px; font-weight:700; color:var(--navy);
+  background:#fff; border:1.5px solid #e3d5ae; border-radius:12px; padding:7px 12px; cursor:pointer;}
+.goal-change:active{transform:scale(.98);}
+.goaltargets{display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;}
+.goaltarget{font:inherit; font-size:14px; font-weight:800; color:var(--navy); background:#fff;
+  border:1.5px solid #e3d5ae; border-radius:999px; padding:7px 16px; cursor:pointer;}
+.goaltarget.on{background:linear-gradient(180deg,#ffd97a,#f0ad3c); border-color:#d9a83f; color:#3a2503;}
+.goaltarget:active{transform:scale(.97);}
+.goal-unit{font-size:12.5px; color:var(--mut); font-weight:600;}
+.goalring{width:58px; height:58px; flex:none; transform:rotate(-90deg);}
+.goalring .gr-bg{fill:none; stroke:#eee2c4; stroke-width:7;}
+.goalring .gr-fg{fill:none; stroke:#f0b429; stroke-width:7; stroke-linecap:round;
+  transition:stroke-dashoffset .6s cubic-bezier(.2,0,0,1);}
+.goalcard.met .goalring .gr-fg{stroke:var(--green);}
+.goalring .gr-tx{font-size:15px; font-weight:800; fill:var(--navy); transform:rotate(90deg); transform-origin:32px 32px;}
+.goalcard.prof{margin-bottom:18px;}
+.home-secttl{margin:6px 0 12px;}
+.home-secttl span{letter-spacing:.02em; text-transform:none; font-weight:600;}
+#home-challenges-slot{margin-bottom:16px;}
+#home-challenges-slot .challgrid{margin-bottom:0;}
+.chall.locked{cursor:pointer;}
+.deckpull{display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--line);
+  border-left:4px solid var(--cyan); border-radius:var(--r); box-shadow:var(--shadow);
+  padding:14px 18px; margin-bottom:16px;}
+.deckpull-tx{flex:1; min-width:0; font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.45;}
+.deckpull-tx span{display:block; font-size:13.5px; font-weight:600; color:var(--mut); margin-top:2px;}
+.deckpull-btn{white-space:nowrap;}
+@media(max-width:560px){
+  .goalcard{padding:12px 14px; gap:11px;}
+  .deckpull{padding:13px 15px; flex-wrap:wrap;}
+  .deckpull-tx{font-size:14.5px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .goalring .gr-fg{transition:none;}
+  .ch-bar>div{transition:none;}
+  .goal-change:active,.goaltarget:active{transform:none;}
+}
 </style>
 
 <!-- ================= HOME ================= -->
@@ -2133,10 +2188,13 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap home-slots">
     <div id="resume-slot"></div>
     <div id="streak-slot"></div>
+    <div id="goal-slot"></div>
+    <div id="home-challenges-slot"></div>
+    <div id="deckpull-slot"></div>
     <div id="library-slot"></div>
     <div class="pipblock hidden" id="pip-greet"></div>
     <div class="pip-actions hidden" id="pip-greet-actions"></div>
@@ -2303,7 +2361,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="modes-back">← All exams</button>
     <div class="hero" style="margin-bottom:22px;">
@@ -2359,7 +2417,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="deck-back">← All exams</button>
     <div class="hero" style="margin-bottom:22px;">
@@ -2389,7 +2447,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="brief-back">← Choose mode</button>
     <div class="brief">
@@ -2421,7 +2479,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     <button class="endbtn" id="endbtn">End exam</button>
   </div></div>
   <div class="qtrackwrap" aria-hidden="true"><div class="qtrack"><div id="qtrackfill"></div><i class="qm" data-m="25" style="left:25%"></i><i class="qm" data-m="50" style="left:50%"></i><i class="qm" data-m="75" style="left:75%"></i></div></div>
-  <div class="hudwrap-exam"><div class="hudstrip hud-exam hidden" data-hud="exam"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-sess"></span></div></div>
+  <div class="hudwrap-exam"><div class="hudstrip hud-exam hidden" data-hud="exam"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span><span class="hud-sess"></span></div></div>
   <div class="exambody">
     <div class="qcard">
       <div class="qhead">
@@ -2489,7 +2547,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap"><div class="reswrap">
     <div class="rescard">
       <div style="font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);" id="res-exam">Exam results</div>
@@ -2551,7 +2609,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="dash-back">← Home</button>
     <div class="hero" style="margin-bottom:24px;">
@@ -2601,7 +2659,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="profile-back">← Home</button>
     <div class="profilehead">
@@ -2623,6 +2681,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
       <button class="btn ghost" id="profile-signout" style="padding:11px 20px;font-size:14px;">Sign out</button>
     </div>
     <div id="profile-problock" class="hidden" style="margin-bottom:18px;"></div>
+    <div id="profile-goal-slot"></div>
     <div id="next-coin-slot"></div>
     <div class="secttl">Achievements <span id="badge-count" style="color:var(--cyan);"></span></div>
     <div id="badge-grid"></div>
@@ -2647,7 +2706,7 @@ setTimeout(function(){ var b=document.getElementById('bb-boot'); if(b && !b.clas
     </div>
   </div>
 </nav>
-  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span></div></div>
+  <div class="hudwrap"><div class="hudstrip hidden" data-hud="browse"><span class="hud-lvl hud-prog"></span><span class="hud-barwrap hud-prog"><span class="hud-bar"><i></i></span><span class="hud-xptxt"></span></span><span class="hud-streak hud-prog"></span><span class="hud-freeze hud-prog"></span><span class="hud-goal hud-prog"></span></div></div>
   <div class="wrap">
     <button class="backlink" id="builder-back">← Home</button>
     <div class="hero" style="margin-bottom:24px;">
@@ -3131,6 +3190,9 @@ window.BB = (function(){
     r.best = d.best || {}; r.domainAgg = d.domain_agg || {};
     r.examsDone = d.exams_done || {}; r.activeDays = d.active_days || [];
     r.unlockQueue = d.unlock_queue || []; r.qAnswered = d.q_answered || 0;
+    const gl = d.goal || {};
+    r.goalTarget = gl.target || 0; r.goalDay = gl.day || ""; r.goalCount = gl.count || 0;
+    r.goalMetDay = gl.met || ""; r.goalAckDay = gl.ack || "";
     r.badges = (b.badges || []).map(function(x){ return x.badge_id; });
     r.attempts = (b.attempts || []).map(function(a){
       const doms = a.domains || {};
@@ -3169,6 +3231,11 @@ window.BB = (function(){
       const data = {
         best: r.best || {}, domain_agg: r.domainAgg || {}, exams_done: r.examsDone || {},
         active_days: r.activeDays || [], unlock_queue: r.unlockQueue || [], q_answered: r.qAnswered || 0,
+        /* Daily goal (Phase 2): rides the same blob as the streak's
+           active_days, so target + today's count + met/ack stamps
+           follow the account across devices. */
+        goal: { target: r.goalTarget || 0, day: r.goalDay || "", count: r.goalCount || 0,
+                met: r.goalMetDay || "", ack: r.goalAckDay || "" },
       };
       let e = await s.from("profiles").upsert({
         id: uid, display_name: r.username, xp: r.xp || 0,
@@ -4657,9 +4724,15 @@ function goHome(){
       /* Timed exam: leaving discards it — confirm first. */
       if(!confirm("Leave the exam?\n\nYour progress won't be saved.")) return;
       clearInterval(timerId); clearResume();
-    } else {
-      /* Untimed practice/custom: progress auto-saves; home offers "Resume". */
+    } else if(currentUser()){
+      /* Untimed practice/custom, signed in: progress auto-saves; home offers "Resume". */
       saveResume();
+      clearInterval(timerId);
+    } else {
+      /* Untimed practice/custom, guest: NO resume of any kind (Cori
+         2026-11-15) — leaving discards the session outright, the
+         same end state as the banner's Discard button. */
+      clearResume();
       clearInterval(timerId);
     }
     S=null;
@@ -5032,7 +5105,15 @@ function buddyInit(){
   S.milestonesHit=new Set(); S.midQuizLevels=new Set();
   const r=userRec();
   S.lastLevel = r ? levelFor(r.xp).name : null;
-  coachSay(pick(COACH_OPENERS), "idle", true);
+  /* Session open (Phase 2): an untimed custom session has no brief
+     screen, so its coach opener carries the day line instead (same
+     real-data clauses as the practice briefing). Every other mode —
+     sim, CAT, timed custom, deck, and Quick Practice (whose brief
+     screen already carried the line) — keeps the stock openers;
+     the sim's opening stays test-day plain. */
+  let opener=null;
+  if(S.mode==="custom"&&!S.timed) opener=dayBriefLine(S.exam.slug);
+  coachSay(opener||pick(COACH_OPENERS), "idle", true);
   renderStreak();
   paintTrack();
   paintHud();
@@ -5092,6 +5173,24 @@ function hudPaintProg(strip, lv, xp, pct, r){
   if(st){ const d=dayStreak(r); st.innerHTML=d>0?flameSVG(d)+"<b>"+d+"</b>":""; st.title=d+"-day streak"; }
   const fz=strip.querySelector(".hud-freeze");
   if(fz){ const f=r.streakFreeze||0; fz.textContent=f>0?"❄ ×"+f:""; fz.title="Streak freezes banked"; }
+  /* Daily goal readout (Phase 2): compact "🎯 14/25" from the same
+     recorded count home shows — never projected from an in-flight
+     session, so the strip and the record can't disagree. The span
+     carries .hud-prog, so the timed/session variant hides it:
+     no game data mid-sim, and guests never see it. */
+  const gl=strip.querySelector(".hud-goal");
+  if(gl){
+    const gs=goalState(r);
+    gl.textContent=!gs.target?"":(gs.met?"🎯 Goal ✓":"🎯 "+gs.count+"/"+gs.target);
+    gl.title=gs.target?("Daily goal: "+gs.count+" of "+gs.target+" questions today"):"";
+  }
+}
+/* Goal fragment for the strip signature cache: the strip repaints
+   whenever today's goal state changes. */
+function hudGoalSig(r){
+  if(!r||!r.goalTarget) return "g0";
+  goalRollDay(r);
+  return "g"+r.goalDay+":"+(r.goalCount||0)+"/"+r.goalTarget;
 }
 function paintHud(){
   const r=userRec();
@@ -5118,7 +5217,7 @@ function paintHud(){
         const proj=r.xp+(S.xpEarned||0), lv=levelFor(proj);
         const pct=lv.next?Math.round((proj-lv.cur)/(lv.next-lv.cur)*100):100;
         strip.classList.remove("hidden"); strip.classList.remove("sess");
-        hudFill(strip, "live|"+proj+"|"+dayStreak(r)+"|"+(r.streakFreeze||0),
+        hudFill(strip, "live|"+proj+"|"+dayStreak(r)+"|"+(r.streakFreeze||0)+"|"+hudGoalSig(r),
           ()=>hudPaintProg(strip, lv, proj, pct, r));
       } else {
         strip.classList.remove("hidden"); strip.classList.add("sess");
@@ -5134,7 +5233,7 @@ function paintHud(){
     const lv=levelFor(r.xp);
     const pct=lv.next?Math.round((r.xp-lv.cur)/(lv.next-lv.cur)*100):100;
     strip.classList.remove("hidden");
-    hudFill(strip, "browse|"+r.xp+"|"+dayStreak(r)+"|"+(r.streakFreeze||0),
+    hudFill(strip, "browse|"+r.xp+"|"+dayStreak(r)+"|"+(r.streakFreeze||0)+"|"+hudGoalSig(r),
       ()=>hudPaintProg(strip, lv, r.xp, pct, r));
   });
 }
@@ -5244,6 +5343,9 @@ function renderHome(){
   });
   renderResumeBanner();
   renderStreakBanner();
+  renderGoalCard();
+  renderHomeChallenges();
+  renderDeckPull();
   renderLibraryPanel();
   renderPipHome();
   show("screen-home");
@@ -5278,6 +5380,168 @@ function renderStreakBanner(){
   slot.appendChild(bar);
 }
 
+/* ============================================================
+   PHASE 2 (2026-11-15) — home return-loop surfaces: daily goal
+   card, weekly challenges at home, misses-deck pull. Each is ONE
+   contained card in the streak banner's family; signed-in only
+   (guests see home exactly as before — nothing persists or is
+   promised to a guest).
+   ============================================================ */
+let goalCardEditing=false;
+/* The 10 / 25 / 50 picker, shared by the home card and Profile. */
+function goalTargetsHTML(r){
+  const cur=r?(r.goalTarget||0):0;
+  return '<div class="goaltargets">'+GOAL_TARGETS.map(t=>
+    '<button type="button" class="goaltarget'+(cur===t?" on":"")+'" data-goal="'+t+'">'+t+'</button>'
+  ).join("")+'<span class="goal-unit">questions a day</span></div>';
+}
+function wireGoalTargets(root){
+  if(!root) return;
+  root.querySelectorAll("[data-goal]").forEach(b=>{
+    b.addEventListener("click",()=>{ goalCardEditing=false; setGoalTarget(parseInt(b.dataset.goal,10)); });
+  });
+}
+function goalRingSVG(gs){
+  const C=163.4, ratio=gs.target?Math.min(1,gs.count/gs.target):0;
+  return '<svg class="goalring" viewBox="0 0 64 64" role="img" aria-label="Daily goal progress">'+
+    '<circle class="gr-bg" cx="32" cy="32" r="26"></circle>'+
+    '<circle class="gr-fg" cx="32" cy="32" r="26" stroke-dasharray="'+C+'" stroke-dashoffset="'+(C*(1-ratio)).toFixed(1)+'"></circle>'+
+    '<text class="gr-tx" x="32" y="37" text-anchor="middle">'+(gs.met?"✓":Math.round(ratio*100)+"%")+'</text></svg>';
+}
+function renderGoalCard(){
+  const slot=$("goal-slot"); if(!slot) return;
+  slot.innerHTML="";
+  const r=userRec(); if(!r) return;
+  const gs=goalState(r);
+  const card=document.createElement("div");
+  if(!gs.target||goalCardEditing){
+    card.className="goalcard pick";
+    card.innerHTML='<span class="goal-ic">🎯</span>'+
+      '<div class="goal-mid"><div class="goal-top"><b>'+(gs.target?"Change your daily goal":"Set a daily goal")+'</b></div>'+
+      '<div class="goal-sub">'+(gs.target
+        ? "Today counts "+gs.count+" so far — the new target applies to the same day."
+        : "A small target, every day. Pip keeps count — free with your account.")+'</div>'+
+      goalTargetsHTML(r)+'</div>';
+    wireGoalTargets(card);
+  } else {
+    card.className="goalcard"+(gs.met?" met":"");
+    const left=gs.target-gs.count;
+    card.innerHTML=goalRingSVG(gs)+
+      '<div class="goal-mid"><div class="goal-top"><b>Today\'s goal</b>'+
+      '<span class="goal-state">'+gs.count+' of '+gs.target+'</span></div>'+
+      '<div class="goal-sub">'+(gs.met
+        ? "Goal met 🎉 — anything else today is bonus."
+        : left+" to go — every answered question counts.")+'</div></div>'+
+      '<button type="button" class="goal-change" id="goal-change">Change</button>';
+    const ch=card.querySelector("#goal-change");
+    if(ch) ch.addEventListener("click",()=>{ goalCardEditing=true; renderGoalCard(); });
+  }
+  slot.appendChild(card);
+}
+/* Profile's goal row: same picker, with today's standing. */
+function renderProfileGoal(){
+  const slot=$("profile-goal-slot"); if(!slot) return;
+  const r=userRec(); if(!r){ slot.innerHTML=""; return; }
+  const gs=goalState(r);
+  slot.innerHTML='<div class="goalcard prof">'+
+    '<span class="goal-ic">🎯</span>'+
+    '<div class="goal-mid"><div class="goal-top"><b>Daily goal</b>'+
+    (gs.target?'<span class="goal-state">'+gs.count+' of '+gs.target+' today</span>':'')+'</div>'+
+    '<div class="goal-sub">'+(gs.target
+      ? (gs.met?"Goal met today — Pip marked it on your home screen.":"Questions answered today count toward it, in every mode.")
+      : "No goal set yet. Pick a daily target — free with your account.")+'</div>'+
+    goalTargetsHTML(r)+'</div></div>';
+  wireGoalTargets(slot);
+}
+/* Weekly challenges on home (Phase 2): the dashboard's three cards,
+   same real progress, plus honest days-left to the Monday reset.
+   Complete-gated exactly as on the dashboard — free accounts see
+   the teaser (names + Complete chip, nothing earnable, no fake
+   progress: challenge progress only ever accrues for Complete). */
+function renderHomeChallenges(){
+  const slot=$("home-challenges-slot"); if(!slot) return;
+  slot.innerHTML="";
+  const r=userRec(); if(!r) return;
+  ensureChallengeWeek(r); saveUserRec(r);
+  const dl=daysLeftInWeek();
+  const dlTxt=dl>=7?"a fresh week":(dl===1?"last day":"· "+dl+" days left");
+  const head=document.createElement("div");
+  head.className="secttl home-secttl";
+  head.innerHTML='Weekly challenges <span>· fresh every Monday · 200 XP each · '+dlTxt+' · resets Monday</span>';
+  slot.appendChild(head);
+  const grid=document.createElement("div");
+  grid.className="challgrid";
+  if(r.pro){
+    grid.innerHTML=CHALLENGES.map(ch=>{
+      const v=r.challenges[ch.id]||0, done=r.challengesDone.includes(ch.id);
+      const pct=Math.min(100,Math.round(v/ch.target*100));
+      return '<div class="chall'+(done?" done":"")+'"><span class="ch-ic">'+ch.icon+'</span>'+
+        '<div class="ch-mid"><b>'+ch.name+'</b><span>'+ch.desc+'</span>'+
+        '<div class="ch-bar"><div data-w="'+pct+'" style="width:'+(REDUCED()?pct:0)+'%"></div></div></div>'+
+        '<div class="ch-v">'+(done?"✓ done":v+"/"+ch.target)+'</div></div>';
+    }).join("");
+    if(!REDUCED()) requestAnimationFrame(()=>{ requestAnimationFrame(()=>{
+      grid.querySelectorAll(".ch-bar>div").forEach(d=>{ d.style.width=d.dataset.w+"%"; });
+    });});
+  } else {
+    grid.innerHTML=CHALLENGES.map(ch=>
+      '<div class="chall locked"><span class="ch-ic">'+ch.icon+'</span>'+
+      '<div class="ch-mid"><b>'+ch.name+'</b><span>'+ch.desc+' · Complete</span>'+
+      '<div class="ch-bar"><div style="width:0%"></div></div></div>'+
+      '<div class="ch-v">🔒</div></div>').join("");
+    grid.addEventListener("click",openPaywall);
+  }
+  slot.appendChild(grid);
+}
+/* Deck pull (Phase 2): the mode card's "N saved questions waiting"
+   line, surfaced on home for the exam whose deck was touched most
+   recently. Same count (deckCount — questions not yet beaten
+   twice), one tap to that exam's deck screen. */
+function renderDeckPull(){
+  const slot=$("deckpull-slot"); if(!slot) return;
+  slot.innerHTML="";
+  const r=userRec(); if(!r||!r.missDeck) return;
+  let slug=null, latest=-1, count=0;
+  Object.keys(r.missDeck).forEach(s=>{
+    const n=deckCount(s); if(!n) return;
+    let t=0; Object.values(r.missDeck[s]||{}).forEach(e=>{ t=Math.max(t,(e&&e.t)||0); });
+    if(t>latest){ latest=t; slug=s; count=n; }
+  });
+  if(!slug) return;
+  const exam=EXAMS.find(e=>e.slug===slug); if(!exam) return;
+  const card=document.createElement("div");
+  card.className="deckpull";
+  card.innerHTML='<div class="deckpull-tx">🃏 Your '+escapeHtml(exam.code)+' misses are waiting'+
+    '<span>'+count+' saved question'+(count===1?"":"s")+' · about '+deckEstMinutes(count)+' min · beat each one twice to clear it</span></div>'+
+    '<button class="btn deckpull-btn" type="button">Review misses →</button>';
+  card.querySelector(".deckpull-btn").addEventListener("click",()=>renderDeck(slug));
+  slot.appendChild(card);
+}
+/* Session-open day line (Phase 2): Pip's briefing in one breath,
+   real data only. Clauses appear only when the data exists —
+   the weakest-domain clause rides the readiness model, so below
+   its evidence bar (pct null) the clause is omitted, never
+   invented. Guests get "" (their briefings are unchanged). */
+function dayBriefLine(slug){
+  const r=userRec(); if(!r) return "";
+  const bits=[];
+  const gs=goalState(r);
+  if(gs.target){
+    bits.push(gs.met
+      ? "today's goal is already in the bag ("+gs.count+" of "+gs.target+")"
+      : "you're "+gs.count+" of "+gs.target+" toward today's goal");
+  }
+  const det=readinessDetail(r, slug);
+  if(det&&det.pct!=null&&det.weakest) bits.push(det.weakest.d+" is the one to watch");
+  const nd=deckCount(slug);
+  if(nd>0) bits.push(nd+" miss"+(nd===1?"":"es")+" waiting in your deck");
+  if(!bits.length) return "";
+  const joined=bits.length>1
+    ? bits.slice(0,-1).join(", ")+", and "+bits[bits.length-1]
+    : bits[0];
+  return joined.charAt(0).toUpperCase()+joined.slice(1)+".";
+}
+
 /* Library card (home): owners only — ByteBar Complete includes the video
    library, and it unlocks with this same account (profiles.pro). Free users
    get the topbar Library link only; the library's free first chapters are
@@ -5296,6 +5560,11 @@ function renderLibraryPanel(){
 /* resume banner on home */
 function renderResumeBanner(){
   const slot=$("resume-slot"); if(!slot) return; slot.innerHTML="";
+  /* Guests never see this bar — no resume of any kind without an
+     account (Cori 2026-11-15: "kill it for guests too"). Gated here
+     at the paint surface as well as in getResume(), so the bar
+     cannot appear for a guest even if a stale key survives. */
+  if(!currentUser()) return;
   const r=getResume(); if(!r) return;
   const exam=EXAMS.find(e=>e.slug===r.slug);
   const label=r.mode==="sim" ? "simulation" : (r.mode==="custom" ? "custom quiz" : "practice");
@@ -5594,7 +5863,15 @@ function renderBrief(slug, ctx){
     if(eb) eb.textContent="Quick Practice check-in";
     if(bst) bst.textContent="Begin Practice";
     if(bk) bk.textContent=term1 ? "Keyboard: type in the terminal · Enter submits" : "Keyboard: A–D answer · X strike out";
-    renderPipBlock(pipEl,"encourage","Your "+curExam.code+" practice is set up. "+nWord+" questions — begin when ready.","pip-hop",64);
+    /* Session open (Phase 2): for a signed-in learner, Pip's briefing
+       carries the day's state in one breath (goal progress, weakest
+       domain, deck due — real data only, clauses omitted when the
+       data isn't there). Guests, and learners with nothing to
+       report yet, get the original line word for word. */
+    const dayLine=dayBriefLine(curExam.slug);
+    renderPipBlock(pipEl,"encourage", dayLine
+      ? "Your "+curExam.code+" practice is set up. "+dayLine+" Begin when ready."
+      : "Your "+curExam.code+" practice is set up. "+nWord+" questions — begin when ready.","pip-hop",64);
     show("screen-brief"); return;
   }
   renderPipBlock(pipEl,"encourage","Your "+curExam.code+" is set up. The timer starts when you do.","pip-hop",64);
@@ -6550,6 +6827,12 @@ function finishExam(expired){
     Object.keys(doms).forEach(k=>{ if(!doms[k].t) delete doms[k]; });
   }
   const unans = live ? S.bank.reduce((a,q)=>a+(q.__res?0:1),0) : 0;
+  /* Questions actually answered (Phase 2 daily-goal counting):
+     live modes exclude unreached questions; deferred modes count
+     every non-null answer slot (CAT included — its answers array
+     grows one slot per asked question). */
+  const answeredCount = live ? (n - unans)
+    : (S.answers||[]).filter(a=>a!==null&&a!==undefined).length;
   const pct=Math.round(score/n*100);
   const passMark=passPct(S.exam.slug);
   const pass=pct>=passMark;
@@ -6871,7 +7154,7 @@ function finishExam(expired){
     const r0=userRec(), xpBefore=r0?r0.xp:0, lvlBefore=levelFor(xpBefore).name;
     const detBefore=r0?readinessDetail(r0, S.exam.slug):null;
     const rec=recordAttempt({slug:S.exam.slug, mode:S.mode, pct, score, n, domains:doms,
-      timeLeftSec, sataTotal:sataT, sataCorrect:sataC, elapsedSec:secs});
+      timeLeftSec, sataTotal:sataT, sataCorrect:sataC, elapsedSec:secs, answered:answeredCount});
     /* Phase B: feed the misses deck from this run's own misses list, and
        track the 80% readiness crossing (fires once per crossing — the Pip
        milestone block itself renders on home/dashboard, never stacked on
@@ -6987,7 +7270,8 @@ function newUserRec(username, passHash){
     bestStreak:0, streakFreeze:0, teasedBadges:[], teaseQueue:[],
     badgeCounts:{sims:0,sims90:0,perfectPractice:0,domainAces:0},
     challengeQueue:[], records:{}, challengeWeek:"", 
-    challenges:{sims80:0,questions:0,days:0}, challengesDone:[] };
+    challenges:{sims80:0,questions:0,days:0}, challengesDone:[],
+    goalTarget:0, goalDay:"", goalCount:0, goalMetDay:"", goalAckDay:"" };
 }
 /* Forward-compatible migration for accounts created before a field existed. */
 function migrateRec(r){
@@ -7000,6 +7284,13 @@ function migrateRec(r){
   if(r.challengeWeek==null) r.challengeWeek="";
   if(!r.challenges) r.challenges={sims80:0,questions:0,days:0};
   if(!Array.isArray(r.challengesDone)) r.challengesDone=[];
+  /* Daily goal (Phase 2, 2026-11-15): target / day key / today's count /
+     met + acknowledged day stamps. */
+  if(r.goalTarget==null) r.goalTarget=0;
+  if(r.goalDay==null) r.goalDay="";
+  if(r.goalCount==null) r.goalCount=0;
+  if(r.goalMetDay==null) r.goalMetDay="";
+  if(r.goalAckDay==null) r.goalAckDay="";
   /* Badge tiers (2026-10-22): lifetime feat counters. Backfilled once
      from the stored attempt history (last 60) — the best floor the
      record honestly supports; they only grow from there. */
@@ -7251,6 +7542,14 @@ function weekActiveDays(r){
   const w=weekKey(todayStr());
   return r.activeDays.filter(k=>weekKey(k)===w).length;
 }
+/* Days left in the current challenge week, today included: the week
+   runs Monday–Sunday (weekKey), so Monday = 7 and Sunday = 1. The
+   reset it counts toward is the real Monday rollover in
+   ensureChallengeWeek — an honest number, never a sales countdown. */
+function daysLeftInWeek(d){
+  d=d||new Date();
+  return 7-((d.getDay()+6)%7);
+}
 function checkChallengeComplete(r){
   CHALLENGES.forEach(ch=>{
     if(r.challengesDone.includes(ch.id)) return;
@@ -7288,8 +7587,83 @@ function pumpTeaseQueue(){
   $("tease-desc").textContent="You would've earned this achievement! Get ByteBar Complete to unlock it — plus "+proCount+" more Complete achievements, streak freezes, and weekly challenges.";
   $("teaseov").classList.remove("hidden");
 }
+/* ============================================================
+   DAILY GOAL (Phase 2, 2026-11-15) — the today-sized commitment:
+   10 / 25 / 50 QUESTIONS, free for every account (the habit hook
+   is not the paywall). Progress is counted HERE, inside the one
+   attempt-recording path everything else uses (recordAttempt),
+   from the attempt's answered count — never a parallel counter,
+   so the goal can never drift from the rest of the record. The
+   day key is todayStr(), the same day the streak counts, so the
+   goal and the streak always agree about what "today" is.
+   Guests have no record (userRec() is null), so nothing about
+   the goal ever persists for them.
+   ============================================================ */
+const GOAL_TARGETS=[10,25,50];
+function goalRollDay(r){
+  const t=todayStr();
+  if(r.goalDay!==t){ r.goalDay=t; r.goalCount=0; }
+  return t;
+}
+function goalState(r){
+  if(!r) return {target:0, count:0, met:false};
+  goalRollDay(r);
+  const target=r.goalTarget||0, count=r.goalCount||0;
+  return { target:target, count:count, met:!!(target&&count>=target) };
+}
+/* Add an attempt's answered questions to today's count. Returns
+   true exactly once per day: the moment the count first reaches
+   the target (the goal-met event Pip acknowledges on home). */
+function goalAddProgress(r, answered){
+  if(!r||!(answered>0)) return false;
+  const t=goalRollDay(r);
+  const before=r.goalCount||0;
+  r.goalCount=before+answered;
+  const target=r.goalTarget||0;
+  if(target&&before<target&&r.goalCount>=target&&r.goalMetDay!==t){
+    r.goalMetDay=t; return true;
+  }
+  return false;
+}
+/* Re-check after a target change: lowering the target to (or
+   below) today's count, or raising it and already being there,
+   counts as met — stamped once, like any other met day. */
+function goalRecheck(r){
+  if(!r) return false;
+  const t=goalRollDay(r);
+  const target=r.goalTarget||0;
+  if(target&&(r.goalCount||0)>=target&&r.goalMetDay!==t){ r.goalMetDay=t; return true; }
+  return false;
+}
+/* Pip acknowledges the met goal once per day on home: pending
+   until the greeting renders, then goalAckDay is stamped. */
+function goalAckPending(r){
+  if(!r) return false;
+  goalRollDay(r);
+  return !!(r.goalTarget&&r.goalMetDay===r.goalDay&&r.goalAckDay!==r.goalDay);
+}
+const GOAL_MET_LINES=[
+  "Daily goal — done! {c} of {t} questions in the bag. That's how exams get passed: a little, every day. 🎯",
+  "That's today's goal: {c} of {t}. Pip counted every one. Same again tomorrow? 🔥"
+];
+function setGoalTarget(n){
+  const r=userRec(); if(!r) return;
+  r.goalTarget=GOAL_TARGETS.includes(n)?n:0;
+  goalRollDay(r); goalRecheck(r);
+  saveUserRec(r);
+  renderGoalCard(); renderProfileGoal(); paintHud();
+}
+/* Deck time estimate: 1 minute per waiting question. Grounding:
+   the sim's own exam formats pace first-pass questions at roughly
+   1–2 minutes each (45 in 45 min, 90 in 90, 65 in 130), and deck
+   questions are repeats the learner has already seen, worked with
+   the explanation on the spot — so the fastest full-exam pace is
+   a conservative ceiling for a deck run, not a promise. */
+const DECK_MIN_PER_Q=1;
+function deckEstMinutes(n){ return Math.max(1, Math.round(n*DECK_MIN_PER_Q)); }
+
 function recordAttempt(o){
-  /* o: {slug, mode, pct, score, n, domains, timeLeftSec, sataTotal, sataCorrect, elapsedSec} */
+  /* o: {slug, mode, pct, score, n, domains, timeLeftSec, sataTotal, sataCorrect, elapsedSec, answered} */
   const r=userRec(); if(!r) return null;
   const prevBest=r.best[o.slug]||0;
   const att={d:Date.now(), slug:o.slug, mode:o.mode, pct:o.pct, domains:o.domains};
@@ -7311,6 +7685,12 @@ function recordAttempt(o){
   if(Object.keys(o.domains||{}).some(d=>{ const s=o.domains[d]; return s&&s.t>=3&&s.c===s.t; })) r.badgeCounts.domainAces++;
   if(!r.best[o.slug] || o.pct>r.best[o.slug]) r.best[o.slug]=o.pct;
   r.qAnswered+=o.n;
+  /* Daily goal (Phase 2): today's count grows by the questions this
+     attempt actually ANSWERED (o.answered, computed at the finish
+     line — live modes exclude unreached questions; deferred modes
+     count non-null answers). Same path, same moment as qAnswered:
+     deck sessions record no attempt, so they never move the goal. */
+  goalAddProgress(r, (typeof o.answered==="number")?o.answered:o.n);
   r.examsDone[o.slug]=true;
   Object.keys(o.domains||{}).forEach(d=>{
     r.domainAgg[o.slug]=r.domainAgg[o.slug]||{};
@@ -7941,13 +8321,33 @@ function renderPipHome(){
   Object.keys(counts).forEach(s=>{
     if(counts[s]>bestN || (counts[s]===bestN && (lastD[s]||0)>bestLast)){ bestSlug=s; bestN=counts[s]; bestLast=lastD[s]||0; }
   });
-  if(!bestSlug){ clearAll(); return; }
+  /* Daily-goal acknowledgment (Phase 2): if today's goal was met and
+     Pip hasn't marked it yet, the greeting leads with the
+     acknowledgment — once per day; goalAckDay is stamped as it
+     renders, so no second render (or second device) repeats it. */
+  const ackToday=goalAckPending(r);
+  if(ackToday){ r.goalAckDay=todayStr(); saveUserRec(r); }
+  const ackLine=ackToday
+    ? pick(GOAL_MET_LINES).replace("{c}",goalState(r).count).replace("{t}",goalState(r).target)
+    : null;
+  if(!bestSlug){
+    if(ackLine){
+      blocks.forEach(el=>{ if(el) renderPipBlock(el,"celebrate",ackLine,"pip-hop",64); });
+      if(actEl){ actEl.classList.add("hidden"); actEl.innerHTML=""; }
+    } else clearAll();
+    return;
+  }
   const det=readinessDetail(r, bestSlug);
   const exam=EXAMS.find(e=>e.slug===bestSlug);
-  if(!det||det.pct==null||!det.weakest||!exam){ clearAll(); return; }
-  const line="Back again. You're at "+det.pct+"% on "+exam.name+" — "+det.weakest.d+" is the last gap.";
-  blocks.forEach(el=>{ if(el) renderPipBlock(el,"determined",line,"",64); });
+  if(ackLine){
+    blocks.forEach(el=>{ if(el) renderPipBlock(el,"celebrate",ackLine,"pip-hop",64); });
+  } else {
+    if(!det||det.pct==null||!det.weakest||!exam){ clearAll(); return; }
+    const line="Back again. You're at "+det.pct+"% on "+exam.name+" — "+det.weakest.d+" is the last gap.";
+    blocks.forEach(el=>{ if(el) renderPipBlock(el,"determined",line,"",64); });
+  }
   if(actEl){
+    if(!exam){ actEl.classList.add("hidden"); actEl.innerHTML=""; return; }
     actEl.innerHTML=""; actEl.classList.remove("hidden");
     const n=deckCount(bestSlug);
     const b=document.createElement("button"); b.type="button"; b.className="btn ghost";
@@ -8057,7 +8457,12 @@ async function renderDeck(slug, stats){
   let html="";
   if(stats&&stats.seen) html+='<p style="margin-top:0;">Session done — <b>'+stats.beaten+'</b> beaten this time, <b>'+keys.length+'</b> still saved.</p>';
   if(!keys.length){
-    if(r.deckHad&&r.deckHad[slug]){
+    if(stats&&stats.seen&&r.deckHad&&r.deckHad[slug]){
+      /* Session close (Phase 2): this session just emptied the deck —
+         Pip closes it out. Later visits fall through to the standing
+         line below; the close only fires on the session that did it. */
+      renderPipBlock(pip,"celebrate","Deck cleared — every saved question beaten twice. Those misses work for you now. 🎉","pip-hop",72);
+    } else if(r.deckHad&&r.deckHad[slug]){
       renderPipBlock(pip,"proud","Deck cleared. Every one of those used to beat you.","pip-hop",72);
     } else {
       renderPipBlock(pip,"happy","Nothing saved here. Go miss a few — I'll keep them safe.","pip-hop",72);
@@ -8276,6 +8681,7 @@ function renderProfile(){
     }
   }
   $("profile-meta").textContent="Member since "+d.toLocaleDateString("en-US",{month:"short",year:"numeric"})+(r.pro?" · Complete":" · Free preview");
+  renderProfileGoal(); /* daily goal picker (Phase 2) — free for every account */
   const lv=levelFor(r.xp);
   $("profile-level").textContent="★ "+lv.name;
   const span=(lv.next|| (lv.cur+2000))-lv.cur, prog=Math.min(100,Math.round((r.xp-lv.cur)/span*100));
