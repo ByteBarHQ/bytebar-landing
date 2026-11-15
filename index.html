@@ -252,7 +252,7 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 /* ============ Footer ============ */
 footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
-@media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr} .fgrid2 .fcol:first-child{grid-column:1 / -1}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
 .fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
 .fcol a:hover{color:var(--navy)}
