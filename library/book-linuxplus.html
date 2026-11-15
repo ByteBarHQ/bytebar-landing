@@ -214,6 +214,9 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none} html{scroll-behavior:auto}}
 
 .btn{text-align:center}
+.btn{white-space:nowrap}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none}.lbl-short{display:inline}}
 
 
 /* ============ Inner pages (preview set, live idiom) ============ */
@@ -352,7 +355,7 @@ a.irow.free:hover{background:#e2f1fb}
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:26px">
         <a class="btn btn-primary" href="watch-linuxplus.html"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg> Watch the first chapter — free</a>
-        <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete — $9.99</a>
+        <a class="btn btn-gold" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
       </div>
       <p class="hero-note" style="margin-top:16px"><b>$9.99 — everything</b>, one time · 14-day refund policy</p>
     </div>

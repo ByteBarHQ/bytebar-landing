@@ -214,6 +214,9 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none} html{scroll-behavior:auto}}
 
 .btn{text-align:center}
+.btn{white-space:nowrap}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none}.lbl-short{display:inline}}
 
 
 /* ============ Inner pages (preview set, live idiom) ============ */
@@ -567,7 +570,7 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
     mode = "locked";
     showPanel("<h2>This chapter comes with ByteBar Complete</h2>" +
       "<p>Owners watch every chapter of this book — and every other book in the Library, plus the full Simulator — for <b style='color:#fff'>$9.99, one time</b>. No subscription, yours forever.</p>" +
-      '<a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get">Get ByteBar Complete — $9.99</a>' +
+      '<a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>' +
       "<p style='font-size:13px'>Already own it? Sign in below with your purchase email and this chapter opens.</p>");
   }
 
