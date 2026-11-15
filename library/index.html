@@ -39,7 +39,7 @@ a{color:inherit}
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;
   font-weight:800; font-size:16px; letter-spacing:.01em; text-decoration:none; cursor:pointer;
   border:none; border-radius:16px; padding:15px 30px; transition:transform .08s, box-shadow .08s, filter .15s;
-  user-select:none; -webkit-tap-highlight-color:transparent}
+  user-select:none; -webkit-tap-highlight-color:transparent; white-space:nowrap}
 .btn-primary{background:linear-gradient(180deg,#22b8e8,var(--cyan)); color:#fff;
   box-shadow:0 5px 0 var(--cyan-d), 0 10px 24px rgba(11,143,196,.35); text-shadow:0 1px 2px rgba(0,0,0,.15)}
 .btn-primary:hover{filter:brightness(1.05)}
@@ -51,6 +51,8 @@ a{color:inherit}
 .btn-ghost{background:var(--card); color:var(--navy); border:2px solid var(--line); box-shadow:0 4px 0 var(--line)}
 .btn-ghost:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
 .btn-lg{font-size:18px; padding:18px 38px; border-radius:18px}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none}.lbl-short{display:inline}}
 .btn-light{background:#fff; color:var(--navy); box-shadow:0 5px 0 rgba(255,255,255,.35)}
 .btn-light:active{transform:translateY(4px); box-shadow:0 1px 0 rgba(255,255,255,.35)}
 
@@ -263,7 +265,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       <a class="nl" href="https://bytebarhq.com/#pricing">Pricing</a>
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete — $9.99</a>
+      <a class="btn btn-gold" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
     </div>
   </div>
 </nav>
@@ -279,7 +281,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
     </div>
     <div class="hero-ctas">
       <a class="btn btn-primary btn-lg" href="#find">Find your book 👇</a>
-      <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get">Get ByteBar Complete — $9.99</a>
+      <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
     </div>
     <p class="hero-note"><b>First chapter free</b> in every book — no card, no signup. Watch the real lesson before you pay anything.</p>
   </div>
@@ -612,7 +614,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <li><span class="ck">✓</span>First chapters stay free — sample any book, any time</li>
           <li><span class="ck">✓</span>Covered by the 14-day refund policy</li>
         </ul>
-        <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get">Get ByteBar Complete — $9.99</a>
+        <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
         <p class="price-note">One payment. <b>No subscription.</b> Sign in with the email you check out with — no password to remember.</p>
       </div>
     </div>
