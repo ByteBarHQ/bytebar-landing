@@ -18,6 +18,31 @@
 <meta name="twitter:image" content="https://bytebarhq.com/og-image.png">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="checkout.css">
+
+<style id="detail-pass">
+/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
+   The homepage's approved system in the dark checkout dialect (cyan
+   is this surface's accent): one treatment per role, one focus ring,
+   selection tint on brand. ===== */
+
+/* One visible keyboard-focus treatment everywhere. */
+:focus-visible{outline:3px solid rgba(34,211,238,.6); outline-offset:2px}
+
+/* Small courtesies. */
+::selection{background:rgba(34,211,238,.30)}
+a,button{-webkit-tap-highlight-color:transparent}
+
+/* Quiet next step: the text link, executed the homepage .tlink way —
+   refined underline, softened until hover. */
+.tlink{font-weight:700; color:var(--cyan); text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(34,211,238,.4)}
+.tlink:hover{text-decoration-color:currentColor}
+
+/* Card stacks share the site's one gap token (was 14px). */
+.stack{gap:16px}
+.panel + .panel{margin-top:16px}
+</style>
 </head>
 <body>
 
@@ -32,7 +57,7 @@
 </header>
 
 <section class="hero" style="border-bottom:none;">
-  <div class="wrap hero-in" style="padding-bottom:20px;">
+  <div class="wrap hero-in">
     <div class="eyebrow">Already bought the Simulator?</div>
     <h1>Your Library is free.</h1>
     <p class="sub">You paid $9.99 for the Simulator — that's the full ByteBar Complete price. ByteBar is one offer now, so the Library unlocks for you at no charge. Prove ownership once, below, and both products live on your account from then on.</p>
@@ -70,7 +95,7 @@
         </div>
       </div>
     </div>
-    <p style="text-align:center;font-size:14px;line-height:1.55;color:var(--muted);max-width:440px;margin:18px auto 0;">Prefer it in writing? <a href="https://bytebarhq.com/access-guide.pdf" download style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px;">Download your access guide (PDF)</a> — signing in, your two doors, and where everything lives, on one page.</p>
+    <p style="text-align:center;font-size:14px;line-height:1.55;color:var(--muted);max-width:440px;margin:18px auto 0;">Prefer it in writing? <a class="tlink" href="https://bytebarhq.com/access-guide.pdf" download>Download your access guide (PDF)</a> — signing in, your two doors, and where everything lives, on one page.</p>
   </div>
 
   <!-- ============ STATE: claim form ============ -->
