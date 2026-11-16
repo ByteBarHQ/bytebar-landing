@@ -62,6 +62,16 @@ h1{font-size:31px;line-height:1.12;font-weight:700;letter-spacing:-.01em;margin:
 .cta.ghost{color:var(--cyan);background:none;border:1px solid rgba(34,211,238,.45);}
 .cta.block{display:block;text-align:center;width:100%;padding:14px 18px;font-size:15px;}
 .cta[disabled]{opacity:.55;cursor:wait;} /* PROD */
+/* BUTTON AUDIT 2026-11-15: stack price rows on phones, mirroring the
+   cream /get pattern — the nowrap pill otherwise squeezes the price
+   text into a ~110px multi-line column at 390px. Stacked pills are
+   stretched full-width by the column flex, so centre their text
+   (base .cta carries no text-align). Inert on checkout.html, which
+   has no .pricerow. */
+@media(max-width:640px){
+  .pricerow{flex-direction:column;align-items:stretch;gap:12px;}
+  .pricerow .cta{text-align:center;}
+}
 .bundle{
   border:1px solid rgba(34,211,238,.4);border-radius:14px;padding:20px;
   background:linear-gradient(180deg,#0C1A2E,#0A1424);
