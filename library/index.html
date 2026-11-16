@@ -175,6 +175,11 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 .cov-title{position:relative; font-size:clamp(25px,2.4vw,33px); font-weight:900; color:#fff; line-height:1.1; letter-spacing:-.01em; margin-top:7px; max-width:92%}
 .cov-type{position:relative; font-size:10.5px; font-weight:800; letter-spacing:.3em; color:#cfe3f5; margin-top:11px}
 .cov-rule{position:relative; width:44px; height:3px; border-radius:2px; background:var(--acc); margin-top:14px}
+/* Shelf covers link to the book page (same destination as the card's
+   Watch door). display:block keeps the cover box — padding, frame,
+   clearances — measuring exactly as it did unlinked. */
+a.covlink{display:block; text-decoration:none; color:inherit; cursor:pointer}
+
 .bk-body{padding:20px 20px 22px; display:flex; flex-direction:column; flex:1}
 .bk-name{font-weight:800; font-size:16.5px; color:var(--navy); line-height:1.3}
 .bk-meta{font-size:13.5px; color:var(--mut); font-weight:600; margin-top:3px}
@@ -343,7 +348,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
     <div class="examcat shelf" id="shelf-security">
       <h3>Security</h3>
       <div class="bookgrid">
-        <article class="bookcard" data-search="security+ sy0-701 comptia security foundations"><a href="book-secplus.html" style="display:block;text-decoration:none;color:inherit">
+        <article class="bookcard" data-search="security+ sy0-701 comptia security foundations"><a class="covlink" href="book-secplus.html" aria-label="Watch the book: CompTIA Security+">
           <div class="cover" style="--acc:#3896FF">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">SY0-701</div>
@@ -358,6 +363,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="pentest+ pt0-003 comptia penetration testing security">
+          <a class="covlink" href="book-pentestplus.html" aria-label="Watch the book: CompTIA PenTest+">
           <div class="cover" style="--acc:#EF4444">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">PT0-003</div>
@@ -365,6 +371,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA PenTest+</div>
             <div class="bk-meta">CompTIA</div>
@@ -372,6 +379,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="cysa+ cs0-004 comptia analyst security">
+          <a class="covlink" href="book-cysa.html" aria-label="Watch the book: CompTIA CySA+">
           <div class="cover" style="--acc:#D946EF">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CS0-004</div>
@@ -379,6 +387,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA CySA+</div>
             <div class="bk-meta">CompTIA</div>
@@ -386,6 +395,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="cissp isc2 security management">
+          <a class="covlink" href="book-cissp.html" aria-label="Watch the book: ISC2 CISSP">
           <div class="cover" style="--acc:#F5B544">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">ISC2</div>
@@ -393,6 +403,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">ISC2 CISSP</div>
             <div class="bk-meta">ISC2</div>
@@ -400,6 +411,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="ccsp isc2 cloud security">
+          <a class="covlink" href="book-ccsp.html" aria-label="Watch the book: ISC2 CCSP">
           <div class="cover" style="--acc:#C084FC">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CCSP</div>
@@ -407,6 +419,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">ISC2 CCSP</div>
             <div class="bk-meta">ISC2</div>
@@ -414,6 +427,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="cc isc2 certified in cybersecurity security entry level">
+          <a class="covlink" href="book-isc2cc.html" aria-label="Watch the book: ISC2 Certified in Cybersecurity">
           <div class="cover" style="--acc:#22C55E">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CC</div>
@@ -421,6 +435,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">ISC2 Certified in Cybersecurity</div>
             <div class="bk-meta">ISC2</div>
@@ -433,6 +448,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       <h3>Cloud</h3>
       <div class="bookgrid">
         <article class="bookcard" data-search="saa-c03 aws amazon solutions architect cloud">
+          <a class="covlink" href="book-saac03.html" aria-label="Watch the book: AWS Solutions Architect – Associate">
           <div class="cover" style="--acc:#FF9900">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">SAA-C03</div>
@@ -440,6 +456,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">AWS Solutions Architect – Associate</div>
             <div class="bk-meta">Amazon Web Services</div>
@@ -447,6 +464,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="az-104 azure microsoft administrator cloud">
+          <a class="covlink" href="book-az104.html" aria-label="Watch the book: Microsoft Azure Administrator">
           <div class="cover" style="--acc:#38BDF8">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">AZ-104</div>
@@ -454,6 +472,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Microsoft Azure Administrator</div>
             <div class="bk-meta">Microsoft</div>
@@ -461,6 +480,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="aif-c01 aws amazon ai practitioner artificial intelligence cloud">
+          <a class="covlink" href="book-aifc01.html" aria-label="Watch the book: AWS AI Practitioner">
           <div class="cover" style="--acc:#A78BFA">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">AIF-C01</div>
@@ -468,6 +488,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">AWS AI Practitioner</div>
             <div class="bk-meta">Amazon Web Services</div>
@@ -475,6 +496,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="clf-c02 aws amazon cloud practitioner foundations">
+          <a class="covlink" href="book-clfc02.html" aria-label="Watch the book: AWS Cloud Practitioner">
           <div class="cover" style="--acc:#22D3EE">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CLF-C02</div>
@@ -482,6 +504,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">AWS Cloud Practitioner</div>
             <div class="bk-meta">Amazon Web Services</div>
@@ -489,6 +512,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="az-900 azure microsoft fundamentals cloud">
+          <a class="covlink" href="book-az900.html" aria-label="Watch the book: Microsoft Azure Fundamentals">
           <div class="cover" style="--acc:#0284C7">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">AZ-900</div>
@@ -496,6 +520,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Microsoft Azure Fundamentals</div>
             <div class="bk-meta">Microsoft</div>
@@ -503,6 +528,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="cloud+ cv0-004 comptia cloud">
+          <a class="covlink" href="book-cloudplus.html" aria-label="Watch the book: CompTIA Cloud+">
           <div class="cover" style="--acc:#8B5CF6">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CV0-004</div>
@@ -510,6 +536,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA Cloud+</div>
             <div class="bk-meta">CompTIA</div>
@@ -517,6 +544,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="gcp ace google cloud associate cloud engineer">
+          <a class="covlink" href="book-gcpace.html" aria-label="Watch the book: Google Associate Cloud Engineer">
           <div class="cover" style="--acc:#34D399">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">GCP-ACE</div>
@@ -524,6 +552,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Google Associate Cloud Engineer</div>
             <div class="bk-meta">Google Cloud</div>
@@ -531,6 +560,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="sap-c03 aws amazon solutions architect professional cloud">
+          <a class="covlink" href="book-sapc03.html" aria-label="Watch the book: AWS Solutions Architect – Professional">
           <div class="cover" style="--acc:#F59E0B">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">SAP-C03</div>
@@ -538,6 +568,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">AWS Solutions Architect – Professional</div>
             <div class="bk-meta">Amazon Web Services</div>
@@ -545,6 +576,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="dva-c03 aws amazon developer associate cloud">
+          <a class="covlink" href="book-dvac03.html" aria-label="Watch the book: AWS Developer – Associate">
           <div class="cover" style="--acc:#2563EB">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">DVA-C03</div>
@@ -552,6 +584,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">AWS Developer – Associate</div>
             <div class="bk-meta">Amazon Web Services</div>
@@ -564,6 +597,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       <h3>Systems & Service</h3>
       <div class="bookgrid">
         <article class="bookcard" data-search="network+ n10-009 comptia networking">
+          <a class="covlink" href="book-networkplus.html" aria-label="Watch the book: CompTIA Network+">
           <div class="cover" style="--acc:#34D399">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">N10-009</div>
@@ -571,6 +605,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA Network+</div>
             <div class="bk-meta">CompTIA</div>
@@ -578,6 +613,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="linux+ xk0-006 comptia linux systems">
+          <a class="covlink" href="book-linuxplus.html" aria-label="Watch the book: CompTIA Linux+">
           <div class="cover" style="--acc:#FBBF24">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">XK0-006</div>
@@ -585,6 +621,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA Linux+</div>
             <div class="bk-meta">CompTIA</div>
@@ -592,6 +629,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="ccna 200-301 cisco networking">
+          <a class="covlink" href="book-ccna.html" aria-label="Watch the book: Cisco CCNA">
           <div class="cover" style="--acc:#2DD4BF">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">200-301</div>
@@ -599,6 +637,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Cisco CCNA</div>
             <div class="bk-meta">Cisco</div>
@@ -606,6 +645,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="a+ 220-1201 220-1202 comptia hardware systems">
+          <a class="covlink" href="book-aplus.html" aria-label="Watch the book: CompTIA A+ (Core 1 &amp; 2)">
           <div class="cover" style="--acc:#FB923C">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">220-1201 · 220-1202</div>
@@ -613,6 +653,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">CompTIA A+ (Core 1 & 2)</div>
             <div class="bk-meta">CompTIA</div>
@@ -620,6 +661,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="itil 4 foundation itil-4 service management systems">
+          <a class="covlink" href="book-itil4.html" aria-label="Watch the book: ITIL 4 Foundation">
           <div class="cover" style="--acc:#60A5FA">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">ITIL-4</div>
@@ -627,6 +669,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">ITIL 4 Foundation</div>
             <div class="bk-meta">PeopleCert</div>
@@ -634,6 +677,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="rhcsa ex200 red hat linux systems administrator">
+          <a class="covlink" href="book-rhcsa.html" aria-label="Watch the book: Red Hat RHCSA">
           <div class="cover" style="--acc:#EE0000">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">EX200</div>
@@ -641,6 +685,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Red Hat RHCSA</div>
             <div class="bk-meta">Red Hat</div>
@@ -653,6 +698,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       <h3>DevOps & Containers</h3>
       <div class="bookgrid">
         <article class="bookcard" data-search="cka kubernetes cncf devops containers administrator">
+          <a class="covlink" href="book-cka.html" aria-label="Watch the book: Certified Kubernetes Administrator">
           <div class="cover" style="--acc:#F43F5E">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CNCF</div>
@@ -660,6 +706,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Certified Kubernetes Administrator</div>
             <div class="bk-meta">CNCF</div>
@@ -667,6 +714,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="ckad kubernetes cncf devops containers application developer">
+          <a class="covlink" href="book-ckad.html" aria-label="Watch the book: Certified Kubernetes Application Developer">
           <div class="cover" style="--acc:#FACC15">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">CNCF</div>
@@ -674,6 +722,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Certified Kubernetes Application Developer</div>
             <div class="bk-meta">CNCF</div>
@@ -681,6 +730,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="dca docker certified associate devops containers">
+          <a class="covlink" href="book-dca.html" aria-label="Watch the book: Docker Certified Associate">
           <div class="cover" style="--acc:#2DD4BF">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">DCA</div>
@@ -688,6 +738,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">Docker Certified Associate</div>
             <div class="bk-meta">Docker</div>
@@ -695,6 +746,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="terraform 004 hashicorp devops infrastructure as code">
+          <a class="covlink" href="book-terraform.html" aria-label="Watch the book: HashiCorp Terraform Associate">
           <div class="cover" style="--acc:#7B42BC">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">004</div>
@@ -702,6 +754,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">HashiCorp Terraform Associate</div>
             <div class="bk-meta">HashiCorp</div>
@@ -714,6 +767,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       <h3>Nursing</h3>
       <div class="bookgrid">
         <article class="bookcard" data-search="nclex-rn nclex rn nursing registered nurse">
+          <a class="covlink" href="book-nclexrn.html" aria-label="Watch the book: NCLEX-RN">
           <div class="cover" style="--acc:#F472B6">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">REGISTERED NURSE</div>
@@ -721,6 +775,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">NCLEX-RN</div>
             <div class="bk-meta">Nursing · 16 chapters</div>
@@ -728,6 +783,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="nclex-pn nclex pn nursing practical nurse">
+          <a class="covlink" href="book-nclexpn.html" aria-label="Watch the book: NCLEX-PN">
           <div class="cover" style="--acc:#FB7185">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">PRACTICAL NURSE</div>
@@ -735,6 +791,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">NCLEX-PN</div>
             <div class="bk-meta">Nursing</div>
@@ -742,6 +799,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="teas 7 nursing school entry">
+          <a class="covlink" href="book-teas7.html" aria-label="Watch the book: TEAS 7">
           <div class="cover" style="--acc:#60A5FA">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">NURSING SCHOOL ENTRY</div>
@@ -749,6 +807,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">TEAS 7</div>
             <div class="bk-meta">Nursing</div>
@@ -756,6 +815,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           </div>
         </article>
         <article class="bookcard" data-search="hesi a2 nursing school entry">
+          <a class="covlink" href="book-hesia2.html" aria-label="Watch the book: HESI A2">
           <div class="cover" style="--acc:#818CF8">
             <div class="cov-mast">B Y T E B A R</div>
             <div class="cov-code">NURSING SCHOOL ENTRY</div>
@@ -763,6 +823,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
             <div class="cov-type">V I D E O &nbsp; B O O K</div>
             <div class="cov-rule"></div>
           </div>
+          </a>
           <div class="bk-body">
             <div class="bk-name">HESI A2</div>
             <div class="bk-meta">Nursing</div>
