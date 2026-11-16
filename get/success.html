@@ -54,18 +54,30 @@
       <div class="done-ring">✓</div>
       <div class="eyebrow">Payment confirmed</div>
       <h1>You're in.</h1>
-      <p class="sub">Everything is unlocked on your account. Your <b>receipt and a sign-in link</b> are on their way to <b id="buyer-email">your email</b> for your other devices.</p>
+      <p class="sub">Everything is unlocked on your account — and a <b>sign-in link</b> is on its way to <b id="buyer-email">your email</b> (your Square receipt is in the same inbox). Tap that link on any device to sign in — no password. Or start on this device right now, with the button below.</p>
       <div class="orderline">ByteBar Complete &nbsp;·&nbsp; $9.99 &nbsp;·&nbsp; One-time<span id="ref-line"></span></div>
     </div>
 
     <div class="stack">
+      <div class="pcard" id="signin-card">
+        <div class="p-eyebrow"><span class="eyebrow">This device</span><span class="lvl owned">One tap</span></div>
+        <h3>Sign in here and start now.</h3>
+        <p class="p-sub">We&rsquo;ll email a fresh sign-in link to your checkout email. Tap it and this browser opens your Library already signed in — the same link signs you in on your phone and tablet too.</p>
+        <div class="pricerow">
+          <input class="finput" id="signin-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" style="flex:1 1 200px;">
+          <button class="cta" id="signin-btn" type="button">Email my sign-in link</button>
+        </div>
+        <p class="p-sub" id="signin-status" style="margin-top:10px;"></p>
+        <p class="p-sub" style="margin-top:8px;">The Simulator uses the same account — sign in there with this same email and everything is unlocked there too.</p>
+      </div>
+
       <div class="pcard">
         <div class="p-eyebrow"><span class="eyebrow">The Library</span><span class="lvl owned">✓ Yours</span></div>
         <h3>Start with your book.</h3>
         <p class="p-sub">Every book opens with a first chapter that teaches you how the whole book works — a few minutes that set up everything after it.</p>
         <div class="pricerow">
           <div class="price" style="font-size:14px;color:var(--muted);font-weight:550;">28 books · 200+ chapters</div>
-          <a class="cta" href="https://bytebarhq.com/library">Open the Library</a>
+          <a class="cta" href="https://bytebarhq.com/library/">Open the Library</a>
         </div>
       </div>
 
@@ -225,6 +237,63 @@ async function run() {
     await new Promise((r) => setTimeout(r, POLL_MS));
   }
   show("state-fallback");
+}
+
+/* Sign in on this device (buyer-journey fix #2): checkout never
+   creates a browser session, so the done state's own buttons used
+   to deliver a just-paid buyer into guest views. This panel is the
+   working door: a Supabase sign-in (OTP) email to the checkout
+   email whose link lands on the Library home, which consumes the
+   session (fix #1) — the buyer comes back signed in on this
+   origin. The Supabase UMD build is loaded on first use (the same
+   build the Library pages use), so nothing here can block or
+   delay the polling path above. */
+const signinBtn = document.getElementById("signin-btn");
+const signinEmailEl = document.getElementById("signin-email");
+const signinStatus = document.getElementById("signin-status");
+if (signinEmailEl && email) signinEmailEl.value = email;
+
+function loadSupaUmd() {
+  if (window.supabase && window.supabase.createClient) {
+    return Promise.resolve(window.supabase);
+  }
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+    s.onload = () => resolve(window.supabase);
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+if (signinBtn) {
+  signinBtn.addEventListener("click", async () => {
+    const em = (signinEmailEl.value || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+      signinStatus.textContent =
+        "Enter the email you checked out with — the link has to land in an inbox you can open.";
+      signinEmailEl.focus();
+      return;
+    }
+    signinBtn.disabled = true;
+    signinStatus.textContent = "Sending…";
+    try {
+      const sbjs = await loadSupaUmd();
+      const supa = sbjs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { error } = await supa.auth.signInWithOtp({
+        email: em,
+        options: { emailRedirectTo: "https://bytebarhq.com/library/" },
+      });
+      if (error) throw error;
+      signinStatus.textContent =
+        "Sent — check " + em + " and tap the sign-in link. It opens your Library, signed in on this device.";
+      signinBtn.textContent = "Send another link";
+    } catch (e) {
+      signinStatus.textContent =
+        "That didn't send just now — the sign-in link from your purchase email does the same job, or email bytebarco@proton.me and we'll sort it.";
+    }
+    signinBtn.disabled = false;
+  });
 }
 
 run();

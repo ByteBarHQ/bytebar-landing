@@ -50,6 +50,20 @@ const SQUARE_CONFIG = {
 
 <div class="wrap">
 
+  <!-- Already-own-it state (buyer-journey fix #3): shown instead of
+       the payment form when create-square-payment reports that this
+       email already owns ByteBar Complete. The payment below never
+       runs for an owner — the server refuses before Square is
+       called — so nobody can pay a second $9.99. -->
+  <div class="panel" id="own-state" style="display:none">
+    <h2>You already own ByteBar Complete</h2>
+    <p class="fnote" style="margin-top:8px;">This email already has the full Library and the full Simulator — there&rsquo;s nothing left to buy, so we stopped the payment before anything was charged. Sign in with this email and everything is open.</p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+      <a class="cta" href="https://bytebarhq.com/library/">Open the Library</a>
+      <a class="cta" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>
+    </div>
+  </div>
+
   <div class="panel">
     <h2>Your order</h2>
     <div style="margin-top:6px;">
@@ -124,6 +138,13 @@ function showError(msg) {
   errEl.textContent = msg;
   errEl.classList.add("on");
 }
+function showOwnState() {
+  clearError();
+  document.querySelectorAll(".wrap > *").forEach((el) => {
+    el.style.display = el.id === "own-state" ? "" : "none";
+  });
+  window.scrollTo(0, 0);
+}
 function clearError() { errEl.classList.remove("on"); }
 function setBusy(on) {
   busy = on;
@@ -183,6 +204,13 @@ async function submitPayment(sourceToken, method) {
       body: JSON.stringify(body),
     });
     const out = await res.json().catch(() => null);
+    if (out && out.error === "already_owned") {
+      // Fix #3: the server refused before Square was called —
+      // nothing was charged. Show the owner state, not an error.
+      setBusy(false);
+      showOwnState();
+      return;
+    }
     if (out && out.ok) {
       try { sessionStorage.setItem("bb_checkout_email", email); } catch (e) {}
       window.location.href = "success.html?ref=" + encodeURIComponent(out.reference_id);

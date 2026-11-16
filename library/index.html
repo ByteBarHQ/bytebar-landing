@@ -964,5 +964,71 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   });
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* LIVE 2026-11-15 (buyer-journey fix #1) — this page is where the
+   purchase invite and sign-in emails land (square-webhook's
+   redirectTo). Loading the Supabase client here is what CONSUMES
+   the session those links carry: the client reads the tokens from
+   the landing URL and stores the session on this origin, so the
+   book/watch pages (same origin) meet the buyer already signed in.
+   Before this script existed the tokens evaporated on arrival and
+   a just-paid buyer met locked rows and the $9.99 pitch.
+   Owner state is keyed to the account's own profiles.pro — the
+   same check the simulator runs. Guests and free accounts:
+   nothing changes. */
+(function () {
+  if (!window.supabase || !window.supabase.createClient) return;
+  var sb;
+  try { sb = window.supabase.createClient("https://duutviqszajmmoskvdfy.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4"); } catch (e) { return; }
+  sb.auth.getSession().then(function (r) {
+    var s = r && r.data && r.data.session;
+    if (!s || !s.user) return null;
+    return sb.from("profiles").select("pro").eq("id", s.user.id).maybeSingle();
+  }).then(function (r) {
+    if (!r || !r.data || !r.data.pro) return;
+    document.documentElement.classList.add("bb-owner");
+    /* 1) Every gold buy door becomes the plain way in. */
+    document.querySelectorAll('a.btn-gold[href="https://bytebarhq.com/get"]').forEach(function (a) {
+      a.setAttribute("href", "https://bytebarhq.com/library/");
+      a.classList.remove("btn-gold"); a.classList.add("btn-primary");
+      a.innerHTML = "Open the Library";
+    });
+    /* 2) The account link shows the owner state: gold dot. */
+    document.querySelectorAll('a.nl[href="https://sim.bytebarhq.com/sim-preview/?profile=1"]').forEach(function (a) {
+      a.innerHTML = '<span class="owndot" aria-hidden="true"></span>Account';
+    });
+    /* 3) The pitch steps aside. */
+    var ps = document.getElementById("pricing");
+    if (ps) {
+      ps.innerHTML = '<div class="wrap">' +
+        '<div class="kicker">ByteBar Complete</div>' +
+        '<h2 class="sec">You own ByteBar Complete.</h2>' +
+        '<p class="lead">Every video book and every practice exam is already yours \u2014 no pitch, promise. Pick up right where you left off.</p>' +
+        '<div style="display:flex; gap:12px; flex-wrap:wrap">' +
+        '<a class="btn btn-primary btn-lg" href="https://bytebarhq.com/library/">Open the Library</a>' +
+        '<a class="btn btn-ghost btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>' +
+        '</div></div>';
+    }
+    var pc = document.querySelector(".price-card");
+    if (pc) {
+      pc.innerHTML = '<div style="text-align:center; padding:30px 10px 10px">' +
+        '<div style="font-size:30px; font-weight:900; color:var(--navy)">You own ByteBar Complete</div>' +
+        '<p style="color:var(--mut); font-weight:600; margin:8px auto 18px; max-width:520px">Every book on this shelf is already yours \u2014 pick one and keep going.</p>' +
+        '<a class="btn btn-primary btn-lg" href="#shelves">Browse your books</a></div>';
+    }
+    /* 4) Step 3's pitch link becomes a shelf door (live-page
+       adaptation of the preview transform: no pitch remains). */
+    document.querySelectorAll('a.steplink[href="https://bytebarhq.com/get"]').forEach(function (a) {
+      a.setAttribute("href", "#shelves");
+      a.textContent = "Browse your books \u2192";
+    });
+  }).catch(function () {});
+})();
+</script>
+<style>.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:7px; vertical-align:1px}
+.bb-owner .price-card::before{content:"ALREADY YOURS"}</style>
+
 </body>
 </html>
