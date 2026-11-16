@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,nofollow">
 <title>ByteBar — Video Books &amp; Practice Exams: Stop Paying $99 Per Exam</title>
-<meta name="description" content="Video books that teach the material, practice exams that mirror test day. 28 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
+<meta name="description" content="Video books that teach the material, practice exams that mirror test day. 29 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
 <meta property="og:title" content="ByteBar — Video Books &amp; Practice Exams: Stop Paying $99 Per Exam">
-<meta property="og:description" content="Video books that teach the material, practice exams that mirror test day. 28 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
+<meta property="og:description" content="Video books that teach the material, practice exams that mirror test day. 29 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bytebarhq.com/">
 <link rel="canonical" href="https://bytebarhq.com/">
@@ -18,7 +17,7 @@
 <meta property="og:image:alt" content="ByteBar — IT Exam Prep: Video Books &amp; Practice Exams">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ByteBar — Video Books &amp; Practice Exams: Stop Paying $99 Per Exam">
-<meta name="twitter:description" content="Video books that teach the material, practice exams that mirror test day. 28 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
+<meta name="twitter:description" content="Video books that teach the material, practice exams that mirror test day. 29 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
 <meta name="twitter:image" content="https://bytebarhq.com/og-image.png">
 <style>
 /* ============ Tokens ============ */
@@ -84,14 +83,25 @@ a{color:inherit}
 .nav-links a.nl:hover{opacity:1; color:var(--navy)}
 .nav-links a.nl.dim{opacity:.55; font-weight:500}
 .nav .btn{padding:11px 22px; font-size:14.5px}
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
 .burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
-@media(max-width:820px){
+@media(max-width:1100px){ /* text links collapse behind the burger; the gold CTA stays in the bar with its short label (Cori 2026-11-16) */
   .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0;
     padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
   .nav-links.open{display:flex}
   .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
-  .nav-links .btn{margin-top:14px; text-align:center; display:block; width:100%; padding:14px 20px; font-size:16px}
+  .nav-right{gap:12px}
+  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
+  .nav-cta .lbl-full{display:none}
+  .nav-cta .lbl-short{display:inline}
   .burger{display:block}
+}
+
+@media(max-width:720px){ /* phone bar fit: brand + gold CTA + burger share one line at 390px */
+  .nav .wrap{padding:0 14px}
+  .nav .brand{letter-spacing:.16em}
+  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
+  .nav .burger{padding:6px}
 }
 
 /* ============ Pip dialogue ============ */
@@ -193,7 +203,7 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 .examgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
 @media(max-width:860px){.examgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.examgrid{grid-template-columns:1fr}}
-.exam{background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:18px; display:flex; gap:14px;
+.exam{background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-wrap:wrap; gap:14px;
   align-items:center; box-shadow:0 3px 0 var(--line); text-decoration:none; transition:transform .15s var(--ease)}
 .exam:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
 .exam .eic{width:46px; height:46px; border-radius:13px; flex:none; display:flex; align-items:center; justify-content:center;
@@ -202,9 +212,8 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 .exam .ecd{font-size:12px; font-weight:700; color:var(--mut); letter-spacing:.03em}
 .exam .etb{margin-left:auto; flex:none; font-size:10.5px; font-weight:800; letter-spacing:.05em; background:#0b1e42;
   color:#7ee7f7; border-radius:6px; padding:5px 9px; font-family:ui-monospace,monospace}
-.exam{flex-wrap:wrap}
 .exam .ex-doors{flex:0 0 100%; display:flex; gap:8px; margin-top:6px}
-.ex-door{flex:1; text-align:center; text-decoration:none; font-size:12.5px; font-weight:800; letter-spacing:.02em; padding:9px 6px; border-radius:10px; transition:filter .15s var(--ease), border-color .15s var(--ease)}
+.ex-door{flex:1; text-align:center; text-decoration:none; font-size:12px; font-weight:800; letter-spacing:.02em; padding:9px 4px; border-radius:10px; transition:filter .15s var(--ease), border-color .15s var(--ease)}
 .ex-watch{background:var(--bg); border:1.5px solid var(--line); color:var(--navy)}
 .ex-watch:hover{border-color:var(--cyan); color:var(--cyan-d)}
 .ex-sit{background:var(--navy); color:#fff; border:1.5px solid var(--navy)}
@@ -252,12 +261,18 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 /* ============ Footer ============ */
 footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
-@media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr} .fgrid2 .fcol:first-child{grid-column:1 / -1}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
-.fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
-.fcol a:hover{color:var(--navy)}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
 .fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
 .fcol p{font-size:14px; color:var(--mut); max-width:280px}
+/* Button audit 2026-11-15: the footer gold button's full label (label+padding ≈316px, DejaVu Bold)
+   overflows its footer column between 721px and ~1135px, and the 1.4fr column is under 242px
+   (the short label's width) between 761px and ~900px. Short label in the footer up to 1240px,
+   and the brand column spans 2 columns in the 761–1100px band so the button fits its column. */
+@media(max-width:1240px){.fcol .lbl-full{display:none} .fcol .lbl-short{display:inline}}
+@media(min-width:761px) and (max-width:1100px){.fgrid2 .fcol:first-child{grid-column:span 2}}
 .disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
 .disclaimer b{color:var(--ink)}
 .copy{font-size:13px; color:var(--mut); margin-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
@@ -271,6 +286,13 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .stickybuy .sb-price small{display:block; color:#9db4dd; font-weight:600; font-size:11.5px}
 .stickybuy .btn{padding:12px 20px; font-size:14.5px; flex:none}
 @media(max-width:760px){ .stickybuy.show{display:flex} }
+/* Button audit 2026-11-15: at 390px the nowrap btn-lg label + padding exceeds its card —
+   pricing card content box is 262px (needs ≈302px) and the final-CTA row is 266px (needs ≈302px).
+   Font/padding step at the narrow breakpoint; both fit with slack at 390px and 440px after it. */
+@media(max-width:480px){
+  .price-card .btn-lg{font-size:16px; padding:16px 20px}
+  .final .btn-lg{font-size:16px; padding:16px 24px}
+}
 
 /* Reveal on scroll */
 .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
@@ -339,10 +361,6 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .sticker{background:rgba(255,255,255,.07); color:#dbe7fa; border:1px solid rgba(255,255,255,.22); box-shadow:none}
 .hero-note{color:#9db4dd}
 .hero-note b{color:var(--gold)}
-.hero .btn-primary{background:transparent; color:#fff; border:2px solid rgba(255,255,255,.42);
-  box-shadow:none; text-shadow:none}
-.hero .btn-primary:hover{border-color:#fff; filter:none}
-.hero .btn-primary:active{transform:translateY(2px); box-shadow:none}
 .report-card{border:1px solid rgba(255,255,255,.28); box-shadow:0 30px 60px rgba(2,8,23,.5)}
 .rc-sample{color:#cfe3f5; background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
 .rc-verdict p b{color:#2e7d5b}
@@ -359,9 +377,6 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 /* ===== V5 QUIET — maximum restraint, flat ===== */
 .hero{background:#0a1a38}
 .hero::before{display:none}
-.hero .btn-gold{background:var(--gold); box-shadow:none}
-.hero .btn-gold:active{transform:translateY(1px); box-shadow:none}
-.hero .btn-primary{border-width:1.5px; border-color:rgba(255,255,255,.35)}
 .sticker{transform:none; border-radius:10px; letter-spacing:.18em}
 .hero-pip .pip-tag{box-shadow:none; border-width:1.5px}
 .report-card{border-radius:16px; box-shadow:0 10px 30px rgba(2,8,23,.32)}
@@ -369,6 +384,88 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 
 /* ===== V6 — V3 spec sheet, restyled in the quiet language ===== */
 
+</style>
+
+<style id="detail-pass">
+/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
+   One spacing rhythm; one treatment per role, executed the same way
+   everywhere it appears; consistent hover/focus states. ===== */
+
+/* Spacing rhythm: every section breathes on the same scale (was a 76px
+   base buried under one-off 20px/24px inline tops). */
+section.block{padding:56px 0}
+#how{padding-top:48px; padding-bottom:64px}
+.hero{padding-bottom:0}
+.report-card{margin:44px auto 0}
+footer{margin-top:0}
+@media(max-width:760px){
+  section.block{padding:44px 0}
+  #how{padding-top:40px; padding-bottom:48px}
+  .hero{padding-top:56px}
+  .report-card{margin-top:36px}
+}
+/* Card grids share one gap token (was 18 / 14 / 26). */
+.steps{gap:16px}
+.examgrid{gap:16px}
+.examcats{gap:28px}
+
+/* Hero headline gap without the negative-margin fudge (net gap unchanged). */
+.hero h1{margin-bottom:16px}
+.hero p.def{margin-top:0}
+
+/* Secondary action on navy — ONE treatment, shared by the hero and the
+   final CTA (was hero-only overrides + a one-off inline style). */
+.btn-outline{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.35);
+  box-shadow:none; text-shadow:none}
+.btn-outline:hover{border-color:#fff; background:rgba(255,255,255,.06); filter:none}
+.btn-outline:active{transform:translateY(2px); box-shadow:none}
+
+/* Ghost buttons get the hover their sibling buttons already had. */
+.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
+
+/* Quiet next step: the text link with arrow. Refined underline, the
+   arrow leans in on hover, an on-dark variant in the hero's own accent. */
+.tlink{font-weight:700; color:var(--cyan-d); text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(8,115,160,.38);
+  transition:color .15s var(--ease), text-decoration-color .15s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor}
+.tlink .arr{display:inline-block; transition:transform .15s var(--ease)}
+.tlink:hover .arr{transform:translateX(3px)}
+.tlink.on-dark{color:#7ee7f7; text-decoration-color:rgba(126,231,247,.42)}
+.trail-link{text-align:center; margin-top:36px}
+/* In the footer the link keeps the footer's own convention (no underline,
+   like every footer link) — the class supplies color and weight there. */
+.fcol a.tlink{color:var(--cyan-d)}
+.fcol a.tlink:hover{color:var(--cyan-d)}
+
+/* The free doors under the steps: a real separator and spacing that look
+   chosen; each link is one unbreakable phrase — on phones they stack
+   instead of wrapping mid-phrase. */
+.door-links{display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:12px 22px; margin-top:36px}
+.door-links .tlink{white-space:nowrap}
+.door-sep{width:4px; height:4px; border-radius:50%; background:#7ee7f7; opacity:.5; flex:none}
+@media(max-width:640px){
+  .door-links{flex-direction:column; gap:14px}
+  .door-sep{display:none}
+}
+
+/* FAQ rows answer the pointer like every other control. */
+.faq-q{transition:background .15s var(--ease)}
+.faq-q:hover{background:#faf6ec}
+
+/* Report verdict weight sits on the type scale (was 850, which browsers
+   round differently). */
+.rc-verdict b{font-weight:800}
+
+/* One visible keyboard-focus treatment everywhere. */
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+
+/* Small courtesies. */
+::selection{background:rgba(245,166,35,.32)}
+a,button{-webkit-tap-highlight-color:transparent}
+@media(prefers-reduced-motion:reduce){.tlink .arr{transition:none}}
 </style>
 </head>
 <body>
@@ -392,15 +489,17 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
-    <div class="nav-links" id="navlinks">
-      <a class="nl" href="https://bytebarhq.com/library/">Library</a>
-      <a class="nl" href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
-      <a class="nl" href="https://bytebarhq.com/#pricing">Pricing</a>
-      <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
-      <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      <a class="btn btn-gold" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
+    <div class="nav-right">
+      <div class="nav-links" id="navlinks">
+        <a class="nl" href="https://bytebarhq.com/library/">Library</a>
+        <a class="nl" href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
+        <a class="nl" href="https://bytebarhq.com/#pricing">Pricing</a>
+        <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
+        <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
+      </div>
+      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
     </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -409,28 +508,30 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
   <div class="wrap hero-inner">
     <span class="sticker">LEARN IT · PROVE IT · PASS IT</span>
     <h1>Stop paying <span class="strike">$99</span><br>per exam.</h1>
-    <p class="def">ByteBar is the whole system: video books that teach you the material chapter by chapter, plus practice exams that mirror test day — timed, scored, with domain breakdowns. All 28 exams included. One price. Yours forever.</p>
+    <p class="def">ByteBar is the whole system: video books that teach you the material chapter by chapter, plus practice exams that mirror test day — timed, scored, with domain breakdowns. All 29 exams included. One price. Yours forever.</p>
     <div class="hero-pip">
       <svg class="pip-big" viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#pipv3-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-bodyG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(28 55 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><path d="M41,65 Q48,69.5 55,65" stroke="#22304A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
       <div class="pip-tag">Hi, I'm <b>Pip</b>! 🌱 Your study buddy.</div>
     </div>
     <div class="hero-ctas">
       <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
-      <a class="btn btn-primary btn-lg" href="#quiz">Prove it — quiz me 👇</a>
+      <a class="btn btn-outline btn-lg" href="#quiz">Prove it — quiz me 👇</a>
     </div>
     <p class="hero-note">Or start free: watch the first chapter of any book and try 10 free questions — no signup.</p>
 <!-- ============ HOW IT WORKS ============ -->
-<section class="block" id="how" style="padding-top:20px">
+<section class="block" id="how">
   <div class="wrap">
     <div class="kicker reveal">How ByteBar works</div>
     <h2 class="sec reveal">Learn it. Prove it. Pass it.</h2>
     <div class="steps">
-      <div class="step reveal"><div class="num">1</div><h3>Learn — watch the book</h3><p>Every exam is a complete video book in the Library, taught chapter by chapter in exam order. The first chapter of every book is free.</p></div>
-      <div class="step reveal"><div class="num">2</div><h3>Prove — sit the practice exam</h3><p>Take the same exam in the Simulator: timed, scored, in the real format. Domain breakdowns show exactly what is weak.</p></div>
-      <div class="step reveal"><div class="num">3</div><h3>Pass — walk in ready</h3><p>Revisit the chapters behind your weak domains, re-test, and book the real exam when your scores say you are ready.</p></div>
+      <div class="step reveal"><div class="num">1</div><h3>Learn — watch the book</h3><p>Every exam has a complete video book in the Library, taught chapter by chapter in exam order. The first chapter of every book is free.</p></div>
+      <div class="step reveal"><div class="num">2</div><h3>Prove — take the practice exam</h3><p>Take the same exam in the Simulator — timed, scored, in the real format. Your domain breakdown shows exactly what still needs work.</p></div>
+      <div class="step reveal"><div class="num">3</div><h3>Pass — walk in ready</h3><p>Go back to the chapters behind your weak domains, re-test, and book the real exam when your scores say you're ready.</p></div>
     </div>
-      <div style="text-align:center; margin-top:34px" class="reveal">
-        <p><a href="/library/" style="color:var(--cyan-d); font-weight:700">Watch a free first chapter →</a> &nbsp;·&nbsp; <a href="https://sim.bytebarhq.com/sim-preview/" rel="noopener" style="color:var(--cyan-d); font-weight:700">Start practicing free →</a></p>
+      <div class="door-links reveal">
+        <a class="tlink on-dark" href="/library/">Watch a free first chapter <span class="arr" aria-hidden="true">→</span></a>
+        <span class="door-sep" aria-hidden="true"></span>
+        <a class="tlink on-dark" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener">Start practicing free <span class="arr" aria-hidden="true">→</span></a>
       </div>
   </div>
 </section>
@@ -458,7 +559,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
       </div>
 
 <!-- ============ MINI QUIZ ============ -->
-<section class="block" id="demo" style="padding-top:24px;padding-bottom:24px">
+<section class="block" id="demo">
   <div class="wrap">
     <div class="kicker reveal">Prove — try it free</div>
     <h2 class="sec reveal">Real questions from the Simulator.</h2>
@@ -475,72 +576,73 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 </section>
 
 <!-- ============ EXAMS ============ -->
-<section class="block" id="exams" style="padding-top:20px">
+<section class="block" id="exams">
   <div class="wrap">
     <div class="kicker reveal">Every exam — one home</div>
-    <h2 class="sec reveal">28 exams. Watch the book.<br>Sit the final exam.</h2>
-    <p class="lead reveal">Every exam lives here once. Watch its video book in the Library — the first chapter of every book is free — then sit its final exam in the Simulator: timed, scored, on the real exam's clock and format, with a domain breakdown after every attempt. <b>28,000 exam-style questions across the full bank, every answer explained.</b> <b>Not per exam. All of them.</b></p>
+    <h2 class="sec reveal">29 exams. Watch the book.<br>Take the final exam.</h2>
+    <p class="lead reveal">Every exam lives here once. Watch its video book in the Library — the first chapter of every book is free — then sit its final exam in the Simulator: timed, scored, on the real exam's clock and format, with a domain breakdown after every attempt. <b>29,000 exam-style questions across the full bank, every answer explained.</b> <b>Not per exam. All of them.</b></p>
     <div class="examcats">
       <div class="examcat reveal">
         <h3>Cloud</h3>
         <div class="examgrid">
-          <div class="exam"><span class="eic" style="background:#38bdf8">A</span><span><span class="enm">Azure Fundamentals</span><br><span class="ecd">AZ-900</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=az900" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#0ea5e9">A</span><span><span class="enm">Azure Administrator</span><br><span class="ecd">AZ-104</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=az104" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#fb923c">S</span><span><span class="enm">AWS Solutions Architect</span><br><span class="ecd">SAA-C03</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#a78bfa">C</span><span><span class="enm">CompTIA Cloud+</span><br><span class="ecd">CV0-004</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#34d399">G</span><span><span class="enm">GCP Associate Engineer</span><br><span class="ecd">GCP-ACE</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#ff9900">A</span><span><span class="enm">AWS AI Practitioner</span><br><span class="ecd">AIF-C01</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#0891b2">A</span><span><span class="enm">AWS Cloud Practitioner</span><br><span class="ecd">CLF-C02</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-cloud" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02" rel="noopener">Sit the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#38bdf8">A</span><span><span class="enm">Azure Fundamentals</span><br><span class="ecd">AZ-900</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-az900.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=az900" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#0ea5e9">A</span><span><span class="enm">Azure Administrator</span><br><span class="ecd">AZ-104</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-az104.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=az104" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#fb923c">S</span><span><span class="enm">AWS Solutions Architect</span><br><span class="ecd">SAA-C03</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-saac03.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#ea580c">S</span><span><span class="enm">AWS Solutions Architect – Professional</span><br><span class="ecd">SAP-C03</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-sapc03.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#a78bfa">C</span><span><span class="enm">CompTIA Cloud+</span><br><span class="ecd">CV0-004</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-cloudplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#34d399">G</span><span><span class="enm">GCP Associate Engineer</span><br><span class="ecd">GCP-ACE</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-gcpace.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#ff9900">A</span><span><span class="enm">AWS AI Practitioner</span><br><span class="ecd">AIF-C01</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-aifc01.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#0891b2">A</span><span><span class="enm">AWS Cloud Practitioner</span><br><span class="ecd">CLF-C02</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-clfc02.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02" rel="noopener">Take the final exam</a></span></div>
         </div>
       </div>
       <div class="examcat reveal">
         <h3>Security</h3>
         <div class="examgrid">
-          <div class="exam"><span class="eic" style="background:#f472b6">C</span><span><span class="enm">CompTIA CySA+</span><br><span class="ecd">CS0-004</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-security" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#fb7185">S</span><span><span class="enm">CompTIA Security+</span><br><span class="ecd">SY0-701</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-secplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#ef4444">P</span><span><span class="enm">CompTIA PenTest+</span><br><span class="ecd">PT0-003</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-security" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#c084fc">I</span><span><span class="enm">ISC2 CISSP</span><br><span class="ecd">CISSP</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-security" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#d946ef">I</span><span><span class="enm">ISC2 CCSP</span><br><span class="ecd">CCSP</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-security" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#22c55e">I</span><span><span class="enm">ISC2 Certified in Cybersecurity</span><br><span class="ecd">CC</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-security" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc" rel="noopener">Sit the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#f472b6">C</span><span><span class="enm">CompTIA CySA+</span><br><span class="ecd">CS0-004</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-cysa.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#fb7185">S</span><span><span class="enm">CompTIA Security+</span><br><span class="ecd">SY0-701</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-secplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#ef4444">P</span><span><span class="enm">CompTIA PenTest+</span><br><span class="ecd">PT0-003</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-pentestplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#c084fc">I</span><span><span class="enm">ISC2 CISSP</span><br><span class="ecd">CISSP</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-cissp.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#d946ef">I</span><span><span class="enm">ISC2 CCSP</span><br><span class="ecd">CCSP</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-ccsp.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#22c55e">I</span><span><span class="enm">ISC2 Certified in Cybersecurity</span><br><span class="ecd">CC</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-isc2cc.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc" rel="noopener">Take the final exam</a></span></div>
         </div>
       </div>
       <div class="examcat reveal">
         <h3>DevOps &amp; Containers</h3>
         <div class="examgrid">
-          <div class="exam"><span class="eic" style="background:#818cf8">K</span><span><span class="enm">Certified Kubernetes Admin</span><br><span class="ecd">CKA</span></span><span class="etb">⌨ TERMINAL</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-devops" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cka" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#facc15">K</span><span><span class="enm">K8s App Developer</span><br><span class="ecd">CKAD</span></span><span class="etb">⌨ TERMINAL</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-devops" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#2dd4bf">D</span><span><span class="enm">Docker Certified Associate</span><br><span class="ecd">DCA</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-devops" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=dca" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#c084fc">T</span><span><span class="enm">Terraform Associate</span><br><span class="ecd">Terraform</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-devops" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004" rel="noopener">Sit the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#818cf8">K</span><span><span class="enm">Certified Kubernetes Admin</span><br><span class="ecd">CKA</span></span><span class="etb">⌨ TERMINAL</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-cka.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=cka" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#facc15">K</span><span><span class="enm">K8s App Developer</span><br><span class="ecd">CKAD</span></span><span class="etb">⌨ TERMINAL</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-ckad.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#2dd4bf">D</span><span><span class="enm">Docker Certified Associate</span><br><span class="ecd">DCA</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-dca.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=dca" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#c084fc">T</span><span><span class="enm">Terraform Associate</span><br><span class="ecd">Terraform</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-terraform.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004" rel="noopener">Take the final exam</a></span></div>
         </div>
       </div>
       <div class="examcat reveal">
         <h3>Systems &amp; Service</h3>
         <div class="examgrid">
-          <div class="exam"><span class="eic" style="background:#fbbf24">L</span><span><span class="enm">CompTIA Linux+</span><br><span class="ecd">XK0-006</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-linuxplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#38bdf8">N</span><span><span class="enm">CompTIA Network+</span><br><span class="ecd">N10-009</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#fbbf24">A</span><span><span class="enm">CompTIA A+ Core 1</span><br><span class="ecd">220-1101</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#f59e0b">A</span><span><span class="enm">CompTIA A+ Core 2</span><br><span class="ecd">220-1102</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#60a5fa">I</span><span><span class="enm">ITIL 4 Foundation</span><br><span class="ecd">ITIL-4</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#1ba0d7">C</span><span><span class="enm">Cisco CCNA</span><br><span class="ecd">200-301</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#ee0000">R</span><span><span class="enm">Red Hat RHCSA</span><br><span class="ecd">EX200</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/#shelf-systems" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200" rel="noopener">Sit the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#fbbf24">L</span><span><span class="enm">CompTIA Linux+</span><br><span class="ecd">XK0-006</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-linuxplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#38bdf8">N</span><span><span class="enm">CompTIA Network+</span><br><span class="ecd">N10-009</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-networkplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#fbbf24">A</span><span><span class="enm">CompTIA A+ Core 1</span><br><span class="ecd">220-1101</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-aplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#f59e0b">A</span><span><span class="enm">CompTIA A+ Core 2</span><br><span class="ecd">220-1102</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-aplus.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#60a5fa">I</span><span><span class="enm">ITIL 4 Foundation</span><br><span class="ecd">ITIL-4</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-itil4.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#1ba0d7">C</span><span><span class="enm">Cisco CCNA</span><br><span class="ecd">200-301</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-ccna.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#ee0000">R</span><span><span class="enm">Red Hat RHCSA</span><br><span class="ecd">EX200</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-rhcsa.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200" rel="noopener">Take the final exam</a></span></div>
         </div>
       </div>
       <div class="examcat reveal">
         <h3>Nursing</h3>
         <div class="examgrid">
-          <div class="exam"><span class="eic" style="background:#f472b6">N</span><span><span class="enm">NCLEX-RN</span><br><span class="ecd">NCLEX-RN</span></span><span class="etb">⚡ ADAPTIVE</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-nclexrn.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#fb7185">N</span><span><span class="enm">NCLEX-PN</span><br><span class="ecd">NCLEX-PN</span></span><span class="etb">⚡ ADAPTIVE</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-nclexpn.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#38bdf8">T</span><span><span class="enm">TEAS 7</span><br><span class="ecd">TEAS 7</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-teas7.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7" rel="noopener">Sit the final exam</a></span></div>
-          <div class="exam"><span class="eic" style="background:#818cf8">H</span><span><span class="enm">HESI A2</span><br><span class="ecd">HESI A2</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-hesia2.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2" rel="noopener">Sit the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#f472b6">N</span><span><span class="enm">NCLEX-RN</span><br><span class="ecd">NCLEX-RN</span></span><span class="etb">⚡ ADAPTIVE</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-nclexrn.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#fb7185">N</span><span><span class="enm">NCLEX-PN</span><br><span class="ecd">NCLEX-PN</span></span><span class="etb">⚡ ADAPTIVE</span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-nclexpn.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#38bdf8">T</span><span><span class="enm">TEAS 7</span><br><span class="ecd">TEAS 7</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-teas7.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7" rel="noopener">Take the final exam</a></span></div>
+          <div class="exam"><span class="eic" style="background:#818cf8">H</span><span><span class="enm">HESI A2</span><br><span class="ecd">HESI A2</span></span><span class="ex-doors"><a class="ex-door ex-watch" href="https://bytebarhq.com/library/book-hesia2.html" rel="noopener">Watch the book</a><a class="ex-door ex-sit" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2" rel="noopener">Take the final exam</a></span></div>
         </div>
       </div>
     </div>
-        <p style="text-align:center; margin-top:26px" class="reveal"><a href="https://sim.bytebarhq.com/sim-preview/" rel="noopener" style="color:var(--cyan-d); font-weight:700">Start any exam free — 10 questions, no signup →</a></p>
+        <p class="trail-link reveal"><a class="tlink" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener">Start any exam free — 10 questions, no signup <span class="arr" aria-hidden="true">→</span></a></p>
   </div>
 </section>
 
 <!-- ============ PRICING ============ -->
-<section class="block" id="pricing" style="padding-top:20px">
+<section class="block" id="pricing">
   <div class="wrap">
     <div class="pip-says reveal">
       <svg class="pip-face" viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#pipv3-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-bodyG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(28 55 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="5.5" ry="7.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="5.5" ry="7.5" fill="#22304A"/><ellipse cx="48" cy="66" rx="7" ry="7.5" fill="#22304A"/></svg>
@@ -552,9 +654,9 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
     <div class="price-wrap reveal">
       <div class="price-card">
         <div class="amount">$9.99</div>
-        <div class="per"><b>one-time payment</b> · all 28 exams + the Library · yours forever</div>
+        <div class="per"><b>one-time payment</b> · all 29 exams + the Library · yours forever</div>
         <ul class="plist">
-          <li><span class="ck">✓</span> All 28 certification exams unlocked</li>
+          <li><span class="ck">✓</span> All 29 certification exams unlocked</li>
           <li><span class="ck">✓</span> Every video book in the Library — included</li>
           <li><span class="ck">✓</span> Full question banks, every answer explained</li>
           <li><span class="ck">✓</span> Timed simulations in real exam formats</li>
@@ -572,17 +674,18 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="block" id="faq" style="padding-top:20px">
+<section class="block" id="faq">
   <div class="wrap">
     <div class="kicker reveal">FAQ</div>
     <h2 class="sec reveal">Questions, answered straight.</h2>
     <div class="faq">
-      <div class="faq-item reveal"><button class="faq-q">Is $9.99 per exam, or for all exams?<span class="pm">+</span></button><div class="faq-a"><p><b>All exams.</b> One $9.99 payment unlocks all 28 exams and every video book in the Library — full question banks, timed simulations, terminal tasks, everything. Others charge $99 per exam, per year. We charge $9.99 for all of them, forever.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Is $9.99 per exam, or for all exams?<span class="pm">+</span></button><div class="faq-a"><p><b>All exams.</b> One $9.99 payment unlocks all 29 exams and every video book in the Library — full question banks, timed simulations, terminal tasks, everything. Others charge $99 per exam, per year. We charge $9.99 for all of them, forever.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Is this a subscription?<span class="pm">+</span></button><div class="faq-a"><p><b>No.</b> One-time payment, lifetime access — including all future question additions. No renewals, ever.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">How do refunds work?<span class="pm">+</span></button><div class="faq-a"><p><b>The ByteBar promise:</b> if anything you buy here is defective, email us at bytebarco@proton.me within 14 days and we refund you — no forms, no phone tree, no argument.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Why is it so cheap? What&apos;s the catch?<span class="pm">+</span></button><div class="faq-a"><p><b>There&apos;s no catch.</b> No enterprise sales team, no investors demanding 10x returns, no Super Bowl ads. We&apos;re a small crew that got tired of the $99-per-exam racket, so we built the prep we wished existed and priced it at what it honestly costs to run. The low price is the whole point — not a warning sign.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">How does the free trial work?<span class="pm">+</span></button><div class="faq-a"><p>Two ways to start free. Every exam includes a <b>free 10-question taste</b> with full explanations — no credit card, no signup. And in the Library, the <b>first chapter of every video book is free</b> to watch. When you're ready for the full books, full banks, timed sims, and score reports, unlock ByteBar Complete for $9.99.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Why pay when free videos and resources exist?<span class="pm">+</span></button><div class="faq-a"><p>Free videos are great for learning concepts — the first chapter of every book in our Library is free for exactly that. But watching isn&apos;t practicing. A video can&apos;t time you, can&apos;t show which domains you&apos;re leaking points in, can&apos;t run a kubectl terminal, and can&apos;t tell you whether you&apos;d actually pass before you spend hundreds on the real exam. ByteBar is where you find out if you&apos;re ready.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q">Which exams are included?<span class="pm">+</span></button><div class="faq-a"><p><b>All 28</b> — every exam in the list above: cloud, security, DevOps &amp; containers, systems &amp; service, and nursing. Every exam carries a full bank of exam-style questions, and its video book in the Library teaches it chapter by chapter.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Which exams are included?<span class="pm">+</span></button><div class="faq-a"><p><b>All 29</b> — every exam in the list above: cloud, security, DevOps &amp; containers, systems &amp; service, and nursing. Every exam carries a full bank of exam-style questions, and its video book in the Library teaches it chapter by chapter.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">What are the terminal tasks?<span class="pm">+</span></button><div class="faq-a"><p>CKA and CKAD include <b>hands-on terminal exams</b>: type real kubectl commands into a simulated terminal against realistic cluster tasks — the same performance-based format as the real exams. Your first 10 questions on each are free in the Simulator.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Can I use it on my phone?<span class="pm">+</span></button><div class="faq-a"><p><b>Yes.</b> Mobile-first — practice on your phone, tablet, or desktop. Progress, XP, and streaks sync with your account.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Do I need to install anything?<span class="pm">+</span></button><div class="faq-a"><p><b>No.</b> Runs entirely in your browser. Nothing to download.</p></div></div>
@@ -591,14 +694,14 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 </section>
 
 <!-- ============ FINAL CTA ============ -->
-<section class="block" style="padding-top:20px">
+<section class="block">
   <div class="wrap">
     <div class="final reveal">
       <h2>Your exam date is coming.<br>Be ready for it.</h2>
       <p>Watch the first chapter of any book free, and try 10 questions free on any exam — no signup. $9.99 unlocks every book and every exam — forever.</p>
       <div class="row">
         <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
-        <a class="btn btn-lg" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener" style="background:rgba(255,255,255,.12); color:#fff; box-shadow:0 5px 0 rgba(0,0,0,.25)">Try 10 Free First</a>
+        <a class="btn btn-outline btn-lg" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener">Try 10 Free First</a>
       </div>
     </div>
   </div>
@@ -610,9 +713,9 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
     <div class="fgrid2">
       <div class="fcol">
         <div class="fbrand">BYTEBAR</div>
-        <p>Video books that teach it. Practice exams that prove it. 28 certifications, one price. No racket.</p>
-        <p style="margin-top:16px"><a class="btn btn-gold" href="https://bytebarhq.com/get" rel="noopener">Get ByteBar Complete — $9.99</a></p>
-        <p style="margin-top:12px"><a href="https://bytebarhq.com/claim" style="color:var(--cyan-d); font-weight:700">Already bought it? Claim your Library →</a></p>
+        <p>Video books that teach it. Practice exams that prove it. 29 certifications, one price. No racket.</p>
+        <p style="margin-top:16px"><a class="btn btn-gold" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a></p>
+        <p style="margin-top:12px"><a class="tlink" href="https://bytebarhq.com/claim">Already bought it? Claim your Library <span class="arr" aria-hidden="true">→</span></a></p>
       </div>
       <div class="fcol">
         <h4>Product</h4>
@@ -644,8 +747,8 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 </footer>
 <!-- ============ STICKY MOBILE BUY BAR ============ -->
 <div class="stickybuy" id="stickybuy">
-  <div class="sb-price">$9.99<small>all 28 exams + the Library · forever</small></div>
-  <a class="btn btn-gold" href="https://bytebarhq.com/get" rel="noopener">Get ByteBar Complete — $9.99</a>
+  <div class="sb-price">$9.99<small>all 29 exams + the Library · forever</small></div>
+  <a class="btn btn-gold" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
 </div>
 <script>
 /* ============ Sticky mobile buy bar ============ */
@@ -694,6 +797,7 @@ var EXAMS = [
   {code:"AZ-900", slug:"az900", name:"Azure Fundamentals", color:"#38bdf8", letter:"A"},
   {code:"AZ-104", slug:"az104", name:"Azure Administrator", color:"#0ea5e9", letter:"A"},
   {code:"SAA-C03", slug:"saa_c03", name:"AWS Solutions Architect", color:"#fb923c", letter:"S"},
+  {code:"SAP-C03", slug:"sap_c03", name:"AWS Certified Solutions Architect \u2013 Professional", color:"#ea580c", letter:"S"},
   {code:"CS0-004", slug:"cysa_cs0_004", name:"CompTIA CySA+", color:"#f472b6", letter:"C"},
   {code:"XK0-006", slug:"linuxplus_xk0_006", name:"CompTIA Linux+", color:"#fbbf24", letter:"L"},
   {code:"CKA", slug:"cka", name:"Kubernetes Admin", color:"#818cf8", letter:"K", terminal:true},
@@ -739,7 +843,7 @@ function renderPicker(){
 renderPicker();
 
 </script>
-<div id="sim-loader" aria-hidden="true"><div class="sl-card"><div class="sl-spin"></div><div class="sl-txt">Loading the simulator…</div><div class="sl-sub">Opening all 28 exams — one sec.</div></div></div>
+<div id="sim-loader" aria-hidden="true"><div class="sl-card"><div class="sl-spin"></div><div class="sl-txt">Loading the simulator…</div><div class="sl-sub">Opening all 29 exams — one sec.</div></div></div>
 <script>
 /* Exam card click feedback: show loading overlay before cross-origin nav */
 (function(){
@@ -764,7 +868,7 @@ renderPicker();
         ls.textContent = 'One payment · Yours forever.';
       } else {
         lt.textContent = 'Loading the simulator…';
-        ls.textContent = 'Opening all 28 exams — one sec.';
+        ls.textContent = 'Opening all 29 exams — one sec.';
       }
       loader.classList.add('on');
       if(hideTimer) clearTimeout(hideTimer);
@@ -773,5 +877,117 @@ renderPicker();
   });
 })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* Owner state (Cori 2026-11-15 — approved preview, promoted to live).
+   Keyed to the shared Supabase session: with one login, the session
+   lives in cookies scoped to .bytebarhq.com, so a sign-in on either
+   surface (here or the simulator) is visible on both. Entitlement is
+   the account's own profiles.pro — the same check the sim runs
+   (BB.refreshPro). Guests and free accounts: nothing changes. */
+(function () {
+/* One login (Cori 2026-11-15): supabase-js persists its session
+   through this adapter into cookies scoped Domain=.bytebarhq.com, so
+   a sign-in on bytebarhq.com is visible on sim.bytebarhq.com and vice
+   versa — and a sign-out anywhere clears the shared cookies, signing
+   out everywhere. localStorage stays as a same-origin mirror: a
+   pre-cookie session found there (with no sign-out tombstone) is
+   migrated into the cookie on first read. Long values are chunked
+   across cookies (key.0, key.1, ...). */
+function bbAuthStorage() {
+  var CHUNK = 3000, MAXAGE = 34560000, TOMB = "bb-auth-out";
+  function jar() {
+    var o = {};
+    (document.cookie || "").split(";").forEach(function (p) {
+      var i = p.indexOf("="); if (i > 0) o[p.slice(0, i).trim()] = p.slice(i + 1).trim();
+    });
+    return o;
+  }
+  function put(name, value, age) {
+    var s = name + "=" + value + "; Domain=.bytebarhq.com; Path=/; SameSite=Lax; Max-Age=" + age;
+    if (window.location.protocol === "https:") s += "; Secure";
+    document.cookie = s;
+  }
+  function chunked(j, key) {
+    if (j[key + ".0"] === undefined) return null;
+    var v = "", i = 0;
+    while (j[key + "." + i] !== undefined) { v += j[key + "." + i]; i++; }
+    return v;
+  }
+  function clearChunks(key) {
+    put(key, "", 0);
+    for (var i = 0; i < 12; i++) put(key + "." + i, "", 0);
+  }
+  var store = {
+    getItem: function (key) {
+      var j = jar(), v = chunked(j, key);
+      if (v !== null) { try { return decodeURIComponent(v); } catch (e) { return null; } }
+      if (j[key] !== undefined) { try { return decodeURIComponent(j[key]); } catch (e) { return null; } }
+      var ls = null;
+      try { ls = window.localStorage.getItem(key); } catch (e) {}
+      if (ls && j[TOMB] === undefined) { store.setItem(key, ls); return ls; }
+      return null;
+    },
+    setItem: function (key, value) {
+      try { window.localStorage.setItem(key, value); } catch (e) {}
+      put(TOMB, "", 0);
+      clearChunks(key);
+      var enc = encodeURIComponent(value);
+      if (enc.length <= CHUNK) { put(key, enc, MAXAGE); return; }
+      for (var i = 0; i < enc.length; i += CHUNK) put(key + "." + (i / CHUNK), enc.slice(i, i + CHUNK), MAXAGE);
+    },
+    removeItem: function (key) {
+      try { window.localStorage.removeItem(key); } catch (e) {}
+      clearChunks(key);
+      put(TOMB, "1", MAXAGE);
+    }
+  };
+  return store;
+}
+  if (!window.supabase || !window.supabase.createClient) return;
+  var sb;
+  try { sb = window.supabase.createClient("https://duutviqszajmmoskvdfy.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4", { auth: { storage: bbAuthStorage() } }); } catch (e) { return; }
+  sb.auth.getSession().then(function (r) {
+    var s = r && r.data && r.data.session;
+    if (!s || !s.user) return null;
+    return sb.from("profiles").select("pro").eq("id", s.user.id).maybeSingle();
+  }).then(function (r) {
+    if (!r || !r.data || !r.data.pro) return;
+    document.documentElement.classList.add("bb-owner");
+    /* 1) Every gold buy door becomes the plain way in. */
+    document.querySelectorAll('a.btn-gold[href="https://bytebarhq.com/get"]').forEach(function (a) {
+      a.setAttribute("href", "https://bytebarhq.com/library/");
+      a.classList.remove("btn-gold"); a.classList.add("btn-primary");
+      a.innerHTML = "Open the Library";
+    });
+    /* 2) The account link shows the owner state: gold dot. */
+    document.querySelectorAll('a.nl[href="https://sim.bytebarhq.com/sim-preview/?profile=1"]').forEach(function (a) {
+      a.innerHTML = '<span class="owndot" aria-hidden="true"></span>Account';
+    });
+    /* 3) The pitch steps aside. */
+    var ps = document.getElementById("pricing");
+    if (ps) {
+      ps.innerHTML = '<div class="wrap">' +
+        '<div class="kicker">ByteBar Complete</div>' +
+        '<h2 class="sec">You own ByteBar Complete.</h2>' +
+        '<p class="lead">Every video book and every practice exam is already yours \u2014 no pitch, promise. Pick up right where you left off.</p>' +
+        '<div style="display:flex; gap:12px; flex-wrap:wrap">' +
+        '<a class="btn btn-primary btn-lg" href="https://bytebarhq.com/library/">Open the Library</a>' +
+        '<a class="btn btn-ghost btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>' +
+        '</div></div>';
+    }
+    var pc = document.querySelector(".price-card");
+    if (pc) {
+      pc.innerHTML = '<div style="text-align:center; padding:30px 10px 10px">' +
+        '<div style="font-size:30px; font-weight:900; color:var(--navy)">You own ByteBar Complete</div>' +
+        '<p style="color:var(--mut); font-weight:600; margin:8px auto 18px; max-width:520px">Every book on this shelf is already yours \u2014 pick one and keep going.</p>' +
+        '<a class="btn btn-primary btn-lg" href="#shelves">Browse your books</a></div>';
+    }
+  }).catch(function () {});
+})();
+</script>
+<style>.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:7px; vertical-align:1px}
+.bb-owner .price-card::before{content:"ALREADY YOURS"}</style>
+
 </body>
 </html>
