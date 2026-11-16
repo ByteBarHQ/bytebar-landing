@@ -789,5 +789,117 @@ renderPicker();
   });
 })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* Owner state (Cori 2026-11-15 — approved preview, promoted to live).
+   Keyed to the shared Supabase session: with one login, the session
+   lives in cookies scoped to .bytebarhq.com, so a sign-in on either
+   surface (here or the simulator) is visible on both. Entitlement is
+   the account's own profiles.pro — the same check the sim runs
+   (BB.refreshPro). Guests and free accounts: nothing changes. */
+(function () {
+/* One login (Cori 2026-11-15): supabase-js persists its session
+   through this adapter into cookies scoped Domain=.bytebarhq.com, so
+   a sign-in on bytebarhq.com is visible on sim.bytebarhq.com and vice
+   versa — and a sign-out anywhere clears the shared cookies, signing
+   out everywhere. localStorage stays as a same-origin mirror: a
+   pre-cookie session found there (with no sign-out tombstone) is
+   migrated into the cookie on first read. Long values are chunked
+   across cookies (key.0, key.1, ...). */
+function bbAuthStorage() {
+  var CHUNK = 3000, MAXAGE = 34560000, TOMB = "bb-auth-out";
+  function jar() {
+    var o = {};
+    (document.cookie || "").split(";").forEach(function (p) {
+      var i = p.indexOf("="); if (i > 0) o[p.slice(0, i).trim()] = p.slice(i + 1).trim();
+    });
+    return o;
+  }
+  function put(name, value, age) {
+    var s = name + "=" + value + "; Domain=.bytebarhq.com; Path=/; SameSite=Lax; Max-Age=" + age;
+    if (window.location.protocol === "https:") s += "; Secure";
+    document.cookie = s;
+  }
+  function chunked(j, key) {
+    if (j[key + ".0"] === undefined) return null;
+    var v = "", i = 0;
+    while (j[key + "." + i] !== undefined) { v += j[key + "." + i]; i++; }
+    return v;
+  }
+  function clearChunks(key) {
+    put(key, "", 0);
+    for (var i = 0; i < 12; i++) put(key + "." + i, "", 0);
+  }
+  var store = {
+    getItem: function (key) {
+      var j = jar(), v = chunked(j, key);
+      if (v !== null) { try { return decodeURIComponent(v); } catch (e) { return null; } }
+      if (j[key] !== undefined) { try { return decodeURIComponent(j[key]); } catch (e) { return null; } }
+      var ls = null;
+      try { ls = window.localStorage.getItem(key); } catch (e) {}
+      if (ls && j[TOMB] === undefined) { store.setItem(key, ls); return ls; }
+      return null;
+    },
+    setItem: function (key, value) {
+      try { window.localStorage.setItem(key, value); } catch (e) {}
+      put(TOMB, "", 0);
+      clearChunks(key);
+      var enc = encodeURIComponent(value);
+      if (enc.length <= CHUNK) { put(key, enc, MAXAGE); return; }
+      for (var i = 0; i < enc.length; i += CHUNK) put(key + "." + (i / CHUNK), enc.slice(i, i + CHUNK), MAXAGE);
+    },
+    removeItem: function (key) {
+      try { window.localStorage.removeItem(key); } catch (e) {}
+      clearChunks(key);
+      put(TOMB, "1", MAXAGE);
+    }
+  };
+  return store;
+}
+  if (!window.supabase || !window.supabase.createClient) return;
+  var sb;
+  try { sb = window.supabase.createClient("https://duutviqszajmmoskvdfy.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4", { auth: { storage: bbAuthStorage() } }); } catch (e) { return; }
+  sb.auth.getSession().then(function (r) {
+    var s = r && r.data && r.data.session;
+    if (!s || !s.user) return null;
+    return sb.from("profiles").select("pro").eq("id", s.user.id).maybeSingle();
+  }).then(function (r) {
+    if (!r || !r.data || !r.data.pro) return;
+    document.documentElement.classList.add("bb-owner");
+    /* 1) Every gold buy door becomes the plain way in. */
+    document.querySelectorAll('a.btn-gold[href="https://bytebarhq.com/get"]').forEach(function (a) {
+      a.setAttribute("href", "https://bytebarhq.com/library/");
+      a.classList.remove("btn-gold"); a.classList.add("btn-primary");
+      a.innerHTML = "Open the Library";
+    });
+    /* 2) The account link shows the owner state: gold dot. */
+    document.querySelectorAll('a.nl[href="https://sim.bytebarhq.com/sim-preview/?profile=1"]').forEach(function (a) {
+      a.innerHTML = '<span class="owndot" aria-hidden="true"></span>Account';
+    });
+    /* 3) The pitch steps aside. */
+    var ps = document.getElementById("pricing");
+    if (ps) {
+      ps.innerHTML = '<div class="wrap">' +
+        '<div class="kicker">ByteBar Complete</div>' +
+        '<h2 class="sec">You own ByteBar Complete.</h2>' +
+        '<p class="lead">Every video book and every practice exam is already yours \u2014 no pitch, promise. Pick up right where you left off.</p>' +
+        '<div style="display:flex; gap:12px; flex-wrap:wrap">' +
+        '<a class="btn btn-primary btn-lg" href="https://bytebarhq.com/library/">Open the Library</a>' +
+        '<a class="btn btn-ghost btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>' +
+        '</div></div>';
+    }
+    var pc = document.querySelector(".price-card");
+    if (pc) {
+      pc.innerHTML = '<div style="text-align:center; padding:30px 10px 10px">' +
+        '<div style="font-size:30px; font-weight:900; color:var(--navy)">You own ByteBar Complete</div>' +
+        '<p style="color:var(--mut); font-weight:600; margin:8px auto 18px; max-width:520px">Every book on this shelf is already yours \u2014 pick one and keep going.</p>' +
+        '<a class="btn btn-primary btn-lg" href="#shelves">Browse your books</a></div>';
+    }
+  }).catch(function () {});
+})();
+</script>
+<style>.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:7px; vertical-align:1px}
+.bb-owner .price-card::before{content:"ALREADY YOURS"}</style>
+
 </body>
 </html>
