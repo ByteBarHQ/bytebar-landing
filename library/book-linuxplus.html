@@ -200,8 +200,8 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
 @media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
-.fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
-.fcol a:hover{color:var(--navy)}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
 .fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
 .fcol p{font-size:14px; color:var(--mut); max-width:280px}
 .disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
@@ -295,6 +295,13 @@ a.irow.free:hover{background:#e2f1fb}
   gap:10px; flex-wrap:wrap; align-items:baseline}
 .idx-head .t{font-size:17.5px; font-weight:800; color:var(--navy)}
 .railcard{padding:38px 30px}
+/* Button audit 2026-11-15: the rail card is 350px wide (290px inside
+   its padding; 286px at a 390px phone) — the .btn-lg label
+   "Get ByteBar Complete" measures 229px in DejaVu Sans Bold, so at
+   the stock 38px side padding (305px total) it overflows the
+   width:100% button's content box at every width. 24px side
+   padding (277px total) fits both. */
+.railcard .btn-lg{padding:18px 24px}
 .railcard .amount{font-size:52px; margin-top:14px}
 .railcard .plist{margin-bottom:24px}
 @media(max-width:860px){
@@ -310,6 +317,21 @@ a.irow.free:hover{background:#e2f1fb}
   .irow.examrow{flex-wrap:wrap}
   .irow.examrow .ttl{flex:1 1 calc(100% - 92px)}
   .irow.examrow .st{order:3; width:100%; justify-content:flex-end}
+  /* Button audit 2026-11-15: in-production rows (.prodrow) get the
+     examrow wrap too — at 390px their .ttl box shrinks to ~99px
+     while unbreakable words in their own titles/subs measure up to
+     144px ("PHARMACOLOGICAL", "Troubleshooting"), so the text
+     spilled over the "In production" label. Same geometry as
+     .examrow: label drops to a right-aligned second line. */
+  .irow.prodrow{flex-wrap:wrap}
+  .irow.prodrow .ttl{flex:1 1 calc(100% - 92px)}
+  .irow.prodrow .st{order:3; width:100%; justify-content:flex-end}
+  /* Button audit 2026-11-15: hero CTAs step down at phone width —
+     "Watch the first chapter — free" + play icon measures 363px
+     in DejaVu Sans Bold at 16px/30px padding vs the 346px content
+     column at 390px, and .btn is nowrap, so it overflowed. At
+     15px/22px it measures 330px and fits. */
+  .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
 </head>
@@ -365,38 +387,38 @@ a.irow.free:hover{background:#e2f1fb}
       <div class="idx-head"><span class="t">Chapter index — every chapter, in order</span><span class="micro">XK0-006 · Book in production</span></div>
           <a class="irow free" href="watch-linuxplus.html"><span class="chchip start">Intro</span><div class="ttl"><b>How This Book Works: The Complete Book, Mapped</b><div class="sub">The map — five domains, one book · 3:27</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
           <div class="idxnote">The first chapter is free — the real opening of this book, no card. <b>The rest of the book is in production</b> — chapters land here as they complete, and ByteBar Complete owners unlock each one the moment it publishes.</div>
-          <div class="irow"><span class="chchip">CH 1</span><div class="ttl"><b>Linux Command Line: Survival Skills</b><div class="sub">Domain 1 · System Management · 14:32</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 2</span><div class="ttl"><b>Linux System Basics: Boot, Backups and Machines</b><div class="sub">Domain 1 · System Management · 14:18</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 3</span><div class="ttl"><b>Which Distro Fits the Server?</b><div class="sub">Domain 1 · System Management · 12:05</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 4</span><div class="ttl"><b>Every Linux Directory, Explained (FHS)</b><div class="sub">Domain 1 · System Management · 11:50</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 5</span><div class="ttl"><b>Load the Missing Driver, Device Appears</b><div class="sub">Domain 1 · System Management · 10:34</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 6</span><div class="ttl"><b>Filesystems and LVM: Finally Explained</b><div class="sub">Domain 1 · System Management · 10:03</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 7</span><div class="ttl"><b>Real Network Admins Use the Terminal</b><div class="sub">Domain 1 · System Management · 8:58</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 8</span><div class="ttl"><b>grep, sed and awk Power Tools</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 9</span><div class="ttl"><b>tar and rsync: Backups That Actually Restore</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 10</span><div class="ttl"><b>Build a Linux VM in One Command (KVM)</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 11</span><div class="ttl"><b>System Management: The Linux Admin&#x27;s Whole Map</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 12</span><div class="ttl"><b>Linux Permissions: Users, Groups and the 3 Numbers</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 13</span><div class="ttl"><b>Stop Googling Every apt Command</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 14</span><div class="ttl"><b>systemd: The Commands XK0-006 Actually Tests</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 15</span><div class="ttl"><b>Docker vs Podman, No Tears</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 16</span><div class="ttl"><b>Who Gets In? PAM, sudo and AAA Explained</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 17</span><div class="ttl"><b>Your Firewall Is Off (Fix It Live)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 18</span><div class="ttl"><b>Linux Security: Lock Every Layer</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 19</span><div class="ttl"><b>Root Got DENIED (SELinux Explained)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 20</span><div class="ttl"><b>Hacking SSH (So You Can Stop It)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 21</span><div class="ttl"><b>Automation: Make Linux Do the Boring Work</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 22</span><div class="ttl"><b>Bash Scripting and Automation Basics</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 23</span><div class="ttl"><b>Your Cron Job Never Ran. Here Is Why.</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 24</span><div class="ttl"><b>One Playbook, Fifty Servers (Ansible)</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 25</span><div class="ttl"><b>Python Finds the One Error in 40,000 Lines</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 26</span><div class="ttl"><b>Git Saves Your Config at 2 AM</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 27</span><div class="ttl"><b>Don&#x27;t Run That Command: Verify AI First</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 28</span><div class="ttl"><b>Your Linux Service Keeps Dying</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 29</span><div class="ttl"><b>Your Server Is Slow. The Logs Already Know Why.</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 30</span><div class="ttl"><b>The Linux Troubleshooting Method, Live</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 31</span><div class="ttl"><b>3 PBQs Worked Live at the Terminal</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">CH 32</span><div class="ttl"><b>20 Questions. Zero Guessing.</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 1</span><div class="ttl"><b>Linux Command Line: Survival Skills</b><div class="sub">Domain 1 · System Management · 14:32</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 2</span><div class="ttl"><b>Linux System Basics: Boot, Backups and Machines</b><div class="sub">Domain 1 · System Management · 14:18</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 3</span><div class="ttl"><b>Which Distro Fits the Server?</b><div class="sub">Domain 1 · System Management · 12:05</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 4</span><div class="ttl"><b>Every Linux Directory, Explained (FHS)</b><div class="sub">Domain 1 · System Management · 11:50</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 5</span><div class="ttl"><b>Load the Missing Driver, Device Appears</b><div class="sub">Domain 1 · System Management · 10:34</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 6</span><div class="ttl"><b>Filesystems and LVM: Finally Explained</b><div class="sub">Domain 1 · System Management · 10:03</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 7</span><div class="ttl"><b>Real Network Admins Use the Terminal</b><div class="sub">Domain 1 · System Management · 8:58</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 8</span><div class="ttl"><b>grep, sed and awk Power Tools</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 9</span><div class="ttl"><b>tar and rsync: Backups That Actually Restore</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 10</span><div class="ttl"><b>Build a Linux VM in One Command (KVM)</b><div class="sub">Domain 1 · System Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 11</span><div class="ttl"><b>System Management: The Linux Admin&#x27;s Whole Map</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 12</span><div class="ttl"><b>Linux Permissions: Users, Groups and the 3 Numbers</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 13</span><div class="ttl"><b>Stop Googling Every apt Command</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 14</span><div class="ttl"><b>systemd: The Commands XK0-006 Actually Tests</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 15</span><div class="ttl"><b>Docker vs Podman, No Tears</b><div class="sub">Domain 2 · Services and User Management</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 16</span><div class="ttl"><b>Who Gets In? PAM, sudo and AAA Explained</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 17</span><div class="ttl"><b>Your Firewall Is Off (Fix It Live)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 18</span><div class="ttl"><b>Linux Security: Lock Every Layer</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 19</span><div class="ttl"><b>Root Got DENIED (SELinux Explained)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 20</span><div class="ttl"><b>Hacking SSH (So You Can Stop It)</b><div class="sub">Domain 3 · Security</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 21</span><div class="ttl"><b>Automation: Make Linux Do the Boring Work</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 22</span><div class="ttl"><b>Bash Scripting and Automation Basics</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 23</span><div class="ttl"><b>Your Cron Job Never Ran. Here Is Why.</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 24</span><div class="ttl"><b>One Playbook, Fifty Servers (Ansible)</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 25</span><div class="ttl"><b>Python Finds the One Error in 40,000 Lines</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 26</span><div class="ttl"><b>Git Saves Your Config at 2 AM</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 27</span><div class="ttl"><b>Don&#x27;t Run That Command: Verify AI First</b><div class="sub">Domain 4 · Automation, Orchestration, and Scripting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 28</span><div class="ttl"><b>Your Linux Service Keeps Dying</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 29</span><div class="ttl"><b>Your Server Is Slow. The Logs Already Know Why.</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 30</span><div class="ttl"><b>The Linux Troubleshooting Method, Live</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 31</span><div class="ttl"><b>3 PBQs Worked Live at the Terminal</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 32</span><div class="ttl"><b>20 Questions. Zero Guessing.</b><div class="sub">Domain 5 · Troubleshooting</div></div><div class="st"><span>In production</span></div></div>
           <a class="irow examrow" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006"><span class="chchip exam">Exam</span><div class="ttl"><b>The Final Exam — Linux+ (XK0-006)</b><div class="sub">The final exam · 1,000 questions · readiness score</div></div><div class="st"><span class="simlink">In the Simulator →</span></div></a>
     </div>
     <div>

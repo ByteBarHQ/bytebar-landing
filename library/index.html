@@ -198,14 +198,22 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 .final h2{font-size:clamp(30px,4vw,44px); letter-spacing:-.02em; margin-bottom:14px; position:relative}
 .final p{color:#b9cdf0; font-size:17px; max-width:520px; margin:0 auto 30px; position:relative}
 .final .row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative}
+/* Button audit 2026-11-15: at 390px the nowrap btn-lg label + padding exceeds its card —
+   pricing card content box is 262px (gold needs ≈302px) and the final-CTA row is 266px
+   (Try 10 free questions needs ≈291px). Font/padding step at the narrow breakpoint;
+   both fit with slack at 390px and 440px after it. */
+@media(max-width:480px){
+  .price-card .btn-lg{font-size:16px; padding:16px 20px}
+  .final .btn-lg{font-size:16px; padding:16px 24px}
+}
 
 /* ============ Footer (live) ============ */
 footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
 @media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
-.fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
-.fcol a:hover{color:var(--navy)}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
 .fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
 .fcol p{font-size:14px; color:var(--mut); max-width:280px}
 .disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
@@ -342,7 +350,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">CompTIA PenTest+</div>
             <div class="bk-meta">CompTIA</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-pentestplus.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="cysa+ cs0-004 comptia analyst security">
@@ -356,7 +364,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">CompTIA CySA+</div>
             <div class="bk-meta">CompTIA</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-cysa.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="cissp isc2 security management">
@@ -370,7 +378,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">ISC2 CISSP</div>
             <div class="bk-meta">ISC2</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-cissp.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Sit the final exam</a></div>
           </div>
         </article>
       </div>
@@ -389,7 +397,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">AWS Solutions Architect – Associate</div>
             <div class="bk-meta">Amazon Web Services</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-saac03.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="az-104 azure microsoft administrator cloud">
@@ -403,7 +411,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">Microsoft Azure Administrator</div>
             <div class="bk-meta">Microsoft</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-az104.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="aif-c01 aws amazon ai practitioner artificial intelligence cloud">
@@ -417,7 +425,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">AWS AI Practitioner</div>
             <div class="bk-meta">Amazon Web Services</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-aifc01.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="clf-c02 aws amazon cloud practitioner foundations">
@@ -431,7 +439,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">AWS Cloud Practitioner</div>
             <div class="bk-meta">Amazon Web Services</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-clfc02.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Sit the final exam</a></div>
           </div>
         </article>
       </div>
@@ -450,7 +458,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">CompTIA Network+</div>
             <div class="bk-meta">CompTIA</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-networkplus.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="linux+ xk0-006 comptia linux systems">
@@ -478,7 +486,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">Cisco CCNA</div>
             <div class="bk-meta">Cisco</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-ccna.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Sit the final exam</a></div>
           </div>
         </article>
         <article class="bookcard" data-search="a+ 220-1201 220-1202 comptia hardware systems">
@@ -492,7 +500,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">CompTIA A+ (Core 1 & 2)</div>
             <div class="bk-meta">CompTIA</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-aplus.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Sit the final exam</a></div>
           </div>
         </article>
       </div>
@@ -511,7 +519,7 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
           <div class="bk-body">
             <div class="bk-name">Certified Kubernetes Administrator</div>
             <div class="bk-meta">CNCF</div>
-            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="#sample">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Sit the final exam</a></div>
+            <div class="bk-row"><span class="freetag">FIRST CHAPTER FREE</span></div><div class="bk-doors"><a class="bk-door book" href="book-cka.html">Watch the book</a><a class="bk-door exam" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Sit the final exam</a></div>
           </div>
         </article>
       </div>

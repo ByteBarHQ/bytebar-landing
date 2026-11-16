@@ -200,8 +200,8 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
 @media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
-.fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
-.fcol a:hover{color:var(--navy)}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
 .fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
 .fcol p{font-size:14px; color:var(--mut); max-width:280px}
 .disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
@@ -301,7 +301,22 @@ a.irow.free:hover{background:#e2f1fb}
 .ppanel .rowlinks{display:flex; gap:14px 18px; align-items:center; flex-wrap:wrap; justify-content:center}
 .ppanel a.txtlink{color:#7ee7f7; font-weight:700; text-decoration:none; font-size:14.5px}
 .ppanel a.txtlink:hover{text-decoration:underline}
-@media(max-width:560px){.wtitle{font-size:27px} .ppanel h2{font-size:20px}}
+@media(max-width:560px){.wtitle{font-size:27px} .ppanel h2{font-size:20px}
+  /* Button audit 2026-11-15: the paywall panel is 298px inside its
+     padding at 390px — the showComplete() .btn-lg short label
+     measures 305px at 18px/38px padding and the showNA() .btn
+     measures 316px at 16px/30px, both nowrap, both overflowing.
+     At 15px/22px they measure 235px and 284px and fit. */
+  .ppanel .btn{font-size:15px; padding:14px 22px}
+  /* Button audit 2026-11-15: .nextcard gets the book pages'
+     .examrow wrap — in its final-exam state at 390px the title's
+     box shrinks to ~58px (chip 62px + "In the Simulator →" 162px
+     are flex:none) while title words measure up to 88px
+     ("(SY0-701)", "NCLEX-RN"), so they spilled. The status drops
+     to a right-aligned second line, same as .irow.examrow. */
+  .nextcard{flex-wrap:wrap}
+  .nextcard .ttl{flex:1 1 calc(100% - 92px)}
+  .nextcard .st{order:3; width:100%; justify-content:flex-end}}
 </style>
 </head>
 

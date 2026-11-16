@@ -200,8 +200,8 @@ footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
 @media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr}}
 .fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
-.fcol a{display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
-.fcol a:hover{color:var(--navy)}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
 .fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
 .fcol p{font-size:14px; color:var(--mut); max-width:280px}
 .disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
@@ -295,6 +295,13 @@ a.irow.free:hover{background:#e2f1fb}
   gap:10px; flex-wrap:wrap; align-items:baseline}
 .idx-head .t{font-size:17.5px; font-weight:800; color:var(--navy)}
 .railcard{padding:38px 30px}
+/* Button audit 2026-11-15: the rail card is 350px wide (290px inside
+   its padding; 286px at a 390px phone) — the .btn-lg label
+   "Get ByteBar Complete" measures 229px in DejaVu Sans Bold, so at
+   the stock 38px side padding (305px total) it overflows the
+   width:100% button's content box at every width. 24px side
+   padding (277px total) fits both. */
+.railcard .btn-lg{padding:18px 24px}
 .railcard .amount{font-size:52px; margin-top:14px}
 .railcard .plist{margin-bottom:24px}
 @media(max-width:860px){
@@ -310,6 +317,21 @@ a.irow.free:hover{background:#e2f1fb}
   .irow.examrow{flex-wrap:wrap}
   .irow.examrow .ttl{flex:1 1 calc(100% - 92px)}
   .irow.examrow .st{order:3; width:100%; justify-content:flex-end}
+  /* Button audit 2026-11-15: in-production rows (.prodrow) get the
+     examrow wrap too — at 390px their .ttl box shrinks to ~99px
+     while unbreakable words in their own titles/subs measure up to
+     144px ("PHARMACOLOGICAL", "Troubleshooting"), so the text
+     spilled over the "In production" label. Same geometry as
+     .examrow: label drops to a right-aligned second line. */
+  .irow.prodrow{flex-wrap:wrap}
+  .irow.prodrow .ttl{flex:1 1 calc(100% - 92px)}
+  .irow.prodrow .st{order:3; width:100%; justify-content:flex-end}
+  /* Button audit 2026-11-15: hero CTAs step down at phone width —
+     "Watch the first chapter — free" + play icon measures 363px
+     in DejaVu Sans Bold at 16px/30px padding vs the 346px content
+     column at 390px, and .btn is nowrap, so it overflowed. At
+     15px/22px it measures 330px and fits. */
+  .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
 </head>
@@ -365,10 +387,10 @@ a.irow.free:hover{background:#e2f1fb}
       <div class="idx-head"><span class="t">Chapter index — every chapter, in order</span><span class="micro">TEAS 7 · Book in production</span></div>
           <a class="irow free" href="watch-teas7.html"><span class="chchip start">Intro</span><div class="ttl"><b>TEAS 7 Start Here: Will You Pass the TEAS? 10 Questions That Tell the Truth</b><div class="sub">A teaching chapter — 10 questions, worked · 13:54</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
           <div class="idxnote">The free first chapter is a complete teaching chapter — 10 real questions with every trap named, no card. <b>The book's section chapters are in production</b> — they land here as they complete, and ByteBar Complete owners unlock each one the moment it publishes.</div>
-          <div class="irow"><span class="chchip">Section</span><div class="ttl"><b>Reading</b><div class="sub">45 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">Section</span><div class="ttl"><b>Mathematics</b><div class="sub">38 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">Section</span><div class="ttl"><b>Science</b><div class="sub">50 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow"><span class="chchip">Section</span><div class="ttl"><b>English &amp; Language Usage</b><div class="sub">37 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">Section</span><div class="ttl"><b>Reading</b><div class="sub">45 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">Section</span><div class="ttl"><b>Mathematics</b><div class="sub">38 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">Section</span><div class="ttl"><b>Science</b><div class="sub">50 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">Section</span><div class="ttl"><b>English &amp; Language Usage</b><div class="sub">37 questions on the exam</div></div><div class="st"><span>In production</span></div></div>
           <a class="irow examrow" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7"><span class="chchip exam">Exam</span><div class="ttl"><b>The Final Exam — TEAS 7</b><div class="sub">The final exam · 1,000 questions · readiness score</div></div><div class="st"><span class="simlink">In the Simulator →</span></div></a>
     </div>
     <div>
