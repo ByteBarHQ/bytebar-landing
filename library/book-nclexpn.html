@@ -350,6 +350,53 @@ a.irow.free:hover{background:#e2f1fb}
   .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
+
+<style id="detail-pass">
+/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
+   The homepage's approved system carried to the library surfaces: one
+   spacing rhythm; one treatment per role, executed the same way
+   everywhere it appears; consistent hover/focus states. ===== */
+
+/* Nav: the gold buy button leaves the burger menu and stays in the
+   bar — the homepage fix of 2026-11-16 mirrored exactly. Text links
+   still collapse at <=1100px; the buy button never does, and it takes
+   its short label at phone widths. */
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+@media(max-width:1100px){
+  .nav-right{gap:12px}
+  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .brand{letter-spacing:.16em}
+  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
+}
+
+/* One visible keyboard-focus treatment everywhere (the account
+   panel's input keeps its own higher-specificity ring). */
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+
+/* Small courtesies. */
+::selection{background:rgba(245,166,35,.32)}
+a,button{-webkit-tap-highlight-color:transparent}
+
+/* Ghost buttons get the hover their sibling buttons already had. */
+.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
+
+/* The footer's stray top margin goes; its own padding does the work. */
+footer{margin-top:0}
+
+/* Card grids share one gap token (was 20px). */
+.bookgrid{gap:16px}
+/* The back link's tap height grows to the sim's fixed size (was 23px). */
+.backlink{padding:5px 0}
+/* The player panel's quiet link takes the on-dark .tlink execution. */
+.ppanel a.txtlink{text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(126,231,247,.42);
+  transition:text-decoration-color .15s var(--ease)}
+.ppanel a.txtlink:hover{text-decoration-color:currentColor}
+</style>
 </head>
 
 <body>
@@ -357,7 +404,7 @@ a.irow.free:hover{background:#e2f1fb}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <div class="nav-right">
     <div class="nav-links" id="navlinks">
       <a class="nl active" href="index.html">Library</a>
       <a class="nl" href="https://sim.bytebarhq.com/">Simulator</a>
@@ -365,8 +412,10 @@ a.irow.free:hover{background:#e2f1fb}
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete</a>
+      </div>
+      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete</span><span class="lbl-short">Get Complete</span></a>
     </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -401,7 +450,7 @@ a.irow.free:hover{background:#e2f1fb}
   <div class="bookgrid">
     <div class="idxcard">
       <div class="idx-head"><span class="t">Chapter index — every chapter, in order</span><span class="micro">NCLEX-PN · Book in production</span></div>
-          <a class="irow free" href="watch-nclexpn.html"><span class="chchip start">Intro</span><div class="ttl"><b>NCLEX-PN Start Here: The Complete Book, Mapped</b><div class="sub">The map — eight categories, one book · 2:24</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
+          <a class="irow free" href="watch-nclexpn.html"><span class="chchip start">Intro</span><div class="ttl"><b>How This Book Works: The Complete Book, Mapped</b><div class="sub">The map — eight categories, one book · 2:24</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
           <div class="idxnote">The first chapter is free — the real opening of this book, no card. <b>The rest of the book is in production</b> — chapters land here as they complete, and ByteBar Complete owners unlock each one the moment it publishes.</div>
           <div class="irow prodrow"><span class="chchip">CH 1</span><div class="ttl"><b>Coordinated Care</b><div class="sub">Coordinated Care · 18–24% of the exam</div></div><div class="st"><span>In production</span></div></div>
           <div class="irow prodrow"><span class="chchip">CH 2</span><div class="ttl"><b>Safety &amp; Infection Control</b><div class="sub">Safety &amp; Infection Control</div></div><div class="st"><span>In production</span></div></div>

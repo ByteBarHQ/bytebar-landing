@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HESI A2 Start Here — HESI A2 · ByteBar Library</title>
+<title>How This Book Works — HESI A2 · ByteBar Library</title>
 <meta name="description" content="Watch the free first chapter of the HESI A2 video book: the whole map — the core four sections, the school-selected sections, and the final exam. No card, no account.">
-<meta property="og:title" content="HESI A2 Start Here — HESI A2 · ByteBar Library">
+<meta property="og:title" content="How This Book Works — HESI A2 · ByteBar Library">
 <meta property="og:description" content="Watch the free first chapter of the HESI A2 video book: the whole map — the core four sections, the school-selected sections, and the final exam. No card, no account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ByteBar">
@@ -14,7 +14,7 @@
 <link rel="canonical" href="https://bytebarhq.com/library/watch-hesia2.html">
 <meta property="og:url" content="https://bytebarhq.com/library/watch-hesia2.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HESI A2 Start Here — HESI A2 · ByteBar Library">
+<meta name="twitter:title" content="How This Book Works — HESI A2 · ByteBar Library">
 <meta name="twitter:description" content="Watch the free first chapter of the HESI A2 video book: the whole map — the core four sections, the school-selected sections, and the final exam. No card, no account.">
 <meta name="twitter:image" content="https://bytebarhq.com/og/book-og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230b1e42%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2734%27%20font-weight%3D%27900%27%20fill%3D%27%237ee7f7%27%20text-anchor%3D%27middle%27%3EB%3C%2Ftext%3E%3C%2Fsvg%3E">
@@ -332,6 +332,53 @@ a.irow.free:hover{background:#e2f1fb}
 @media(max-width:660px){.pframe.tall{min-height:358px}}
 @media(max-width:400px){.pframe.tall{min-height:428px}}
 </style>
+
+<style id="detail-pass">
+/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
+   The homepage's approved system carried to the library surfaces: one
+   spacing rhythm; one treatment per role, executed the same way
+   everywhere it appears; consistent hover/focus states. ===== */
+
+/* Nav: the gold buy button leaves the burger menu and stays in the
+   bar — the homepage fix of 2026-11-16 mirrored exactly. Text links
+   still collapse at <=1100px; the buy button never does, and it takes
+   its short label at phone widths. */
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+@media(max-width:1100px){
+  .nav-right{gap:12px}
+  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .brand{letter-spacing:.16em}
+  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
+}
+
+/* One visible keyboard-focus treatment everywhere (the account
+   panel's input keeps its own higher-specificity ring). */
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+
+/* Small courtesies. */
+::selection{background:rgba(245,166,35,.32)}
+a,button{-webkit-tap-highlight-color:transparent}
+
+/* Ghost buttons get the hover their sibling buttons already had. */
+.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
+
+/* The footer's stray top margin goes; its own padding does the work. */
+footer{margin-top:0}
+
+/* Card grids share one gap token (was 20px). */
+.bookgrid{gap:16px}
+/* The back link's tap height grows to the sim's fixed size (was 23px). */
+.backlink{padding:5px 0}
+/* The player panel's quiet link takes the on-dark .tlink execution. */
+.ppanel a.txtlink{text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(126,231,247,.42);
+  transition:text-decoration-color .15s var(--ease)}
+.ppanel a.txtlink:hover{text-decoration-color:currentColor}
+</style>
 </head>
 
 <body>
@@ -339,7 +386,7 @@ a.irow.free:hover{background:#e2f1fb}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <div class="nav-right">
     <div class="nav-links" id="navlinks">
       <a class="nl active" href="index.html">Library</a>
       <a class="nl" href="https://sim.bytebarhq.com/">Simulator</a>
@@ -347,14 +394,16 @@ a.irow.free:hover{background:#e2f1fb}
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete</a>
+      </div>
+      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete</span><span class="lbl-short">Get Complete</span></a>
     </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
 <div class="wrap"><section class="watchsec">
   <div class="crumb"><span><a href="index.html">Library</a> · Nursing · <a href="book-hesia2.html"><b style="color:var(--navy)">HESI A2</b></a></span><span class="crumb-r" id="crumbR">First chapter · Free</span></div>
-  <h1 class="wtitle" id="wtitle">HESI A2 Start Here: The Complete Book, Mapped</h1>
+  <h1 class="wtitle" id="wtitle">How This Book Works: The Complete Book, Mapped</h1>
   <p class="wsub" id="wsub">The first chapter of the HESI A2 book — the whole map before Chapter 1: the core four sections, the school-selected sections, and the final exam at the end. <span style='color:var(--navy); font-weight:700'>2:11 · No card, no account.</span></p>
   <div class="pframe">
     <div class="pstate" id="pstate"><div>Connecting to the player…</div></div>
@@ -609,7 +658,7 @@ function bbAuthStorage() {
 (function () {
   var SIGN_URL = "https://duutviqszajmmoskvdfy.supabase.co/functions/v1/library-sign-url";
   var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
-  var META = {"0": {"t": "HESI A2 Start Here: The Complete Book, Mapped", "r": "2:11"}};
+  var META = {"0": {"t": "How This Book Works: The Complete Book, Mapped", "r": "2:11"}};
   var SIM_URL = "https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2";
   var PLAYBTN = "<span class=\"playbtn\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"#fff\"><path d=\"M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z\"/></svg></span>";
   var LOCKHTML = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.1\"><rect x=\"4.5\" y=\"10.5\" width=\"15\" height=\"9.5\" rx=\"2\"/><path d=\"M8 10.5V7a4 4 0 0 1 8 0v3.5\"/></svg><span>Locked</span>";

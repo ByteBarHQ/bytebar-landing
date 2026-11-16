@@ -350,6 +350,53 @@ a.irow.free:hover{background:#e2f1fb}
   .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
+
+<style id="detail-pass">
+/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
+   The homepage's approved system carried to the library surfaces: one
+   spacing rhythm; one treatment per role, executed the same way
+   everywhere it appears; consistent hover/focus states. ===== */
+
+/* Nav: the gold buy button leaves the burger menu and stays in the
+   bar — the homepage fix of 2026-11-16 mirrored exactly. Text links
+   still collapse at <=1100px; the buy button never does, and it takes
+   its short label at phone widths. */
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+@media(max-width:1100px){
+  .nav-right{gap:12px}
+  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .brand{letter-spacing:.16em}
+  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
+}
+
+/* One visible keyboard-focus treatment everywhere (the account
+   panel's input keeps its own higher-specificity ring). */
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+
+/* Small courtesies. */
+::selection{background:rgba(245,166,35,.32)}
+a,button{-webkit-tap-highlight-color:transparent}
+
+/* Ghost buttons get the hover their sibling buttons already had. */
+.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
+
+/* The footer's stray top margin goes; its own padding does the work. */
+footer{margin-top:0}
+
+/* Card grids share one gap token (was 20px). */
+.bookgrid{gap:16px}
+/* The back link's tap height grows to the sim's fixed size (was 23px). */
+.backlink{padding:5px 0}
+/* The player panel's quiet link takes the on-dark .tlink execution. */
+.ppanel a.txtlink{text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(126,231,247,.42);
+  transition:text-decoration-color .15s var(--ease)}
+.ppanel a.txtlink:hover{text-decoration-color:currentColor}
+</style>
 </head>
 
 <body>
@@ -357,7 +404,7 @@ a.irow.free:hover{background:#e2f1fb}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
+    <div class="nav-right">
     <div class="nav-links" id="navlinks">
       <a class="nl active" href="index.html">Library</a>
       <a class="nl" href="https://sim.bytebarhq.com/">Simulator</a>
@@ -365,8 +412,10 @@ a.irow.free:hover{background:#e2f1fb}
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete</a>
+      </div>
+      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete</span><span class="lbl-short">Get Complete</span></a>
     </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
