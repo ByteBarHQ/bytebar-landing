@@ -277,6 +277,16 @@ a.irow.free:hover{background:#e2f1fb}
 /* ============ Book page (preview set, live idiom) ============ */
 .bookhead{display:grid; grid-template-columns:330px 1fr; gap:38px; margin-top:24px; align-items:start}
 .bookhead .cover{box-shadow:var(--shadow-lg)}
+/* Cover fit fix (Cori catch, 2026-11-15): the fixed 4/3 box clipped
+   the masthead and spec line on every book whose cover title wraps —
+   a 2-line title (ITIL 4 Foundation, photographed on his phone)
+   already pushed the centered stack onto the frame, and 3-line
+   titles (SAP-C03, CKAD, DCA, GCP ACE) lost ~17px top and bottom.
+   The book-header cover now fits its content by construction: no
+   fixed aspect ratio, real padding inside the frame, and a 240px
+   min-height so one-line covers (Security+) keep exactly their
+   phone height; taller stacks grow the cover instead of clipping. */
+.bookhead .cover{aspect-ratio:auto; min-height:240px; padding:30px 22px}
 .bookhead .cov-title{font-size:40px}
 .bookhead .cov-code{font-size:17px}
 .bookhead .cov-spec{position:relative; font-size:10px; font-weight:700; letter-spacing:.22em; color:#cfe3f5; margin-top:13px}

@@ -141,6 +141,24 @@ p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; m
 .bookgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 @media(max-width:860px){.bookgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.bookgrid{grid-template-columns:1fr}}
+/* Cover + door fit (2026-11-15 sweep): in the narrow grid bands the
+   cards shrink while the cover stack does not — three-line card
+   titles (SAP-C03, GCP ACE, CKAD) clipped the cover frame, and both
+   door labels wrapped to two lines. Compress the card cover's
+   internal spacing and step its title down in those bands only
+   (phone 1-col and desktop cards keep the approved sizes), and
+   stack the doors — the <=380px pattern — wherever the cards are
+   narrower than the desktop card whose doors are render-proven to
+   fit side by side, so every door label stays on one line. */
+@media(min-width:561px) and (max-width:1100px){
+  .bookcard .cov-title{font-size:22px}
+  .bookcard .cov-code{margin-top:8px}
+  .bookcard .cov-type{margin-top:8px}
+  .bookcard .cov-rule{margin-top:8px}
+}
+@media(min-width:561px) and (max-width:1120px){
+  .bk-doors{flex-direction:column}
+}
 .bookcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); overflow:hidden;
   box-shadow:var(--shadow); display:flex; flex-direction:column; transition:transform .18s var(--ease)}
 .bookcard:hover{transform:translateY(-4px)}

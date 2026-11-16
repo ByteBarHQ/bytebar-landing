@@ -317,6 +317,14 @@ a.irow.free:hover{background:#e2f1fb}
   .nextcard{flex-wrap:wrap}
   .nextcard .ttl{flex:1 1 calc(100% - 92px)}
   .nextcard .st{order:3; width:100%; justify-content:flex-end}}
+/* Paywall fit fix (2026-11-15 sweep): at widths up to ~605px the
+   locked / not-available panels are far taller than the 16:9 frame
+   (the Complete panel overflows it by ~150px at 390px), so the
+   heading and the sign-in note clipped inside the player box. When
+   a panel is showing, the player JS adds .tall to the frame and the
+   frame grows to fit the panel; the video itself keeps 16:9. */
+@media(max-width:660px){.pframe.tall{min-height:358px}}
+@media(max-width:400px){.pframe.tall{min-height:428px}}
 </style>
 </head>
 
@@ -555,18 +563,23 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   function showState(html) {
     panel.style.display = "none";
     frame.style.display = "none";
+    frame.parentElement.classList.remove("tall");
     state.style.display = "flex";
     state.innerHTML = html;
   }
   function showPanel(html) {
     state.style.display = "none";
     frame.style.display = "none";
+    /* Panel content is taller than the 16:9 frame at phone widths —
+       .tall grows the frame to fit it (see WATCH_CSS). */
+    frame.parentElement.classList.add("tall");
     panel.innerHTML = html;
     panel.style.display = "flex";
   }
   function showPlayer(url) {
     state.style.display = "none";
     panel.style.display = "none";
+    frame.parentElement.classList.remove("tall");
     frame.src = url;
     frame.style.display = "block";
   }
