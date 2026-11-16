@@ -544,7 +544,7 @@ function bbAuthStorage() {
     document.querySelectorAll(".chrow").forEach(function (row) {
       var st = row.querySelector(".chst");
       if (session) {
-        row.setAttribute("href", "watch.html?chapter=" + row.getAttribute("data-ch"));
+        row.setAttribute("href", "watch-linuxplus.html?chapter=" + row.getAttribute("data-ch"));
         if (st) st.innerHTML = PLAYBTN;
       } else {
         row.setAttribute("href", "https://bytebarhq.com/get");
@@ -603,7 +603,7 @@ function bbAuthStorage() {
 (function () {
   var SIGN_URL = "https://duutviqszajmmoskvdfy.supabase.co/functions/v1/library-sign-url";
   var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
-  var META = {"0": {"t": "How This Book Works: The Complete Book, Mapped", "r": "3:27"}};
+  var META = {"0": {"t": "How This Book Works: The Complete Book, Mapped", "r": "3:27"}, "1": {"t": "Command Line Survival Skills", "r": "14:32"}, "2": {"t": "Linux System Basics: Boot, Backups and Machines", "r": "14:18"}, "3": {"t": "Choosing a Linux Distribution", "r": "12:05"}, "4": {"t": "The Filesystem Hierarchy Standard", "r": "11:50"}, "5": {"t": "Kernel Modules and Device Drivers", "r": "10:34"}, "6": {"t": "Filesystems and LVM", "r": "10:03"}, "7": {"t": "Networking from the Terminal", "r": "8:58"}, "8": {"t": "Text Processing: grep, sed, and awk", "r": "9:03"}, "9": {"t": "Backups with tar and rsync", "r": "11:07"}, "10": {"t": "Virtualization with KVM", "r": "11:54"}, "11": {"t": "System Management Overview", "r": "13:21"}, "12": {"t": "Linux Permissions: Users, Groups and the 3 Numbers", "r": "11:19"}, "13": {"t": "Package Management: apt and dnf", "r": "8:49"}, "14": {"t": "systemd: The Commands XK0-006 Actually Tests", "r": "10:34"}, "15": {"t": "Docker vs Podman, No Tears", "r": "13:53"}, "16": {"t": "Who Gets In? PAM, sudo and AAA Explained", "r": "12:10"}};
   var SIM_URL = "https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006";
   var PLAYBTN = "<span class=\"playbtn\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"#fff\"><path d=\"M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z\"/></svg></span>";
   var LOCKHTML = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.1\"><rect x=\"4.5\" y=\"10.5\" width=\"15\" height=\"9.5\" rx=\"2\"/><path d=\"M8 10.5V7a4 4 0 0 1 8 0v3.5\"/></svg><span>Locked</span>";
@@ -726,7 +726,7 @@ function bbAuthStorage() {
     chip.textContent = "CH " + m;
     ttl.textContent = "Up next: " + META[m].t;
     if (session) {
-      card.setAttribute("href", "watch.html?chapter=" + m);
+      card.setAttribute("href", "watch-linuxplus.html?chapter=" + m);
       sub.textContent = "Chapter " + m + " · " + META[m].r;
       st.innerHTML = PLAYBTN;
     } else {
@@ -741,13 +741,13 @@ function bbAuthStorage() {
     document.getElementById("wtitle").textContent = META[n].t;
     document.title = META[n].t + " — Linux+ (XK0-006) · ByteBar Library";
     document.getElementById("crumbR").textContent =
-      n === 0 ? "First chapter · Free" : "Chapter " + n + " of 30";
+      n === 0 ? "First chapter · Free" : "Chapter " + n + " of 32";
     if (n > 0) {
       document.getElementById("wsub").innerHTML =
-        "Chapter " + n + " of 30 in the Security+ (SY0-701) book, taught in blueprint order. " +
+        "Chapter " + n + " of 32 in the Linux+ (XK0-006) book, taught in blueprint order. " +
         "<span style='color:var(--navy); font-weight:700'>" + META[n].r + " · Part of ByteBar Complete.</span>";
       document.getElementById("wtag").innerHTML =
-        '<span class="micro">Chapter ' + n + " of 30 · Security+ (SY0-701)</span>";
+        '<span class="micro">Chapter ' + n + " of 32 · Linux+ (XK0-006)</span>";
     }
   } else {
     document.getElementById("wtitle").textContent = "Chapter not available";
