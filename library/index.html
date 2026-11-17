@@ -1114,6 +1114,14 @@ function bbAuthStorage() {
   }).then(function (r) {
     if (!r || !r.data || !r.data.pro) return;
     document.documentElement.classList.add("bb-owner");
+    /* 0) The hero's gold buy door is removed for owners, not converted:
+       this page IS the Library home, so a converted "Open the Library"
+       here would only duplicate the nav's owner door and point back at
+       the page the owner is already on. "Find your book" stays as the
+       hero's one action. (The nav gold door still converts in rule 1.) */
+    document.querySelectorAll('.hero-ctas a.btn-gold').forEach(function (a) {
+      a.remove();
+    });
     /* 1) Every gold buy door becomes the plain way in. */
     document.querySelectorAll('a.btn-gold[href="https://bytebarhq.com/get"]').forEach(function (a) {
       a.setAttribute("href", "https://bytebarhq.com/library/");
