@@ -19,6 +19,49 @@
 <meta name="twitter:title" content="ByteBar — Video Books &amp; Practice Exams: Stop Paying $99 Per Exam">
 <meta name="twitter:description" content="Video books that teach the material, practice exams that mirror test day. 29 IT and nursing certifications — learn it, prove it, pass it. $9.99 one-time for everything, yours forever.">
 <meta name="twitter:image" content="https://bytebarhq.com/og-image.png">
+<script>
+/* Owner-state flash guard (Cori 2026-11-18). If a Supabase auth
+   session appears stored for this browser (the chunked auth cookie,
+   or the same key in the localStorage mirror with no sign-out
+   tombstone), mark the document bb-pending BEFORE first paint: the
+   elements the owner-state script may swap stay hidden - layout
+   intact - until that script resolves, and a hard 2500ms safety
+   timeout clears the mark unconditionally, so a slow or failed
+   check can never leave a page with hidden buy buttons. No stored
+   session, no mark: guests get byte-identical behavior. */
+(function () {
+  var KEY = "sb-duutviqszajmmoskvdfy-auth-token", found = false;
+  try {
+    var parts = (document.cookie || "").split(";");
+    var tomb = false;
+    for (var i = 0; i < parts.length; i++) {
+      var eq = parts[i].indexOf("=");
+      if (eq < 0) continue;
+      var name = parts[i].slice(0, eq).replace(/^\s+|\s+$/g, "");
+      if (name === KEY || name.indexOf(KEY + ".") === 0) found = true;
+      if (name === "bb-auth-out") tomb = true;
+    }
+    if (!found && !tomb) {
+      try { found = !!window.localStorage.getItem(KEY); } catch (e) {}
+    }
+  } catch (e) {}
+  if (!found) return;
+  document.documentElement.classList.add("bb-pending");
+  setTimeout(function () {
+    document.documentElement.classList.remove("bb-pending");
+  }, 2500);
+})();
+</script>
+<style id="bb-pending-css">
+/* While the owner check is in flight, hold exactly the elements the
+   owner-state script can swap - visibility, not display, so nothing
+   moves when they resolve. Everything else paints normally. */
+html.bb-pending a.btn-gold[href="https://bytebarhq.com/get"],
+html.bb-pending #pricing,
+html.bb-pending .price-card,
+html.bb-pending #stickybuy,
+html.bb-pending a.nl[href="https://sim.bytebarhq.com/sim-preview/?profile=1"]{visibility:hidden}
+</style>
 <style>
 /* ============ Tokens ============ */
 :root{
@@ -952,7 +995,7 @@ function bbAuthStorage() {
     if (!s || !s.user) return null;
     return sb.from("profiles").select("pro").eq("id", s.user.id).maybeSingle();
   }).then(function (r) {
-    if (!r || !r.data || !r.data.pro) return;
+    if (!r || !r.data || !r.data.pro) { document.documentElement.classList.remove("bb-pending"); return; }
     document.documentElement.classList.add("bb-owner");
     /* 1) Every gold buy door becomes the plain way in. */
     document.querySelectorAll('a.btn-gold[href="https://bytebarhq.com/get"]').forEach(function (a) {
@@ -983,7 +1026,8 @@ function bbAuthStorage() {
         '<p style="color:var(--mut); font-weight:600; margin:8px auto 18px; max-width:520px">Every book on this shelf is already yours \u2014 pick one and keep going.</p>' +
         '<a class="btn btn-primary btn-lg" href="#shelves">Browse your books</a></div>';
     }
-  }).catch(function () {});
+    document.documentElement.classList.remove("bb-pending");
+  }).catch(function () { document.documentElement.classList.remove("bb-pending"); });
 })();
 </script>
 <style>.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:7px; vertical-align:1px}
