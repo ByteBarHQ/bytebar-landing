@@ -23,6 +23,69 @@ streak, Threats Week challenge 26/40) → Readiness (last exam 82%, five
 domain bars, weakest domain called out, "Take the final exam" + misses
 link) → the two doors → your shelf (8 books) → footer.
 
+## Round 3 — art direction (Cori's verdict on round 2, 2026-11-18)
+
+Round 2 verdict, verbatim: "no not quite still way too sterile and
+flat. it feels nothing like the landing page either. this still
+isn't it."
+
+**The lesson, now the rule for this surface: stop designing a
+"dashboard."** Rounds 1–2 invented new art directions (Drafting
+Table, then corporate "premium dusk") and both felt sterile next to
+the page Cori actually loves. Round 3's design source of truth is
+the LIVE LANDING PAGE itself. The signed-in home is the landing
+page, rearranged for an owner — same warmth, same playfulness, same
+family. When a design choice is in doubt, the answer is "whatever
+the landing page does."
+
+What was carried over, from the landing's actual CSS (../index.html):
+
+- Tokens verbatim: cream ground #f6f1e6, card #fffdf8, warm ink
+  #2c2620, navy #0b1e42, gold #f5a623, cyan #0b8fc4, radius 20px,
+  the landing's soft shadows and ease.
+- The landing's 3D tactile buttons, unmodified in spirit: chunky
+  pills with a hard bottom edge (cyan .btn-primary, gold .btn-gold,
+  cream .btn-ghost), .btn-lg hero size, lbl-full/lbl-short swaps.
+- The cream sticky nav with the navy brand tile; the owner Account
+  chip is the ghost-button family plus the live owner gold dot.
+- The navy hero (#0a1a38, as the live V5 hero): sticker pill, huge
+  friendly headline type, and the signature hand-drawn GOLD MARKER
+  — the $99 strikethrough's move, reused as an underline beneath
+  "Cori." Pip is LARGE and center-stage with his white speech
+  bubble (the hero-pip + pip-tag family, bubble enlarged for the
+  briefing) — a character moment, never a shrunken widget.
+- The landing's chunky cards: Continue is the quiz-card family
+  (2px navy border, 8px navy offset shadow, navy head strip), and
+  Readiness is the landing's OWN report card (.report-card / rc-*
+  CSS: score ring, verdict, chunky 11px domain bars, the weakest
+  domain in its warm highlight) carrying the owner's numbers.
+- Friendly step-family cards for Today (gold goal ring in the
+  report ring's geometry, flame streak, gold challenge bar);
+  the two doors as big landing cards with navy art bands (fanned
+  real covers for Watch, the gold XP ring for Practice) and tactile
+  pills (cyan for the Library, gold for the Simulator); the shelf
+  as friendly exam-family cover cards on cream; the landing's own
+  footer. Light-dark-light rhythm, exactly like the landing:
+  cream nav → navy hero → cream sections with navy moments.
+- Motion is the landing's own: reveal-on-scroll (.reveal +
+  IntersectionObserver, copied) and Pip's bob. No spec strips, no
+  mono callouts, no hairline data rows, no drafting or dusk
+  furniture, no tiny uppercase labels as decoration (the landing's
+  kicker + section headings are its real heading device and stay).
+
+Structure, copy, figures, and the href set are unchanged from
+rounds 1–2 (href set verified byte-identical after the rebuild).
+The functional standard below still governs the content order.
+Round 3 verification: 390px + 1280px — overflow 0, zero
+out-of-viewport elements, zero console errors, header fits
+(376/390 phone); every button measures exactly one text line
+(descendant-text-node probe: the three range-based flags — Account
+chip, misses link, shelf link — are the known dot/arrow span-rect
+artifacts and measure 1 line by text node on both viewports);
+language sweep clean (the one "Start here" hit is the approved
+brand tagline in the footer, the landing's own closing line);
+zero price language anywhere.
+
 ## Round 2 — art direction (Cori's verdict on round 1, 2026-11-18)
 
 Round 1 verdict, verbatim: "feels a little dark and i don't think i

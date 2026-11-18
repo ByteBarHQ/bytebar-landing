@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!-- preview-dashboard — signed-in owner home (design preview, not live) -->
+<!-- preview-dashboard — signed-in owner home (design preview, not live)
+     Round 3: built out of the LIVE LANDING PAGE's own components and
+     values — the landing, rearranged for an owner. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -7,300 +9,303 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Your Home — ByteBar</title>
 <style>
-  :root{
-    --bg-top:#0C1B38; --bg-bot:#050B1A;
-    --panel-hi:#16294D; --panel-lo:#0F1E3A;
-    --line:rgba(158,194,255,.14); --line-soft:rgba(158,194,255,.09);
-    --ink:#F2F6FD; --muted:#A9BCD9; --faint:#7186AB;
-    --cyan:#22D3EE; --cyan-hi:#3ADBF2; --cyan-lo:#12B5D9; --cyan-ink:#03222E;
-    --gold:#F5B544; --gold-deep:#C77400; --gold-ink:#8A5A00;
-    --cream:#FFFDF6; --cream-ink:#22304A; --cream-mut:#5D6B84;
-    --red:#FB7185;
-    --ease:cubic-bezier(.2,0,0,1);
-    --card-shadow:0 24px 48px rgba(1,4,12,.48), 0 4px 14px rgba(1,4,12,.32);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    color:var(--ink);
-    font-family:"Avenir Next","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    background:
-      radial-gradient(1000px 520px at 10% -140px, rgba(56,150,255,.20), rgba(56,150,255,0) 62%),
-      radial-gradient(760px 420px at 98% 240px, rgba(34,211,238,.09), rgba(34,211,238,0) 60%),
-      radial-gradient(900px 500px at 50% 1150px, rgba(245,181,68,.06), rgba(245,181,68,0) 65%),
-      linear-gradient(180deg, var(--bg-top) 0%, #081428 420px, var(--bg-bot) 100%);
-    background-color:var(--bg-bot);
-    min-height:100vh;
-  }
-  .num{font-variant-numeric:tabular-nums lining-nums;}
-  a{color:inherit;}
-  /* ---------- nav ---------- */
-  header{position:relative;z-index:5;border-bottom:1px solid var(--line-soft);
-    background:linear-gradient(180deg,rgba(158,194,255,.07),rgba(158,194,255,0)),rgba(7,15,32,.82);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
-  .nav-in{max-width:1120px;margin:0 auto;padding:0 20px;height:62px;display:flex;align-items:center;gap:18px;}
-  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto;}
-  .btile{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(160deg,#1B3A7A,#0B1E42);border:1px solid rgba(158,194,255,.35);
-    color:var(--cyan);font-weight:800;font-size:16px;
-    box-shadow:inset 0 1px 0 rgba(200,225,255,.35), 0 6px 16px rgba(1,4,12,.45), 0 0 18px rgba(34,211,238,.18);}
-  .bword{font-size:13px;font-weight:700;letter-spacing:.42em;color:var(--ink);white-space:nowrap;}
-  .nlinks{display:flex;gap:22px;margin-left:14px;font-size:14px;}
-  .nlinks a{color:var(--muted);text-decoration:none;white-space:nowrap;}
-  .nlinks a:hover{color:var(--ink);}
-  .chip{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;
-    border:1px solid rgba(245,181,68,.45);border-radius:999px;text-decoration:none;font-size:13.5px;font-weight:600;
-    color:var(--ink);background:linear-gradient(180deg,rgba(245,181,68,.14),rgba(245,181,68,.05));white-space:nowrap;flex:0 0 auto;
-    box-shadow:inset 0 1px 0 rgba(255,227,163,.35), 0 4px 12px rgba(1,4,12,.3);}
-  .owndot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;
-    background:linear-gradient(135deg,#FFE9B8,#F5B544 55%,#C77400);box-shadow:0 0 9px rgba(245,181,68,.85);}
-  /* ---------- panels ---------- */
-  .wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:30px 20px 10px;}
-  .panel{position:relative;border-radius:20px;padding:28px 30px;margin-bottom:22px;
-    background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));
-    border:1px solid var(--line);
-    box-shadow:inset 0 1px 0 rgba(205,228,255,.16), inset 0 -1px 0 rgba(1,4,12,.35), var(--card-shadow);}
-  .eyebrow{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
-    letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
-  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px rgba(34,211,238,.8);flex:0 0 auto;}
-  .eyebrow.gold{color:#EBC27A;}
-  .eyebrow.gold .dot{background:linear-gradient(135deg,#FFE9B8,#F5B544 55%,#C77400);box-shadow:0 0 10px rgba(245,181,68,.8);}
-  .eyebrow .right{margin-left:auto;letter-spacing:.14em;color:var(--faint);font-weight:600;white-space:nowrap;}
-  /* rise-in */
-  .rise{animation:rise .48s var(--ease) both;animation-delay:var(--d,0ms);}
-  @keyframes rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-  .bar-grow{animation:grow .4s var(--ease) both;animation-delay:calc(var(--d,0ms) + 120ms);transform-origin:left;}
-  @keyframes grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-  @media (prefers-reduced-motion: reduce){*{animation:none!important;}}
-  /* ---------- cover art (the library's real cover system) ---------- */
-  .cover{--acc:#3896FF;position:relative;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:2.4em 2em;overflow:hidden;border-radius:.9em;font-size:10px;
-    background:radial-gradient(34em 17em at 50% -8%, rgba(126,231,247,.16), transparent 70%),
-               linear-gradient(158deg,#16407C 0%, #0B1E42 52%, #06122B 100%);
-    box-shadow:inset 0 1px 0 rgba(205,228,255,.25), inset 0 -14px 30px rgba(1,4,12,.35);}
-  .cover::before{content:"";position:absolute;inset:1.1em;border:.2em solid rgba(255,255,255,.85);border-radius:.7em;pointer-events:none;z-index:2;}
-  .cover::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;z-index:1;
-    background:repeating-linear-gradient(90deg, transparent 0 4.6em, rgba(126,231,247,.05) 4.6em 4.7em),
-               repeating-linear-gradient(0deg, transparent 0 4.6em, rgba(126,231,247,.05) 4.6em 4.7em);}
-  .cover .sheen{position:absolute;inset:0;z-index:3;pointer-events:none;
-    background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.07) 46%, transparent 62%);}
-  .cov-mast{position:relative;z-index:2;font-size:1.05em;font-weight:800;letter-spacing:.34em;color:var(--acc);padding-left:.34em;}
-  .cov-code{position:relative;z-index:2;font-size:1.3em;font-weight:800;letter-spacing:.18em;color:var(--acc);margin-top:1.35em;padding-left:.18em;}
-  .cov-title{position:relative;z-index:2;font-size:3.3em;font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.01em;margin-top:.22em;max-width:94%;}
-  .cov-type{position:relative;z-index:2;font-size:1.05em;font-weight:800;letter-spacing:.3em;color:#CFE3F5;margin-top:1.05em;padding-left:.3em;}
-  .cov-rule{position:relative;z-index:2;width:4.4em;height:.3em;border-radius:.2em;background:var(--acc);margin-top:1.35em;
-    box-shadow:0 0 1.2em var(--acc);}
-  .cover-glow{position:relative;}
-  .cover-glow::before{content:"";position:absolute;inset:8% -6% -10% -6%;z-index:0;border-radius:50%;
-    background:radial-gradient(closest-side, var(--accglow,rgba(56,150,255,.35)), transparent 72%);filter:blur(18px);}
-  .cover-glow .cover{position:relative;z-index:1;box-shadow:0 26px 50px rgba(1,4,12,.55), 0 8px 18px rgba(1,4,12,.4),
-    inset 0 1px 0 rgba(205,228,255,.25), inset 0 -14px 30px rgba(1,4,12,.35);}
-  /* ---------- greeting ---------- */
-  .badge{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;
-    letter-spacing:.18em;color:#2A1D05;text-transform:uppercase;white-space:nowrap;
-    background:linear-gradient(135deg,#FFE9B8 0%,#F5B544 48%,#D98A0B 100%);
-    padding:6px 12px;border-radius:999px;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(138,90,0,.45), 0 6px 16px rgba(245,181,68,.28);}
-  .badge .owndot{background:#2A1D05;box-shadow:none;width:6px;height:6px;}
-  h1{font-size:40px;line-height:1.06;font-weight:800;letter-spacing:-.022em;margin:16px 0 22px;}
-  h1 .thin{color:var(--muted);font-weight:600;}
-  .greet-row{display:flex;gap:22px;align-items:center;}
-  .pip-stage{position:relative;flex:0 0 auto;padding:10px;}
-  .pip-stage::before{content:"";position:absolute;inset:-16px -10px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(56,150,255,.38), rgba(34,211,238,.12) 55%, transparent 74%);filter:blur(6px);}
-  .pip-big{position:relative;width:96px;height:96px;filter:drop-shadow(0 14px 26px rgba(2,10,30,.55));}
-  .speech{position:relative;flex:1;min-width:0;background:linear-gradient(180deg,#FFFDF6,#FBF4E2);color:var(--cream-ink);
-    border-radius:16px;padding:18px 22px;font-size:16.5px;line-height:1.55;
-    box-shadow:0 18px 36px rgba(1,4,12,.42), inset 0 1px 0 #FFFFFF;}
-  .speech::before{content:"";position:absolute;left:-7px;top:50%;width:16px;height:16px;transform:translateY(-50%) rotate(45deg);
-    background:#FFFDF6;border-radius:3px;}
-  .speech b{font-weight:700;}
-  .speech .g{color:var(--gold-ink);font-weight:700;}
-  /* ---------- continue ---------- */
-  .continue{background:
-      radial-gradient(560px 300px at 88% -60px, rgba(56,150,255,.17), rgba(56,150,255,0) 65%),
-      linear-gradient(180deg,var(--panel-hi),var(--panel-lo));}
-  .cont-flex{display:flex;gap:34px;align-items:center;}
-  .cont-art{flex:0 0 auto;width:228px;}
-  .cont-art .cover{font-size:9.6px;}
-  .cont-main{flex:1;min-width:0;}
-  .exam-code{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--acc,#7FB3FF);text-transform:uppercase;}
-  .continue h2{font-size:28px;line-height:1.16;font-weight:800;letter-spacing:-.018em;margin:10px 0 7px;max-width:520px;}
-  .cont-sub{color:var(--muted);font-size:15px;line-height:1.55;max-width:470px;}
-  .pbar{height:9px;border-radius:99px;background:rgba(158,194,255,.13);overflow:hidden;margin-top:20px;max-width:520px;
-    box-shadow:inset 0 1px 3px rgba(1,4,12,.5);}
-  .pbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#2E7CD6,#3896FF 60%,#7FB3FF);
-    box-shadow:0 0 12px rgba(56,150,255,.45);}
-  .datarow{display:flex;gap:0;margin-top:22px;border-top:1px solid var(--line-soft);padding-top:18px;max-width:520px;}
-  .datarow>div{flex:1;padding-right:14px;}
-  .datarow span{display:block;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-bottom:5px;}
-  .datarow b{font-size:20px;font-weight:800;letter-spacing:-.01em;}
-  .datarow b em{font-style:normal;color:var(--faint);font-weight:600;font-size:14px;}
-  .cont-cta{margin-top:24px;}
-  .cont-cta .btn{height:57px;font-size:16.5px;padding:0 30px;}
-  /* ---------- buttons ---------- */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 26px;
-    border-radius:12px;font-size:15.5px;font-weight:700;white-space:nowrap;text-decoration:none;border:1px solid transparent;}
-  .btn-solid{background:linear-gradient(180deg,var(--cyan-hi),var(--cyan-lo));color:var(--cyan-ink);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(3,34,46,.18), 0 12px 28px rgba(34,211,238,.22);}
-  .btn-gold{background:linear-gradient(135deg,#FFE9B8 0%,#F5B544 48%,#D98A0B 100%);color:#2A1D05;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.65), inset 0 -2px 0 rgba(138,90,0,.35), 0 12px 28px rgba(245,181,68,.25);}
-  .quiet{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600;white-space:nowrap;}
-  .quiet .arr{color:var(--cyan);}
-  .quiet:hover{color:var(--ink);}
-  /* ---------- today ---------- */
-  .today{background:
-      radial-gradient(520px 260px at 12% -70px, rgba(245,181,68,.13), rgba(245,181,68,0) 62%),
-      linear-gradient(180deg,var(--panel-hi),var(--panel-lo));}
-  .today-grid{display:grid;grid-template-columns:auto 1fr 1.35fr;gap:0;}
-  .tcell{padding:2px 24px;display:flex;gap:17px;align-items:center;border-left:1px solid var(--line-soft);}
-  .tcell:first-child{border-left:none;padding-left:0;}
-  .tcell h3{font-size:17px;font-weight:800;margin-bottom:3px;}
-  .tcell p{font-size:13.5px;color:var(--muted);line-height:1.45;}
-  .ringwrap{position:relative;width:78px;height:78px;flex:0 0 auto;filter:drop-shadow(0 6px 14px rgba(245,181,68,.25));}
-  .ringwrap .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .ringwrap .rc b{font-size:18px;line-height:1;}
-  .goldnum{color:#EFC26E;}
-  .flame{width:42px;height:42px;flex:0 0 auto;filter:drop-shadow(0 6px 12px rgba(245,181,68,.35));}
-  .chal-bar{height:8px;border-radius:99px;background:rgba(158,194,255,.13);overflow:hidden;margin-top:10px;box-shadow:inset 0 1px 3px rgba(1,4,12,.5);}
-  .chal-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#D98A0B,#F5B544 55%,#FFE9B8);
-    box-shadow:0 0 10px rgba(245,181,68,.4);}
-  .chal-meta{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:var(--faint);margin-top:7px;text-transform:uppercase;}
-  .chal-meta b{color:#EBC27A;font-weight:700;}
-  /* ---------- readiness ---------- */
-  .ready-grid{display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:start;}
-  .score-num{font-size:58px;font-weight:800;letter-spacing:-.03em;line-height:1;
-    background:linear-gradient(180deg,#FFFFFF,#B9CFF2);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .score-num em{font-style:normal;font-size:27px;font-weight:700;}
-  .score-cap{color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:10px;}
-  .score-cap b{color:var(--ink);font-weight:600;}
-  .drow{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:7px 0;border-bottom:1px solid rgba(158,194,255,.07);}
-  .drow:last-of-type{border-bottom:none;}
-  .drow .dn{font-size:14px;color:var(--muted);}
-  .drow .dv{font-size:13.5px;font-weight:700;color:var(--ink);}
-  .drow .dbar{grid-column:1 / -1;height:7px;border-radius:99px;background:rgba(158,194,255,.13);overflow:hidden;box-shadow:inset 0 1px 3px rgba(1,4,12,.5);}
-  .drow .dbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#12B5D9,#3ADBF2);}
-  .drow.weak .dn{color:var(--ink);font-weight:700;}
-  .drow.weak .dv{color:var(--red);}
-  .drow.weak .dbar i{background:linear-gradient(90deg,#E11D48,#FB7185);}
-  .weak-note{margin-top:14px;font-size:14px;line-height:1.55;color:var(--muted);
-    background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.22);border-radius:12px;padding:12px 16px;}
-  .weak-note b{color:var(--ink);font-weight:700;}
-  .ready-doors{display:flex;align-items:center;gap:26px;flex-wrap:wrap;border-top:1px solid var(--line-soft);margin-top:22px;padding-top:22px;}
-  /* ---------- doors ---------- */
-  .doors{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
-  .door{position:relative;display:block;text-decoration:none;border-radius:20px;padding:16px 16px 26px;
-    background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));border:1px solid var(--line);
-    box-shadow:inset 0 1px 0 rgba(205,228,255,.16), inset 0 -1px 0 rgba(1,4,12,.35), var(--card-shadow);}
-  .door .art{position:relative;border-radius:13px;overflow:hidden;height:196px;margin-bottom:22px;
-    box-shadow:inset 0 1px 0 rgba(205,228,255,.18), inset 0 -18px 34px rgba(1,4,12,.4), 0 10px 24px rgba(1,4,12,.35);}
-  .door .art-watch{background:
-      radial-gradient(440px 210px at 50% -30px, rgba(34,211,238,.20), rgba(34,211,238,0) 68%),
-      linear-gradient(160deg,#122C5C,#071630);}
-  .door .art-practice{background:
-      radial-gradient(440px 210px at 50% -30px, rgba(245,181,68,.20), rgba(245,181,68,0) 68%),
-      linear-gradient(160deg,#122C5C,#071630);}
-  .fan{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:330px;height:170px;}
-  .fan .cover{position:absolute;bottom:0;width:128px;font-size:4.1px;border-radius:6px;
-    box-shadow:0 18px 34px rgba(1,4,12,.6), inset 0 1px 0 rgba(205,228,255,.25);}
-  .fan .c1{left:0;transform:rotate(-9deg);}
-  .fan .c2{left:50%;margin-left:-64px;transform:translateY(-10px);z-index:2;}
-  .fan .c3{right:0;transform:rotate(9deg);}
-  .game{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:26px;padding:0 26px;}
-  .xpring{position:relative;width:106px;height:106px;flex:0 0 auto;filter:drop-shadow(0 8px 18px rgba(245,181,68,.3));}
-  .xpring svg{width:100%;height:100%;display:block;}
-  .xpring .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .xpring .rc b{font-size:30px;line-height:1;font-weight:800;}
-  .xpring .rc span{font-size:9px;font-weight:700;letter-spacing:.2em;color:#EBC27A;margin-top:3px;}
-  .game-meta{min-width:0;}
-  .game-meta .lvl{font-size:21px;font-weight:800;letter-spacing:-.01em;}
-  .game-meta .xpbar{height:8px;border-radius:99px;background:rgba(158,194,255,.16);overflow:hidden;margin:10px 0 7px;width:190px;max-width:100%;
-    box-shadow:inset 0 1px 3px rgba(1,4,12,.5);}
-  .game-meta .xpbar i{display:block;height:100%;width:72%;border-radius:99px;background:linear-gradient(90deg,#D98A0B,#F5B544 55%,#FFE9B8);}
-  .game-meta p{font-size:12.5px;color:var(--muted);}
-  .game-meta p b{color:#EBC27A;font-weight:700;}
-  .door .eyebrow{margin:0 10px 12px;}
-  .door h3{font-size:29px;font-weight:800;letter-spacing:-.02em;margin:0 10px 8px;}
-  .door p{color:var(--muted);font-size:15px;line-height:1.55;max-width:360px;margin:0 10px;}
-  .door .btn{margin:22px 10px 0;}
-  .xpchip{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:.14em;
-    color:#2A1D05;text-transform:uppercase;white-space:nowrap;border-radius:999px;padding:5px 11px;
-    background:linear-gradient(135deg,#FFE9B8,#F5B544 55%,#D98A0B);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 4px 10px rgba(245,181,68,.25);}
-  /* ---------- shelf ---------- */
-  .shelf-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;}
-  .shelf-head h2{font-size:22px;font-weight:800;letter-spacing:-.015em;}
-  .shelf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;}
-  .xcard{position:relative;display:block;text-decoration:none;border-radius:16px;padding:12px 12px 15px;overflow:hidden;
-    background:linear-gradient(180deg,#182C52,#111F3C);border:1px solid var(--line);
-    box-shadow:inset 0 1px 0 rgba(205,228,255,.14), 0 14px 30px rgba(1,4,12,.38);}
-  .xcard .cover{font-size:5.7px;border-radius:7px;}
-  .xbody{padding:13px 4px 0;}
-  .xbar{height:7px;border-radius:99px;background:rgba(158,194,255,.13);overflow:hidden;box-shadow:inset 0 1px 3px rgba(1,4,12,.5);}
-  .xbar i{display:block;height:100%;background:var(--acc);border-radius:99px;box-shadow:0 0 8px var(--acc);}
-  .xstate{display:flex;justify-content:space-between;align-items:center;margin-top:9px;font-size:10.5px;font-weight:700;
-    letter-spacing:.1em;color:var(--faint);text-transform:uppercase;}
-  .xstate span{white-space:nowrap;}
-  .xstate .pct{color:var(--ink);font-size:11.5px;}
-  .xstart{color:var(--cyan);font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;}
-  /* ---------- footer ---------- */
-  footer{position:relative;z-index:2;max-width:1120px;margin:4px auto 0;padding:24px 20px 36px;
-    border-top:1px solid var(--line-soft);display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-  .fbrand{font-size:11px;font-weight:800;letter-spacing:.34em;color:var(--cyan);}
-  .ftag{font-size:13px;color:var(--faint);letter-spacing:.06em;}
-  .flinks{margin-left:auto;display:flex;gap:20px;font-size:13px;}
-  .flinks a{color:var(--muted);text-decoration:none;white-space:nowrap;}
-  /* ---------- phone ---------- */
-  @media (max-width:760px){
-    .nav-in{padding:0 16px;gap:12px;height:58px;}
-    .bword{display:none;}
-    .nlinks{gap:16px;margin-left:2px;font-size:13.5px;}
-    .chip{height:36px;padding:0 12px;font-size:13px;}
-    .wrap{padding:20px 14px 6px;}
-    .panel{padding:22px 18px;border-radius:17px;margin-bottom:18px;}
-    .eyebrow{font-size:10px;letter-spacing:.18em;margin-bottom:16px;}
-    h1{font-size:29px;margin:13px 0 18px;}
-    .greet-row{flex-direction:column;align-items:flex-start;gap:8px;}
-    .pip-stage{padding:4px;}
-    .pip-big{width:72px;height:72px;}
-    .speech{font-size:15px;padding:15px 17px;width:100%;}
-    .speech::before{left:34px;top:-7px;transform:rotate(45deg);}
-    .cont-flex{flex-direction:column;align-items:stretch;gap:22px;}
-    .cont-art{width:172px;margin:0 auto;}
-    .cont-art .cover{font-size:7.2px;}
-    .continue h2{font-size:22.5px;}
-    .datarow b{font-size:17px;}
-    .cont-cta .btn{width:100%;}
-    .today-grid{grid-template-columns:1fr;}
-    .tcell{padding:12px 0;border-left:none;border-top:1px solid var(--line-soft);}
-    .tcell:first-child{padding-top:2px;border-top:none;}
-    .tcell.chal{padding:16px 0 2px;}
-    .ready-grid{grid-template-columns:1fr;gap:20px;}
-    .score-num{font-size:47px;}
-    .ready-doors{gap:16px;flex-direction:column;align-items:stretch;}
-    .ready-doors .btn{width:100%;}
-    .ready-doors .quiet{font-size:13px;align-self:flex-start;}
-    .doors{grid-template-columns:1fr;gap:18px;margin-bottom:18px;}
-    .door{padding:12px 12px 22px;}
-    .door .art{height:168px;margin-bottom:18px;}
-    .fan{width:284px;height:148px;}
-    .fan .cover{width:110px;font-size:3.6px;}
-    .fan .c2{margin-left:-55px;}
-    .game{gap:18px;padding:0 18px;}
-    .xpring{width:88px;height:88px;}
-    .xpring .rc b{font-size:25px;}
-    .game-meta .lvl{font-size:18px;}
-    .door h3{font-size:25px;}
-    .door .btn{width:calc(100% - 20px);}
-    .shelf-grid{grid-template-columns:1fr 1fr;gap:12px;}
-    .xcard{padding:10px 10px 13px;}
-    .xcard .cover{font-size:4.1px;}
-    .xstate{font-size:9.5px;letter-spacing:.06em;}
-    .xstart{font-size:9.5px;letter-spacing:.08em;}
-    footer{padding:20px 16px 30px;}
-    .flinks{margin-left:0;}
-  }
+/* ============ Tokens — copied from the live landing page ============ */
+:root{
+  --navy:#0b1e42; --navy2:#132c5e; --navy3:#1b3a7a;
+  --bg:#f6f1e6; --card:#fffdf8; --ink:#2c2620; --mut:#6f695c; --line:#e6dcc4;
+  --cyan:#0b8fc4; --cyan-d:#0873a0; --green:#16a34a; --green-d:#15803d;
+  --gold:#f5a623; --gold-d:#d98a0b; --pink:#f472b6; --lime:#a3e635;
+  --r:20px;
+  --shadow:0 6px 24px rgba(11,30,66,.10);
+  --shadow-lg:0 14px 44px rgba(11,30,66,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img,svg{max-width:100%; display:block}
+a{color:inherit}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ============ 3D tactile buttons — the landing's own ============ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-weight:800; font-size:16px; letter-spacing:.01em; text-decoration:none; cursor:pointer; white-space:nowrap;
+  border:none; border-radius:16px; padding:15px 30px; transition:transform .08s, box-shadow .08s, filter .15s;
+  user-select:none; -webkit-tap-highlight-color:transparent}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none} .lbl-short{display:inline}}
+.btn-primary{background:linear-gradient(180deg,#22b8e8,var(--cyan)); color:#fff;
+  box-shadow:0 5px 0 var(--cyan-d), 0 10px 24px rgba(11,143,196,.35); text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-primary:active{transform:translateY(4px); box-shadow:0 1px 0 var(--cyan-d)}
+.btn-gold{background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  box-shadow:0 5px 0 var(--gold-d), 0 10px 24px rgba(245,166,35,.35)}
+.btn-gold:hover{filter:brightness(1.04)}
+.btn-gold:active{transform:translateY(4px); box-shadow:0 1px 0 var(--gold-d)}
+.btn-ghost{background:var(--card); color:var(--navy); border:2px solid var(--line); box-shadow:0 4px 0 var(--line)}
+.btn-ghost:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.btn-lg{font-size:18px; padding:18px 38px; border-radius:18px}
+
+/* ============ Nav — the landing's cream bar ============ */
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,241,230,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:68px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:19px; letter-spacing:.28em; color:var(--navy)}
+.brand .mark{width:34px; height:34px; border-radius:10px; flex:none; background:linear-gradient(135deg,var(--navy),var(--navy3));
+  display:flex; align-items:center; justify-content:center; color:#7ee7f7; font-size:17px; font-weight:900; letter-spacing:0;
+  box-shadow:0 3px 0 rgba(11,30,66,.35)}
+.nav-links{display:flex; align-items:center; gap:26px}
+.nav-links a.nl{text-decoration:none; font-weight:600; font-size:15px; color:var(--ink); opacity:.85}
+.nav-links a.nl:hover{opacity:1; color:var(--navy)}
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+.burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
+/* Owner account chip: the ghost-button family + the live owner gold dot */
+.chip{display:inline-flex; align-items:center; background:var(--card); color:var(--navy); border:2px solid var(--line);
+  box-shadow:0 4px 0 var(--line); border-radius:999px; padding:9px 19px; font-weight:800; font-size:14.5px;
+  text-decoration:none; white-space:nowrap; transition:transform .08s, box-shadow .08s}
+.chip:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:8px; vertical-align:1px; flex:none}
+@media(max-width:1100px){
+  .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0;
+    padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
+  .nav-links.open{display:flex}
+  .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
+  .nav-right{gap:12px}
+  .burger{display:block}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .nav .brand{letter-spacing:.16em}
+  .chip{padding:8px 13px; font-size:12.5px}
+  .nav .burger{padding:6px}
+}
+
+/* ============ Hero — the landing's navy hero, greeting an owner ============ */
+.hero{position:relative; background:#0a1a38; padding:72px 0 58px; overflow:hidden}
+.hero-inner{position:relative; text-align:center; max-width:860px; margin:0 auto}
+.sticker{display:inline-block; background:rgba(255,255,255,.07); color:#dbe7fa; border:1px solid rgba(255,255,255,.22);
+  font-weight:800; font-size:13px; letter-spacing:.18em; padding:8px 18px; border-radius:10px; margin-bottom:22px}
+.hero h1{font-size:clamp(44px,7vw,68px); line-height:1.02; letter-spacing:-.02em; color:#fff; margin-bottom:16px}
+.hero h1 .markline{position:relative; z-index:1; white-space:nowrap}
+.hero h1 .markline::after{content:""; position:absolute; left:-2%; right:-2%; bottom:.02em; height:.15em;
+  background:var(--gold); border-radius:4px; transform:rotate(-1.2deg); z-index:-1}
+.hero p.def{font-size:18px; color:#d7e3f5; max-width:620px; margin:0 auto 8px; font-weight:600}
+/* Pip, center stage — the landing's hero-pip, with a real speech bubble */
+.hero-pip{display:flex; flex-direction:column; align-items:center; margin-top:26px; position:relative}
+.hero-pip .pip-big{width:132px; height:132px; filter:drop-shadow(0 10px 24px rgba(30,120,232,.28)); animation:pip-bob 3.6s ease-in-out infinite}
+@keyframes pip-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.pip-bubble{position:relative; margin-top:16px; background:#fff; border:2px solid var(--navy); border-radius:22px;
+  padding:17px 24px; font-weight:600; font-size:16.5px; line-height:1.55; color:var(--navy);
+  box-shadow:0 6px 0 rgba(11,30,66,.35), var(--shadow-lg); max-width:540px}
+.pip-bubble::before{content:""; position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(45deg);
+  width:16px; height:16px; background:#fff; border-left:2px solid var(--navy); border-top:2px solid var(--navy)}
+.pip-bubble b{color:var(--cyan-d)}
+@media (prefers-reduced-motion:reduce){.hero-pip .pip-big{animation:none}}
+
+/* ============ Sections — the landing's rhythm ============ */
+section.block{padding:56px 0}
+.kicker{font-size:13px; font-weight:800; letter-spacing:.22em; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; text-align:center}
+h2.sec{font-size:clamp(28px,3.6vw,42px); letter-spacing:-.02em; color:var(--navy); text-align:center; margin-bottom:14px; line-height:1.12}
+p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; margin:0 auto 40px}
+
+/* ============ Cover art — the library's cover system ============ */
+.cover{--acc:#3896FF; position:relative; aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:2.4em 2em; overflow:hidden; border-radius:.9em; font-size:10px;
+  background:radial-gradient(34em 17em at 50% -8%, rgba(126,231,247,.16), transparent 70%),
+             linear-gradient(158deg,#16407C 0%, #0B1E42 52%, #06122B 100%);
+  box-shadow:0 14px 30px rgba(11,30,66,.28), inset 0 1px 0 rgba(205,228,255,.25)}
+.cover::before{content:""; position:absolute; inset:1.1em; border:.2em solid rgba(255,255,255,.85); border-radius:.7em; pointer-events:none; z-index:2}
+.cover .sheen{position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.07) 46%, transparent 62%)}
+.cov-mast{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.34em; color:var(--acc); padding-left:.34em}
+.cov-code{position:relative; z-index:2; font-size:1.3em; font-weight:800; letter-spacing:.18em; color:var(--acc); margin-top:1.35em; padding-left:.18em}
+.cov-title{position:relative; z-index:2; font-size:3.3em; font-weight:900; color:#fff; line-height:1.08; letter-spacing:-.01em; margin-top:.22em; max-width:94%}
+.cov-type{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.3em; color:#CFE3F5; margin-top:1.05em; padding-left:.3em}
+.cov-rule{position:relative; z-index:2; width:4.4em; height:.3em; border-radius:.2em; background:var(--acc); margin-top:1.35em}
+
+/* ============ Continue — the landing's chunky card (quiz family) ============ */
+.cont-sec{padding-top:48px}
+.cont-card{max-width:880px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:26px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden}
+.cont-head{background:var(--navy); color:#fff; padding:18px 26px; display:flex; justify-content:space-between; align-items:center; gap:12px}
+.cont-head .qt{font-weight:800; font-size:15px; letter-spacing:.06em; white-space:nowrap}
+.cont-head .qs{font-size:13px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.cont-body{padding:30px; display:flex; gap:32px; align-items:center}
+.cont-art{flex:none; width:218px}
+.cont-art .cover{font-size:9.8px}
+.cont-main{flex:1; min-width:0}
+.cont-main h3{font-size:24px; font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:8px}
+.cont-main p{font-size:15.5px; color:var(--mut); margin-bottom:20px}
+.cont-bar{height:14px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-bottom:16px}
+.cont-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#2e7cd6,#3896ff 60%,#6db3ff)}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:24px}
+.chips span{background:var(--bg); border:1.5px solid var(--line); border-radius:999px; padding:7px 14px;
+  font-size:13px; font-weight:700; color:var(--navy); box-shadow:0 3px 0 var(--line); white-space:nowrap}
+
+/* ============ Today — friendly cards (step family) ============ */
+.tgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:860px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:26px 24px; box-shadow:var(--shadow)}
+.tcard .trow{display:flex; align-items:center; gap:17px; margin-bottom:14px}
+.tcard h3{color:var(--navy); font-size:18px; margin-bottom:6px}
+.tcard p{font-size:14.5px; color:var(--mut)}
+.tcard .big{font-size:27px; font-weight:900; color:var(--navy); letter-spacing:-.02em; line-height:1.05}
+.tcard .big small{display:block; font-size:13px; font-weight:700; color:var(--mut); letter-spacing:0; margin-top:4px}
+.goalring{position:relative; flex:none; width:84px; height:84px}
+.goalring svg{transform:rotate(-90deg)}
+.goalring .rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.goalring .rc-pct b{font-size:19px; font-weight:900; color:var(--navy); line-height:1}
+.goalring .rc-pct span{font-size:9.5px; font-weight:800; letter-spacing:.12em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.flame{flex:none; width:56px; height:56px; filter:drop-shadow(0 5px 10px rgba(245,166,35,.4))}
+.mini-badge{display:inline-block; background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  font-size:11px; font-weight:800; letter-spacing:.09em; padding:5px 12px; border-radius:999px;
+  box-shadow:0 3px 0 var(--gold-d); margin-bottom:14px; white-space:nowrap}
+.chal-bar{height:12px; background:#f3ecda; border-radius:99px; overflow:hidden; margin:14px 0 9px}
+.chal-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.chal-meta{display:flex; justify-content:space-between; gap:10px; font-size:13px; color:var(--mut)}
+.chal-meta b{color:var(--navy)}
+
+/* ============ Readiness — the landing's own report card ============ */
+.report-card{max-width:720px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:22px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden; text-align:left}
+.rc-head{background:var(--navy); color:#fff; padding:14px 22px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+.rc-head .rc-t{font-weight:800; font-size:13px; letter-spacing:.1em; white-space:nowrap}
+.rc-head .rc-when{font-size:12.5px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.rc-body{padding:24px 26px 20px}
+.rc-top{display:flex; gap:20px; align-items:center; margin-bottom:18px}
+.rc-ring{position:relative; flex:none; width:96px; height:96px}
+.rc-ring svg{transform:rotate(-90deg)}
+.rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.rc-pct b{font-size:25px; font-weight:900; color:var(--navy); line-height:1}
+.rc-pct span{font-size:10px; font-weight:800; letter-spacing:.14em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.rc-verdict b{display:block; font-size:19px; font-weight:800; color:var(--navy); line-height:1.25}
+.rc-verdict p{font-size:14px; color:var(--mut); line-height:1.55; margin-top:4px}
+.rc-domh{font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--mut); margin:4px 0 12px}
+.rc-dom{margin-bottom:12px; border-radius:12px}
+.rc-dom.weak{background:#fdf6e9; border:1.5px solid #f0d9a4; padding:10px 12px; margin-left:-12px; margin-right:-12px}
+.rc-dom .dl{display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:13.5px; margin-bottom:6px}
+.rc-dom .dn{font-weight:700; color:var(--navy)}
+.rc-dom .dp{font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+.rc-tag{font-size:10px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; margin-left:7px; color:#b34a44}
+.rc-bar{height:11px; background:#edf1f8; border-radius:99px; overflow:hidden}
+.rc-bar > div{height:100%; border-radius:99px}
+.rc-cap{font-size:13.5px; color:var(--mut); text-align:center; margin-top:16px}
+.rc-cap b{color:var(--navy)}
+.ready-doors{display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:34px}
+@media(max-width:560px){.rc-top{flex-direction:column; text-align:center} .rc-head .rc-t{font-size:11.5px; letter-spacing:.06em} .rc-head{padding:12px 16px}}
+
+/* Quiet next step — the landing's text link with arrow */
+.tlink{font-weight:700; color:var(--cyan-d); text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(8,115,160,.38);
+  transition:color .15s var(--ease), text-decoration-color .15s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor}
+.tlink .arr{display:inline-block; transition:transform .15s var(--ease)}
+.tlink:hover .arr{transform:translateX(3px)}
+.trail-link{text-align:center; margin-bottom:34px}
+
+/* ============ The two doors ============ */
+.doors{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+@media(max-width:860px){.doors{grid-template-columns:1fr}}
+.door{display:flex; flex-direction:column; background:var(--card); border:1.5px solid var(--line); border-radius:26px;
+  overflow:hidden; box-shadow:var(--shadow); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.door:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow-lg)}
+.door-art{position:relative; height:204px; flex:none; overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 70%,var(--navy3) 100%)}
+.door-art::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(440px 220px at 50% -10%, rgba(126,231,247,.18), transparent 70%)}
+.door-art.goldfade::before{background:radial-gradient(440px 220px at 50% -10%, rgba(245,166,35,.22), transparent 70%)}
+.fan{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); width:318px; height:172px}
+.fan .cover{position:absolute; bottom:0; width:124px; font-size:4px; border-radius:6px;
+  box-shadow:0 16px 30px rgba(2,8,23,.5), inset 0 1px 0 rgba(205,228,255,.25)}
+.fan .c1{left:0; transform:rotate(-9deg)}
+.fan .c2{left:50%; margin-left:-62px; transform:translateY(-10px); z-index:2}
+.fan .c3{right:0; transform:rotate(9deg)}
+.game{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:24px; padding:0 26px}
+.xpring{position:relative; width:104px; height:104px; flex:none; filter:drop-shadow(0 8px 18px rgba(245,166,35,.3))}
+.xpring svg{transform:rotate(-90deg)}
+.xpring .rc{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.xpring .rc b{font-size:31px; line-height:1; font-weight:900; color:#fff}
+.xpring .rc span{font-size:9.5px; font-weight:800; letter-spacing:.18em; color:#ffc53d; margin-top:3px}
+.game-meta{min-width:0; color:#fff}
+.game-meta .lvl{font-size:20px; font-weight:800; letter-spacing:-.01em}
+.game-meta .xpbar{height:9px; border-radius:99px; background:rgba(255,255,255,.18); overflow:hidden; margin:10px 0 8px; width:190px; max-width:100%}
+.game-meta .xpbar i{display:block; height:100%; width:72%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.game-meta p{font-size:13px; color:#9db4dd}
+.game-meta p b{color:#ffc53d; font-weight:800}
+.door-body{padding:26px 28px 30px; display:flex; flex-direction:column; align-items:flex-start; flex:1}
+.door-tag{font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); margin-bottom:9px}
+.door-tag.gold{color:var(--gold-d)}
+.door-body h3{font-size:25px; font-weight:800; color:var(--navy); letter-spacing:-.015em; margin-bottom:8px}
+.door-body p{font-size:15.5px; color:var(--mut); margin-bottom:22px}
+.door-body .btn{margin-top:auto}
+
+/* ============ Your shelf ============ */
+.shelf-head{max-width:720px; margin:0 auto; text-align:center}
+.shelf-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px}
+@media(max-width:860px){.shelf-grid{grid-template-columns:repeat(2,1fr)}}
+.xcard{display:block; background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:14px;
+  box-shadow:0 3px 0 var(--line); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.xcard:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
+.xcard .cover{font-size:6px; border-radius:8px; box-shadow:0 8px 18px rgba(11,30,66,.22), inset 0 1px 0 rgba(205,228,255,.25)}
+.xbody{padding:13px 4px 2px}
+.xbody .enm{font-weight:800; font-size:14.5px; color:var(--navy); line-height:1.25}
+.xbody .ecd{font-size:12px; font-weight:700; color:var(--mut); letter-spacing:.03em; margin-top:2px}
+.xbar{height:9px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-top:11px}
+.xbar i{display:block; height:100%; border-radius:99px; background:var(--acc)}
+.xstate{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-top:8px; font-size:12.5px; font-weight:600; color:var(--mut)}
+.xstate .pct{font-weight:800; color:var(--navy)}
+.xstate .start{color:var(--cyan-d); font-weight:800; white-space:nowrap}
+
+/* ============ Footer — the landing's own ============ */
+footer{border-top:1px solid var(--line); padding:44px 0 30px; margin-top:12px}
+.fin{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap}
+.fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:10px}
+.fin p{font-size:14px; color:var(--mut); max-width:300px}
+.flinks{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
+.flinks a{text-decoration:none; font-size:14.5px; color:var(--mut); font-weight:600; white-space:nowrap}
+.flinks a:hover{color:var(--navy)}
+.copy{font-size:13px; color:var(--mut); margin-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); padding-top:20px}
+
+/* Reveal on scroll — the landing's motion */
+.reveal{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none} html{scroll-behavior:auto} .tlink .arr{transition:none}}
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+::selection{background:rgba(245,166,35,.32)}
+
+/* ============ Phone ============ */
+@media(max-width:760px){
+  section.block{padding:44px 0}
+  .hero{padding:54px 0 46px}
+  .hero-pip .pip-big{width:112px; height:112px}
+  .pip-bubble{font-size:15.5px; padding:15px 19px}
+  .cont-sec{padding-top:36px}
+  .cont-body{flex-direction:column; align-items:stretch; gap:22px; padding:24px 22px 26px}
+  .cont-art{width:178px; margin:0 auto}
+  .cont-art .cover{font-size:7.4px}
+  .cont-main h3{font-size:21px}
+  .cont-main .btn{width:100%}
+  .door-art{height:184px}
+  .fan{width:282px; height:152px}
+  .fan .cover{width:108px; font-size:3.5px}
+  .fan .c2{margin-left:-54px}
+  .game{gap:18px; padding:0 18px}
+  .xpring{width:90px; height:90px}
+  .xpring .rc b{font-size:26px}
+  .game-meta .lvl{font-size:18px}
+  .door-body{padding:22px 20px 24px}
+  .door-body .btn{width:100%}
+  .xcard .cover{font-size:4.4px}
+  .ready-doors{flex-direction:column; align-items:stretch}
+  .ready-doors .btn{width:100%}
+  .ready-doors .tlink{align-self:center; text-align:center}
+  .flinks{margin-left:0}
+}
+@media(max-width:480px){
+  .btn-lg{font-size:16px; padding:16px 22px}
+}
 </style>
 </head>
 <body>
@@ -319,268 +324,347 @@
 </pattern>
 </defs></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="goldg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#FFE9B8"/><stop offset=".48" stop-color="#F5B544"/><stop offset="1" stop-color="#C77400"/>
-  </linearGradient>
-  <linearGradient id="goldv" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#FFE9B8"/><stop offset=".48" stop-color="#F5B544"/><stop offset="1" stop-color="#D98A0B"/>
+  <linearGradient id="flameg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFC53D"/><stop offset=".55" stop-color="#F5A623"/><stop offset="1" stop-color="#D98A0B"/>
   </linearGradient>
 </defs></svg>
 
-<header>
-  <div class="nav-in">
-    <a class="brand" href="https://bytebarhq.com/"><span class="btile">B</span><span class="bword">BYTEBAR</span></a>
-    <nav class="nlinks">
-      <a href="https://bytebarhq.com/library/">Library</a>
-      <a href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
-    </nav>
-    <a class="chip" href="https://sim.bytebarhq.com/sim-preview/?profile=1"><span class="owndot"></span>Account</a>
+<!-- ===== Nav — the landing's cream bar, owner state ===== -->
+<nav class="nav">
+  <div class="wrap nav-inner nav-in">
+    <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
+    <div class="nav-right">
+      <div class="nav-links" id="navlinks">
+        <a class="nl" href="https://bytebarhq.com/library/">Library</a>
+        <a class="nl" href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
+      </div>
+      <a class="chip" href="https://sim.bytebarhq.com/sim-preview/?profile=1"><span class="owndot"></span>Account</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ===== Greeting — the landing's hero, rearranged for an owner ===== -->
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <span class="sticker">LEARN IT · PROVE IT · PASS IT</span>
+    <h1>Evening, <span class="markline">Cori.</span></h1>
+    <p class="def">Your books, your practice exams, your streak — it&rsquo;s all here, and it&rsquo;s all yours.</p>
+    <div class="hero-pip">
+      <svg class="pip-big" viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#pipv3-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-bodyG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(28 55 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><path d="M41,65 Q48,69.5 55,65" stroke="#22304A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+      <div class="pip-bubble">Hi, I&rsquo;m <b>Pip</b>! 🌱 Chapter 18 of Security+ is next, and your streak is alive — <b>10 questions</b> keeps it. Let&rsquo;s get you back in.</div>
+    </div>
   </div>
 </header>
 
-<main class="wrap">
-
-  <!-- ===== Greeting ===== -->
-  <section class="panel rise" style="--d:0ms">
-    <div class="eyebrow gold"><span class="dot"></span>Today</div>
-    <span class="badge"><span class="owndot"></span>ByteBar Complete · Owner</span>
-    <h1>Evening, Cori.</h1>
-    <div class="greet-row">
-      <div class="pip-stage"><svg class="pip-big" viewBox="0 0 96 96" role="img" aria-label="Pip, your ByteBar study buddy"><title>Pip — your study buddy</title><ellipse cx="48" cy="89" rx="26" ry="5" fill="url(#pipv3-shadG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-bodyG)"/><path d="M78.6,56.0C78.6,58.3 78.2,60.6 77.5,62.8C76.9,65.0 75.9,67.1 74.7,69.1C73.6,71.1 72.2,73.0 70.6,74.7C69.1,76.4 67.3,78.1 65.3,79.4C63.3,80.6 61.0,81.7 58.7,82.4C56.5,83.2 54.0,83.5 51.6,83.6C49.2,83.7 46.8,83.5 44.5,83.2C42.1,82.8 39.8,82.3 37.6,81.6C35.4,80.8 33.2,80.0 31.1,78.8C29.1,77.6 27.2,76.2 25.6,74.6C24.0,72.9 22.6,71.0 21.5,69.0C20.4,67.0 19.6,64.8 19.0,62.7C18.4,60.5 18.1,58.2 17.9,56.0C17.8,53.8 17.9,51.4 18.4,49.2C18.9,47.0 19.6,44.7 20.8,42.7C21.9,40.6 23.4,38.7 25.1,37.1C26.8,35.5 28.9,34.1 30.9,32.9C33.0,31.7 35.2,30.8 37.5,30.1C39.7,29.3 42.1,28.7 44.4,28.4C46.8,28.1 49.2,28.0 51.6,28.3C54.0,28.6 56.4,29.2 58.5,30.0C60.7,30.9 62.8,32.1 64.7,33.4C66.6,34.7 68.4,36.2 70.0,37.8C71.6,39.4 73.1,41.2 74.4,43.1C75.6,45.0 76.8,47.1 77.5,49.2C78.2,51.4 78.6,53.7 78.6,56.0Z" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="17" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-bodyG)"/><ellipse cx="79" cy="61" rx="5" ry="9" fill="url(#pipv3-fp)" opacity="0.45"/><path d="M48,30 Q48,22.5 48,15" stroke="#2E8B47" stroke-width="3.2" fill="none" stroke-linecap="round"/><g><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(-28 41 22)"/><ellipse cx="41" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(-28 41 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-leafG)" transform="rotate(28 55 22)"/><ellipse cx="55" cy="22" rx="6.5" ry="3.4" fill="url(#pipv3-fp)" opacity="0.4" transform="rotate(28 55 22)"/></g><ellipse cx="37" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><ellipse cx="59" cy="50" rx="4.5" ry="6.5" fill="#22304A"/><path d="M41,65 Q48,69.5 55,65" stroke="#22304A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></div>
-      <p class="speech">Chapter 18 of Security+ is next, and your streak is alive — <span class="g">10 questions</span> keeps it. Everything below is <b>yours</b>: pick up right where you left off.</p>
-    </div>
-  </section>
-
-  <!-- ===== Continue ===== -->
-  <section class="panel continue rise" style="--d:60ms;--acc:#3896FF">
-    <div class="eyebrow"><span class="dot"></span>Continue<span class="right">Watch · Library</span></div>
-    <div class="cont-flex">
-      <div class="cont-art">
-        <div class="cover-glow" style="--accglow:rgba(56,150,255,.38)">
-          <div class="cover" style="--acc:#3896FF">
-            <span class="sheen"></span>
-            <div class="cov-mast">BYTEBAR</div>
-            <div class="cov-code">SY0-701</div>
-            <div class="cov-title">Security+</div>
-            <div class="cov-type">VIDEO BOOK</div>
-            <div class="cov-rule"></div>
+<main>
+  <!-- ===== Continue — the hero action ===== -->
+  <section class="block cont-sec">
+    <div class="wrap">
+      <div class="cont-card reveal">
+        <div class="cont-head"><span class="qt">CONTINUE</span><span class="qs">Security+ · SY0-701</span></div>
+        <div class="cont-body">
+          <div class="cont-art">
+            <div class="cover" style="--acc:#3896FF">
+              <span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div>
+              <div class="cov-code">SY0-701</div>
+              <div class="cov-title">Security+</div>
+              <div class="cov-type">VIDEO BOOK</div>
+              <div class="cov-rule"></div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="cont-main">
-        <div class="exam-code">CompTIA Security+ · SY0-701</div>
-        <h2>Chapter 18 · Identity and Access Management</h2>
-        <p class="cont-sub">The next chapter in your Security+ book — accounts, access control, and the identity traps the exam loves.</p>
-        <div class="pbar"><i class="bar-grow" style="width:58%"></i></div>
-        <div class="datarow">
-          <div><span>Chapters completed</span><b class="num">17 <em>/ 31</em></b></div>
-          <div><span>Book progress</span><b class="num">58%</b></div>
-          <div><span>This chapter</span><b class="num">≈ 14 <em>min</em></b></div>
-        </div>
-        <div class="cont-cta">
-          <a class="btn btn-solid" href="https://bytebarhq.com/library/book-secplus.html">▶ Continue Chapter 18</a>
+          <div class="cont-main">
+            <h3>Chapter 18 · Identity and Access Management</h3>
+            <p>The next chapter in your Security+ book — accounts, access control, and the identity traps the exam loves.</p>
+            <div class="cont-bar"><i style="width:58%"></i></div>
+            <div class="chips">
+              <span class="num">17 of 31 chapters done</span>
+              <span class="num">58% through</span>
+              <span>About 14 min</span>
+            </div>
+            <a class="btn btn-primary btn-lg" href="https://bytebarhq.com/library/book-secplus.html">▶ Continue Chapter 18</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== Today ===== -->
-  <section class="panel today rise" style="--d:120ms">
-    <div class="eyebrow gold"><span class="dot"></span>Today<span class="right">Goal · Streak · Challenge</span></div>
-    <div class="today-grid">
-      <div class="tcell">
-        <div class="ringwrap">
-          <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
-            <circle cx="39" cy="39" r="31" fill="none" stroke="rgba(245,181,68,.16)" stroke-width="7.5"/>
-            <circle cx="39" cy="39" r="31" fill="none" stroke="url(#goldv)" stroke-width="7.5" stroke-linecap="round"
-              stroke-dasharray="194.8" stroke-dashoffset="116.9" transform="rotate(-90 39 39)"/>
-          </svg>
-          <div class="rc"><b class="num">10/25</b></div>
+  <section class="block" style="padding-top:6px">
+    <div class="wrap">
+      <div class="kicker reveal">Today</div>
+      <h2 class="sec reveal">Small wins, every day.</h2>
+      <p class="lead reveal">A little momentum goes a long way. Here&rsquo;s where today stands.</p>
+      <div class="tgrid">
+        <div class="tcard reveal">
+          <div class="trow">
+            <div class="goalring">
+              <svg width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+                <circle cx="42" cy="42" r="35" fill="none" stroke="#f0e6cd" stroke-width="9"/>
+                <circle cx="42" cy="42" r="35" fill="none" stroke="#F5A623" stroke-width="9" stroke-linecap="round"
+                  stroke-dasharray="219.9" stroke-dashoffset="131.9"/>
+              </svg>
+              <div class="rc-pct"><b class="num">10/25</b><span>questions</span></div>
+            </div>
+            <div>
+              <div class="big">Daily goal</div>
+            </div>
+          </div>
+          <p><b style="color:var(--navy)">15 to go</b> — one quick practice round covers it.</p>
         </div>
-        <div>
-          <h3>Daily goal</h3>
-          <p>15 to go — one quick practice round covers it.</p>
+        <div class="tcard reveal">
+          <div class="trow">
+            <svg class="flame" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M32 3c3.5 9.5 13.5 15 13.5 27a13.5 13.5 0 1 1-27 0c0-6.5 3.5-10.5 6-15.5 1.8 3.4 3.6 4.9 5.5 6C29.4 16.6 29.6 9.5 32 3Z" fill="url(#flameg)"/>
+              <path d="M32 58a8 8 0 0 1-8-8c0-4.5 3-7 5-10 1.2 2 2 3 3 3.6.4-3.4 1-6.6 3-9.6 2.4 3.4 5 6.4 5 10a8 8 0 0 1-8 8Z" fill="#FFE1A1"/>
+            </svg>
+            <div>
+              <div class="big num">6-day streak<small>Best: 11 days</small></div>
+            </div>
+          </div>
+          <p>Show up tonight and the streak stays alive. Future you says thanks.</p>
         </div>
-      </div>
-      <div class="tcell">
-        <svg class="flame" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 3c3.5 9.5 13.5 15 13.5 27a13.5 13.5 0 1 1-27 0c0-6.5 3.5-10.5 6-15.5 1.8 3.4 3.6 4.9 5.5 6C29.4 16.6 29.6 9.5 32 3Z" fill="url(#goldg)"/>
-          <path d="M32 58a8 8 0 0 1-8-8c0-4.5 3-7 5-10 1.2 2 2 3 3 3.6.4-3.4 1-6.6 3-9.6 2.4 3.4 5 6.4 5 10a8 8 0 0 1-8 8Z" fill="#FFD97A"/>
-        </svg>
-        <div>
-          <h3 class="num"><span class="goldnum">6-day</span> streak</h3>
-          <p>Your best is 11 days. Keep it alive tonight.</p>
-        </div>
-      </div>
-      <div class="tcell chal">
-        <div style="flex:1;min-width:0">
-          <div class="eyebrow gold" style="margin-bottom:9px"><span class="dot"></span>Weekly challenge</div>
+        <div class="tcard reveal">
+          <span class="mini-badge">WEEKLY CHALLENGE</span>
           <h3>Threats Week</h3>
           <p>Answer 40 questions in Threats &amp; Vulnerabilities by Sunday.</p>
-          <div class="chal-bar"><i class="bar-grow" style="width:65%"></i></div>
-          <div class="chal-meta"><span>Progress</span><b class="num">26 / 40</b></div>
+          <div class="chal-bar"><i style="width:65%"></i></div>
+          <div class="chal-meta"><span><b class="num">26 of 40</b> answered</span><span>Ends Sunday</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Readiness ===== -->
-  <section class="panel rise" style="--d:180ms">
-    <div class="eyebrow"><span class="dot"></span>Readiness<span class="right">Practice · Simulator</span></div>
-    <div class="ready-grid">
-      <div>
-        <div class="score-num num">82<em>%</em></div>
-        <p class="score-cap"><b>Last practice exam</b><br>Security+ SY0-701 · 2 days ago<br>90 questions, under the clock</p>
+  <!-- ===== Readiness — the landing's report card, with your numbers ===== -->
+  <section class="block" style="padding-top:6px">
+    <div class="wrap">
+      <div class="kicker reveal">Readiness</div>
+      <h2 class="sec reveal">Know where you stand.</h2>
+      <p class="lead reveal">Your last practice exam, broken down the way the simulator reports it.</p>
+      <div class="report-card reveal">
+        <div class="rc-head"><span class="rc-t">YOUR LAST PRACTICE EXAM</span><span class="rc-when">Security+ · 2 days ago</span></div>
+        <div class="rc-body">
+          <div class="rc-top">
+            <div class="rc-ring">
+              <svg width="96" height="96" viewBox="0 0 96 96" aria-hidden="true">
+                <circle cx="48" cy="48" r="42" fill="none" stroke="#edf1f8" stroke-width="9"/>
+                <circle cx="48" cy="48" r="42" fill="none" stroke="#0D9D6C" stroke-width="9" stroke-linecap="round"
+                  stroke-dasharray="263.9" stroke-dashoffset="47.5"/>
+              </svg>
+              <div class="rc-pct"><b class="num">82%</b><span>score</span></div>
+            </div>
+            <div class="rc-verdict">
+              <b>Above the pass line.</b>
+              <p>90 questions, timed like the real thing — your strongest run yet. One domain needs a little love; it&rsquo;s flagged below.</p>
+            </div>
+          </div>
+          <div class="rc-domh">By domain</div>
+          <div class="rc-dom">
+            <div class="dl"><span class="dn">General Security Concepts</span><span class="dp num" style="color:#0d9d6c">88%</span></div>
+            <div class="rc-bar"><div style="width:88%;background:#0d9d6c"></div></div>
+          </div>
+          <div class="rc-dom weak">
+            <div class="dl"><span class="dn">Threats, Vulnerabilities &amp; Mitigations</span><span class="dp num" style="color:#d63a3a">64%<span class="rc-tag">Weakest</span></span></div>
+            <div class="rc-bar"><div style="width:64%;background:#d63a3a"></div></div>
+          </div>
+          <div class="rc-dom">
+            <div class="dl"><span class="dn">Security Architecture</span><span class="dp num" style="color:#0d9d6c">81%</span></div>
+            <div class="rc-bar"><div style="width:81%;background:#0d9d6c"></div></div>
+          </div>
+          <div class="rc-dom">
+            <div class="dl"><span class="dn">Security Operations</span><span class="dp num" style="color:#c77408">79%</span></div>
+            <div class="rc-bar"><div style="width:79%;background:#c77408"></div></div>
+          </div>
+          <div class="rc-dom">
+            <div class="dl"><span class="dn">Security Program Management</span><span class="dp num" style="color:#0d9d6c">86%</span></div>
+            <div class="rc-bar"><div style="width:86%;background:#0d9d6c"></div></div>
+          </div>
+          <p class="rc-cap">The Library taught it chapter by chapter — <b>your saved misses are where you prove it&rsquo;s sticking.</b></p>
+        </div>
       </div>
-      <div>
-        <div class="drow"><span class="dn">General Security Concepts</span><span class="dv num">88%</span><span class="dbar"><i class="bar-grow" style="width:88%"></i></span></div>
-        <div class="drow weak"><span class="dn">Threats, Vulnerabilities &amp; Mitigations</span><span class="dv num">64%</span><span class="dbar"><i class="bar-grow" style="width:64%"></i></span></div>
-        <div class="drow"><span class="dn">Security Architecture</span><span class="dv num">81%</span><span class="dbar"><i class="bar-grow" style="width:81%"></i></span></div>
-        <div class="drow"><span class="dn">Security Operations</span><span class="dv num">79%</span><span class="dbar"><i class="bar-grow" style="width:79%"></i></span></div>
-        <div class="drow"><span class="dn">Security Program Management</span><span class="dv num">86%</span><span class="dbar"><i class="bar-grow" style="width:86%"></i></span></div>
-        <p class="weak-note"><b>Threats &amp; Vulnerabilities</b> is your weakest domain at 64%. The Library taught it chapter by chapter — your saved misses are where you prove it&rsquo;s sticking.</p>
+      <div class="ready-doors reveal">
+        <a class="btn btn-primary btn-lg" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
+        <a class="tlink" href="https://sim.bytebarhq.com/sim-preview/"><span class="lbl-full">Review your misses — 12 waiting · about 12 min</span><span class="lbl-short">Review your misses — 12 waiting</span> <span class="arr">→</span></a>
       </div>
-    </div>
-    <div class="ready-doors">
-      <a class="btn btn-solid" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
-      <a class="quiet" href="https://sim.bytebarhq.com/sim-preview/">Review your misses — 12 waiting · about 12 min <span class="arr">→</span></a>
     </div>
   </section>
 
   <!-- ===== The two doors ===== -->
-  <div class="doors">
-    <a class="door rise" style="--d:240ms" href="https://bytebarhq.com/library/">
-      <div class="art art-watch">
-        <div class="fan">
-          <div class="cover c1" style="--acc:#38BDF8">
-            <span class="sheen"></span>
-            <div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div>
-            <div class="cov-title">Azure Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+  <section class="block" style="padding-top:6px">
+    <div class="wrap">
+      <div class="kicker reveal">The house</div>
+      <h2 class="sec reveal">Two doors, both yours.</h2>
+      <p class="lead reveal">Watch in the Library. Prove it in the Simulator. Everything&rsquo;s already unlocked.</p>
+      <div class="doors">
+        <a class="door reveal" href="https://bytebarhq.com/library/">
+          <div class="door-art">
+            <div class="fan">
+              <div class="cover c1" style="--acc:#38BDF8">
+                <span class="sheen"></span>
+                <div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div>
+                <div class="cov-title">Azure Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+              </div>
+              <div class="cover c2" style="--acc:#3896FF">
+                <span class="sheen"></span>
+                <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div>
+                <div class="cov-title">Security+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+              </div>
+              <div class="cover c3" style="--acc:#F5B544">
+                <span class="sheen"></span>
+                <div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div>
+                <div class="cov-title">CISSP</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+              </div>
+            </div>
           </div>
-          <div class="cover c2" style="--acc:#3896FF">
-            <span class="sheen"></span>
-            <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div>
-            <div class="cov-title">Security+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+          <div class="door-body">
+            <div class="door-tag">Watch</div>
+            <h3>The Library</h3>
+            <p>Video books that teach the material chapter by chapter — every exam, yours to keep. The first chapter of every book is already open.</p>
+            <span class="btn btn-primary btn-lg">Open the Library</span>
           </div>
-          <div class="cover c3" style="--acc:#F5B544">
-            <span class="sheen"></span>
-            <div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div>
-            <div class="cov-title">CISSP</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div>
+        </a>
+        <a class="door reveal" href="https://sim.bytebarhq.com/sim-preview/">
+          <div class="door-art goldfade">
+            <div class="game">
+              <div class="xpring">
+                <svg width="104" height="104" viewBox="0 0 104 104" aria-hidden="true">
+                  <circle cx="52" cy="52" r="44" fill="none" stroke="rgba(245,166,35,.2)" stroke-width="8"/>
+                  <circle cx="52" cy="52" r="44" fill="none" stroke="#F5A623" stroke-width="8" stroke-linecap="round"
+                    stroke-dasharray="276.5" stroke-dashoffset="77.4"/>
+                </svg>
+                <div class="rc"><b class="num">7</b><span>LEVEL</span></div>
+              </div>
+              <div class="game-meta">
+                <div class="lvl">Level 7 · Scholar</div>
+                <div class="xpbar"><i></i></div>
+                <p><b class="num">1,240 XP</b> · 360 XP to Level 8</p>
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="door-body">
+            <div class="door-tag gold">Practice</div>
+            <h3>The Simulator</h3>
+            <p>Practice exams that mirror test day — timed, scored, with a breakdown by domain and every miss saved for review.</p>
+            <span class="btn btn-gold btn-lg">Open the Simulator</span>
+          </div>
+        </a>
       </div>
-      <div class="eyebrow"><span class="dot"></span>Watch</div>
-      <h3>The Library</h3>
-      <p>Video books that teach the material chapter by chapter — every exam, yours to keep. The first chapter of every book is already open.</p>
-      <span class="btn btn-solid">Open the Library</span>
-    </a>
-    <a class="door rise" style="--d:300ms" href="https://sim.bytebarhq.com/sim-preview/">
-      <div class="art art-practice">
-        <div class="game">
-          <div class="xpring">
-            <svg width="106" height="106" viewBox="0 0 106 106" aria-hidden="true" class="xpsvg">
-              <circle cx="53" cy="53" r="45" fill="none" stroke="rgba(245,181,68,.16)" stroke-width="8"/>
-              <circle cx="53" cy="53" r="45" fill="none" stroke="url(#goldv)" stroke-width="8" stroke-linecap="round"
-                stroke-dasharray="282.7" stroke-dashoffset="79" transform="rotate(-90 53 53)"/>
-            </svg>
-            <div class="rc"><b class="num">7</b><span>LEVEL</span></div>
-          </div>
-          <div class="game-meta">
-            <div class="lvl">Level 7 · Scholar</div>
-            <div class="xpbar"><i></i></div>
-            <p><b class="num">1,240 XP</b> · 360 XP to Level 8</p>
-          </div>
-        </div>
-      </div>
-      <div class="eyebrow gold"><span class="dot"></span>Practice</div>
-      <h3>The Simulator</h3>
-      <p>Practice exams that mirror test day — timed, scored, with a breakdown by domain and every miss saved for review.</p>
-      <span class="btn btn-solid">Open the Simulator</span>
-    </a>
-  </div>
-
-  <!-- ===== Your shelf ===== -->
-  <section class="panel rise" style="--d:360ms">
-    <div class="eyebrow"><span class="dot"></span>Your Shelf<span class="right">29 exams · All yours</span></div>
-    <div class="shelf-head">
-      <h2>Pick a book, keep moving</h2>
-      <a class="quiet" href="https://bytebarhq.com/library/">All 29 exams <span class="arr">→</span></a>
-    </div>
-    <div class="shelf-grid">
-      <a class="xcard" style="--acc:#3896FF" href="https://bytebarhq.com/library/book-secplus.html">
-        <div class="cover" style="--acc:#3896FF"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div><div class="cov-title">Security+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xbar"><i style="width:58%"></i></div>
-          <div class="xstate"><span>Chapter 18/31</span><span class="pct num">58%</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#38BDF8" href="https://bytebarhq.com/library/book-az104.html">
-        <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div><div class="cov-title">Azure Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xbar"><i style="width:23%"></i></div>
-          <div class="xstate"><span>In progress</span><span class="pct num">23%</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#FBBF24" href="https://bytebarhq.com/library/book-linuxplus.html">
-        <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div><div class="cov-title">Linux+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xbar"><i style="width:8%"></i></div>
-          <div class="xstate"><span>Just started</span><span class="pct num">8%</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#F5B544" href="https://bytebarhq.com/library/book-cissp.html">
-        <div class="cover" style="--acc:#F5B544"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CISSP</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xstate"><span>Not started</span><span class="xstart">Start →</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#F43F5E" href="https://bytebarhq.com/library/book-cka.html">
-        <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xstate"><span>Not started</span><span class="xstart">Start →</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#7B42BC" href="https://bytebarhq.com/library/book-terraform.html">
-        <div class="cover" style="--acc:#7B42BC"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">004</div><div class="cov-title">Terraform</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xstate"><span>Not started</span><span class="xstart">Start →</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#FF9900" href="https://bytebarhq.com/library/book-saac03.html">
-        <div class="cover" style="--acc:#FF9900"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div><div class="cov-title">Solutions Architect</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xstate"><span>Not started</span><span class="xstart">Start →</span></div>
-        </div>
-      </a>
-      <a class="xcard" style="--acc:#34D399" href="https://bytebarhq.com/library/book-gcpace.html">
-        <div class="cover" style="--acc:#34D399"><span class="sheen"></span>
-          <div class="cov-mast">BYTEBAR</div><div class="cov-code">GCP-ACE</div><div class="cov-title">Associate Cloud Engineer</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
-        <div class="xbody">
-          <div class="xstate"><span>Not started</span><span class="xstart">Start →</span></div>
-        </div>
-      </a>
     </div>
   </section>
 
+  <!-- ===== Your shelf ===== -->
+  <section class="block" style="padding-top:6px">
+    <div class="wrap">
+      <div class="kicker reveal">Your shelf</div>
+      <h2 class="sec reveal">Pick a book, keep moving.</h2>
+      <p class="lead reveal" style="margin-bottom:14px">All 29 exams are on your shelf.</p>
+      <div class="trail-link reveal"><a class="tlink" href="https://bytebarhq.com/library/">See the whole shelf <span class="arr">→</span></a></div>
+      <div class="shelf-grid">
+        <a class="xcard reveal" style="--acc:#3896FF" href="https://bytebarhq.com/library/book-secplus.html">
+          <div class="cover" style="--acc:#3896FF"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div><div class="cov-title">Security+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Security+</div><div class="ecd">SY0-701</div>
+            <div class="xbar"><i style="width:58%"></i></div>
+            <div class="xstate"><span>Chapter 18/31</span><span class="pct num">58%</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#38BDF8" href="https://bytebarhq.com/library/book-az104.html">
+          <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div><div class="cov-title">Azure Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Azure Administrator</div><div class="ecd">AZ-104</div>
+            <div class="xbar"><i style="width:23%"></i></div>
+            <div class="xstate"><span>In progress</span><span class="pct num">23%</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#FBBF24" href="https://bytebarhq.com/library/book-linuxplus.html">
+          <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div><div class="cov-title">Linux+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Linux+</div><div class="ecd">XK0-006</div>
+            <div class="xbar"><i style="width:8%"></i></div>
+            <div class="xstate"><span>Just started</span><span class="pct num">8%</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#F5B544" href="https://bytebarhq.com/library/book-cissp.html">
+          <div class="cover" style="--acc:#F5B544"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CISSP</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">CISSP</div><div class="ecd">ISC2</div>
+            <div class="xstate"><span>Not started</span><span class="start">Start →</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#F43F5E" href="https://bytebarhq.com/library/book-cka.html">
+          <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Kubernetes Administrator</div><div class="ecd">CNCF · CKA</div>
+            <div class="xstate"><span>Not started</span><span class="start">Start →</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#7B42BC" href="https://bytebarhq.com/library/book-terraform.html">
+          <div class="cover" style="--acc:#7B42BC"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">004</div><div class="cov-title">Terraform</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Terraform</div><div class="ecd">HashiCorp 004</div>
+            <div class="xstate"><span>Not started</span><span class="start">Start →</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#FF9900" href="https://bytebarhq.com/library/book-saac03.html">
+          <div class="cover" style="--acc:#FF9900"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div><div class="cov-title">Solutions Architect</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Solutions Architect</div><div class="ecd">SAA-C03</div>
+            <div class="xstate"><span>Not started</span><span class="start">Start →</span></div>
+          </div>
+        </a>
+        <a class="xcard reveal" style="--acc:#34D399" href="https://bytebarhq.com/library/book-gcpace.html">
+          <div class="cover" style="--acc:#34D399"><span class="sheen"></span>
+            <div class="cov-mast">BYTEBAR</div><div class="cov-code">GCP-ACE</div><div class="cov-title">Associate Cloud Engineer</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
+          <div class="xbody">
+            <div class="enm">Associate Cloud Engineer</div><div class="ecd">Google Cloud</div>
+            <div class="xstate"><span>Not started</span><span class="start">Start →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 </main>
 
+<!-- ===== Footer — the landing's own ===== -->
 <footer>
-  <span class="fbrand">BYTEBAR</span>
-  <span class="ftag">LEARN IT · PROVE IT · PASS IT</span>
-  <nav class="flinks">
-    <a href="https://bytebarhq.com/library/">Library</a>
-    <a href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
-    <a href="https://bytebarhq.com/terms">Terms</a>
-    <a href="https://bytebarhq.com/refund-policy">Refund Policy</a>
-  </nav>
+  <div class="wrap">
+    <div class="fin">
+      <div>
+        <div class="fbrand">BYTEBAR</div>
+        <p>Video books and practice exams for IT &amp; nursing certifications. Learn it. Prove it. Pass it.</p>
+      </div>
+      <nav class="flinks">
+        <a href="https://bytebarhq.com/library/">Library</a>
+        <a href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
+        <a href="https://bytebarhq.com/terms">Terms</a>
+        <a href="https://bytebarhq.com/refund-policy">Refund Policy</a>
+      </nav>
+    </div>
+    <div class="copy"><span>© 2026 ByteBar</span><span>Start here. Pass with ByteBar.</span></div>
+  </div>
 </footer>
 
+<script>
+/* Mobile nav — the landing's own pattern */
+document.getElementById('burger').addEventListener('click', function(){
+  document.getElementById('navlinks').classList.toggle('open');
+});
+document.querySelectorAll('#navlinks a').forEach(function(a){
+  a.addEventListener('click', function(){ document.getElementById('navlinks').classList.remove('open'); });
+});
+/* Reveal on scroll — the landing's own pattern */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
 </body>
 </html>
