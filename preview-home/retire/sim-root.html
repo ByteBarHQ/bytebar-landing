@@ -103,7 +103,7 @@ function bbAuthStorage() {
   function go(u) { if (window.location.protocol === "https:") window.location.replace(u); }
   if (!window.__bbMaybeSession) { go(OUT); return; }
   var done = false;
-  var failsafe = setTimeout(function () { if (!done) { done = true; go(OUT); } }, 3500);
+  var failsafe = setTimeout(function () { if (!done) { done = true; go(OUT); } }, 6000);
   try {
     var sb = window.supabase.createClient("https://duutviqszajmmoskvdfy.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4",
