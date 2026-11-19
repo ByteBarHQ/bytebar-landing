@@ -180,8 +180,50 @@ the proof results follow the map.
 
 ## Verification record
 
-(Filled in by the verification run — see verify/results-wired.json
-in the build folder: states × pages × viewports, number assertions
-against an independent port of the sim's math, the route walk, the
-link crawl, redirect chains, and before/after checksums of the
-live homepage, the live sim, the library, and the approved mock.)
+Run 2026-11-19 (verify/verify_wired.mjs, results in
+verify/results-wired.json): **104 checks, 0 failures.**
+
+- **Number truth, three ways.** The sim's own scoring functions,
+  extracted verbatim from its source, were run against an
+  independent port and against the fixtures: goal, streak, level,
+  focus exam, readiness % / evidence / weakest domain / per-domain
+  mastery, and weekly challenges agree exactly for all three test
+  accounts. The wired pages inject the sim's source text itself, so
+  the home and the sim cannot drift apart.
+- **States walked end to end** in headless Chrome: guest (home →
+  storefront in exactly 1 replace hop; room → public sim; both
+  retirement stubs keep guests on the public destinations), owner
+  (full home: real greeting, briefing with the real weakest domain,
+  Continue at the real readiness, goal ring, streak, challenge,
+  report card with all five domain bars matching the model, owner
+  chip, no buy door), free (real goal/streak, readiness honestly
+  withheld below the evidence bar, locked challenge teaser, exactly
+  one gold buy door), fresh owner (every element in its honest
+  empty state; misses card hidden), corrupted session (no loop,
+  ≤3 hops, never a blank page), and the ?as=free review aid (free
+  chrome over the account's real numbers).
+- **Route walk.** Every retirement hop measured at exactly 1
+  replace; back-button after a hop never lands on the hop page;
+  back from the practice room returns home. Link crawl: 44 unique
+  doors collected from the rendered owner home + practice room —
+  all resolve 200, none needs more than 1 redirect hop, no cycles,
+  and every exam deep link names a seated registry slug.
+- **Render audits** (390px + 1280px, every page × state): zero
+  horizontal overflow, no out-of-viewport elements, header fits,
+  zero JS errors, zero failed subresources (favicon aside;
+  PostgREST's 406 "no row" answer excluded as the API's normal
+  empty read). Every interactive label and status line verified on
+  one line; exam-name titles and readiness domain names are data
+  typography and may wrap inside their card/row (same as the sim).
+- **Method note.** This VM holds no Supabase service-role key and
+  the license keys are sellable inventory, so signed-in states were
+  verified with the backend stubbed at the network edge using
+  fixtures in the backend's exact response shapes, while the
+  page's real auth storage, queries, math, and routing ran
+  unstubbed; guest and corrupted-session flows ran fully live.
+  The owner's own signed-in open is the final real-data check:
+  he should see his name, his goal and streak, and the same
+  readiness the simulator shows him.
+- **Untouched surfaces.** Live homepage, live simulator, library,
+  and the approved mock verified byte-identical before and after
+  the whole build (checksums in the build folder).
