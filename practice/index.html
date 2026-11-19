@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<!-- The Practice room — wired. One home model: this room is for
+     DOING. The grid is the Simulator's real exam registry; each
+     card's standing is the account's real last score. Guests are
+     handed to the Simulator's public front door before paint. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Practice — ByteBar</title>
+<script>
+/* No-flash state guard — the live landing's pattern (see home). */
+(function () {
+  var KEY = "sb-duutviqszajmmoskvdfy-auth-token", found = false, tomb = false;
+  try {
+    var parts = (document.cookie || "").split(";");
+    for (var i = 0; i < parts.length; i++) {
+      var eq = parts[i].indexOf("=");
+      if (eq < 0) continue;
+      var name = parts[i].slice(0, eq).replace(/^\s+|\s+$/g, "");
+      if (name === KEY || name.indexOf(KEY + ".") === 0) found = true;
+      if (name === "bb-auth-out") tomb = true;
+    }
+    if (!found && !tomb) {
+      try { found = !!window.localStorage.getItem(KEY); } catch (e) {}
+    }
+  } catch (e) {}
+  if (!found) {
+    if (window.location.protocol === "https:") {
+      window.location.replace("https://sim.bytebarhq.com/sim-preview/");
+    }
+    return;
+  }
+  document.documentElement.classList.add("bb-pending");
+  setTimeout(function () {
+    document.documentElement.classList.remove("bb-pending");
+  }, 6000);
+})();
+</script>
+<style>
+/* ============ Tokens — copied from the live landing page ============ */
+:root{
+  --navy:#0b1e42; --navy2:#132c5e; --navy3:#1b3a7a;
+  --bg:#f6f1e6; --card:#fffdf8; --ink:#2c2620; --mut:#6f695c; --line:#e6dcc4;
+  --cyan:#0b8fc4; --cyan-d:#0873a0; --green:#16a34a; --green-d:#15803d;
+  --gold:#f5a623; --gold-d:#d98a0b; --pink:#f472b6; --lime:#a3e635;
+  --r:20px;
+  --shadow:0 6px 24px rgba(11,30,66,.10);
+  --shadow-lg:0 14px 44px rgba(11,30,66,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img,svg{max-width:100%; display:block}
+a{color:inherit}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ============ 3D tactile buttons — the landing's own ============ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-weight:800; font-size:16px; letter-spacing:.01em; text-decoration:none; cursor:pointer; white-space:nowrap;
+  border:none; border-radius:16px; padding:15px 30px; transition:transform .08s, box-shadow .08s, filter .15s;
+  user-select:none; -webkit-tap-highlight-color:transparent}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none} .lbl-short{display:inline}}
+.btn-primary{background:linear-gradient(180deg,#22b8e8,var(--cyan)); color:#fff;
+  box-shadow:0 5px 0 var(--cyan-d), 0 10px 24px rgba(11,143,196,.35); text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-primary:active{transform:translateY(4px); box-shadow:0 1px 0 var(--cyan-d)}
+.btn-gold{background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  box-shadow:0 5px 0 var(--gold-d), 0 10px 24px rgba(245,166,35,.35)}
+.btn-gold:hover{filter:brightness(1.04)}
+.btn-gold:active{transform:translateY(4px); box-shadow:0 1px 0 var(--gold-d)}
+.btn-ghost{background:var(--card); color:var(--navy); border:2px solid var(--line); box-shadow:0 4px 0 var(--line)}
+.btn-ghost:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.btn-lg{font-size:18px; padding:18px 38px; border-radius:18px}
+
+/* ============ Nav — the landing's cream bar ============ */
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,241,230,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:68px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:19px; letter-spacing:.28em; color:var(--navy)}
+.brand .mark{width:34px; height:34px; border-radius:10px; flex:none; background:linear-gradient(135deg,var(--navy),var(--navy3));
+  display:flex; align-items:center; justify-content:center; color:#7ee7f7; font-size:17px; font-weight:900; letter-spacing:0;
+  box-shadow:0 3px 0 rgba(11,30,66,.35)}
+.nav-links{display:flex; align-items:center; gap:26px}
+.nav-links a.nl{text-decoration:none; font-weight:600; font-size:15px; color:var(--ink); opacity:.85}
+.nav-links a.nl:hover{opacity:1; color:var(--navy)}
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+.burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
+/* Owner account chip: the ghost-button family + the live owner gold dot */
+.chip{display:inline-flex; align-items:center; background:var(--card); color:var(--navy); border:2px solid var(--line);
+  box-shadow:0 4px 0 var(--line); border-radius:999px; padding:9px 19px; font-weight:800; font-size:14.5px;
+  text-decoration:none; white-space:nowrap; transition:transform .08s, box-shadow .08s}
+.chip:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:8px; vertical-align:1px; flex:none}
+@media(max-width:1100px){
+  .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0;
+    padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
+  .nav-links.open{display:flex}
+  .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
+  .nav-right{gap:12px}
+  .burger{display:block}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .nav .brand{letter-spacing:.16em}
+  .chip{padding:8px 13px; font-size:12.5px}
+  .nav .burger{padding:6px}
+}
+
+/* ============ Hero — the landing's navy hero, greeting an owner ============ */
+.hero{position:relative; background:#0a1a38; padding:72px 0 58px; overflow:hidden}
+.hero-inner{position:relative; text-align:center; max-width:860px; margin:0 auto}
+.sticker{display:inline-block; background:rgba(255,255,255,.07); color:#dbe7fa; border:1px solid rgba(255,255,255,.22);
+  font-weight:800; font-size:13px; letter-spacing:.18em; padding:8px 18px; border-radius:10px; margin-bottom:22px}
+.hero h1{font-size:clamp(44px,7vw,68px); line-height:1.02; letter-spacing:-.02em; color:#fff; margin-bottom:16px}
+.hero h1 .markline{position:relative; z-index:1; white-space:nowrap}
+.hero h1 .markline::after{content:""; position:absolute; left:-2%; right:-2%; bottom:.02em; height:.15em;
+  background:var(--gold); border-radius:4px; transform:rotate(-1.2deg); z-index:-1}
+.hero p.def{font-size:18px; color:#d7e3f5; max-width:620px; margin:0 auto 8px; font-weight:600}
+/* Pip, center stage — the landing's hero-pip, with a real speech bubble */
+.hero-pip{display:flex; flex-direction:column; align-items:center; margin-top:26px; position:relative}
+.hero-pip .pip-big{width:132px; height:132px; filter:drop-shadow(0 10px 24px rgba(30,120,232,.28)); animation:pip-bob 3.6s ease-in-out infinite}
+@keyframes pip-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.pip-bubble{position:relative; margin-top:16px; background:#fff; border:2px solid var(--navy); border-radius:22px;
+  padding:17px 24px; font-weight:600; font-size:16.5px; line-height:1.55; color:var(--navy);
+  box-shadow:0 6px 0 rgba(11,30,66,.35), var(--shadow-lg); max-width:540px}
+.pip-bubble::before{content:""; position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(45deg);
+  width:16px; height:16px; background:#fff; border-left:2px solid var(--navy); border-top:2px solid var(--navy)}
+.pip-bubble b{color:var(--cyan-d)}
+@media (prefers-reduced-motion:reduce){.hero-pip .pip-big{animation:none}}
+
+/* ============ Sections — the landing's rhythm ============ */
+section.block{padding:56px 0}
+.kicker{font-size:13px; font-weight:800; letter-spacing:.22em; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; text-align:center}
+h2.sec{font-size:clamp(28px,3.6vw,42px); letter-spacing:-.02em; color:var(--navy); text-align:center; margin-bottom:14px; line-height:1.12}
+p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; margin:0 auto 40px}
+
+/* ============ Cover art — the library's cover system ============ */
+.cover{--acc:#3896FF; position:relative; aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:2.4em 2em; overflow:hidden; border-radius:.9em; font-size:10px;
+  background:radial-gradient(34em 17em at 50% -8%, rgba(126,231,247,.16), transparent 70%),
+             linear-gradient(158deg,#16407C 0%, #0B1E42 52%, #06122B 100%);
+  box-shadow:0 14px 30px rgba(11,30,66,.28), inset 0 1px 0 rgba(205,228,255,.25)}
+.cover::before{content:""; position:absolute; inset:1.1em; border:.2em solid rgba(255,255,255,.85); border-radius:.7em; pointer-events:none; z-index:2}
+.cover .sheen{position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.07) 46%, transparent 62%)}
+.cov-mast{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.34em; color:var(--acc); padding-left:.34em}
+.cov-code{position:relative; z-index:2; font-size:1.3em; font-weight:800; letter-spacing:.18em; color:var(--acc); margin-top:1.35em; padding-left:.18em}
+.cov-title{position:relative; z-index:2; font-size:3.3em; font-weight:900; color:#fff; line-height:1.08; letter-spacing:-.01em; margin-top:.22em; max-width:94%}
+.cov-type{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.3em; color:#CFE3F5; margin-top:1.05em; padding-left:.3em}
+.cov-rule{position:relative; z-index:2; width:4.4em; height:.3em; border-radius:.2em; background:var(--acc); margin-top:1.35em}
+
+/* ============ Continue — the landing's chunky card (quiz family) ============ */
+.cont-sec{padding-top:48px}
+.cont-card{max-width:880px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:26px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden}
+.cont-head{background:var(--navy); color:#fff; padding:18px 26px; display:flex; justify-content:space-between; align-items:center; gap:12px}
+.cont-head .qt{font-weight:800; font-size:15px; letter-spacing:.06em; white-space:nowrap}
+.cont-head .qs{font-size:13px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.cont-body{padding:30px; display:flex; gap:32px; align-items:center}
+.cont-art{flex:none; width:218px}
+.cont-art .cover{font-size:9.8px}
+.cont-main{flex:1; min-width:0}
+.cont-main h3{font-size:24px; font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:8px}
+.cont-main p{font-size:15.5px; color:var(--mut); margin-bottom:20px}
+.cont-bar{height:14px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-bottom:16px}
+.cont-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#2e7cd6,#3896ff 60%,#6db3ff)}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:24px}
+.chips span{background:var(--bg); border:1.5px solid var(--line); border-radius:999px; padding:7px 14px;
+  font-size:13px; font-weight:700; color:var(--navy); box-shadow:0 3px 0 var(--line); white-space:nowrap}
+
+/* ============ Today — friendly cards (step family) ============ */
+.tgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:860px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:26px 24px; box-shadow:var(--shadow)}
+.tcard .trow{display:flex; align-items:center; gap:17px; margin-bottom:14px}
+.tcard h3{color:var(--navy); font-size:18px; margin-bottom:6px}
+.tcard p{font-size:14.5px; color:var(--mut)}
+.tcard .big{font-size:27px; font-weight:900; color:var(--navy); letter-spacing:-.02em; line-height:1.05}
+.tcard .big small{display:block; font-size:13px; font-weight:700; color:var(--mut); letter-spacing:0; margin-top:4px}
+.goalring{position:relative; flex:none; width:84px; height:84px}
+.goalring svg{transform:rotate(-90deg)}
+.goalring .rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.goalring .rc-pct b{font-size:19px; font-weight:900; color:var(--navy); line-height:1}
+.goalring .rc-pct span{font-size:9.5px; font-weight:800; letter-spacing:.12em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.flame{flex:none; width:56px; height:56px; filter:drop-shadow(0 5px 10px rgba(245,166,35,.4))}
+.mini-badge{display:inline-block; background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  font-size:11px; font-weight:800; letter-spacing:.09em; padding:5px 12px; border-radius:999px;
+  box-shadow:0 3px 0 var(--gold-d); margin-bottom:14px; white-space:nowrap}
+.chal-bar{height:12px; background:#f3ecda; border-radius:99px; overflow:hidden; margin:14px 0 9px}
+.chal-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.chal-meta{display:flex; justify-content:space-between; gap:10px; font-size:13px; color:var(--mut)}
+.chal-meta b{color:var(--navy)}
+
+/* ============ Readiness — the landing's own report card ============ */
+.report-card{max-width:720px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:22px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden; text-align:left}
+.rc-head{background:var(--navy); color:#fff; padding:14px 22px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+.rc-head .rc-t{font-weight:800; font-size:13px; letter-spacing:.1em; white-space:nowrap}
+.rc-head .rc-when{font-size:12.5px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.rc-body{padding:24px 26px 20px}
+.rc-top{display:flex; gap:20px; align-items:center; margin-bottom:18px}
+.rc-ring{position:relative; flex:none; width:96px; height:96px}
+.rc-ring svg{transform:rotate(-90deg)}
+.rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.rc-pct b{font-size:25px; font-weight:900; color:var(--navy); line-height:1}
+.rc-pct span{font-size:10px; font-weight:800; letter-spacing:.14em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.rc-verdict b{display:block; font-size:19px; font-weight:800; color:var(--navy); line-height:1.25}
+.rc-verdict p{font-size:14px; color:var(--mut); line-height:1.55; margin-top:4px}
+.rc-domh{font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--mut); margin:4px 0 12px}
+.rc-dom{margin-bottom:12px; border-radius:12px}
+.rc-dom.weak{background:#fdf6e9; border:1.5px solid #f0d9a4; padding:10px 12px; margin-left:-12px; margin-right:-12px}
+.rc-dom .dl{display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:13.5px; margin-bottom:6px}
+.rc-dom .dn{font-weight:700; color:var(--navy)}
+.rc-dom .dp{font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+.rc-tag{font-size:10px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; margin-left:7px; color:#b34a44}
+.rc-bar{height:11px; background:#edf1f8; border-radius:99px; overflow:hidden}
+.rc-bar > div{height:100%; border-radius:99px}
+.rc-cap{font-size:13.5px; color:var(--mut); text-align:center; margin-top:16px}
+.rc-cap b{color:var(--navy)}
+.ready-doors{display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:34px}
+@media(max-width:560px){.rc-top{flex-direction:column; text-align:center} .rc-head .rc-t{font-size:11.5px; letter-spacing:.06em} .rc-head{padding:12px 16px}}
+
+/* Quiet next step — the landing's text link with arrow */
+.tlink{font-weight:700; color:var(--cyan-d); text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(8,115,160,.38);
+  transition:color .15s var(--ease), text-decoration-color .15s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor}
+.tlink .arr{display:inline-block; transition:transform .15s var(--ease)}
+.tlink:hover .arr{transform:translateX(3px)}
+.trail-link{text-align:center; margin-bottom:34px}
+
+/* ============ The two doors ============ */
+.doors{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+@media(max-width:860px){.doors{grid-template-columns:1fr}}
+.door{display:flex; flex-direction:column; background:var(--card); border:1.5px solid var(--line); border-radius:26px;
+  overflow:hidden; box-shadow:var(--shadow); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.door:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow-lg)}
+.door-art{position:relative; height:204px; flex:none; overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 70%,var(--navy3) 100%)}
+.door-art::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(440px 220px at 50% -10%, rgba(126,231,247,.18), transparent 70%)}
+.door-art.goldfade::before{background:radial-gradient(440px 220px at 50% -10%, rgba(245,166,35,.22), transparent 70%)}
+.fan{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); width:318px; height:172px}
+.fan .cover{position:absolute; bottom:0; width:124px; font-size:4px; border-radius:6px;
+  box-shadow:0 16px 30px rgba(2,8,23,.5), inset 0 1px 0 rgba(205,228,255,.25)}
+.fan .c1{left:0; transform:rotate(-9deg)}
+.fan .c2{left:50%; margin-left:-62px; transform:translateY(-10px); z-index:2}
+.fan .c3{right:0; transform:rotate(9deg)}
+.game{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:24px; padding:0 26px}
+.xpring{position:relative; width:104px; height:104px; flex:none; filter:drop-shadow(0 8px 18px rgba(245,166,35,.3))}
+.xpring svg{transform:rotate(-90deg)}
+.xpring .rc{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.xpring .rc b{font-size:31px; line-height:1; font-weight:900; color:#fff}
+.xpring .rc span{font-size:9.5px; font-weight:800; letter-spacing:.18em; color:#ffc53d; margin-top:3px}
+.game-meta{min-width:0; color:#fff}
+.game-meta .lvl{font-size:20px; font-weight:800; letter-spacing:-.01em}
+.game-meta .xpbar{height:9px; border-radius:99px; background:rgba(255,255,255,.18); overflow:hidden; margin:10px 0 8px; width:190px; max-width:100%}
+.game-meta .xpbar i{display:block; height:100%; width:72%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.game-meta p{font-size:13px; color:#9db4dd}
+.game-meta p b{color:#ffc53d; font-weight:800}
+.door-body{padding:26px 28px 30px; display:flex; flex-direction:column; align-items:flex-start; flex:1}
+.door-tag{font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); margin-bottom:9px}
+.door-tag.gold{color:var(--gold-d)}
+.door-body h3{font-size:25px; font-weight:800; color:var(--navy); letter-spacing:-.015em; margin-bottom:8px}
+.door-body p{font-size:15.5px; color:var(--mut); margin-bottom:22px}
+.door-body .btn{margin-top:auto}
+
+/* ============ Your shelf ============ */
+.shelf-head{max-width:720px; margin:0 auto; text-align:center}
+.shelf-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px}
+@media(max-width:860px){.shelf-grid{grid-template-columns:repeat(2,1fr)}}
+.xcard{display:block; background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:14px;
+  box-shadow:0 3px 0 var(--line); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.xcard:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
+.xcard .cover{font-size:6px; border-radius:8px; box-shadow:0 8px 18px rgba(11,30,66,.22), inset 0 1px 0 rgba(205,228,255,.25)}
+.xbody{padding:13px 4px 2px}
+.xbody .enm{font-weight:800; font-size:14.5px; color:var(--navy); line-height:1.25}
+.xbody .ecd{font-size:12px; font-weight:700; color:var(--mut); letter-spacing:.03em; margin-top:2px}
+.xbar{height:9px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-top:11px}
+.xbar i{display:block; height:100%; border-radius:99px; background:var(--acc)}
+.xstate{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-top:8px; font-size:12.5px; font-weight:600; color:var(--mut)}
+.xstate .pct{font-weight:800; color:var(--navy)}
+.xstate .start{color:var(--cyan-d); font-weight:800; white-space:nowrap}
+
+/* ============ Footer — the landing's own ============ */
+footer{border-top:1px solid var(--line); padding:44px 0 30px; margin-top:12px}
+.fin{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap}
+.fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:10px}
+.fin p{font-size:14px; color:var(--mut); max-width:300px}
+.flinks{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
+.flinks a{text-decoration:none; font-size:14.5px; color:var(--mut); font-weight:600; white-space:nowrap}
+.flinks a:hover{color:var(--navy)}
+.copy{font-size:13px; color:var(--mut); margin-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); padding-top:20px}
+
+/* Reveal on scroll — the landing's motion */
+.reveal{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none} html{scroll-behavior:auto} .tlink .arr{transition:none}}
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+::selection{background:rgba(245,166,35,.32)}
+
+/* ============ Phone ============ */
+@media(max-width:760px){
+  section.block{padding:44px 0}
+  .hero{padding:54px 0 46px}
+  .hero-pip .pip-big{width:112px; height:112px}
+  .pip-bubble{font-size:15.5px; padding:15px 19px}
+  .cont-sec{padding-top:36px}
+  .cont-body{flex-direction:column; align-items:stretch; gap:22px; padding:24px 22px 26px}
+  .cont-art{width:178px; margin:0 auto}
+  .cont-art .cover{font-size:7.4px}
+  .cont-main h3{font-size:21px}
+  .cont-main .btn{width:100%}
+  .door-art{height:184px}
+  .fan{width:282px; height:152px}
+  .fan .cover{width:108px; font-size:3.5px}
+  .fan .c2{margin-left:-54px}
+  .game{gap:18px; padding:0 18px}
+  .xpring{width:90px; height:90px}
+  .xpring .rc b{font-size:26px}
+  .game-meta .lvl{font-size:18px}
+  .door-body{padding:22px 20px 24px}
+  .door-body .btn{width:100%}
+  .xcard .cover{font-size:4.4px}
+  .ready-doors{flex-direction:column; align-items:stretch}
+  .ready-doors .btn{width:100%}
+  .ready-doors .tlink{align-self:center; text-align:center}
+  .flinks{margin-left:0}
+}
+@media(max-width:480px){
+  .btn-lg{font-size:16px; padding:16px 22px}
+}
+/* ============ Practice room — additions ============ */
+.room-title{padding:52px 0 8px}
+.pgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:6px}
+@media(max-width:1024px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pgrid{grid-template-columns:1fr}}
+.ecard{background:var(--card); border:1.5px solid var(--line); border-radius:22px; padding:16px;
+  box-shadow:0 3px 0 var(--line); display:flex; flex-direction:column;
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.ecard:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
+.ecov{display:block; text-decoration:none; border-radius:10px}
+.ecard .cover{font-size:7.2px; border-radius:10px; box-shadow:0 8px 18px rgba(11,30,66,.22), inset 0 1px 0 rgba(205,228,255,.25)}
+.ebody{padding:15px 4px 2px; display:flex; flex-direction:column; flex:1}
+.ebody .enm{font-weight:800; font-size:17px; color:var(--navy); line-height:1.25}
+.ebody .ecd{font-size:12.5px; font-weight:700; color:var(--mut); letter-spacing:.03em; margin-top:2px}
+.estand{font-size:13.5px; font-weight:600; color:var(--mut); margin-top:9px; margin-bottom:16px}
+.estand b{color:var(--navy); font-weight:800}
+.ebtn{width:100%; margin-top:auto}
+.eqlink{align-self:center; margin-top:13px; font-size:14.5px}
+.miss-card{max-width:880px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:26px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden}
+.miss-body{padding:26px 30px; display:flex; gap:26px; align-items:center}
+.miss-txt{flex:1; min-width:0}
+.miss-txt h3{font-size:22px; font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:6px}
+.miss-txt p{font-size:15.5px; color:var(--mut)}
+.miss-txt p b{color:var(--navy)}
+@media(max-width:760px){
+  .room-title{padding-top:40px}
+  .ecard .cover{font-size:8.6px}
+  .miss-body{flex-direction:column; align-items:stretch; padding:22px}
+  .miss-body .btn{width:100%}
+}
+
+/* ============================================================
+   Visual pass — Cori's notes, 2026-11-18 (after his signed-in
+   open of the wired preview):
+   1. "Watch the book" is the SAME button as "Take the final
+      exam" — the two doors of one product, equal weight.
+   2. "The overall visuals still feel a little flat, busy, not
+      good enough" — the cure is hierarchy and rhythm, executed
+      harder with the landing's own kit. No new art direction.
+   This sheet loads AFTER the mock's stylesheet and changes
+   presentation only: no copy, no data, no destinations.
+   ============================================================ */
+
+/* ---- The paired doors: book + exam, one treatment ---- */
+.pair{display:flex; gap:14px}
+.pair .btn{flex:1 1 0; min-width:0}
+@media(max-width:640px){
+  .pair{flex-direction:column}
+  .pair .btn{width:100%}
+}
+/* The pair inside a practice card: stacked, both full width —
+   the card is too narrow for side-by-side, and stacked keeps
+   the two doors exactly equal. */
+.epair{display:flex; flex-direction:column; gap:10px; margin-top:auto}
+.epair .btn{width:100%; margin-top:0}
+
+/* ---- Rhythm: navy bands break the cream card-soup ----
+   The landing alternates cream and navy sections; the wired
+   pages now do the same, so a section change is visible at a
+   glance while scrolling. */
+.band-navy{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 55%,#0a1a38 100%)}
+.band-navy .kicker{color:var(--gold)}
+.band-navy h2.sec{color:#fff}
+.band-navy p.lead{color:#c9d8f2}
+/* Cards on a navy band need no thin border — depth comes from
+   the landing's full shadow instead. */
+.band-navy .tcard{border-color:transparent; box-shadow:var(--shadow-lg)}
+.band-navy .xcard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.35), var(--shadow-lg)}
+.band-navy .trail-link .tlink{color:#7ee7f7; text-decoration-color:rgba(126,231,247,.45)}
+
+/* ---- The Practice room is a navy room ----
+   One strong field for the room's one job; the cards sit on it
+   as cream objects with real depth, covers carrying the art. */
+.room-title{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 60%,#0d2450 100%); padding-bottom:58px}
+.room-title .kicker{color:var(--gold)}
+.room-title h2.sec{color:#fff}
+.room-title p.lead{color:#c9d8f2}
+.room-title .ecard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.45), var(--shadow-lg)}
+
+/* ---- Covers are the art: bigger, less text around them ---- */
+.ecard{padding:18px}
+.ecard .cover{font-size:9.2px; border-radius:12px}
+.ebody{padding:16px 4px 2px}
+.ebody .enm{font-size:18px}
+.xcard{padding:16px}
+.xcard .cover{font-size:7.6px}
+.xbody{padding:12px 4px 2px}
+/* Three-line-title covers (covers.TIGHT, measured) take one
+   size step down so their masthead never crosses the frame. */
+.cont-art .cover.cov-tight{font-size:8px}
+.xcard .cover.cov-tight{font-size:6.9px}
+
+/* ---- Air: more space between groups ---- */
+.tgrid{gap:20px}
+.shelf-grid{gap:20px}
+.pgrid{gap:22px}
+.tcard{padding:30px 28px}
+
+/* ---- Depth at full strength on the primary elements ---- */
+.door{box-shadow:0 5px 0 var(--line), var(--shadow-lg)}
+
+@media(min-width:761px){
+  section.block{padding:64px 0}
+  .cont-body{padding:36px}
+  .cont-art{width:250px}
+  .cont-art .cover{font-size:11px}
+  .cont-main h3{font-size:26px}
+  .rc-body{padding:28px 30px 24px}
+}
+@media(max-width:760px){
+  .ecard .cover{font-size:10.6px}
+  .ecard .cover.cov-tight{font-size:9.4px}
+  /* 4.6px, not larger: at phone card widths a two-line cover
+     title makes the cover's em-scaled content taller than its
+     4:3 box, and the masthead crosses the cover's frame —
+     measured on the CKA/GCP shelf covers at 5.6px. */
+  .xcard .cover{font-size:4.6px}
+  .xcard .cover.cov-tight{font-size:4px}
+  .cont-art .cover.cov-tight{font-size:6.4px}
+  .cont-art{width:200px}
+  .cont-art .cover{font-size:8.6px}
+  .room-title{padding-bottom:46px}
+}
+
+html.bb-pending main{visibility:hidden}
+</style>
+</head>
+<body>
+
+<!-- ===== Room header — slim, with the way back home ===== -->
+<nav class="nav">
+  <div class="wrap nav-inner nav-in">
+    <a class="brand" href="https://bytebarhq.com/home/"><span class="mark">B</span>BYTEBAR</a>
+    <div class="nav-right">
+      <a class="tlink" href="https://bytebarhq.com/home/"><span class="arr">←</span> Home</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ===== The room's one job: pick an exam ===== -->
+  <section class="block room-title">
+    <div class="wrap">
+      <div class="kicker reveal">Practice</div>
+      <h2 class="sec reveal">Pick your exam.</h2>
+      <p class="lead reveal" id="room-lead">All 29 exams are yours. Tap one and you&rsquo;re in — timed, scored, just like test day.</p>
+      <div id="buydoor-slot"></div>
+      <div class="pgrid">
+        <div class="ecard reveal" style="--acc:#0EA5E9" data-slug="az900">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=az900" aria-label="Azure Fundamentals AZ-900 — take the final exam">
+            <div class="cover" style="--acc:#0EA5E9"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-900</div><div class="cov-title">Azure Fundamentals</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Azure Fundamentals</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az900">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-az900.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=az900&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#38BDF8" data-slug="az104">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=az104" aria-label="Azure Administrator AZ-104 — take the final exam">
+            <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div><div class="cov-title">Azure Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Azure Administrator</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-az104.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=az104&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FF9900" data-slug="saa_c03">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03" aria-label="AWS Solutions Architect SAA-C03 — take the final exam">
+            <div class="cover" style="--acc:#FF9900"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div><div class="cov-title">Solutions Architect</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">AWS Solutions Architect</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-saac03.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#EA580C" data-slug="sap_c03">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03" aria-label="AWS Certified Solutions Architect – Professional SAP-C03 — take the final exam">
+            <div class="cover" style="--acc:#EA580C"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SAP-C03</div><div class="cov-title">Solutions Architect Pro</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">AWS Certified Solutions Architect – Professional</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-sapc03.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F472B6" data-slug="cysa_cs0_004">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004" aria-label="CompTIA CySA+ CS0-004 — take the final exam">
+            <div class="cover" style="--acc:#F472B6"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CS0-004</div><div class="cov-title">CySA+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA CySA+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cysa.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FBBF24" data-slug="linuxplus_xk0_006">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006" aria-label="CompTIA Linux+ XK0-006 — take the final exam">
+            <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div><div class="cov-title">Linux+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA Linux+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-linuxplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F43F5E" data-slug="cka">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cka" aria-label="Certified Kubernetes Admin CNCF — take the final exam">
+            <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Certified Kubernetes Admin</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cka.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cka&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FACC15" data-slug="ckad">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad" aria-label="K8s App Developer CNCF — take the final exam">
+            <div class="cover" style="--acc:#FACC15"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Developer</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">K8s App Developer</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ckad.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#2DD4BF" data-slug="dca">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=dca" aria-label="Docker Certified Associate DCA — take the final exam">
+            <div class="cover" style="--acc:#2DD4BF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">DCA</div><div class="cov-title">Docker Associate</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Docker Certified Associate</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=dca">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-dca.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=dca&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#7B42BC" data-slug="terraform_004">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004" aria-label="HashiCorp Terraform Associate 004 — take the final exam">
+            <div class="cover" style="--acc:#7B42BC"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">004</div><div class="cov-title">Terraform</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">HashiCorp Terraform Associate</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-terraform.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#A78BFA" data-slug="cloudplus_cv0_004">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004" aria-label="CompTIA Cloud+ CV0-004 — take the final exam">
+            <div class="cover" style="--acc:#A78BFA"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CV0-004</div><div class="cov-title">Cloud+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA Cloud+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cloudplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#34D399" data-slug="gcp_ace">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace" aria-label="GCP Associate Engineer GCP-ACE — take the final exam">
+            <div class="cover cov-tight" style="--acc:#34D399"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">GCP-ACE</div><div class="cov-title">Associate Cloud Engineer</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">GCP Associate Engineer</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-gcpace.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#60A5FA" data-slug="itil4">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4" aria-label="ITIL 4 Foundation ITIL-4 — take the final exam">
+            <div class="cover" style="--acc:#60A5FA"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ITIL-4</div><div class="cov-title">ITIL 4 Foundation</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">ITIL 4 Foundation</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-itil4.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F472B6" data-slug="nclex_rn">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn" aria-label="NCLEX-RN NCLEX-RN — take the final exam">
+            <div class="cover" style="--acc:#F472B6"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">NCLEX-RN</div><div class="cov-title">NCLEX-RN</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">NCLEX-RN</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-nclexrn.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FB7185" data-slug="nclex_pn">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn" aria-label="NCLEX-PN NCLEX-PN — take the final exam">
+            <div class="cover" style="--acc:#FB7185"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">NCLEX-PN</div><div class="cov-title">NCLEX-PN</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">NCLEX-PN</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-nclexpn.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#38BDF8" data-slug="teas7">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7" aria-label="TEAS 7 TEAS 7 — take the final exam">
+            <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">TEAS 7</div><div class="cov-title">TEAS 7</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">TEAS 7</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-teas7.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#818CF8" data-slug="hesi_a2">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2" aria-label="HESI A2 HESI A2 — take the final exam">
+            <div class="cover" style="--acc:#818CF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">HESI A2</div><div class="cov-title">HESI A2</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">HESI A2</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-hesia2.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#3896FF" data-slug="secplus_sy0_701">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701" aria-label="CompTIA Security+ SY0-701 — take the final exam">
+            <div class="cover" style="--acc:#3896FF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div><div class="cov-title">Security+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA Security+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-secplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#2DD4BF" data-slug="netplus_n10_009">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009" aria-label="CompTIA Network+ N10-009 — take the final exam">
+            <div class="cover" style="--acc:#2DD4BF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">N10-009</div><div class="cov-title">Network+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA Network+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-networkplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F59E0B" data-slug="aplus_220_1101">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101" aria-label="CompTIA A+ Core 1 220-1101 — take the final exam">
+            <div class="cover" style="--acc:#F59E0B"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">220-1101</div><div class="cov-title">A+ Core 1</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA A+ Core 1</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F59E0B" data-slug="aplus_220_1102">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102" aria-label="CompTIA A+ Core 2 220-1102 — take the final exam">
+            <div class="cover" style="--acc:#F59E0B"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">220-1102</div><div class="cov-title">A+ Core 2</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA A+ Core 2</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#1BA0D7" data-slug="ccna_200_301">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301" aria-label="Cisco CCNA 200-301 — take the final exam">
+            <div class="cover" style="--acc:#1BA0D7"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">200-301</div><div class="cov-title">CCNA</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Cisco CCNA</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ccna.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#EF4444" data-slug="pentest_pt0_003">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003" aria-label="CompTIA PenTest+ PT0-003 — take the final exam">
+            <div class="cover" style="--acc:#EF4444"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">PT0-003</div><div class="cov-title">PenTest+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CompTIA PenTest+</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-pentestplus.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F5B544" data-slug="cissp">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp" aria-label="ISC2 CISSP ISC2 — take the final exam">
+            <div class="cover" style="--acc:#F5B544"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CISSP</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">ISC2 CISSP</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cissp.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#D946EF" data-slug="ccsp">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp" aria-label="ISC2 CCSP ISC2 — take the final exam">
+            <div class="cover" style="--acc:#D946EF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CCSP</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">ISC2 CCSP</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ccsp.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#22C55E" data-slug="isc2_cc">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc" aria-label="ISC2 Certified in Cybersecurity ISC2 — take the final exam">
+            <div class="cover" style="--acc:#22C55E"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">Certified in Cybersecurity</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">ISC2 Certified in Cybersecurity</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-isc2cc.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FF9900" data-slug="aif_c01">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01" aria-label="AWS AI Practitioner AIF-C01 — take the final exam">
+            <div class="cover" style="--acc:#FF9900"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AIF-C01</div><div class="cov-title">AI Practitioner</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">AWS AI Practitioner</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aifc01.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#0891B2" data-slug="clf_c02">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02" aria-label="AWS Cloud Practitioner CLF-C02 — take the final exam">
+            <div class="cover" style="--acc:#0891B2"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CLF-C02</div><div class="cov-title">Cloud Practitioner</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">AWS Cloud Practitioner</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-clfc02.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02&practice=1">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#EE0000" data-slug="rhcsa_ex200">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200" aria-label="Red Hat RHCSA EX200 — take the final exam">
+            <div class="cover" style="--acc:#EE0000"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">EX200</div><div class="cov-title">RHCSA</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Red Hat RHCSA</div>
+            <div class="estand">One moment…</div>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-rhcsa.html">Watch the book</a>
+            </div>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200&practice=1">Quick practice</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Your saved misses — a doing thing, kept in the room ===== -->
+  <section class="block" id="misses-slot" style="padding-top:6px">
+    <div class="wrap">
+      <div class="miss-card reveal">
+        <div class="cont-head"><span class="qt">YOUR SAVED MISSES</span><span class="qs">Review deck</span></div>
+        <div class="miss-body">
+          <div class="miss-txt">
+            <h3>Clear the deck.</h3>
+            <p id="miss-copy">Every question you&rsquo;ve missed lives in one deck in the Simulator — beat each one twice to clear it, and they stop costing you points.</p>
+          </div>
+          <a class="btn btn-gold btn-lg" id="miss-link" href="https://sim.bytebarhq.com/sim-preview/">Review misses</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Footer — the landing's own ===== -->
+<footer>
+  <div class="wrap">
+    <div class="fin">
+      <div>
+        <div class="fbrand">BYTEBAR</div>
+        <p>Video books and practice exams for IT &amp; nursing certifications. Learn it. Prove it. Pass it.</p>
+      </div>
+      <nav class="flinks">
+        <a href="https://bytebarhq.com/home/">Home</a>
+        <a href="https://bytebarhq.com/library/">Library</a>
+        <a href="https://bytebarhq.com/terms">Terms</a>
+        <a href="https://bytebarhq.com/refund-policy">Refund Policy</a>
+      </nav>
+    </div>
+    <div class="copy"><span>© 2026 ByteBar</span><span>Start here. Pass with ByteBar.</span></div>
+  </div>
+</footer>
+
+<script>
+/* Reveal on scroll — the landing's own pattern */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* ============================================================
+   The Practice room — wired. The room's one job is picking an
+   exam: the grid is the Simulator's real exam registry (all 29,
+   injected verbatim at build time) and each card's standing is
+   the account's real last score from quiz_attempts — the same
+   table the Simulator reads. No greeting, no goal, no streak:
+   those live on the one home.
+   The saved-misses card: the deck itself lives in the
+   Simulator, but since the one-home promote (2026-11-19, P4)
+   the Simulator syncs a per-exam count summary in
+   profiles.data, so the card carries the real waiting count
+   and the ~1 min/question estimate and deep-links the deck
+   (?deck=). Before an account's first sync the card makes no
+   number claim — it is a door, and the Simulator shows the
+   real deck the moment you land.
+   ============================================================ */
+"use strict";
+const EXAMS = [{"slug": "az900", "name": "Azure Fundamentals", "code": "AZ-900", "tagline": "Cloud concepts & Azure services", "accent": "#0ea5e9", "domains": ["Domain 1: Describe cloud concepts", "Domain 2: Describe Azure architecture and services", "Domain 3: Describe Azure management and governance"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "az104", "name": "Azure Administrator", "code": "AZ-104", "tagline": "Azure identity, governance & compute", "accent": "#0ea5e9", "domains": ["Domain 1: Manage identities and governance in Azure", "Domain 2: Implement and manage storage", "Domain 3: Deploy and manage Azure compute resources", "Domain 4: Implement and manage virtual networking", "Domain 5: Monitor and maintain Azure resources"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "saa_c03", "name": "AWS Solutions Architect", "code": "SAA-C03", "tagline": "Resilient, secure cloud architectures", "accent": "#fb923c", "domains": ["Domain 1: Design Resilient Architectures", "Domain 2: Design High-Performing Architectures", "Domain 3: Design Secure Architectures", "Domain 4: Design Cost-Optimized Architectures"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "sap_c03", "name": "AWS Certified Solutions Architect \u2013 Professional", "code": "SAP-C03", "tagline": "Advanced, complex cloud architectures", "accent": "#ea580c", "domains": ["Domain 1: Architecture Design and Implementation Built for the Cloud", "Domain 2: Security, Compliance, and Governance", "Domain 3: Cost-Optimized Architecture Design", "Domain 4: Resilience, Migration, and Business Continuity", "Domain 5: Operational Excellence and Automation"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "cysa_cs0_004", "name": "CompTIA CySA+", "code": "CS0-004", "tagline": "Threat detection & incident response", "accent": "#f472b6", "domains": ["Domain 1: Security Operations", "Domain 2: Vulnerability Management", "Domain 3: Incident Response and Management", "Domain 4: Reporting and Communication"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "linuxplus_xk0_006", "name": "CompTIA Linux+", "code": "XK0-006", "tagline": "Linux systems & administration", "accent": "#fbbf24", "domains": ["Domain 1: System Management", "Domain 2: Services and User Management", "Domain 3: Security", "Domain 4: Automation, Orchestration, and Scripting", "Domain 5: Troubleshooting"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "cka", "name": "Certified Kubernetes Admin", "code": "CKA", "tagline": "K8s clusters & workloads", "accent": "#818cf8", "domains": ["Domain 1: Cluster Architecture, Installation & Configuration", "Domain 2: Workloads & Scheduling", "Domain 3: Services & Networking", "Domain 4: Storage", "Domain 5: Troubleshooting"], "cat": "devops", "terminal": true, "badge": ""}, {"slug": "ckad", "name": "K8s App Developer", "code": "CKAD", "tagline": "Cloud-native app design on K8s", "accent": "#facc15", "domains": ["Domain 1: Application Environment, Configuration and Security", "Domain 2: Application Design and Build", "Domain 3: Application Deployment", "Domain 4: Services and Networking", "Domain 5: Application Observability and Maintenance"], "cat": "devops", "terminal": true, "badge": ""}, {"slug": "dca", "name": "Docker Certified Associate", "code": "DCA", "tagline": "Containers, images & orchestration", "accent": "#2dd4bf", "domains": ["Domain 1: Orchestration", "Domain 2: Image Creation, Management, and Registry", "Domain 3: Installation and Configuration", "Domain 4: Networking", "Domain 5: Security", "Domain 6: Storage and Volumes"], "cat": "devops", "terminal": false, "badge": ""}, {"slug": "terraform_004", "name": "HashiCorp Terraform Associate", "code": "004", "tagline": "IaC workflows & HCL", "accent": "#7B42BC", "domains": ["Domain 1: IaC Concepts", "Domain 2: Terraform Fundamentals", "Domain 3: Core Terraform Workflow", "Domain 4: Terraform Configuration", "Domain 5: Terraform Modules", "Domain 6: Terraform State Management", "Domain 7: Maintain Infrastructure", "Domain 8: HCP Terraform"], "cat": "devops", "terminal": false, "badge": ""}, {"slug": "cloudplus_cv0_004", "name": "CompTIA Cloud+", "code": "CV0-004", "tagline": "Cloud architecture & operations", "accent": "#a78bfa", "domains": ["Domain 1: Cloud Architecture", "Domain 2: Deployment", "Domain 3: Operations", "Domain 4: Security", "Domain 5: DevOps Fundamentals", "Domain 6: Troubleshooting"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "gcp_ace", "name": "GCP Associate Engineer", "code": "GCP-ACE", "tagline": "Deploy & manage on Google Cloud", "accent": "#34d399", "domains": ["Section 1: Setting up a cloud solution environment", "Section 2: Planning and implementing a cloud solution", "Section 3: Ensuring the successful operation of a cloud solution", "Section 4: Configuring access and security"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "itil4", "name": "ITIL 4 Foundation", "code": "ITIL-4", "tagline": "IT service management practices", "accent": "#60a5fa", "domains": ["Guiding principles (7)", "Key concepts", "Practices at a glance (8)", "Practices in detail (7)", "Service value system and dimensions"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "nclex_rn", "name": "NCLEX-RN", "code": "NCLEX-RN", "tagline": "RN licensure \u00b7 adaptive CAT", "accent": "#f472b6", "domains": ["Health Promotion and Maintenance", "Physiological Integrity: Basic Care and Comfort", "Physiological Integrity: Pharmacological and Parenteral Therapies", "Physiological Integrity: Physiological Adaptation", "Physiological Integrity: Reduction of Risk Potential", "Psychosocial Integrity", "Safe and Effective Care: Management of Care", "Safe and Effective Care: Safety and Infection Control"], "cat": "nursing", "terminal": false, "badge": "ADAPTIVE"}, {"slug": "nclex_pn", "name": "NCLEX-PN", "code": "NCLEX-PN", "tagline": "PN licensure \u00b7 adaptive CAT", "accent": "#fb7185", "domains": ["Health Promotion and Maintenance", "Physiological Integrity: Basic Care and Comfort", "Physiological Integrity: Pharmacological Therapies", "Physiological Integrity: Physiological Adaptation", "Physiological Integrity: Reduction of Risk Potential", "Psychosocial Integrity", "Safe and Effective Care: Coordinated Care", "Safe and Effective Care: Safety and Infection Control"], "cat": "nursing", "terminal": false, "badge": "ADAPTIVE"}, {"slug": "teas7", "name": "TEAS 7", "code": "TEAS 7", "tagline": "Nursing school entrance exam", "accent": "#38bdf8", "domains": ["English and Language Usage", "Mathematics", "Reading", "Science"], "cat": "nursing", "terminal": false, "badge": ""}, {"slug": "hesi_a2", "name": "HESI A2", "code": "HESI A2", "tagline": "Nursing admission assessment", "accent": "#818cf8", "domains": ["Anatomy and Physiology", "Biology", "Chemistry", "Grammar", "Mathematics", "Reading Comprehension", "Vocabulary"], "cat": "nursing", "terminal": false, "badge": ""}, {"slug": "secplus_sy0_701", "name": "CompTIA Security+", "code": "SY0-701", "tagline": "Threats, architecture & operations", "accent": "#fb7185", "domains": ["Architecture/Security Design", "Governance/Risk/Compliance", "Implementation", "Operations/Incident Response", "Threats/Vulnerabilities/Mitigations"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "netplus_n10_009", "name": "CompTIA Network+", "code": "N10-009", "tagline": "Networking fundamentals & troubleshooting", "accent": "#38bdf8", "domains": ["Network Implementations", "Network Operations", "Network Security", "Network Troubleshooting", "Networking Fundamentals"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "aplus_220_1101", "name": "CompTIA A+ Core 1", "code": "220-1101", "tagline": "Hardware, networking & troubleshooting", "accent": "#fbbf24", "domains": ["Hardware", "Hardware/Network Troubleshooting", "Mobile Devices", "Networking", "Virtualization/Cloud"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "aplus_220_1102", "name": "CompTIA A+ Core 2", "code": "220-1102", "tagline": "Operating systems, security & procedures", "accent": "#f59e0b", "domains": ["Operating Systems", "Operational Procedures", "Security", "Software Troubleshooting"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "ccna_200_301", "name": "Cisco CCNA", "code": "200-301", "tagline": "Routing, switching & network services", "accent": "#1ba0d7", "domains": ["Domain 1: Network Fundamentals", "Domain 2: Network Access", "Domain 3: IP Connectivity", "Domain 4: IP Services", "Domain 5: Security Fundamentals", "Domain 6: Automation and Programmability"], "cat": "systems", "terminal": false, "badge": ""}, {"slug": "pentest_pt0_003", "name": "CompTIA PenTest+", "code": "PT0-003", "tagline": "Engagement, recon, attacks & post-exploitation", "accent": "#ef4444", "domains": ["Domain 1: Engagement Management", "Domain 2: Reconnaissance and Enumeration", "Domain 3: Vulnerability Discovery and Analysis", "Domain 4: Attacks and Exploits", "Domain 5: Post-exploitation and Lateral Movement"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "cissp", "name": "ISC2 CISSP", "code": "CISSP", "tagline": "Enterprise security, risk & architecture", "accent": "#c084fc", "domains": ["Domain 1: Security and Risk Management", "Domain 2: Asset Security", "Domain 3: Security Architecture and Engineering", "Domain 4: Communication and Network Security", "Domain 5: Identity and Access Management (IAM)", "Domain 6: Security Assessment and Testing", "Domain 7: Security Operations", "Domain 8: Software Development Security"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "ccsp", "name": "ISC2 CCSP", "code": "CCSP", "tagline": "Cloud security architecture & operations", "accent": "#d946ef", "domains": ["Domain 1: Cloud Concepts, Architecture and Design", "Domain 2: Cloud Data Security", "Domain 3: Cloud Platform & Infrastructure Security", "Domain 4: Cloud Application Security", "Domain 5: Cloud Security Operations", "Domain 6: Legal, Risk and Compliance"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "isc2_cc", "name": "ISC2 Certified in Cybersecurity", "code": "CC", "tagline": "Entry-level cybersecurity fundamentals", "accent": "#22c55e", "domains": ["Domain 1: Security Principles", "Domain 2: Security Governance", "Domain 3: Identity and Access Management (IAM) Concepts", "Domain 4: Networking and Cloud Security Concepts", "Domain 5: Security Operations and Incident Response"], "cat": "security", "terminal": false, "badge": ""}, {"slug": "aif_c01", "name": "AWS AI Practitioner", "code": "AIF-C01", "tagline": "AI, ML & generative AI on AWS", "accent": "#ff9900", "domains": ["Domain 1: Fundamentals of AI and ML", "Domain 2: Fundamentals of Generative AI", "Domain 3: Applications of Foundation Models", "Domain 4: Guidelines for Responsible AI", "Domain 5: Security, Compliance, and Governance for AI Solutions"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "clf_c02", "name": "AWS Cloud Practitioner", "code": "CLF-C02", "tagline": "Cloud concepts, billing & AWS services", "accent": "#0891b2", "domains": ["Domain 1: Cloud Concepts", "Domain 2: Security and Compliance", "Domain 3: Cloud Technology and Services", "Domain 4: Billing, Pricing, and Support"], "cat": "cloud", "terminal": false, "badge": ""}, {"slug": "rhcsa_ex200", "name": "Red Hat RHCSA", "code": "EX200", "tagline": "RHEL 10 system administration", "accent": "#ee0000", "domains": ["Domain 10: Manage Software", "Domain 1: Essential Tools", "Domain 2: Shell Scripting", "Domain 3: Operating Running Systems", "Domain 4: Local Storage", "Domain 5: File Systems", "Domain 6: Deploy, Configure and Maintain Systems", "Domain 7: Basic Networking", "Domain 8: Users and Groups", "Domain 9: Security"], "cat": "systems", "terminal": false, "badge": ""}];
+const COVERS = {"az900": {"code": "AZ-900", "title": "Azure Fundamentals", "accent": "#0EA5E9", "tight": false}, "az104": {"code": "AZ-104", "title": "Azure Administrator", "accent": "#38BDF8", "tight": false}, "saa_c03": {"code": "SAA-C03", "title": "Solutions Architect", "accent": "#FF9900", "tight": false}, "sap_c03": {"code": "SAP-C03", "title": "Solutions Architect Pro", "accent": "#EA580C", "tight": false}, "cysa_cs0_004": {"code": "CS0-004", "title": "CySA+", "accent": "#F472B6", "tight": false}, "linuxplus_xk0_006": {"code": "XK0-006", "title": "Linux+", "accent": "#FBBF24", "tight": false}, "cka": {"code": "CNCF", "title": "Kubernetes Administrator", "accent": "#F43F5E", "tight": false}, "ckad": {"code": "CNCF", "title": "Kubernetes Developer", "accent": "#FACC15", "tight": false}, "dca": {"code": "DCA", "title": "Docker Associate", "accent": "#2DD4BF", "tight": false}, "terraform_004": {"code": "004", "title": "Terraform", "accent": "#7B42BC", "tight": false}, "cloudplus_cv0_004": {"code": "CV0-004", "title": "Cloud+", "accent": "#A78BFA", "tight": false}, "gcp_ace": {"code": "GCP-ACE", "title": "Associate Cloud Engineer", "accent": "#34D399", "tight": true}, "itil4": {"code": "ITIL-4", "title": "ITIL 4 Foundation", "accent": "#60A5FA", "tight": false}, "nclex_rn": {"code": "NCLEX-RN", "title": "NCLEX-RN", "accent": "#F472B6", "tight": false}, "nclex_pn": {"code": "NCLEX-PN", "title": "NCLEX-PN", "accent": "#FB7185", "tight": false}, "teas7": {"code": "TEAS 7", "title": "TEAS 7", "accent": "#38BDF8", "tight": false}, "hesi_a2": {"code": "HESI A2", "title": "HESI A2", "accent": "#818CF8", "tight": false}, "secplus_sy0_701": {"code": "SY0-701", "title": "Security+", "accent": "#3896FF", "tight": false}, "netplus_n10_009": {"code": "N10-009", "title": "Network+", "accent": "#2DD4BF", "tight": false}, "aplus_220_1101": {"code": "220-1101", "title": "A+ Core 1", "accent": "#F59E0B", "tight": false}, "aplus_220_1102": {"code": "220-1102", "title": "A+ Core 2", "accent": "#F59E0B", "tight": false}, "ccna_200_301": {"code": "200-301", "title": "CCNA", "accent": "#1BA0D7", "tight": false}, "pentest_pt0_003": {"code": "PT0-003", "title": "PenTest+", "accent": "#EF4444", "tight": false}, "cissp": {"code": "ISC2", "title": "CISSP", "accent": "#F5B544", "tight": false}, "ccsp": {"code": "ISC2", "title": "CCSP", "accent": "#D946EF", "tight": false}, "isc2_cc": {"code": "ISC2", "title": "Certified in Cybersecurity", "accent": "#22C55E", "tight": false}, "aif_c01": {"code": "AIF-C01", "title": "AI Practitioner", "accent": "#FF9900", "tight": false}, "clf_c02": {"code": "CLF-C02", "title": "Cloud Practitioner", "accent": "#0891B2", "tight": false}, "rhcsa_ex200": {"code": "EX200", "title": "RHCSA", "accent": "#EE0000", "tight": false}};
+const HOME_URL = "https://bytebarhq.com/home/";
+const ROOM_URL = "https://bytebarhq.com/practice/";
+const GET_URL = "https://bytebarhq.com/get";
+const SIM_URL = "https://sim.bytebarhq.com/sim-preview/";
+const simExam = (slug) => SIM_URL + "?exam=" + slug;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g,
+  (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function relDay(ts) {
+  if (!ts) return "";
+  const dayMs = 86400000;
+  const a = new Date(); a.setHours(0, 0, 0, 0);
+  const b = new Date(ts); b.setHours(0, 0, 0, 0);
+  const d = Math.round((a - b) / dayMs);
+  if (d <= 0) return "today";
+  if (d === 1) return "yesterday";
+  if (d < 7) return d + " days ago";
+  if (d < 14) return "last week";
+  if (d < 30) return Math.round(d / 7) + " weeks ago";
+  return new Date(ts).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+function bbAuthStorage() {
+  var CHUNK = 3000, MAXAGE = 34560000, TOMB = "bb-auth-out";
+  function jar() {
+    var o = {};
+    (document.cookie || "").split(";").forEach(function (p) {
+      var i = p.indexOf("="); if (i > 0) o[p.slice(0, i).trim()] = p.slice(i + 1).trim();
+    });
+    return o;
+  }
+  function put(name, value, age) {
+    var s = name + "=" + value + "; Domain=.bytebarhq.com; Path=/; SameSite=Lax; Max-Age=" + age;
+    if (window.location.protocol === "https:") s += "; Secure";
+    document.cookie = s;
+  }
+  function chunked(j, key) {
+    if (j[key + ".0"] === undefined) return null;
+    var v = "", i = 0;
+    while (j[key + "." + i] !== undefined) { v += j[key + "." + i]; i++; }
+    return v;
+  }
+  function clearChunks(key) {
+    put(key, "", 0);
+    for (var i = 0; i < 12; i++) put(key + "." + i, "", 0);
+  }
+  var store = {
+    getItem: function (key) {
+      var j = jar(), v = chunked(j, key);
+      if (v !== null) { try { return decodeURIComponent(v); } catch (e) { return null; } }
+      if (j[key] !== undefined) { try { return decodeURIComponent(j[key]); } catch (e) { return null; } }
+      var ls = null;
+      try { ls = window.localStorage.getItem(key); } catch (e) {}
+      if (ls && j[TOMB] === undefined) { store.setItem(key, ls); return ls; }
+      return null;
+    },
+    setItem: function (key, value) {
+      try { window.localStorage.setItem(key, value); } catch (e) {}
+      put(TOMB, "", 0);
+      clearChunks(key);
+      var enc = encodeURIComponent(value);
+      if (enc.length <= CHUNK) { put(key, enc, MAXAGE); return; }
+      for (var i = 0; i < enc.length; i += CHUNK) put(key + "." + (i / CHUNK), enc.slice(i, i + CHUNK), MAXAGE);
+    },
+    removeItem: function (key) {
+      try { window.localStorage.removeItem(key); } catch (e) {}
+      clearChunks(key);
+      put(TOMB, "1", MAXAGE);
+    }
+  };
+  return store;
+}
+const SB_URL = "https://duutviqszajmmoskvdfy.supabase.co";
+const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dXR2aXFzemFqbW1vc2t2ZGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0MDc2NTUsImV4cCI6MjEwNzk4MzY1NX0.1QN33pm_ncOHxTtY3_NUI1j2BcihogfBVsvf_C2OMO4";
+
+function guestOut() {
+  /* Guests get the Simulator's public front door — the same
+     surface the live site sends them to today. */
+  if (window.location.protocol === "https:") window.location.replace(SIM_URL);
+}
+async function loadAccount() {
+  if (!window.supabase || !window.supabase.createClient) throw new Error("no supabase");
+  const sb = window.supabase.createClient(SB_URL, SB_ANON, { auth: { storage: bbAuthStorage() } });
+  const sess = await sb.auth.getSession();
+  const session = sess && sess.data && sess.data.session;
+  if (!session || !session.user) return null;
+  const uid = session.user.id;
+  const [prof, atts] = await Promise.all([
+    sb.from("profiles").select("pro,data").eq("id", uid).maybeSingle(),
+    sb.from("quiz_attempts").select("exam_slug,pct,completed_at")
+      .eq("user_id", uid).order("completed_at", { ascending: false }).limit(60),
+  ]);
+  if (prof.error) throw prof.error;
+  const lastBySlug = {};
+  (atts.data || []).forEach((a) => {
+    if (!lastBySlug[a.exam_slug]) {
+      lastBySlug[a.exam_slug] = { pct: +a.pct, d: Date.parse(a.completed_at) };
+    }
+  });
+  const pd = (prof.data && prof.data.data) || {};
+  return { pro: !!(prof.data && prof.data.pro), lastBySlug, attempts: (atts.data || []).length,
+           misses: pd.misses || null };
+}
+
+function render(state, acct) {
+  document.querySelectorAll(".ecard").forEach((card) => {
+    const slug = card.getAttribute("data-slug");
+    const st = acct.lastBySlug[slug];
+    const el = card.querySelector(".estand");
+    if (el) el.innerHTML = st
+      ? 'Last score <b>' + Math.round(st.pct) + '%</b> · ' + relDay(st.d)
+      : "Not started yet";
+  });
+  const lead = $("room-lead");
+  if (lead) lead.textContent = state === "owner"
+    ? "All 29 exams are yours. Tap one and you're in — timed, scored, just like test day."
+    : "Every exam starts with 10 free questions. Tap one and you're in — timed, scored, just like test day.";
+  if (state === "free") {
+    $("buydoor-slot").innerHTML =
+      '<div class="cont-card reveal in" style="border-color:var(--gold-d);box-shadow:0 8px 0 var(--gold-d), var(--shadow-lg);margin-bottom:26px">' +
+      '<div class="cont-head" style="background:linear-gradient(180deg,#ffc53d,var(--gold));color:#3a2a00"><span class="qt">BYTEBAR COMPLETE</span><span class="qs" style="color:#7a5a10">$9.99 · one time</span></div>' +
+      '<div class="miss-body"><div class="miss-txt"><h3>Every exam, fully unlocked.</h3>' +
+      '<p>All 29 practice exams and every video book — 1,000 questions per exam, readiness scores, your saved misses and weekly challenges. One payment, no subscription.</p></div>' +
+      '<a class="btn btn-gold btn-lg" href="' + GET_URL + '">Get ByteBar Complete</a></div></div>';
+  }
+  /* The misses deck exists only once the account has practiced;
+     with no attempts there is nothing saved, so the card steps
+     aside instead of pointing at an empty deck. With the synced
+     summary (P4) the card carries the real count + estimate and
+     deep-links the deck; a known-empty deck steps aside too. */
+  const ms = $("misses-slot");
+  const m = acct.misses;
+  if (m && m.total > 0 && m.last && EXAMS.some((e) => e.slug === m.last)) {
+    const link = $("miss-link");
+    if (link) link.setAttribute("href", SIM_URL + "?deck=" + m.last);
+    const copy = $("miss-copy");
+    if (copy) copy.innerHTML = "<b>" + m.total + " question" + (m.total === 1 ? "" : "s") +
+      " waiting</b> — about " + m.total + " min to work through. Every question you&rsquo;ve missed lives in one deck in the Simulator — beat each one twice to clear it, and they stop costing you points.";
+  } else if ((m && m.total === 0) || !acct.attempts) {
+    if (ms) ms.style.display = "none";
+  }
+  document.documentElement.classList.remove("bb-pending");
+  window.__bbResolved = true;
+}
+function renderFallback() {
+  if (window.__bbResolved) return;
+  window.__bbResolved = true;
+  document.querySelectorAll(".estand").forEach((el) => { el.textContent = "Your standing loads in the Simulator."; });
+  document.documentElement.classList.remove("bb-pending");
+}
+
+(function boot() {
+  const failsafe = setTimeout(renderFallback, 6000);
+  loadAccount().then((acct) => {
+    clearTimeout(failsafe);
+    if (!acct) { guestOut(); renderFallback(); return; }
+    render(acct.pro ? "owner" : "free", acct);
+  }).catch(() => { clearTimeout(failsafe); renderFallback(); });
+})();
+
+</script>
+</body>
+</html>

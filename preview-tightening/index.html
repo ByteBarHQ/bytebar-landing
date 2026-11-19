@@ -61,6 +61,12 @@ html.bb-pending #pricing,
 html.bb-pending .price-card,
 html.bb-pending #stickybuy,
 html.bb-pending a.nl[href="https://sim.bytebarhq.com/sim-preview/?profile=1"]{visibility:hidden}
+/* One home (2026-11-19): while a stored session resolves, hold the
+   whole page — a signed-in visitor is about to be routed to the
+   home, so the storefront must not flash first. Guests (no stored
+   session) never carry the mark and are untouched; the guard's
+   2500ms safety timeout clears the hold unconditionally. */
+html.bb-pending body{visibility:hidden}
 </style>
 <style>
 /* ============ Tokens ============ */
@@ -993,6 +999,15 @@ function bbAuthStorage() {
   sb.auth.getSession().then(function (r) {
     var s = r && r.data && r.data.session;
     if (!s || !s.user) return null;
+    /* One home (Cori 2026-11-18, promoted 2026-11-19): a valid
+       session belongs on the signed-in home, which renders the
+       free and owner variants itself. The page navigates away
+       here, so the owner-state swap below never gets to paint
+       for signed-in visitors; it stays in the file untouched —
+       removing this replace restores the pre-home behavior.
+       Guests never reach this line and keep the storefront
+       exactly as before. */
+    window.location.replace("https://bytebarhq.com/home/");
     return sb.from("profiles").select("pro").eq("id", s.user.id).maybeSingle();
   }).then(function (r) {
     if (!r || !r.data || !r.data.pro) { document.documentElement.classList.remove("bb-pending"); return; }
