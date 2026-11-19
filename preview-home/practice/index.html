@@ -368,6 +368,88 @@ footer{border-top:1px solid var(--line); padding:44px 0 30px; margin-top:12px}
   .miss-body .btn{width:100%}
 }
 
+/* ============================================================
+   Visual pass — Cori's notes, 2026-11-18 (after his signed-in
+   open of the wired preview):
+   1. "Watch the book" is the SAME button as "Take the final
+      exam" — the two doors of one product, equal weight.
+   2. "The overall visuals still feel a little flat, busy, not
+      good enough" — the cure is hierarchy and rhythm, executed
+      harder with the landing's own kit. No new art direction.
+   This sheet loads AFTER the mock's stylesheet and changes
+   presentation only: no copy, no data, no destinations.
+   ============================================================ */
+
+/* ---- The paired doors: book + exam, one treatment ---- */
+.pair{display:flex; gap:14px}
+.pair .btn{flex:1 1 0; min-width:0}
+@media(max-width:640px){
+  .pair{flex-direction:column}
+  .pair .btn{width:100%}
+}
+/* The pair inside a practice card: stacked, both full width —
+   the card is too narrow for side-by-side, and stacked keeps
+   the two doors exactly equal. */
+.epair{display:flex; flex-direction:column; gap:10px; margin-top:auto}
+.epair .btn{width:100%; margin-top:0}
+
+/* ---- Rhythm: navy bands break the cream card-soup ----
+   The landing alternates cream and navy sections; the wired
+   pages now do the same, so a section change is visible at a
+   glance while scrolling. */
+.band-navy{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 55%,#0a1a38 100%)}
+.band-navy .kicker{color:var(--gold)}
+.band-navy h2.sec{color:#fff}
+.band-navy p.lead{color:#c9d8f2}
+/* Cards on a navy band need no thin border — depth comes from
+   the landing's full shadow instead. */
+.band-navy .tcard{border-color:transparent; box-shadow:var(--shadow-lg)}
+.band-navy .xcard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.35), var(--shadow-lg)}
+.band-navy .trail-link .tlink{color:#7ee7f7; text-decoration-color:rgba(126,231,247,.45)}
+
+/* ---- The Practice room is a navy room ----
+   One strong field for the room's one job; the cards sit on it
+   as cream objects with real depth, covers carrying the art. */
+.room-title{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 60%,#0d2450 100%); padding-bottom:58px}
+.room-title .kicker{color:var(--gold)}
+.room-title h2.sec{color:#fff}
+.room-title p.lead{color:#c9d8f2}
+.room-title .ecard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.45), var(--shadow-lg)}
+
+/* ---- Covers are the art: bigger, less text around them ---- */
+.ecard{padding:18px}
+.ecard .cover{font-size:9.2px; border-radius:12px}
+.ebody{padding:16px 4px 2px}
+.ebody .enm{font-size:18px}
+.xcard{padding:16px}
+.xcard .cover{font-size:7.6px}
+.xbody{padding:12px 4px 2px}
+
+/* ---- Air: more space between groups ---- */
+.tgrid{gap:20px}
+.shelf-grid{gap:20px}
+.pgrid{gap:22px}
+.tcard{padding:30px 28px}
+
+/* ---- Depth at full strength on the primary elements ---- */
+.door{box-shadow:0 5px 0 var(--line), var(--shadow-lg)}
+
+@media(min-width:761px){
+  section.block{padding:64px 0}
+  .cont-body{padding:36px}
+  .cont-art{width:250px}
+  .cont-art .cover{font-size:11px}
+  .cont-main h3{font-size:26px}
+  .rc-body{padding:28px 30px 24px}
+}
+@media(max-width:760px){
+  .ecard .cover{font-size:10.6px}
+  .xcard .cover{font-size:5.6px}
+  .cont-art{width:200px}
+  .cont-art .cover{font-size:8.6px}
+  .room-title{padding-bottom:46px}
+}
+
 html.bb-pending main{visibility:hidden}
 </style>
 </head>
@@ -397,9 +479,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#0EA5E9"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-900</div><div class="cov-title">Azure Fundamentals</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Azure Fundamentals</div><div class="ecd">AZ-900</div>
+            <div class="enm">Azure Fundamentals</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az900">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az900">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-az900.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=az900">Quick practice</a>
           </div>
         </div>
@@ -408,9 +493,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div><div class="cov-title">Azure Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Azure Administrator</div><div class="ecd">AZ-104</div>
+            <div class="enm">Azure Administrator</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-az104.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Quick practice</a>
           </div>
         </div>
@@ -419,9 +507,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#FF9900"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div><div class="cov-title">Solutions Architect</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">AWS Solutions Architect</div><div class="ecd">SAA-C03</div>
+            <div class="enm">AWS Solutions Architect</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-saac03.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Quick practice</a>
           </div>
         </div>
@@ -430,9 +521,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#EA580C"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SAP-C03</div><div class="cov-title">Solutions Architect Pro</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">AWS Certified Solutions Architect – Professional</div><div class="ecd">SAP-C03</div>
+            <div class="enm">AWS Certified Solutions Architect – Professional</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-sapc03.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=sap_c03">Quick practice</a>
           </div>
         </div>
@@ -441,9 +535,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F472B6"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CS0-004</div><div class="cov-title">CySA+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA CySA+</div><div class="ecd">CS0-004</div>
+            <div class="enm">CompTIA CySA+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cysa.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cysa_cs0_004">Quick practice</a>
           </div>
         </div>
@@ -452,9 +549,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div><div class="cov-title">Linux+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA Linux+</div><div class="ecd">XK0-006</div>
+            <div class="enm">CompTIA Linux+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-linuxplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Quick practice</a>
           </div>
         </div>
@@ -463,9 +563,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Certified Kubernetes Admin</div><div class="ecd">CNCF</div>
+            <div class="enm">Certified Kubernetes Admin</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cka.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Quick practice</a>
           </div>
         </div>
@@ -474,9 +577,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#FACC15"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Developer</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">K8s App Developer</div><div class="ecd">CNCF</div>
+            <div class="enm">K8s App Developer</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ckad.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ckad">Quick practice</a>
           </div>
         </div>
@@ -485,9 +591,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#2DD4BF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">DCA</div><div class="cov-title">Docker Associate</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Docker Certified Associate</div><div class="ecd">DCA</div>
+            <div class="enm">Docker Certified Associate</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=dca">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=dca">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-dca.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=dca">Quick practice</a>
           </div>
         </div>
@@ -496,9 +605,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#7B42BC"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">004</div><div class="cov-title">Terraform</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">HashiCorp Terraform Associate</div><div class="ecd">004</div>
+            <div class="enm">HashiCorp Terraform Associate</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-terraform.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=terraform_004">Quick practice</a>
           </div>
         </div>
@@ -507,9 +619,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#A78BFA"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CV0-004</div><div class="cov-title">Cloud+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA Cloud+</div><div class="ecd">CV0-004</div>
+            <div class="enm">CompTIA Cloud+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cloudplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cloudplus_cv0_004">Quick practice</a>
           </div>
         </div>
@@ -518,9 +633,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#34D399"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">GCP-ACE</div><div class="cov-title">Associate Cloud Engineer</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">GCP Associate Engineer</div><div class="ecd">GCP-ACE</div>
+            <div class="enm">GCP Associate Engineer</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-gcpace.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=gcp_ace">Quick practice</a>
           </div>
         </div>
@@ -529,9 +647,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#60A5FA"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ITIL-4</div><div class="cov-title">ITIL 4 Foundation</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">ITIL 4 Foundation</div><div class="ecd">ITIL-4</div>
+            <div class="enm">ITIL 4 Foundation</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-itil4.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=itil4">Quick practice</a>
           </div>
         </div>
@@ -540,9 +661,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F472B6"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">NCLEX-RN</div><div class="cov-title">NCLEX-RN</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">NCLEX-RN</div><div class="ecd">NCLEX-RN</div>
+            <div class="enm">NCLEX-RN</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-nclexrn.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_rn">Quick practice</a>
           </div>
         </div>
@@ -551,9 +675,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#FB7185"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">NCLEX-PN</div><div class="cov-title">NCLEX-PN</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">NCLEX-PN</div><div class="ecd">NCLEX-PN</div>
+            <div class="enm">NCLEX-PN</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-nclexpn.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=nclex_pn">Quick practice</a>
           </div>
         </div>
@@ -562,9 +689,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">TEAS 7</div><div class="cov-title">TEAS 7</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">TEAS 7</div><div class="ecd">TEAS 7</div>
+            <div class="enm">TEAS 7</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-teas7.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=teas7">Quick practice</a>
           </div>
         </div>
@@ -573,9 +703,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#818CF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">HESI A2</div><div class="cov-title">HESI A2</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">HESI A2</div><div class="ecd">HESI A2</div>
+            <div class="enm">HESI A2</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-hesia2.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2">Quick practice</a>
           </div>
         </div>
@@ -584,9 +717,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#3896FF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div><div class="cov-title">Security+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA Security+</div><div class="ecd">SY0-701</div>
+            <div class="enm">CompTIA Security+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-secplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Quick practice</a>
           </div>
         </div>
@@ -595,9 +731,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#2DD4BF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">N10-009</div><div class="cov-title">Network+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA Network+</div><div class="ecd">N10-009</div>
+            <div class="enm">CompTIA Network+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-networkplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Quick practice</a>
           </div>
         </div>
@@ -606,9 +745,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F59E0B"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">220-1101</div><div class="cov-title">A+ Core 1</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA A+ Core 1</div><div class="ecd">220-1101</div>
+            <div class="enm">CompTIA A+ Core 1</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Quick practice</a>
           </div>
         </div>
@@ -617,9 +759,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F59E0B"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">220-1102</div><div class="cov-title">A+ Core 2</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA A+ Core 2</div><div class="ecd">220-1102</div>
+            <div class="enm">CompTIA A+ Core 2</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1102">Quick practice</a>
           </div>
         </div>
@@ -628,9 +773,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#1BA0D7"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">200-301</div><div class="cov-title">CCNA</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Cisco CCNA</div><div class="ecd">200-301</div>
+            <div class="enm">Cisco CCNA</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ccna.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Quick practice</a>
           </div>
         </div>
@@ -639,9 +787,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#EF4444"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">PT0-003</div><div class="cov-title">PenTest+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">CompTIA PenTest+</div><div class="ecd">PT0-003</div>
+            <div class="enm">CompTIA PenTest+</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-pentestplus.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=pentest_pt0_003">Quick practice</a>
           </div>
         </div>
@@ -650,9 +801,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#F5B544"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CISSP</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">ISC2 CISSP</div><div class="ecd">ISC2</div>
+            <div class="enm">ISC2 CISSP</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-cissp.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Quick practice</a>
           </div>
         </div>
@@ -661,9 +815,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#D946EF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CCSP</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">ISC2 CCSP</div><div class="ecd">ISC2</div>
+            <div class="enm">ISC2 CCSP</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-ccsp.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ccsp">Quick practice</a>
           </div>
         </div>
@@ -672,9 +829,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#22C55E"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">Certified in Cybersecurity</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">ISC2 Certified in Cybersecurity</div><div class="ecd">ISC2</div>
+            <div class="enm">ISC2 Certified in Cybersecurity</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-isc2cc.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=isc2_cc">Quick practice</a>
           </div>
         </div>
@@ -683,9 +843,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#FF9900"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AIF-C01</div><div class="cov-title">AI Practitioner</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">AWS AI Practitioner</div><div class="ecd">AIF-C01</div>
+            <div class="enm">AWS AI Practitioner</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-aifc01.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aif_c01">Quick practice</a>
           </div>
         </div>
@@ -694,9 +857,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#0891B2"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CLF-C02</div><div class="cov-title">Cloud Practitioner</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">AWS Cloud Practitioner</div><div class="ecd">CLF-C02</div>
+            <div class="enm">AWS Cloud Practitioner</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-clfc02.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=clf_c02">Quick practice</a>
           </div>
         </div>
@@ -705,9 +871,12 @@ html.bb-pending main{visibility:hidden}
             <div class="cover" style="--acc:#EE0000"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">EX200</div><div class="cov-title">RHCSA</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
           </a>
           <div class="ebody">
-            <div class="enm">Red Hat RHCSA</div><div class="ecd">EX200</div>
+            <div class="enm">Red Hat RHCSA</div>
             <div class="estand">One moment…</div>
-            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200">Take the final exam</a>
+            <div class="epair">
+              <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200">Take the final exam</a>
+              <a class="btn btn-gold ebtn" href="https://bytebarhq.com/library/book-rhcsa.html">Watch the book</a>
+            </div>
             <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=rhcsa_ex200">Quick practice</a>
           </div>
         </div>

@@ -350,6 +350,88 @@ html.bb-pending main,
 html.bb-pending .pip-bubble,
 html.bb-pending #greet-h1,
 html.bb-pending #hero-def{visibility:hidden}
+/* ============================================================
+   Visual pass — Cori's notes, 2026-11-18 (after his signed-in
+   open of the wired preview):
+   1. "Watch the book" is the SAME button as "Take the final
+      exam" — the two doors of one product, equal weight.
+   2. "The overall visuals still feel a little flat, busy, not
+      good enough" — the cure is hierarchy and rhythm, executed
+      harder with the landing's own kit. No new art direction.
+   This sheet loads AFTER the mock's stylesheet and changes
+   presentation only: no copy, no data, no destinations.
+   ============================================================ */
+
+/* ---- The paired doors: book + exam, one treatment ---- */
+.pair{display:flex; gap:14px}
+.pair .btn{flex:1 1 0; min-width:0}
+@media(max-width:640px){
+  .pair{flex-direction:column}
+  .pair .btn{width:100%}
+}
+/* The pair inside a practice card: stacked, both full width —
+   the card is too narrow for side-by-side, and stacked keeps
+   the two doors exactly equal. */
+.epair{display:flex; flex-direction:column; gap:10px; margin-top:auto}
+.epair .btn{width:100%; margin-top:0}
+
+/* ---- Rhythm: navy bands break the cream card-soup ----
+   The landing alternates cream and navy sections; the wired
+   pages now do the same, so a section change is visible at a
+   glance while scrolling. */
+.band-navy{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 55%,#0a1a38 100%)}
+.band-navy .kicker{color:var(--gold)}
+.band-navy h2.sec{color:#fff}
+.band-navy p.lead{color:#c9d8f2}
+/* Cards on a navy band need no thin border — depth comes from
+   the landing's full shadow instead. */
+.band-navy .tcard{border-color:transparent; box-shadow:var(--shadow-lg)}
+.band-navy .xcard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.35), var(--shadow-lg)}
+.band-navy .trail-link .tlink{color:#7ee7f7; text-decoration-color:rgba(126,231,247,.45)}
+
+/* ---- The Practice room is a navy room ----
+   One strong field for the room's one job; the cards sit on it
+   as cream objects with real depth, covers carrying the art. */
+.room-title{background:linear-gradient(180deg,#0a1a38 0%,var(--navy) 60%,#0d2450 100%); padding-bottom:58px}
+.room-title .kicker{color:var(--gold)}
+.room-title h2.sec{color:#fff}
+.room-title p.lead{color:#c9d8f2}
+.room-title .ecard{border-color:transparent; box-shadow:0 6px 0 rgba(2,8,23,.45), var(--shadow-lg)}
+
+/* ---- Covers are the art: bigger, less text around them ---- */
+.ecard{padding:18px}
+.ecard .cover{font-size:9.2px; border-radius:12px}
+.ebody{padding:16px 4px 2px}
+.ebody .enm{font-size:18px}
+.xcard{padding:16px}
+.xcard .cover{font-size:7.6px}
+.xbody{padding:12px 4px 2px}
+
+/* ---- Air: more space between groups ---- */
+.tgrid{gap:20px}
+.shelf-grid{gap:20px}
+.pgrid{gap:22px}
+.tcard{padding:30px 28px}
+
+/* ---- Depth at full strength on the primary elements ---- */
+.door{box-shadow:0 5px 0 var(--line), var(--shadow-lg)}
+
+@media(min-width:761px){
+  section.block{padding:64px 0}
+  .cont-body{padding:36px}
+  .cont-art{width:250px}
+  .cont-art .cover{font-size:11px}
+  .cont-main h3{font-size:26px}
+  .rc-body{padding:28px 30px 24px}
+}
+@media(max-width:760px){
+  .ecard .cover{font-size:10.6px}
+  .xcard .cover{font-size:5.6px}
+  .cont-art{width:200px}
+  .cont-art .cover{font-size:8.6px}
+  .room-title{padding-bottom:46px}
+}
+
 </style>
 </head>
 <body>
@@ -409,8 +491,8 @@ html.bb-pending #hero-def{visibility:hidden}
     </div>
   </section>
 
-  <!-- ===== Today ===== -->
-  <section class="block" style="padding-top:6px">
+  <!-- ===== Today — on a navy band: the landing's rhythm ===== -->
+  <section class="block band-navy">
     <div class="wrap">
       <div class="kicker reveal">Today</div>
       <h2 class="sec reveal">Small wins, every day.</h2>
@@ -494,8 +576,8 @@ html.bb-pending #hero-def{visibility:hidden}
 
   <div id="buydoor-slot"></div>
 
-  <!-- ===== Your shelf ===== -->
-  <section class="block" style="padding-top:6px">
+  <!-- ===== Your shelf — covers are the art, on a navy band ===== -->
+  <section class="block band-navy">
     <div class="wrap">
       <div class="kicker reveal">Your shelf</div>
       <h2 class="sec reveal">Pick a book, keep moving.</h2>
@@ -505,49 +587,49 @@ html.bb-pending #hero-def{visibility:hidden}
         <a class="xcard reveal" style="--acc:#3896FF" href="https://bytebarhq.com/library/book-secplus.html">
           <div class="cover" style="--acc:#3896FF"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div><div class="cov-title">Security+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">CompTIA Security+</div><div class="ecd">SY0-701</div>
+            <div class="enm">CompTIA Security+</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#38BDF8" href="https://bytebarhq.com/library/book-az104.html">
           <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div><div class="cov-title">Azure Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">Azure Administrator</div><div class="ecd">AZ-104</div>
+            <div class="enm">Azure Administrator</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#FBBF24" href="https://bytebarhq.com/library/book-linuxplus.html">
           <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div><div class="cov-title">Linux+</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">CompTIA Linux+</div><div class="ecd">XK0-006</div>
+            <div class="enm">CompTIA Linux+</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#F5B544" href="https://bytebarhq.com/library/book-cissp.html">
           <div class="cover" style="--acc:#F5B544"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div><div class="cov-title">CISSP</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">ISC2 CISSP</div><div class="ecd">ISC2</div>
+            <div class="enm">ISC2 CISSP</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#F43F5E" href="https://bytebarhq.com/library/book-cka.html">
           <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div><div class="cov-title">Kubernetes Administrator</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">Certified Kubernetes Admin</div><div class="ecd">CNCF</div>
+            <div class="enm">Certified Kubernetes Admin</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#7B42BC" href="https://bytebarhq.com/library/book-terraform.html">
           <div class="cover" style="--acc:#7B42BC"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">004</div><div class="cov-title">Terraform</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">HashiCorp Terraform Associate</div><div class="ecd">004</div>
+            <div class="enm">HashiCorp Terraform Associate</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#FF9900" href="https://bytebarhq.com/library/book-saac03.html">
           <div class="cover" style="--acc:#FF9900"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div><div class="cov-title">Solutions Architect</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">AWS Solutions Architect</div><div class="ecd">SAA-C03</div>
+            <div class="enm">AWS Solutions Architect</div>
           </div>
         </a>
         <a class="xcard reveal" style="--acc:#34D399" href="https://bytebarhq.com/library/book-gcpace.html">
           <div class="cover" style="--acc:#34D399"><span class="sheen"></span><div class="cov-mast">BYTEBAR</div><div class="cov-code">GCP-ACE</div><div class="cov-title">Associate Cloud Engineer</div><div class="cov-type">VIDEO BOOK</div><div class="cov-rule"></div></div>
           <div class="xbody">
-            <div class="enm">GCP Associate Engineer</div><div class="ecd">GCP-ACE</div>
+            <div class="enm">GCP Associate Engineer</div>
           </div>
         </a>
       </div>
@@ -1001,9 +1083,9 @@ function renderContinue(state, r) {
       '<p>' + (state === "owner"
         ? "Every video book and every practice exam is already yours. Start with any book, then prove it in the Simulator."
         : "The first chapter of every book is free, and so are your first 10 practice questions on any exam.") + '</p>' +
-      '<a class="btn btn-primary btn-lg" href="' + LIB_URL + '">' +
+      '<div class="pair"><a class="btn btn-primary btn-lg" href="' + LIB_URL + '">' +
       (state === "owner" ? "Browse your books" : "Watch a first chapter") + '</a>' +
-      '<div style="margin-top:16px"><a class="tlink" href="' + ROOM_URL + '">Pick a practice exam <span class="arr">→</span></a></div>' +
+      '<a class="btn btn-gold btn-lg" href="' + ROOM_URL + '">Pick a practice exam</a></div>' +
       '</div></div>';
     return;
   }
@@ -1035,9 +1117,10 @@ function renderContinue(state, r) {
     '<p>' + esc(lastLine) + (det.weakest
       ? " " + esc(domDisplay(focus.slug, det.weakest.d)) + " is the one to watch." : "") + '</p>' +
     bar + '<div class="chips">' + chips.join("") + '</div>' +
-    '<a class="btn btn-primary btn-lg" href="' + simExam(focus.slug) + '">Take the final exam</a>' +
-    '<div style="margin-top:16px"><a class="tlink" href="' + (BOOKS[focus.slug] || LIB_URL) +
-    '">Watch the ' + esc(exam.name) + ' book <span class="arr">→</span></a></div>' +
+    /* Cori's pairing rule: the book door is the SAME button as
+       the exam door — equal weight, side by side. */
+    '<div class="pair"><a class="btn btn-primary btn-lg" href="' + simExam(focus.slug) + '">Take the final exam</a>' +
+    '<a class="btn btn-gold btn-lg" href="' + (BOOKS[focus.slug] || LIB_URL) + '">Watch the book</a></div>' +
     '</div></div>';
 }
 function ringSVG(frac, size, stroke, color, inner) {
@@ -1215,8 +1298,8 @@ function renderFallback() {
     '<div class="cont-head"><span class="qt">YOUR HOME</span></div>' +
     '<div class="cont-body"><div class="cont-main"><h3>Let\'s get you studying.</h3>' +
     '<p>Watch a book in the Library, or pick a practice exam — both are one tap away.</p>' +
-    '<a class="btn btn-primary btn-lg" href="' + LIB_URL + '">Open the Library</a>' +
-    '<div style="margin-top:16px"><a class="tlink" href="' + ROOM_URL + '">Pick a practice exam <span class="arr">→</span></a></div>' +
+    '<div class="pair"><a class="btn btn-primary btn-lg" href="' + LIB_URL + '">Open the Library</a>' +
+    '<a class="btn btn-gold btn-lg" href="' + ROOM_URL + '">Pick a practice exam</a></div>' +
     '</div></div>';
   document.documentElement.classList.remove("bb-pending");
 }

@@ -12,6 +12,44 @@ Simulator are untouched (checksums in the verification record).
 - Routing demonstrators: /preview-home/retire/root.html and
   /preview-home/retire/sim-root.html (see the route map)
 
+## Cori's notes on the wired preview (2026-11-18) — both applied
+
+Cori opened the wired home signed in, liked it, and gave two
+notes. Both are standing orders, and both are applied in this
+preview (presentation only — data, routing and copy facts are
+exactly as verified below):
+
+1. **"The 'Watch the book' should be same button as take the
+   exam."** Wherever the book door and the exam door appear
+   together, both are now full buttons of identical treatment
+   (the landing's 3D pill family) — side by side where width
+   allows, a stacked equal pair in the practice cards. The
+   quiet text link under the exam button is retired. Applied
+   to: the practice-room cards (all 29 — the book door is new
+   there, at the exam's existing book page), the home's
+   Continue card (both its states), and the doors-only
+   fallback. Quick Practice and Review misses stay quiet
+   links — neither is one of the two doors. Promote item P8
+   carries the rule to the Simulator's own exam picker.
+2. **"For the overall visuals still feels a little flat,
+   busy, not good enough."** The cure was hierarchy and
+   rhythm, not a new art direction (the landing stays the
+   source of truth). The pass lives in `vpass.css`, layered
+   over the mock's stylesheet so the approved mock itself is
+   untouched. What changed: the Today section and the shelf
+   now sit on navy bands and the Practice room is a navy
+   room, so section changes read at a glance (the landing's
+   cream/navy alternation); covers got bigger everywhere and
+   carry the art; the repeated code line under each cover
+   was cut (the cover already carries it); cards on a band
+   lost their thin borders and take the landing's full
+   shadow instead; primary cards and buttons run at full
+   depth; spacing between groups went up. What was cut or
+   merged to fix "busy": the per-card code line (×37 cards),
+   the quiet-link rows under the Continue buttons (now the
+   pair), and the flat 6px section stacking (bands carry
+   their own full padding). Promote item P9 carries the bar.
+
 ## Where every number comes from
 
 One house, one set of numbers. The wired pages read the SAME
@@ -57,7 +95,7 @@ the proof results follow the map.
 | Nav · Simulator | — | practice room | practice room | /preview-home/practice/ |
 | Account chip | — | sim profile | sim profile (gold dot) | sim ?profile=1 (sign-out lives there) |
 | Continue · primary | — | final exam (focus exam) | final exam (focus exam) | sim ?exam=\<slug\> — owner: straight to the exam check-in; free: mode select (the sim's own rule per state) |
-| Continue · book link | — | the focus exam's book page | same | /library/book-\*.html |
+| Continue · Watch the book (paired button, equal to the exam button) | — | the focus exam's book page | same | /library/book-\*.html |
 | Goal card · set-goal link (only when no goal set) | — | sim home (goal picker lives there) | same | sim root |
 | Readiness · Take the final exam | — | sim ?exam=\<focus\> | same | as Continue primary |
 | Readiness · Review your misses | — | sim root (deck pull lives on the sim's home today) | same | sim root — see P4 |
@@ -77,6 +115,7 @@ the proof results follow the map.
 | Brand / ← Home / footer Home | — | home | home | /preview-home/ |
 | Buy card (free only, exactly one) | — | checkout | — | /get |
 | Exam cover + "Take the final exam" (×29) | — | sim ?exam=\<slug\> | same | every slug is in the sim's registry — the sim router accepts all 29 (asserted) |
+| "Watch the book" (×29, paired full button — same treatment as the exam button) | — | the exam's book page | same | /library/book-\*.html (the same pages the home shelf doors use) |
 | "Quick practice" (×29, quiet) | — | sim ?exam=\<slug\> | same | the sim's check-in carries Quick Practice as its own quiet link (owner rule); promote item P3 adds a direct parameter |
 | Misses card · Review misses (hidden when the account has no attempts) | — | sim root | sim root | deck lives in the sim — see P4 |
 | Footer · Library / Terms / Refund | — | as home | as home | — |
@@ -177,6 +216,30 @@ the proof results follow the map.
   (states × pages × viewports, route walk, link crawl) against
   the production routes before the old sim home is retired, and
   re-check home-vs-sim numbers side by side on the real account.
+- **P8 · The paired-doors rule (Cori, 2026-11-18).** Wherever a
+  book door and an exam door appear together, BOTH are full
+  buttons of identical treatment (the landing's 3D pill family,
+  same size) — never a full button for the exam with a quiet
+  text link for the book. Done in this preview (practice-room
+  cards, home Continue). At promote it applies to the
+  Simulator's own exam picker too: its cards carry the same
+  quiet "Watch the book →" link Cori flagged in his
+  screenshots, and they get the paired full button when the
+  practice room replaces the sim home (with P2). Quick
+  Practice and Review misses are not doors of the product and
+  stay quiet links.
+- **P9 · The visual bar for signed-in surfaces (Cori,
+  2026-11-18: "still a little flat, busy, not good enough").**
+  Hierarchy and rhythm from the landing's own kit, no new art
+  direction: one hero element per screen and everything else a
+  clear step down; navy bands alternate with cream so section
+  changes read at a glance; covers carry the art (bigger, less
+  text per card — no line repeats what the cover already
+  says); depth from the 3D pills, offset shadows and gold
+  marker strokes at full strength, never flattened versions;
+  more air between groups, less inside cards. This preview's
+  `vpass.css` is the reference implementation; production
+  surfaces inherit it at promote.
 
 ## Verification record
 
