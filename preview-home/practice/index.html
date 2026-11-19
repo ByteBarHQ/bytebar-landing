@@ -444,7 +444,11 @@ footer{border-top:1px solid var(--line); padding:44px 0 30px; margin-top:12px}
 }
 @media(max-width:760px){
   .ecard .cover{font-size:10.6px}
-  .xcard .cover{font-size:5.6px}
+  /* 4.6px, not larger: at phone card widths a two-line cover
+     title makes the cover's em-scaled content taller than its
+     4:3 box, and the masthead crosses the cover's frame —
+     measured on the CKA/GCP shelf covers at 5.6px. */
+  .xcard .cover{font-size:4.6px}
   .cont-art{width:200px}
   .cont-art .cover{font-size:8.6px}
   .room-title{padding-bottom:46px}
