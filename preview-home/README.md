@@ -290,3 +290,38 @@ verify/results-wired.json): **104 checks, 0 failures.**
 - **Untouched surfaces.** Live homepage, live simulator, library,
   and the approved mock verified byte-identical before and after
   the whole build (checksums in the build folder).
+
+### Visual pass run (2026-11-19, Cori's two notes)
+
+Rebuilt with `vpass.css` layered over the mock stylesheet (the
+mock's own sources untouched), the paired book buttons, and the
+band rhythm; redeployed (commit `a27c9e9`, plus the cover-fit
+fix below). Full suite re-run against the deployed preview:
+**106 checks, 0 failures** (the 104 above + 2 new pairing
+assertions: the Continue pair, and all 29 practice cards
+carrying "Watch the book" as a full gold button at the exam's
+book page).
+
+- **Route walk unchanged in kind.** Every hop is still a single
+  replace, cycles 0, no dead ends. The crawl now collects **64
+  unique doors** (was 44): the +20 are the book pages the new
+  practice-card book buttons reach that the home did not
+  already link — all resolve 200 at ≤1 hop.
+- **Render audits** re-run for every page × state × viewport
+  (390px + 1280px): zero overflow, zero out-of-viewport, every
+  button and label on one line — including all 29 new
+  "Watch the book" buttons — zero JS errors.
+- **Numbers still the sim's.** check_math re-run: the sim
+  source == the independent port on all three fixture accounts;
+  the rendered figures are the same ones recorded above.
+- **Cover-fit measurement (new).** Every cover on both pages
+  was measured in-browser at phone and desktop widths: the
+  masthead and the rule must clear the cover's inner frame.
+  82 of 82 clear (worst margin 3.1px). The pass's first cut
+  failed this on the three-line-title cover ("Associate Cloud
+  Engineer") — it is now flagged in `covers.py` (TIGHT) and
+  takes one size step down wherever it renders.
+- **Untouched surfaces.** Live homepage (MD5 `9e477030…`), the
+  approved mock's sources, and the Simulator's source verified
+  byte-identical before and after the pass
+  (`verify/checksums-vpass-before.txt`).
