@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!-- preview-dashboard/practice — the practice room (design preview, not live)
+     One-home model (Cori 2026-11-18): the dashboard is the only home.
+     This room is for DOING — pick an exam and play. No greeting, no
+     goal ring, no streak, no briefing: those live on the home. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Practice — ByteBar</title>
+<style>
+/* ============ Tokens — copied from the live landing page ============ */
+:root{
+  --navy:#0b1e42; --navy2:#132c5e; --navy3:#1b3a7a;
+  --bg:#f6f1e6; --card:#fffdf8; --ink:#2c2620; --mut:#6f695c; --line:#e6dcc4;
+  --cyan:#0b8fc4; --cyan-d:#0873a0; --green:#16a34a; --green-d:#15803d;
+  --gold:#f5a623; --gold-d:#d98a0b; --pink:#f472b6; --lime:#a3e635;
+  --r:20px;
+  --shadow:0 6px 24px rgba(11,30,66,.10);
+  --shadow-lg:0 14px 44px rgba(11,30,66,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img,svg{max-width:100%; display:block}
+a{color:inherit}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ============ 3D tactile buttons — the landing's own ============ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-weight:800; font-size:16px; letter-spacing:.01em; text-decoration:none; cursor:pointer; white-space:nowrap;
+  border:none; border-radius:16px; padding:15px 30px; transition:transform .08s, box-shadow .08s, filter .15s;
+  user-select:none; -webkit-tap-highlight-color:transparent}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none} .lbl-short{display:inline}}
+.btn-primary{background:linear-gradient(180deg,#22b8e8,var(--cyan)); color:#fff;
+  box-shadow:0 5px 0 var(--cyan-d), 0 10px 24px rgba(11,143,196,.35); text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-primary:active{transform:translateY(4px); box-shadow:0 1px 0 var(--cyan-d)}
+.btn-gold{background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  box-shadow:0 5px 0 var(--gold-d), 0 10px 24px rgba(245,166,35,.35)}
+.btn-gold:hover{filter:brightness(1.04)}
+.btn-gold:active{transform:translateY(4px); box-shadow:0 1px 0 var(--gold-d)}
+.btn-ghost{background:var(--card); color:var(--navy); border:2px solid var(--line); box-shadow:0 4px 0 var(--line)}
+.btn-ghost:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.btn-lg{font-size:18px; padding:18px 38px; border-radius:18px}
+
+/* ============ Nav — the landing's cream bar ============ */
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,241,230,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:68px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:19px; letter-spacing:.28em; color:var(--navy)}
+.brand .mark{width:34px; height:34px; border-radius:10px; flex:none; background:linear-gradient(135deg,var(--navy),var(--navy3));
+  display:flex; align-items:center; justify-content:center; color:#7ee7f7; font-size:17px; font-weight:900; letter-spacing:0;
+  box-shadow:0 3px 0 rgba(11,30,66,.35)}
+.nav-links{display:flex; align-items:center; gap:26px}
+.nav-links a.nl{text-decoration:none; font-weight:600; font-size:15px; color:var(--ink); opacity:.85}
+.nav-links a.nl:hover{opacity:1; color:var(--navy)}
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+.burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
+/* Owner account chip: the ghost-button family + the live owner gold dot */
+.chip{display:inline-flex; align-items:center; background:var(--card); color:var(--navy); border:2px solid var(--line);
+  box-shadow:0 4px 0 var(--line); border-radius:999px; padding:9px 19px; font-weight:800; font-size:14.5px;
+  text-decoration:none; white-space:nowrap; transition:transform .08s, box-shadow .08s}
+.chip:active{transform:translateY(3px); box-shadow:0 1px 0 var(--line)}
+.owndot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#f5b544; margin-right:8px; vertical-align:1px; flex:none}
+@media(max-width:1100px){
+  .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0;
+    padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
+  .nav-links.open{display:flex}
+  .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
+  .nav-right{gap:12px}
+  .burger{display:block}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .nav .brand{letter-spacing:.16em}
+  .chip{padding:8px 13px; font-size:12.5px}
+  .nav .burger{padding:6px}
+}
+
+/* ============ Hero — the landing's navy hero, greeting an owner ============ */
+.hero{position:relative; background:#0a1a38; padding:72px 0 58px; overflow:hidden}
+.hero-inner{position:relative; text-align:center; max-width:860px; margin:0 auto}
+.sticker{display:inline-block; background:rgba(255,255,255,.07); color:#dbe7fa; border:1px solid rgba(255,255,255,.22);
+  font-weight:800; font-size:13px; letter-spacing:.18em; padding:8px 18px; border-radius:10px; margin-bottom:22px}
+.hero h1{font-size:clamp(44px,7vw,68px); line-height:1.02; letter-spacing:-.02em; color:#fff; margin-bottom:16px}
+.hero h1 .markline{position:relative; z-index:1; white-space:nowrap}
+.hero h1 .markline::after{content:""; position:absolute; left:-2%; right:-2%; bottom:.02em; height:.15em;
+  background:var(--gold); border-radius:4px; transform:rotate(-1.2deg); z-index:-1}
+.hero p.def{font-size:18px; color:#d7e3f5; max-width:620px; margin:0 auto 8px; font-weight:600}
+/* Pip, center stage — the landing's hero-pip, with a real speech bubble */
+.hero-pip{display:flex; flex-direction:column; align-items:center; margin-top:26px; position:relative}
+.hero-pip .pip-big{width:132px; height:132px; filter:drop-shadow(0 10px 24px rgba(30,120,232,.28)); animation:pip-bob 3.6s ease-in-out infinite}
+@keyframes pip-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.pip-bubble{position:relative; margin-top:16px; background:#fff; border:2px solid var(--navy); border-radius:22px;
+  padding:17px 24px; font-weight:600; font-size:16.5px; line-height:1.55; color:var(--navy);
+  box-shadow:0 6px 0 rgba(11,30,66,.35), var(--shadow-lg); max-width:540px}
+.pip-bubble::before{content:""; position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(45deg);
+  width:16px; height:16px; background:#fff; border-left:2px solid var(--navy); border-top:2px solid var(--navy)}
+.pip-bubble b{color:var(--cyan-d)}
+@media (prefers-reduced-motion:reduce){.hero-pip .pip-big{animation:none}}
+
+/* ============ Sections — the landing's rhythm ============ */
+section.block{padding:56px 0}
+.kicker{font-size:13px; font-weight:800; letter-spacing:.22em; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; text-align:center}
+h2.sec{font-size:clamp(28px,3.6vw,42px); letter-spacing:-.02em; color:var(--navy); text-align:center; margin-bottom:14px; line-height:1.12}
+p.lead{text-align:center; color:var(--mut); font-size:17.5px; max-width:660px; margin:0 auto 40px}
+
+/* ============ Cover art — the library's cover system ============ */
+.cover{--acc:#3896FF; position:relative; aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:2.4em 2em; overflow:hidden; border-radius:.9em; font-size:10px;
+  background:radial-gradient(34em 17em at 50% -8%, rgba(126,231,247,.16), transparent 70%),
+             linear-gradient(158deg,#16407C 0%, #0B1E42 52%, #06122B 100%);
+  box-shadow:0 14px 30px rgba(11,30,66,.28), inset 0 1px 0 rgba(205,228,255,.25)}
+.cover::before{content:""; position:absolute; inset:1.1em; border:.2em solid rgba(255,255,255,.85); border-radius:.7em; pointer-events:none; z-index:2}
+.cover .sheen{position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(115deg, transparent 32%, rgba(255,255,255,.07) 46%, transparent 62%)}
+.cov-mast{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.34em; color:var(--acc); padding-left:.34em}
+.cov-code{position:relative; z-index:2; font-size:1.3em; font-weight:800; letter-spacing:.18em; color:var(--acc); margin-top:1.35em; padding-left:.18em}
+.cov-title{position:relative; z-index:2; font-size:3.3em; font-weight:900; color:#fff; line-height:1.08; letter-spacing:-.01em; margin-top:.22em; max-width:94%}
+.cov-type{position:relative; z-index:2; font-size:1.05em; font-weight:800; letter-spacing:.3em; color:#CFE3F5; margin-top:1.05em; padding-left:.3em}
+.cov-rule{position:relative; z-index:2; width:4.4em; height:.3em; border-radius:.2em; background:var(--acc); margin-top:1.35em}
+
+/* ============ Continue — the landing's chunky card (quiz family) ============ */
+.cont-sec{padding-top:48px}
+.cont-card{max-width:880px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:26px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden}
+.cont-head{background:var(--navy); color:#fff; padding:18px 26px; display:flex; justify-content:space-between; align-items:center; gap:12px}
+.cont-head .qt{font-weight:800; font-size:15px; letter-spacing:.06em; white-space:nowrap}
+.cont-head .qs{font-size:13px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.cont-body{padding:30px; display:flex; gap:32px; align-items:center}
+.cont-art{flex:none; width:218px}
+.cont-art .cover{font-size:9.8px}
+.cont-main{flex:1; min-width:0}
+.cont-main h3{font-size:24px; font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:8px}
+.cont-main p{font-size:15.5px; color:var(--mut); margin-bottom:20px}
+.cont-bar{height:14px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-bottom:16px}
+.cont-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#2e7cd6,#3896ff 60%,#6db3ff)}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:24px}
+.chips span{background:var(--bg); border:1.5px solid var(--line); border-radius:999px; padding:7px 14px;
+  font-size:13px; font-weight:700; color:var(--navy); box-shadow:0 3px 0 var(--line); white-space:nowrap}
+
+/* ============ Today — friendly cards (step family) ============ */
+.tgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:860px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:26px 24px; box-shadow:var(--shadow)}
+.tcard .trow{display:flex; align-items:center; gap:17px; margin-bottom:14px}
+.tcard h3{color:var(--navy); font-size:18px; margin-bottom:6px}
+.tcard p{font-size:14.5px; color:var(--mut)}
+.tcard .big{font-size:27px; font-weight:900; color:var(--navy); letter-spacing:-.02em; line-height:1.05}
+.tcard .big small{display:block; font-size:13px; font-weight:700; color:var(--mut); letter-spacing:0; margin-top:4px}
+.goalring{position:relative; flex:none; width:84px; height:84px}
+.goalring svg{transform:rotate(-90deg)}
+.goalring .rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.goalring .rc-pct b{font-size:19px; font-weight:900; color:var(--navy); line-height:1}
+.goalring .rc-pct span{font-size:9.5px; font-weight:800; letter-spacing:.12em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.flame{flex:none; width:56px; height:56px; filter:drop-shadow(0 5px 10px rgba(245,166,35,.4))}
+.mini-badge{display:inline-block; background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00;
+  font-size:11px; font-weight:800; letter-spacing:.09em; padding:5px 12px; border-radius:999px;
+  box-shadow:0 3px 0 var(--gold-d); margin-bottom:14px; white-space:nowrap}
+.chal-bar{height:12px; background:#f3ecda; border-radius:99px; overflow:hidden; margin:14px 0 9px}
+.chal-bar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.chal-meta{display:flex; justify-content:space-between; gap:10px; font-size:13px; color:var(--mut)}
+.chal-meta b{color:var(--navy)}
+
+/* ============ Readiness — the landing's own report card ============ */
+.report-card{max-width:720px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:22px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden; text-align:left}
+.rc-head{background:var(--navy); color:#fff; padding:14px 22px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+.rc-head .rc-t{font-weight:800; font-size:13px; letter-spacing:.1em; white-space:nowrap}
+.rc-head .rc-when{font-size:12.5px; color:#9db4dd; font-weight:600; white-space:nowrap}
+.rc-body{padding:24px 26px 20px}
+.rc-top{display:flex; gap:20px; align-items:center; margin-bottom:18px}
+.rc-ring{position:relative; flex:none; width:96px; height:96px}
+.rc-ring svg{transform:rotate(-90deg)}
+.rc-pct{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.rc-pct b{font-size:25px; font-weight:900; color:var(--navy); line-height:1}
+.rc-pct span{font-size:10px; font-weight:800; letter-spacing:.14em; color:var(--mut); text-transform:uppercase; margin-top:2px}
+.rc-verdict b{display:block; font-size:19px; font-weight:800; color:var(--navy); line-height:1.25}
+.rc-verdict p{font-size:14px; color:var(--mut); line-height:1.55; margin-top:4px}
+.rc-domh{font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--mut); margin:4px 0 12px}
+.rc-dom{margin-bottom:12px; border-radius:12px}
+.rc-dom.weak{background:#fdf6e9; border:1.5px solid #f0d9a4; padding:10px 12px; margin-left:-12px; margin-right:-12px}
+.rc-dom .dl{display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:13.5px; margin-bottom:6px}
+.rc-dom .dn{font-weight:700; color:var(--navy)}
+.rc-dom .dp{font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+.rc-tag{font-size:10px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; margin-left:7px; color:#b34a44}
+.rc-bar{height:11px; background:#edf1f8; border-radius:99px; overflow:hidden}
+.rc-bar > div{height:100%; border-radius:99px}
+.rc-cap{font-size:13.5px; color:var(--mut); text-align:center; margin-top:16px}
+.rc-cap b{color:var(--navy)}
+.ready-doors{display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:34px}
+@media(max-width:560px){.rc-top{flex-direction:column; text-align:center} .rc-head .rc-t{font-size:11.5px; letter-spacing:.06em} .rc-head{padding:12px 16px}}
+
+/* Quiet next step — the landing's text link with arrow */
+.tlink{font-weight:700; color:var(--cyan-d); text-decoration:underline;
+  text-decoration-thickness:1.5px; text-underline-offset:4px;
+  text-decoration-color:rgba(8,115,160,.38);
+  transition:color .15s var(--ease), text-decoration-color .15s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor}
+.tlink .arr{display:inline-block; transition:transform .15s var(--ease)}
+.tlink:hover .arr{transform:translateX(3px)}
+.trail-link{text-align:center; margin-bottom:34px}
+
+/* ============ The two doors ============ */
+.doors{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+@media(max-width:860px){.doors{grid-template-columns:1fr}}
+.door{display:flex; flex-direction:column; background:var(--card); border:1.5px solid var(--line); border-radius:26px;
+  overflow:hidden; box-shadow:var(--shadow); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.door:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow-lg)}
+.door-art{position:relative; height:204px; flex:none; overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 70%,var(--navy3) 100%)}
+.door-art::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(440px 220px at 50% -10%, rgba(126,231,247,.18), transparent 70%)}
+.door-art.goldfade::before{background:radial-gradient(440px 220px at 50% -10%, rgba(245,166,35,.22), transparent 70%)}
+.fan{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); width:318px; height:172px}
+.fan .cover{position:absolute; bottom:0; width:124px; font-size:4px; border-radius:6px;
+  box-shadow:0 16px 30px rgba(2,8,23,.5), inset 0 1px 0 rgba(205,228,255,.25)}
+.fan .c1{left:0; transform:rotate(-9deg)}
+.fan .c2{left:50%; margin-left:-62px; transform:translateY(-10px); z-index:2}
+.fan .c3{right:0; transform:rotate(9deg)}
+.game{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:24px; padding:0 26px}
+.xpring{position:relative; width:104px; height:104px; flex:none; filter:drop-shadow(0 8px 18px rgba(245,166,35,.3))}
+.xpring svg{transform:rotate(-90deg)}
+.xpring .rc{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.xpring .rc b{font-size:31px; line-height:1; font-weight:900; color:#fff}
+.xpring .rc span{font-size:9.5px; font-weight:800; letter-spacing:.18em; color:#ffc53d; margin-top:3px}
+.game-meta{min-width:0; color:#fff}
+.game-meta .lvl{font-size:20px; font-weight:800; letter-spacing:-.01em}
+.game-meta .xpbar{height:9px; border-radius:99px; background:rgba(255,255,255,.18); overflow:hidden; margin:10px 0 8px; width:190px; max-width:100%}
+.game-meta .xpbar i{display:block; height:100%; width:72%; border-radius:99px; background:linear-gradient(90deg,#ffc53d,var(--gold))}
+.game-meta p{font-size:13px; color:#9db4dd}
+.game-meta p b{color:#ffc53d; font-weight:800}
+.door-body{padding:26px 28px 30px; display:flex; flex-direction:column; align-items:flex-start; flex:1}
+.door-tag{font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); margin-bottom:9px}
+.door-tag.gold{color:var(--gold-d)}
+.door-body h3{font-size:25px; font-weight:800; color:var(--navy); letter-spacing:-.015em; margin-bottom:8px}
+.door-body p{font-size:15.5px; color:var(--mut); margin-bottom:22px}
+.door-body .btn{margin-top:auto}
+
+/* ============ Your shelf ============ */
+.shelf-head{max-width:720px; margin:0 auto; text-align:center}
+.shelf-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px}
+@media(max-width:860px){.shelf-grid{grid-template-columns:repeat(2,1fr)}}
+.xcard{display:block; background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:14px;
+  box-shadow:0 3px 0 var(--line); text-decoration:none; transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.xcard:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
+.xcard .cover{font-size:6px; border-radius:8px; box-shadow:0 8px 18px rgba(11,30,66,.22), inset 0 1px 0 rgba(205,228,255,.25)}
+.xbody{padding:13px 4px 2px}
+.xbody .enm{font-weight:800; font-size:14.5px; color:var(--navy); line-height:1.25}
+.xbody .ecd{font-size:12px; font-weight:700; color:var(--mut); letter-spacing:.03em; margin-top:2px}
+.xbar{height:9px; background:#f3ecda; border-radius:99px; overflow:hidden; margin-top:11px}
+.xbar i{display:block; height:100%; border-radius:99px; background:var(--acc)}
+.xstate{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-top:8px; font-size:12.5px; font-weight:600; color:var(--mut)}
+.xstate .pct{font-weight:800; color:var(--navy)}
+.xstate .start{color:var(--cyan-d); font-weight:800; white-space:nowrap}
+
+/* ============ Footer — the landing's own ============ */
+footer{border-top:1px solid var(--line); padding:44px 0 30px; margin-top:12px}
+.fin{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap}
+.fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:10px}
+.fin p{font-size:14px; color:var(--mut); max-width:300px}
+.flinks{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
+.flinks a{text-decoration:none; font-size:14.5px; color:var(--mut); font-weight:600; white-space:nowrap}
+.flinks a:hover{color:var(--navy)}
+.copy{font-size:13px; color:var(--mut); margin-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); padding-top:20px}
+
+/* Reveal on scroll — the landing's motion */
+.reveal{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none} html{scroll-behavior:auto} .tlink .arr{transition:none}}
+:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
+::selection{background:rgba(245,166,35,.32)}
+
+/* ============ Phone ============ */
+@media(max-width:760px){
+  section.block{padding:44px 0}
+  .hero{padding:54px 0 46px}
+  .hero-pip .pip-big{width:112px; height:112px}
+  .pip-bubble{font-size:15.5px; padding:15px 19px}
+  .cont-sec{padding-top:36px}
+  .cont-body{flex-direction:column; align-items:stretch; gap:22px; padding:24px 22px 26px}
+  .cont-art{width:178px; margin:0 auto}
+  .cont-art .cover{font-size:7.4px}
+  .cont-main h3{font-size:21px}
+  .cont-main .btn{width:100%}
+  .door-art{height:184px}
+  .fan{width:282px; height:152px}
+  .fan .cover{width:108px; font-size:3.5px}
+  .fan .c2{margin-left:-54px}
+  .game{gap:18px; padding:0 18px}
+  .xpring{width:90px; height:90px}
+  .xpring .rc b{font-size:26px}
+  .game-meta .lvl{font-size:18px}
+  .door-body{padding:22px 20px 24px}
+  .door-body .btn{width:100%}
+  .xcard .cover{font-size:4.4px}
+  .ready-doors{flex-direction:column; align-items:stretch}
+  .ready-doors .btn{width:100%}
+  .ready-doors .tlink{align-self:center; text-align:center}
+  .flinks{margin-left:0}
+}
+@media(max-width:480px){
+  .btn-lg{font-size:16px; padding:16px 22px}
+}
+
+/* ============ Practice room — additions ============ */
+.room-title{padding:52px 0 8px}
+.pgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:6px}
+@media(max-width:1024px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pgrid{grid-template-columns:1fr}}
+.ecard{background:var(--card); border:1.5px solid var(--line); border-radius:22px; padding:16px;
+  box-shadow:0 3px 0 var(--line); display:flex; flex-direction:column;
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease)}
+.ecard:hover{transform:translateY(-3px); box-shadow:0 6px 0 var(--line), var(--shadow)}
+.ecov{display:block; text-decoration:none; border-radius:10px}
+.ecard .cover{font-size:7.2px; border-radius:10px; box-shadow:0 8px 18px rgba(11,30,66,.22), inset 0 1px 0 rgba(205,228,255,.25)}
+.ebody{padding:15px 4px 2px; display:flex; flex-direction:column; flex:1}
+.ebody .enm{font-weight:800; font-size:17px; color:var(--navy); line-height:1.25}
+.ebody .ecd{font-size:12.5px; font-weight:700; color:var(--mut); letter-spacing:.03em; margin-top:2px}
+.estand{font-size:13.5px; font-weight:600; color:var(--mut); margin-top:9px; margin-bottom:16px}
+.estand b{color:var(--navy); font-weight:800}
+.ebtn{width:100%; margin-top:auto}
+.eqlink{align-self:center; margin-top:13px; font-size:14.5px}
+.miss-card{max-width:880px; margin:0 auto; background:var(--card); border:2px solid var(--navy); border-radius:26px;
+  box-shadow:0 8px 0 var(--navy), var(--shadow-lg); overflow:hidden}
+.miss-body{padding:26px 30px; display:flex; gap:26px; align-items:center}
+.miss-txt{flex:1; min-width:0}
+.miss-txt h3{font-size:22px; font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:6px}
+.miss-txt p{font-size:15.5px; color:var(--mut)}
+.miss-txt p b{color:var(--navy)}
+@media(max-width:760px){
+  .room-title{padding-top:40px}
+  .ecard .cover{font-size:8.6px}
+  .miss-body{flex-direction:column; align-items:stretch; padding:22px}
+  .miss-body .btn{width:100%}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== Room header — slim, with the way back home ===== -->
+<nav class="nav">
+  <div class="wrap nav-inner nav-in">
+    <a class="brand" href="https://bytebarhq.com/preview-dashboard/"><span class="mark">B</span>BYTEBAR</a>
+    <div class="nav-right">
+      <a class="tlink" href="https://bytebarhq.com/preview-dashboard/"><span class="arr">←</span> Home</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ===== The room's one job: pick an exam ===== -->
+  <section class="block room-title">
+    <div class="wrap">
+      <div class="kicker reveal">Practice</div>
+      <h2 class="sec reveal">Pick your exam.</h2>
+      <p class="lead reveal">All 29 exams are yours. Tap one and you&rsquo;re in — timed, scored, just like test day.</p>
+      <div class="pgrid">
+        <div class="ecard reveal" style="--acc:#3896FF">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701" aria-label="Security+ SY0-701 — take the final exam">
+            <div class="cover" style="--acc:#3896FF"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-701</div>
+              <div class="cov-title">Security+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Security+</div><div class="ecd">SY0-701</div>
+            <div class="estand">Last score <b>82%</b> · 2 days ago</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_701">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#3896FF">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_801" aria-label="Security+ SY0-801 — take the final exam">
+            <div class="cover" style="--acc:#3896FF"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">SY0-801</div>
+              <div class="cov-title">Security+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Security+</div><div class="ecd">SY0-801</div>
+            <div class="estand">The new exam — not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_801">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=secplus_sy0_801">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#38BDF8">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=az104" aria-label="Azure Administrator AZ-104 — take the final exam">
+            <div class="cover" style="--acc:#38BDF8"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">AZ-104</div>
+              <div class="cov-title">Azure Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Azure Administrator</div><div class="ecd">AZ-104</div>
+            <div class="estand">Last score <b>74%</b> · last week</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=az104">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FF9900">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03" aria-label="Solutions Architect SAA-C03 — take the final exam">
+            <div class="cover" style="--acc:#FF9900"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">SAA-C03</div>
+              <div class="cov-title">Solutions Architect</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Solutions Architect</div><div class="ecd">SAA-C03</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F5B544">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp" aria-label="CISSP ISC2 — take the final exam">
+            <div class="cover" style="--acc:#F5B544"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">ISC2</div>
+              <div class="cov-title">CISSP</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CISSP</div><div class="ecd">ISC2</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cissp">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#FBBF24">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006" aria-label="Linux+ XK0-006 — take the final exam">
+            <div class="cover" style="--acc:#FBBF24"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">XK0-006</div>
+              <div class="cov-title">Linux+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Linux+</div><div class="ecd">XK0-006</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=linuxplus_xk0_006">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#2DD4BF">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009" aria-label="Network+ N10-009 — take the final exam">
+            <div class="cover" style="--acc:#2DD4BF"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">N10-009</div>
+              <div class="cov-title">Network+</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Network+</div><div class="ecd">N10-009</div>
+            <div class="estand">Last score <b>77%</b> · 2 weeks ago</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=netplus_n10_009">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#1BA0D7">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301" aria-label="CCNA 200-301 — take the final exam">
+            <div class="cover" style="--acc:#1BA0D7"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">200-301</div>
+              <div class="cov-title">CCNA</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">CCNA</div><div class="ecd">200-301</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F43F5E">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=cka" aria-label="Kubernetes Administrator CNCF · CKA — take the final exam">
+            <div class="cover" style="--acc:#F43F5E"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">CNCF</div>
+              <div class="cov-title">Kubernetes Administrator</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">Kubernetes Administrator</div><div class="ecd">CNCF · CKA</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=cka">Quick practice</a>
+          </div>
+        </div>
+        <div class="ecard reveal" style="--acc:#F59E0B">
+          <a class="ecov" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101" aria-label="A+ Core 1 220-1101 — take the final exam">
+            <div class="cover" style="--acc:#F59E0B"><span class="sheen"></span>
+              <div class="cov-mast">BYTEBAR</div><div class="cov-code">220-1101</div>
+              <div class="cov-title">A+ Core 1</div><div class="cov-type">PRACTICE EXAM</div><div class="cov-rule"></div></div>
+          </a>
+          <div class="ebody">
+            <div class="enm">A+ Core 1</div><div class="ecd">220-1101</div>
+            <div class="estand">Not started yet</div>
+            <a class="btn btn-primary ebtn" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Take the final exam</a>
+            <a class="tlink eqlink" href="https://sim.bytebarhq.com/sim-preview/?exam=aplus_220_1101">Quick practice</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Your saved misses — a doing thing, kept in the room ===== -->
+  <section class="block" style="padding-top:6px">
+    <div class="wrap">
+      <div class="miss-card reveal">
+        <div class="cont-head"><span class="qt">YOUR SAVED MISSES</span><span class="qs">Review deck</span></div>
+        <div class="miss-body">
+          <div class="miss-txt">
+            <h3>Clear the deck.</h3>
+            <p><b class="num">12 questions · about 12 min.</b> Every question you&rsquo;ve missed, saved in one deck — work through them here and they stop costing you points.</p>
+          </div>
+          <a class="btn btn-gold btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Review misses</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Footer — the landing's own ===== -->
+<footer>
+  <div class="wrap">
+    <div class="fin">
+      <div>
+        <div class="fbrand">BYTEBAR</div>
+        <p>Video books and practice exams for IT &amp; nursing certifications. Learn it. Prove it. Pass it.</p>
+      </div>
+      <nav class="flinks">
+        <a href="https://bytebarhq.com/preview-dashboard/">Home</a>
+        <a href="https://bytebarhq.com/library/">Library</a>
+        <a href="https://bytebarhq.com/terms">Terms</a>
+        <a href="https://bytebarhq.com/refund-policy">Refund Policy</a>
+      </nav>
+    </div>
+    <div class="copy"><span>© 2026 ByteBar</span><span>Start here. Pass with ByteBar.</span></div>
+  </div>
+</footer>
+
+<script>
+/* Reveal on scroll — the landing's own pattern */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

@@ -23,6 +23,68 @@ streak, Threats Week challenge 26/40) → Readiness (last exam 82%, five
 domain bars, weakest domain called out, "Take the final exam" + misses
 link) → the two doors → your shelf (8 books) → footer.
 
+## One home — the map (Cori 2026-11-18: "Yes — one home, fold it in")
+
+There is exactly ONE home for a signed-in user: this dashboard. The
+simulator's separate home page is folded into it — everything that
+page did (Pip session briefing, daily goal, streak, weekly challenge,
+misses-deck pull, readiness) lives here, and only here. The rooms off
+the home are for DOING, not for re-greeting:
+
+- **The home (this page) holds:** Pip's briefing, Continue, today's
+  goal + streak, the weekly challenge, readiness with the weakest
+  domain, the misses door-label in Readiness ("Review your misses —
+  12 waiting"), and the two doors. Duplication sweep for this round:
+  goal, streak, challenge, misses, briefing, and readiness each
+  appear exactly once on the dashboard, and the practice room shows
+  none of them. (The gold XP ring on the Practice door is door art —
+  the game's colors on the door — not a data display; no level or XP
+  figure appears anywhere else on the home.)
+- **Watch (the Library)** holds the shelf and the watch pages, as
+  today, at bytebarhq.com/library/.
+- **Practice (the practice room, `practice/`)** holds the exam
+  picker and the misses deck as a working card — activities, not a
+  home. No greeting, no goal ring, no streak, no briefing. A slim
+  header carries the way back: "← Home".
+
+**Part A (this round, dashboard):** the Practice door now opens the
+practice room (`/preview-dashboard/practice/`) instead of the sim
+URL, and its copy is about doing, not visiting: "Pick an exam and
+play it like test day…" with the pill "Pick an exam" (was "Open the
+Simulator"). Nothing else on the dashboard changed.
+
+**Part B (this round, `practice/`):** the room's whole job is picking
+an exam. Ten exam doors are shown (Security+ SY0-701 and SY0-801,
+AZ-104, SAA-C03, CISSP, Linux+, Network+, CCNA, CKA, A+ Core 1) in
+the landing's language — cream ground, the cover system with
+"PRACTICE EXAM" as the type line, per-exam accents from the
+dashboard cover family (Network+, CCNA, and A+ take the sim
+registry's accents; the dashboard shelf doesn't carry them). The
+live room carries all 29 exams in this same grid. The owner rule is
+baked into every card: the card is the door, its pill reads "Take
+the final exam" and deep-links the sim exam
+(`sim.bytebarhq.com/sim-preview/?exam=<slug>` — tapping starts Exam
+Simulation directly, no mode picker), and one quiet "Quick practice"
+link sits under it, secondary, per the owner-state rule. (In this
+preview both point at the exam deep link; the live room routes the
+quiet link to the same exam in Quick Practice mode. SY0-801 uses the
+pattern slug `secplus_sy0_801`.) Each card shows the owner's standing
+in plain words ("Last score 82% · 2 days ago" / "Not started yet").
+Below the grid, the misses deck is a working card — "12 questions ·
+about 12 min" with a "Review misses" pill — because reviewing misses
+is an activity; its count also appears on the home as a door label,
+the same door seen from two rooms. In-quiz screens are out of scope:
+the room ends at the exam doors.
+
+**What retires when this promotes:** the sim landing page and the
+sim home page, as pages. Nothing else about the sim changes — the
+quiz engine, the results/report card, and the game layer (badges,
+coins, XP, streaks, celebrations) are untouched; the game layer
+lives inside the practice flow and reports back to the one home.
+The sim's nav "Home" and the dashboard's doors resolve to the one
+home; the practice room is what the Practice door and the sim root
+open into.
+
 ## Round 3 — art direction (Cori's verdict on round 2, 2026-11-18)
 
 Round 2 verdict, verbatim: "no not quite still way too sterile and
@@ -179,10 +241,37 @@ review; no "sample/mock" language appears on the page itself.
   grid anywhere, real depth throughout (shadows, metallic gold,
   gradient washes, real cover art).
 
+## Verification — one-home round (verify/verify_onehome.mjs)
+
+Headless Chrome over CDP against the local files, both pages, 390px
+phone + 1280px desktop (`verify/results-onehome.json`):
+
+- Horizontal overflow **0** and zero out-of-viewport elements on
+  both pages at both widths; **zero console errors** anywhere.
+- Every button/link measures exactly **1 text line** by the
+  text-node method on both pages. The range method flags only the
+  known span artifacts (the Account chip's gold dot, the lbl-full /
+  lbl-short and arrow spans, the practice header's "←" span) — the
+  same artifacts round 3 documented, disproven by the text-node
+  check and the screenshots.
+- Header fits: right edge 376/390 on phone for both pages.
+- Flow walk, asserted in the DOM: dashboard doors =
+  [library, practice room]; practice room = 10 exam cards, 10 cover
+  doors, 10 "Take the final exam" pills on the correct sim deep
+  links, 10 "Quick practice" links, 3 Home links (brand, header,
+  footer) back to the dashboard, misses pill to the sim.
+- Language sweep on both built pages: no internal/mock/sample
+  wording, zero price language; the only "Start here" is the
+  approved footer tagline. Screenshots: `verify/phone-top.png`,
+  `verify/phone-doors.png` (new Practice door copy visible),
+  `verify/practice-phone-top.png`, `verify/practice-phone-grid.png`,
+  `verify/practice-phone-misses.png`, plus full-page captures.
+
 ## Viewing
 
 Deployed as a preview only, at **https://bytebarhq.com/preview-dashboard/**
-(live homepage untouched, MD5-verified before and after). The page is
+and **https://bytebarhq.com/preview-dashboard/practice/** (live
+homepage untouched, MD5-verified before and after). The pages are
 noindexed. Nothing here is wired to real account data — it is the
 design, with the real doors.
 
