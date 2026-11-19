@@ -1234,7 +1234,7 @@ function missDoor(r) {
   const m = r.misses;
   if (m && m.total > 0 && m.last && EXAMS.some((e) => e.slug === m.last)) {
     return '<a class="tlink" href="' + SIM_URL + '?deck=' + m.last + '">Review your misses — ' +
-      m.total + ' waiting · about ' + m.total + ' min <span class="arr">→</span></a>';
+      m.total + ' waiting · ~' + m.total + ' min <span class="arr">→</span></a>';
   }
   return '<a class="tlink" href="' + SIM_URL + '">Review your misses <span class="arr">→</span></a>';
 }
