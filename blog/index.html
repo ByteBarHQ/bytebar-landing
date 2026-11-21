@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — ByteBar</title>
+<meta name="description" content="Study plans, exam timelines, and straight answers for IT and nursing certifications — from ByteBar, written the way we teach: plain language, numbers shown.">
+<link rel="canonical" href="https://bytebarhq.com/blog/">
+<meta property="og:title" content="Blog — ByteBar">
+<meta property="og:description" content="Study plans, exam timelines, and straight answers for IT and nursing certifications — from ByteBar, written the way we teach: plain language, numbers shown.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bytebarhq.com/blog/">
+<meta property="og:site_name" content="ByteBar">
+<meta property="og:image" content="https://bytebarhq.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ByteBar — IT Exam Prep: Video Books &amp; Practice Exams">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — ByteBar">
+<meta name="twitter:description" content="Study plans, exam timelines, and straight answers for IT and nursing certifications — from ByteBar, written the way we teach: plain language, numbers shown.">
+<meta name="twitter:image" content="https://bytebarhq.com/og-image.png">
+<style>
+/* ============================================================
+   SHARED FRAMEWORK — lifted verbatim from the live landing page
+   (~/workspace/bytebar-landing/index.html, style blocks:
+   main + v2-overrides + detail-pass, cascade order preserved).
+   Do not restyle these rules for the blog; change them on the
+   landing page and re-lift.
+   ============================================================ */
+:root{
+  --navy:#0b1e42; --navy2:#132c5e; --navy3:#1b3a7a;
+  --bg:#f6f1e6; --card:#fffdf8; --ink:#2c2620; --mut:#6f695c; --line:#e6dcc4;
+  --cyan:#0b8fc4; --cyan-d:#0873a0; --green:#16a34a; --green-d:#15803d;
+  --gold:#f5a623; --gold-d:#d98a0b; --pink:#f472b6; --lime:#a3e635;
+  --r:20px;
+  --shadow:0 6px 24px rgba(11,30,66,.10);
+  --shadow-lg:0 14px 44px rgba(11,30,66,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img{max-width:100%; display:block}
+a{color:inherit; -webkit-tap-highlight-color:transparent}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:800; font-size:16px; letter-spacing:.01em; text-decoration:none; cursor:pointer; white-space:nowrap; border:none; border-radius:16px; padding:15px 30px; transition:transform .08s, box-shadow .08s, filter .15s; user-select:none; -webkit-tap-highlight-color:transparent}
+.btn-gold{background:linear-gradient(180deg,#ffc53d,var(--gold)); color:#3a2a00; box-shadow:0 5px 0 var(--gold-d), 0 10px 24px rgba(245,166,35,.35)}
+.btn-gold:hover{filter:brightness(1.04)}
+.btn-gold:active{transform:translateY(4px); box-shadow:0 1px 0 var(--gold-d)}
+.lbl-short{display:none}
+@media(max-width:720px){.lbl-full{display:none} .lbl-short{display:inline}}
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,241,230,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:68px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:19px; letter-spacing:.28em; color:var(--navy)}
+.brand .mark{width:34px; height:34px; border-radius:10px; flex:none; background:linear-gradient(135deg,var(--navy),var(--navy3)); display:flex; align-items:center; justify-content:center; color:#7ee7f7; font-size:17px; font-weight:900; letter-spacing:0; box-shadow:0 3px 0 rgba(11,30,66,.35)}
+.nav-links{display:flex; align-items:center; gap:26px}
+.nav-links a.nl{text-decoration:none; font-weight:600; font-size:15px; color:var(--ink); opacity:.85}
+.nav-links a.nl:hover{opacity:1; color:var(--navy)}
+.nav-links a.nl.dim{opacity:.55; font-weight:500}
+.nav .btn{padding:11px 22px; font-size:14.5px}
+.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
+.burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
+@media(max-width:1100px){
+  .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0; padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
+  .nav-links.open{display:flex}
+  .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
+  .nav-right{gap:12px}
+  .nav-cta .lbl-full{display:none}
+  .nav-cta .lbl-short{display:inline}
+  .burger{display:block}
+}
+@media(max-width:720px){
+  .nav .wrap{padding:0 14px}
+  .nav .brand{letter-spacing:.16em}
+  .nav .burger{padding:6px}
+}
+footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
+.fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
+@media(max-width:760px){.fgrid2{grid-template-columns:1fr 1fr} .fgrid2 .fcol:first-child{grid-column:1 / -1}}
+@media(min-width:761px) and (max-width:1100px){.fgrid2 .fcol:first-child{grid-column:span 2}}
+@media(max-width:1240px){.fcol .lbl-full{display:none} .fcol .lbl-short{display:inline}}
+.fcol h4{font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px}
+.fcol a:not(.btn){display:block; text-decoration:none; font-size:14.5px; color:var(--mut); padding:5px 0}
+.fcol a:not(.btn):hover{color:var(--navy)}
+.fbrand{font-weight:900; letter-spacing:.28em; color:var(--navy); font-size:16px; margin-bottom:12px}
+.fcol p{font-size:14px; color:var(--mut); max-width:280px}
+.disclaimer{font-size:12.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:22px; line-height:1.7}
+.disclaimer b{color:var(--ink)}
+.copy{font-size:13px; color:var(--mut); margin-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+footer{margin-top:0}
+.tlink{font-weight:700; color:var(--cyan-d); text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:4px; text-decoration-color:rgba(8,115,160,.38); transition:color .15s var(--ease), text-decoration-color .15s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor}
+.tlink .arr{display:inline-block; transition:transform .15s var(--ease)}
+.tlink:hover .arr{transform:translateX(3px)}
+.fcol a.tlink{color:var(--cyan-d)}
+.fcol a.tlink:hover{color:var(--cyan-d)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .tlink .arr{transition:none}}
+
+/* ============================================================
+   BLOG ONLY — built from the same tokens, type scale, and
+   spacing rhythm as the landing page (hero band + card system).
+   ============================================================ */
+.blog-hero{background:#0a1a38; padding:80px 0 64px}
+.blog-hero h1{font-size:clamp(44px,7vw,76px); line-height:1.0; letter-spacing:-.03em; font-weight:900; color:#ffffff; margin-bottom:20px}
+.blog-hero .lead{color:#9db4dd; font-size:19px; line-height:1.65; max-width:640px}
+.blog-main{padding:56px 0 72px}
+.post-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:30px 32px; max-width:820px; transition:box-shadow .2s var(--ease), transform .2s var(--ease)}
+.post-card:hover{box-shadow:var(--shadow-lg); transform:translateY(-2px)}
+.post-tag{display:inline-block; font-size:12.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan-d); margin-bottom:12px}
+.post-card h2{font-size:clamp(26px,3.4vw,34px); line-height:1.15; letter-spacing:-.02em; font-weight:900; color:var(--navy); margin-bottom:12px}
+.post-card h2 a{text-decoration:none}
+.post-card h2 a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px}
+.post-excerpt{font-size:16.5px; line-height:1.65; color:var(--ink); margin-bottom:16px}
+.post-meta{font-size:13.5px; color:var(--mut); margin-bottom:16px}
+@media(max-width:720px){.blog-hero{padding:56px 0 44px} .post-card{padding:24px 22px}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV (construction + classes mirror the live landing nav) ============ -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
+    <div class="nav-right">
+      <div class="nav-links" id="navlinks">
+        <a class="nl" href="https://bytebarhq.com/library/">Library</a>
+        <a class="nl" href="https://sim.bytebarhq.com/sim-preview/">Simulator</a>
+        <a class="nl" href="https://bytebarhq.com/#pricing">Pricing</a>
+        <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
+        <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
+      </div>
+      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ============ BLOG HEAD (landing hero construction: navy band, mega type, lead) ============ -->
+<header class="blog-hero">
+  <div class="wrap">
+    <h1>The ByteBar Blog</h1>
+    <p class="lead">Study plans, exam timelines, and straight answers for IT and nursing certifications — written the way we teach: plain language, and the numbers shown.</p>
+  </div>
+</header>
+
+<main class="blog-main">
+  <div class="wrap">
+
+    <article class="post-card">
+      <span class="post-tag">Security+ · SY0-701 / SY0-801</span>
+      <h2><a href="how-long-does-it-take-to-study-for-security-plus/">How Long Does It Take to Study for Security+? A Realistic Timeline for SY0-701 and the New SY0-801</a></h2>
+      <p class="post-excerpt">It depends on where you're starting — 4 to 8 weeks if you already work in IT, up to 12 to 16 weeks starting completely cold. Here's the week-by-week plan, split by the exam's own domain weights, with the math done in the open.</p>
+      <p class="post-meta">ByteBar · November 20, 2026 · 7 min read</p>
+      <a class="tlink" href="how-long-does-it-take-to-study-for-security-plus/">Read the article <span class="arr" aria-hidden="true">→</span></a>
+    </article>
+
+  </div>
+</main>
+
+<!-- ============ FOOTER (mirrors the live landing footer) ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid2">
+      <div class="fcol">
+        <div class="fbrand">BYTEBAR</div>
+        <p>Video books that teach it. Practice exams that prove it. 29 certifications, one price. No racket.</p>
+        <p style="margin-top:16px">Questions? Email us at</p>
+        <p><a class="tlink" href="mailto:bytebarco@proton.me">bytebarco@proton.me</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Product</h4>
+        <a href="https://bytebarhq.com/#demo">Try It Free</a>
+        <a href="https://bytebarhq.com/library/">Library</a>
+        <a href="https://bytebarhq.com/#exams">Exams</a>
+        <a href="https://bytebarhq.com/#pricing">Pricing</a>
+        <a href="https://bytebarhq.com/#faq">FAQ</a>
+        <a href="https://bytebarhq.com/blog/">Blog</a>
+      </div>
+      <div class="fcol">
+        <h4>Study Guides</h4>
+        <a href="https://www.etsy.com/shop/ByteBarExamPrep" target="_blank" rel="noopener">Etsy Shop</a>
+      </div>
+      <div class="fcol">
+        <h4>Connect</h4>
+        <a href="https://www.instagram.com/bytebarhq" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@bytebarhq" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.trustpilot.com/review/bytebarhq.com" target="_blank" rel="noopener">Trustpilot</a>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <b>Trademark notice:</b> ByteBar is not affiliated with, endorsed by, or sponsored by CompTIA, Amazon Web Services (AWS), Microsoft, Google Cloud, the Cloud Native Computing Foundation (CNCF), HashiCorp, Docker, or Axelos. All certification names, exam codes, and trademarks are the property of their respective owners. Practice questions are original study material modeled on publicly documented exam objectives — not reproductions of actual exam content.
+    </div>
+    <div class="copy">
+      <span>© 2026 ByteBar. All rights reserved.</span>
+      <span>Built different. 🌱</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Burger menu — same pattern as the live landing page */
+document.getElementById('burger').addEventListener('click', function(){
+  document.getElementById('navlinks').classList.toggle('open');
+});
+document.querySelectorAll('#navlinks a').forEach(function(a){
+  a.addEventListener('click', function(){ document.getElementById('navlinks').classList.remove('open'); });
+});
+</script>
+</body>
+</html>
