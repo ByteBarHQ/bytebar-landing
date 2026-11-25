@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AWS Solutions Architect (SAA-C03) — ByteBar Library</title>
-<meta name="description" content="The AWS Solutions Architect (SAA-C03) video book: four domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta name="description" content="The complete AWS Solutions Architect (SAA-C03) video book: 17 chapters taught in blueprint order. Watch the first three chapters free — unlock everything with ByteBar Complete, $9.99 one time.">
 <meta property="og:title" content="AWS Solutions Architect (SAA-C03) — ByteBar Library">
-<meta property="og:description" content="The AWS Solutions Architect (SAA-C03) video book: four domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta property="og:description" content="The complete AWS Solutions Architect (SAA-C03) video book: 17 chapters taught in blueprint order. Watch the first three chapters free — unlock everything with ByteBar Complete, $9.99 one time.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ByteBar">
 <meta property="og:image" content="https://bytebarhq.com/og/book-og-image.png">
@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://bytebarhq.com/library/book-saac03.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AWS Solutions Architect (SAA-C03) — ByteBar Library">
-<meta name="twitter:description" content="The AWS Solutions Architect (SAA-C03) video book: four domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta name="twitter:description" content="The complete AWS Solutions Architect (SAA-C03) video book: 17 chapters taught in blueprint order. Watch the first three chapters free — unlock everything with ByteBar Complete, $9.99 one time.">
 <meta name="twitter:image" content="https://bytebarhq.com/og/book-og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230b1e42%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2734%27%20font-weight%3D%27900%27%20fill%3D%27%237ee7f7%27%20text-anchor%3D%27middle%27%3EB%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
@@ -350,53 +350,6 @@ a.irow.free:hover{background:#e2f1fb}
   .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
-
-<style id="detail-pass">
-/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
-   The homepage's approved system carried to the library surfaces: one
-   spacing rhythm; one treatment per role, executed the same way
-   everywhere it appears; consistent hover/focus states. ===== */
-
-/* Nav: the gold buy button leaves the burger menu and stays in the
-   bar — the homepage fix of 2026-11-16 mirrored exactly. Text links
-   still collapse at <=1100px; the buy button never does, and it takes
-   its short label at phone widths. */
-.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
-@media(max-width:1100px){
-  .nav-right{gap:12px}
-  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
-}
-@media(max-width:720px){
-  .nav .wrap{padding:0 14px}
-  .brand{letter-spacing:.16em}
-  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
-}
-
-/* One visible keyboard-focus treatment everywhere (the account
-   panel's input keeps its own higher-specificity ring). */
-:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
-
-/* Small courtesies. */
-::selection{background:rgba(245,166,35,.32)}
-a,button{-webkit-tap-highlight-color:transparent}
-
-/* Ghost buttons get the hover their sibling buttons already had. */
-.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
-
-/* The footer's stray top margin goes; its own padding does the work. */
-footer{margin-top:0}
-
-/* Card grids share one gap token (was 20px). */
-.bookgrid{gap:16px}
-/* The back link's tap height grows to the sim's fixed size (was 23px). */
-.backlink{padding:5px 0}
-/* The player panel's quiet link takes the on-dark .tlink execution. */
-.ppanel a.txtlink{text-decoration:underline;
-  text-decoration-thickness:1.5px; text-underline-offset:4px;
-  text-decoration-color:rgba(126,231,247,.42);
-  transition:text-decoration-color .15s var(--ease)}
-.ppanel a.txtlink:hover{text-decoration-color:currentColor}
-</style>
 </head>
 
 <body>
@@ -404,7 +357,7 @@ footer{margin-top:0}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <div class="nav-right">
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
     <div class="nav-links" id="navlinks">
       <a class="nl active" href="index.html">Library</a>
       <a class="nl" href="https://sim.bytebarhq.com/">Simulator</a>
@@ -412,15 +365,13 @@ footer{margin-top:0}
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      </div>
-      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete</span><span class="lbl-short">Get Complete</span></a>
+      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete</a>
     </div>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="crumb"><span><a href="index.html">Library</a> · Amazon Web Services · <b style="color:var(--navy)">Solutions Architect (SAA-C03)</b></span><span class="crumb-r">Book in production</span></div>
+  <div class="crumb"><span><a href="index.html">Library</a> · Amazon Web Services · <b style="color:var(--navy)">Solutions Architect (SAA-C03)</b></span><span class="crumb-r">First three chapters free · 17 of 17 chapters live</span></div>
   <div class="bookhead">
     <div class="cover" style="--acc:#FF9900">
       <div class="cov-mast">B Y T E B A R</div>
@@ -428,18 +379,20 @@ footer{margin-top:0}
       <div class="cov-title">Solutions Architect</div>
       <div class="cov-type">V I D E O &nbsp; B O O K</div>
       <div class="cov-rule"></div>
-      <div class="cov-spec">VIDEO BOOK · FINAL EXAM INCLUDED</div>
+      <div class="cov-spec">FIRST THREE CHAPTERS FREE · FINAL EXAM INCLUDED</div>
     </div>
     <div>
       <div class="kicker left">AWS Solutions Architect – Associate · SAA-C03</div>
       <h1>Solutions Architect</h1>
-      <p class="lede">The complete AWS Solutions Architect book — every SAA-C03 domain — designing resilient, high-performing, secure, and cost-optimized architectures taught in plain English, in blueprint order, foundations first. <b>The book is in production now</b> — its chapters land here as they complete, and the first chapter will be free. The final exam is already waiting in the simulator: 1,000 questions across all four domains, and your first 10 are free.</p>
+      <p class="lede">The complete AWS Solutions Architect book — every SAA-C03 domain, designing secure, resilient, high-performing, and cost-optimized architectures, taught in plain English, in blueprint order, foundations first. <b>The first three chapters are free.</b> Chapters 1–16 are live now — the complete book — and the final exam is already waiting in the simulator.</p>
       <div class="specs">
+        <div><div class="n">17</div><div class="l">Chapters in the book</div></div>
         <div><div class="n">4</div><div class="l">Domains, exam order</div></div>
         <div><div class="n">1,000</div><div class="l">Final-exam questions</div></div>
-        <div><div class="n">10</div><div class="l">Free final-exam questions</div></div>
+        <div><div class="n">3:14</div><div class="l">Free intro chapter</div></div>
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:26px">
+        <a class="btn btn-primary" href="watch-saac03.html"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg> Watch the first chapter — free</a>
         <a class="btn btn-gold" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
       </div>
       <p class="hero-note" style="margin-top:16px"><b>$9.99 — everything</b>, one time · 14-day refund policy</p>
@@ -447,12 +400,25 @@ footer{margin-top:0}
   </div>
   <div class="bookgrid">
     <div class="idxcard">
-      <div class="idx-head"><span class="t">Inside the book — every domain, in blueprint order</span><span class="micro">SAA-C03 · Book in production</span></div>
-          <div class="idxnote">This book is in production — it is being built in blueprint order, and its first chapter will be free the moment it lands. <b>The final exam is ready now</b> — sit it in the simulator today, and ByteBar Complete owners unlock every chapter the moment it publishes.</div>
-          <div class="irow prodrow"><span class="chchip">D1</span><div class="ttl"><b>Design Resilient Architectures</b><div class="sub">Domain 1 of 4</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D2</span><div class="ttl"><b>Design High-Performing Architectures</b><div class="sub">Domain 2 of 4</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D3</span><div class="ttl"><b>Design Secure Architectures</b><div class="sub">Domain 3 of 4</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D4</span><div class="ttl"><b>Design Cost-Optimized Architectures</b><div class="sub">Domain 4 of 4</div></div><div class="st"><span>In production</span></div></div>
+      <div class="idx-head"><span class="t">Chapter index — every chapter, in order</span><span class="micro">SAA-C03 · 17 of 17 chapters live</span></div>
+          <a class="irow free" href="watch-saac03.html"><span class="chchip start">Intro</span><div class="ttl"><b>How This Book Works: The Complete Book, Mapped</b><div class="sub">The map — four domains, one book · 3:14</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
+          <div class="idxnote">The first three chapters are free — the real opening of this book, no card. <b>Chapters 3–16 unlock with ByteBar Complete</b> — owners watch the whole book today.</div>
+          <a class="irow free" href="watch-saac03.html?chapter=1"><span class="chchip">CH 1</span><div class="ttl"><b>The Whole Exam, Mapped</b><div class="sub">The whole exam, mapped · 10:29</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
+          <a class="irow free" href="watch-saac03.html?chapter=2"><span class="chchip">CH 2</span><div class="ttl"><b>Design Secure Architectures, Mapped</b><div class="sub">Domain 1 · Secure Architectures · 16:48</div></div><div class="st"><span class="freetag2">Free</span><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
+          <a class="irow chrow" data-ch="3" href="https://bytebarhq.com/get"><span class="chchip">CH 3</span><div class="ttl"><b>IAM Least Privilege &amp; Policy Evaluation</b><div class="sub">Domain 1 · Secure Architectures · 7:59</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="4" href="https://bytebarhq.com/get"><span class="chchip">CH 4</span><div class="ttl"><b>VPC Design, Subnets, Routes &amp; Gateways</b><div class="sub">Domain 1 · Secure Architectures · 9:05</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="5" href="https://bytebarhq.com/get"><span class="chchip">CH 5</span><div class="ttl"><b>S3 Security, Policies, ACLs &amp; Encryption</b><div class="sub">Domain 1 · Secure Architectures · 9:39</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="6" href="https://bytebarhq.com/get"><span class="chchip">CH 6</span><div class="ttl"><b>High Availability &amp; Disaster Recovery</b><div class="sub">Domain 2 · Resilient Architectures · 9:55</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="7" href="https://bytebarhq.com/get"><span class="chchip">CH 7</span><div class="ttl"><b>ALB vs NLB &amp; Auto Scaling Groups</b><div class="sub">Domain 2 · Resilient Architectures · 9:35</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="8" href="https://bytebarhq.com/get"><span class="chchip">CH 8</span><div class="ttl"><b>Route 53 Failover &amp; Routing Policies</b><div class="sub">Domain 2 · Resilient Architectures · 13:16</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="9" href="https://bytebarhq.com/get"><span class="chchip">CH 9</span><div class="ttl"><b>High-Performing Architectures, Mapped</b><div class="sub">Domain 3 · High-Performing Architectures · 14:22</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="10" href="https://bytebarhq.com/get"><span class="chchip">CH 10</span><div class="ttl"><b>EC2 vs Lambda vs Fargate, Decided</b><div class="sub">Domain 3 · High-Performing Architectures · 9:15</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="11" href="https://bytebarhq.com/get"><span class="chchip">CH 11</span><div class="ttl"><b>EC2 Types, Pricing &amp; Placement</b><div class="sub">Domain 3 · High-Performing Architectures · 13:16</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="12" href="https://bytebarhq.com/get"><span class="chchip">CH 12</span><div class="ttl"><b>RDS vs DynamoDB vs Aurora</b><div class="sub">Domain 3 · High-Performing Architectures · 9:16</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="13" href="https://bytebarhq.com/get"><span class="chchip">CH 13</span><div class="ttl"><b>The Domain 4 Cost Map</b><div class="sub">Domain 4 · Cost-Optimized Architectures · 14:51</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="14" href="https://bytebarhq.com/get"><span class="chchip">CH 14</span><div class="ttl"><b>S3 Storage Classes and Lifecycle</b><div class="sub">Domain 4 · Cost-Optimized Architectures · 12:04</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="15" href="https://bytebarhq.com/get"><span class="chchip">CH 15</span><div class="ttl"><b>CloudFront and S3 Caching</b><div class="sub">Domain 3 · High-Performing Architectures · 9:03</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+          <a class="irow chrow" data-ch="16" href="https://bytebarhq.com/get"><span class="chchip">CH 16</span><div class="ttl"><b>Spot and the EC2 Pricing Models</b><div class="sub">Domain 4 · Cost-Optimized Architectures · 9:23</div></div><div class="st chst"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
           <a class="irow examrow" href="https://sim.bytebarhq.com/sim-preview/?exam=saa_c03"><span class="chchip exam">Exam</span><div class="ttl"><b>The Final Exam — Solutions Architect (SAA-C03)</b><div class="sub">The final exam · 1,000 questions · readiness score</div></div><div class="st"><span class="simlink">In the Simulator →</span></div></a>
     </div>
     <div>
@@ -460,7 +426,7 @@ footer{margin-top:0}
       <div class="amount">$9.99</div>
       <p class="per">one time · <b>yours forever</b> · ByteBar Complete</p>
       <ul class="plist">
-        <li><span class="ck">✓</span><span><b>This book as it lands</b> — every domain section the moment it completes</span></li>
+        <li><span class="ck">✓</span><span><b>This book, unlocked</b> — all 17 chapters + the final exam</span></li>
         <li><span class="ck">✓</span><span><b>Every other book too</b> — 29 books, 200+ chapters</span></li>
         <li><span class="ck">✓</span><span><b>The Simulator</b> — 29 exams, 1,000 questions each</span></li>
       </ul>
@@ -656,7 +622,7 @@ function bbAuthStorage() {
     document.querySelectorAll(".chrow").forEach(function (row) {
       var st = row.querySelector(".chst");
       if (session) {
-        row.setAttribute("href", "watch.html?chapter=" + row.getAttribute("data-ch"));
+        row.setAttribute("href", "watch-saac03.html?chapter=" + row.getAttribute("data-ch"));
         if (st) st.innerHTML = PLAYBTN;
       } else {
         row.setAttribute("href", "https://bytebarhq.com/get");
