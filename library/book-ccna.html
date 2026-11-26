@@ -5,9 +5,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CCNA (200-301) — ByteBar Library</title>
-<meta name="description" content="The CCNA (200-301) video book: six domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta name="description" content="The CCNA (200-301) video book: 14 chapters taught in blueprint order. The book is in production — chapters land as they complete, and the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
 <meta property="og:title" content="CCNA (200-301) — ByteBar Library">
-<meta property="og:description" content="The CCNA (200-301) video book: six domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta property="og:description" content="The CCNA (200-301) video book: 14 chapters taught in blueprint order. The book is in production — chapters land as they complete, and the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ByteBar">
 <meta property="og:image" content="https://bytebarhq.com/og/book-og-image.png">
@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://bytebarhq.com/library/book-ccna.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CCNA (200-301) — ByteBar Library">
-<meta name="twitter:description" content="The CCNA (200-301) video book: six domains taught in blueprint order. The book is in production — the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
+<meta name="twitter:description" content="The CCNA (200-301) video book: 14 chapters taught in blueprint order. The book is in production — chapters land as they complete, and the final exam is ready now in the simulator, first 10 questions free. ByteBar Complete, $9.99 one time.">
 <meta name="twitter:image" content="https://bytebarhq.com/og/book-og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230b1e42%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2734%27%20font-weight%3D%27900%27%20fill%3D%27%237ee7f7%27%20text-anchor%3D%27middle%27%3EB%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
@@ -350,53 +350,6 @@ a.irow.free:hover{background:#e2f1fb}
   .bookhead .btn{font-size:15px; padding:14px 22px}
 }
 </style>
-
-<style id="detail-pass">
-/* ===== Designer detail pass (Cori 2026-11-16) — finishing, not restyling.
-   The homepage's approved system carried to the library surfaces: one
-   spacing rhythm; one treatment per role, executed the same way
-   everywhere it appears; consistent hover/focus states. ===== */
-
-/* Nav: the gold buy button leaves the burger menu and stays in the
-   bar — the homepage fix of 2026-11-16 mirrored exactly. Text links
-   still collapse at <=1100px; the buy button never does, and it takes
-   its short label at phone widths. */
-.nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
-@media(max-width:1100px){
-  .nav-right{gap:12px}
-  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
-}
-@media(max-width:720px){
-  .nav .wrap{padding:0 14px}
-  .brand{letter-spacing:.16em}
-  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
-}
-
-/* One visible keyboard-focus treatment everywhere (the account
-   panel's input keeps its own higher-specificity ring). */
-:focus-visible{outline:3px solid rgba(11,143,196,.55); outline-offset:2px}
-
-/* Small courtesies. */
-::selection{background:rgba(245,166,35,.32)}
-a,button{-webkit-tap-highlight-color:transparent}
-
-/* Ghost buttons get the hover their sibling buttons already had. */
-.btn-ghost:hover{border-color:var(--cyan); color:var(--cyan-d)}
-
-/* The footer's stray top margin goes; its own padding does the work. */
-footer{margin-top:0}
-
-/* Card grids share one gap token (was 20px). */
-.bookgrid{gap:16px}
-/* The back link's tap height grows to the sim's fixed size (was 23px). */
-.backlink{padding:5px 0}
-/* The player panel's quiet link takes the on-dark .tlink execution. */
-.ppanel a.txtlink{text-decoration:underline;
-  text-decoration-thickness:1.5px; text-underline-offset:4px;
-  text-decoration-color:rgba(126,231,247,.42);
-  transition:text-decoration-color .15s var(--ease)}
-.ppanel a.txtlink:hover{text-decoration-color:currentColor}
-</style>
 </head>
 
 <body>
@@ -404,7 +357,7 @@ footer{margin-top:0}
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="https://bytebarhq.com/"><span class="mark">B</span>BYTEBAR</a>
-    <div class="nav-right">
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
     <div class="nav-links" id="navlinks">
       <a class="nl active" href="index.html">Library</a>
       <a class="nl" href="https://sim.bytebarhq.com/">Simulator</a>
@@ -412,10 +365,8 @@ footer{margin-top:0}
       <a class="nl" href="https://bytebarhq.com/#faq">FAQ</a>
       <a class="nl dim" href="https://www.etsy.com/shop/ByteBarExamPrep">Study Guides</a>
       <a class="nl" href="https://sim.bytebarhq.com/sim-preview/?profile=1">Sign In</a>
-      </div>
-      <a class="btn btn-gold nav-cta" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete</span><span class="lbl-short">Get Complete</span></a>
+      <a class="btn btn-gold" href="https://bytebarhq.com/get">Get ByteBar Complete</a>
     </div>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
 </nav>
 
@@ -433,11 +384,11 @@ footer{margin-top:0}
     <div>
       <div class="kicker left">Cisco CCNA · 200-301</div>
       <h1>CCNA</h1>
-      <p class="lede">The complete CCNA book — every 200-301 domain, from network fundamentals and IP connectivity through security to automation taught in plain English, in blueprint order, foundations first. <b>The book is in production now</b> — its chapters land here as they complete, and the first chapter will be free. The final exam is already waiting in the simulator: 1,000 questions across all six domains, and your first 10 are free.</p>
+      <p class="lede">The complete CCNA book — every 200-301 domain, from network fundamentals and IP connectivity through security to automation taught in plain English, in blueprint order, foundations first. <b>The book is in production now</b> — chapters land here as they complete, and ByteBar Complete owners unlock each one the moment it publishes. The final exam is already waiting in the simulator: 1,000 questions across all six domains, and your first 10 are free.</p>
       <div class="specs">
+        <div><div class="n">14</div><div class="l">Chapters in the book</div></div>
         <div><div class="n">6</div><div class="l">Domains, exam order</div></div>
         <div><div class="n">1,000</div><div class="l">Final-exam questions</div></div>
-        <div><div class="n">10</div><div class="l">Free final-exam questions</div></div>
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:26px">
         <a class="btn btn-gold" href="https://bytebarhq.com/get"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
@@ -447,14 +398,22 @@ footer{margin-top:0}
   </div>
   <div class="bookgrid">
     <div class="idxcard">
-      <div class="idx-head"><span class="t">Inside the book — every domain, in blueprint order</span><span class="micro">200-301 · Book in production</span></div>
-          <div class="idxnote">This book is in production — it is being built in blueprint order, and its first chapter will be free the moment it lands. <b>The final exam is ready now</b> — sit it in the simulator today, and ByteBar Complete owners unlock every chapter the moment it publishes.</div>
-          <div class="irow prodrow"><span class="chchip">D1</span><div class="ttl"><b>Network Fundamentals</b><div class="sub">Domain 1 of 6</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D2</span><div class="ttl"><b>Network Access</b><div class="sub">Domain 2 of 6</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D3</span><div class="ttl"><b>IP Connectivity</b><div class="sub">Domain 3 of 6</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D4</span><div class="ttl"><b>IP Services</b><div class="sub">Domain 4 of 6</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D5</span><div class="ttl"><b>Security Fundamentals</b><div class="sub">Domain 5 of 6</div></div><div class="st"><span>In production</span></div></div>
-          <div class="irow prodrow"><span class="chchip">D6</span><div class="ttl"><b>Automation and Programmability</b><div class="sub">Domain 6 of 6</div></div><div class="st"><span>In production</span></div></div>
+      <div class="idx-head"><span class="t">Chapter index — every chapter, in order</span><span class="micro">200-301 · Book in production</span></div>
+          <div class="idxnote">This book is in production — the first three chapters are built, and the rest are being built in blueprint order. The first chapter is free when it lands, and <b>ByteBar Complete owners unlock every chapter the moment it publishes</b>. <b>The final exam is ready now</b> — sit it in the simulator today; your first 10 questions are free.</div>
+          <div class="irow prodrow"><span class="chchip start">Intro</span><div class="ttl"><b>Start Here: The Complete CCNA 200-301 Book, Mapped</b><div class="sub">The map — six domains, one book</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 1</span><div class="ttl"><b>Network Fundamentals: Every Piece, One Map</b><div class="sub">Domain 1 · Network Fundamentals</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 2</span><div class="ttl"><b>IPv6 and SLAAC: Your Device Builds Its Own IP</b><div class="sub">Domain 1 · Network Fundamentals</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 3</span><div class="ttl"><b>Network Access: VLANs to EtherChannel, Mapped</b><div class="sub">Domain 2 · Network Access</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 4</span><div class="ttl"><b>VLANs and Trunking From Zero</b><div class="sub">Domain 2 · Network Access</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 5</span><div class="ttl"><b>Spanning Tree: How Loops Kill a Network, and How STP Stops Them</b><div class="sub">Domain 2 · Network Access</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 6</span><div class="ttl"><b>EtherChannel: Unplug a Cable, Nothing Breaks</b><div class="sub">Domain 2 · Network Access</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 7</span><div class="ttl"><b>OSPF Fundamentals: Routing Tables, AD and Cost</b><div class="sub">Domain 3 · IP Connectivity</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 8</span><div class="ttl"><b>Static Routes: No Protocol, No Excuses</b><div class="sub">Domain 3 · IP Connectivity</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 9</span><div class="ttl"><b>OSPF Deep Dive: Areas, DR/BDR Elections and LSAs</b><div class="sub">Domain 3 · IP Connectivity</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 10</span><div class="ttl"><b>IP Services: NAT, DHCP, DNS and the Invisible Staff</b><div class="sub">Domain 4 · IP Services</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 11</span><div class="ttl"><b>Security Fundamentals: Lock the Network Down</b><div class="sub">Domain 5 · Security Fundamentals</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 12</span><div class="ttl"><b>ACLs: The Rules That Filter Every Packet</b><div class="sub">Domain 5 · Security Fundamentals</div></div><div class="st"><span>In production</span></div></div>
+          <div class="irow prodrow"><span class="chchip">CH 13</span><div class="ttl"><b>Automation and APIs: The CLI Is Not the Future</b><div class="sub">Domain 6 · Automation and Programmability</div></div><div class="st"><span>In production</span></div></div>
           <a class="irow examrow" href="https://sim.bytebarhq.com/sim-preview/?exam=ccna_200_301"><span class="chchip exam">Exam</span><div class="ttl"><b>The Final Exam — CCNA (200-301)</b><div class="sub">The final exam · 1,000 questions · readiness score</div></div><div class="st"><span class="simlink">In the Simulator →</span></div></a>
     </div>
     <div>
@@ -462,7 +421,7 @@ footer{margin-top:0}
       <div class="amount">$9.99</div>
       <p class="per">one time · <b>yours forever</b> · ByteBar Complete</p>
       <ul class="plist">
-        <li><span class="ck">✓</span><span><b>This book as it lands</b> — every domain section the moment it completes</span></li>
+        <li><span class="ck">✓</span><span><b>This book as it lands</b> — every chapter the moment it completes</span></li>
         <li><span class="ck">✓</span><span><b>Every other book too</b> — 29 books, 200+ chapters</span></li>
         <li><span class="ck">✓</span><span><b>The Simulator</b> — 29 exams, 1,000 questions each</span></li>
       </ul>
