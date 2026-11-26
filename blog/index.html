@@ -60,18 +60,20 @@ a{color:inherit; -webkit-tap-highlight-color:transparent}
 .nav .btn{padding:11px 22px; font-size:14.5px}
 .nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
 .burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
-@media(max-width:1100px){
+@media(max-width:1100px){ /* text links collapse behind the burger; the gold CTA stays in the bar with its short label (Cori 2026-11-16) */
   .nav-links{position:fixed; top:68px; left:0; right:0; background:var(--card); flex-direction:column; align-items:stretch; gap:0; padding:8px 22px 18px; border-bottom:1px solid var(--line); box-shadow:var(--shadow-lg); display:none}
   .nav-links.open{display:flex}
   .nav-links a.nl{padding:13px 4px; border-bottom:1px solid var(--line); font-size:16px}
   .nav-right{gap:12px}
+  .nav .btn.nav-cta{padding:10px 16px; font-size:13.5px}
   .nav-cta .lbl-full{display:none}
   .nav-cta .lbl-short{display:inline}
   .burger{display:block}
 }
-@media(max-width:720px){
+@media(max-width:720px){ /* phone bar fit: brand + gold CTA + burger share one line at 390px */
   .nav .wrap{padding:0 14px}
   .nav .brand{letter-spacing:.16em}
+  .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
   .nav .burger{padding:6px}
 }
 footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
