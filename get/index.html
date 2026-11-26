@@ -110,6 +110,11 @@ h1{font-size:clamp(34px,6vw,44px);line-height:1.08;font-weight:900;letter-spacin
 @media(max-width:640px){
   .pricerow{flex-direction:column;align-items:stretch;gap:16px;}
   .pricerow .cta{width:100%;padding:15px 20px;}
+  /* Hero proofline: the tracked-caps line "ONE-TIME PAYMENT · NO
+     SUBSCRIPTION · YOURS FOREVER" wrapped at phone width with FOREVER
+     orphaned on line 2 (premier audit F13). Tighten size + tracking at
+     phone width so the whole line fits on one line. */
+  .proofline.caps{font-size:10.2px;letter-spacing:.04em;line-height:1.7;}
 }
 .bundle{
   background:linear-gradient(180deg,#fffdf8,#fdf6e9);
@@ -257,7 +262,7 @@ a,button{-webkit-tap-highlight-color:transparent}
     <div class="eyebrow">ByteBar Complete</div>
     <h1>Everything.<br>One price.</h1>
     <p class="sub">A system for a whole IT career — or just your exam. Start with the cert you're chasing: its book, its final exam, done. Every other book and exam is already in here when you want it — included, never homework.</p>
-    <div class="proofline"><b>One-time payment</b> &nbsp;·&nbsp; <b>No subscription</b> &nbsp;·&nbsp; <b>Yours forever</b></div>
+    <div class="proofline caps"><b>One-time payment</b> &nbsp;·&nbsp; <b>No subscription</b> &nbsp;·&nbsp; <b>Yours forever</b></div>
   </div>
 </section>
 
