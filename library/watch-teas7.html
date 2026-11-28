@@ -799,10 +799,10 @@ function bbAuthStorage() {
       n === 0 ? "First of three free chapters" : "Chapter " + n + " of 30" + (n <= 2 ? " · Free" : "");
     if (n > 0) {
       document.getElementById("wsub").innerHTML =
-        "Chapter " + n + " of 30 in the Security+ (SY0-701) book, taught in blueprint order. " +
+        "Chapter " + n + " of 30 in the TEAS 7 book, taught in blueprint order. " +
         "<span style='color:var(--navy); font-weight:700'>" + META[n].r + " · Part of ByteBar Complete.</span>";
       document.getElementById("wtag").innerHTML =
-        '<span class="micro">Chapter ' + n + " of 30 · Security+ (SY0-701)</span>";
+        '<span class="micro">Chapter ' + n + " of 30 · TEAS 7</span>";
     }
   } else {
     document.getElementById("wtitle").textContent = "Chapter not available";
