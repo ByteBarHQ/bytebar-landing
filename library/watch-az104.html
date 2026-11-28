@@ -5,9 +5,9 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How This Book Works: The Complete Book, Mapped — Azure Administrator (AZ-104) · ByteBar Library</title>
-<meta name="description" content="Watch the free first chapter of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
+<meta name="description" content="Watch the first three chapters free of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
 <meta property="og:title" content="How This Book Works: The Complete Book, Mapped — Azure Administrator (AZ-104) · ByteBar Library">
-<meta property="og:description" content="Watch the free first chapter of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
+<meta property="og:description" content="Watch the first three chapters free of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ByteBar">
 <meta property="og:image" content="https://bytebarhq.com/og/book-og-image.png">
@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://bytebarhq.com/library/watch-az104.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How This Book Works: The Complete Book, Mapped — Azure Administrator (AZ-104) · ByteBar Library">
-<meta name="twitter:description" content="Watch the free first chapter of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
+<meta name="twitter:description" content="Watch the first three chapters free of the Azure Administrator video book: the whole map — five domains, 9 chapters, and the final exam. No card, no account.">
 <meta name="twitter:image" content="https://bytebarhq.com/og/book-og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230b1e42%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2745%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2734%27%20font-weight%3D%27900%27%20fill%3D%27%237ee7f7%27%20text-anchor%3D%27middle%27%3EB%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
@@ -353,15 +353,15 @@ a.irow.free:hover{background:#e2f1fb}
 </nav>
 
 <div class="wrap"><section class="watchsec">
-  <div class="crumb"><span><a href="index.html">Library</a> · Microsoft · <a href="book-az104.html"><b style="color:var(--navy)">Azure Administrator (AZ-104)</b></a></span><span class="crumb-r" id="crumbR">First chapter · Free</span></div>
+  <div class="crumb"><span><a href="index.html">Library</a> · Microsoft · <a href="book-az104.html"><b style="color:var(--navy)">Azure Administrator (AZ-104)</b></a></span><span class="crumb-r" id="crumbR">First of three free chapters</span></div>
   <h1 class="wtitle" id="wtitle">How This Book Works: The Complete Book, Mapped</h1>
-  <p class="wsub" id="wsub">The first chapter of the Azure Administrator book — the whole map before Chapter 1: five domains, nine chapters, and the final exam at the end. <span style="color:var(--navy); font-weight:700">3:50 · No card, no account.</span></p>
+  <p class="wsub" id="wsub">The opening chapter of the Azure Administrator book — the whole map before Chapter 1: five domains, nine chapters, and the final exam at the end. <span style="color:var(--navy); font-weight:700">3:50 · No card, no account.</span></p>
   <div class="pframe">
     <div class="pstate" id="pstate"><div>Connecting to the player…</div></div>
     <div class="ppanel" id="ppanel" style="display:none"></div>
     <iframe id="bbPlayer" title="Azure Administrator chapter player" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture" allowfullscreen="true" loading="lazy" style="display:none"></iframe>
   </div>
-  <div id="wtag"><span class="freetag">FIRST CHAPTER FREE</span></div>
+  <div id="wtag"><span class="freetag">FIRST THREE CHAPTERS FREE</span></div>
   
 <div class="acctcard" id="acctCard">
   <h3>Sign in to your library</h3>
@@ -669,8 +669,8 @@ function bbAuthStorage() {
   function showNA() {
     mode = "na";
     showPanel("<h2>This chapter isn’t available yet</h2>" +
-      "<p>It hasn’t been added to this book’s shelf yet. The first chapter is free to watch — start there, or browse the full chapter index.</p>" +
-      '<div class="rowlinks"><a class="btn btn-primary" href="watch-az104.html">Watch the free first chapter</a>' +
+      "<p>It hasn’t been added to this book’s shelf yet. The first three chapters are free to watch — start there, or browse the full chapter index.</p>" +
+      '<div class="rowlinks"><a class="btn btn-primary" href="watch-az104.html">Watch the first three chapters free</a>' +
       '<a class="txtlink" href="book-az104.html">See the chapter index →</a></div>');
   }
 
@@ -747,7 +747,7 @@ function bbAuthStorage() {
     document.getElementById("wtitle").textContent = META[n].t;
     document.title = META[n].t + " — Azure Administrator (AZ-104) · ByteBar Library";
     document.getElementById("crumbR").textContent =
-      n === 0 ? "First chapter · Free" : "Chapter " + n + " of 9";
+      n === 0 ? "First of three free chapters" : "Chapter " + n + " of 9" + (n <= 2 ? " · Free" : "");
     if (n > 0) {
       document.getElementById("wsub").innerHTML =
         "Chapter " + n + " of 9 in the Azure Administrator (AZ-104) book, taught in blueprint order. " +
@@ -758,7 +758,7 @@ function bbAuthStorage() {
   } else {
     document.getElementById("wtitle").textContent = "Chapter not available";
     document.getElementById("wsub").textContent =
-      "That link doesn’t point at a chapter in this book. Start with the free first chapter, or browse the full chapter index.";
+      "That link doesn’t point at a chapter in this book. Start with the three free chapters, or browse the full chapter index.";
     document.getElementById("crumbR").textContent = "Azure Administrator (AZ-104)";
     document.getElementById("wtag").innerHTML = "";
   }
