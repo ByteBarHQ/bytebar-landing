@@ -58,6 +58,7 @@ a{color:inherit; -webkit-tap-highlight-color:transparent}
 .nav-links a.nl:hover{opacity:1; color:var(--navy)}
 .nav-links a.nl.dim{opacity:.55; font-weight:500}
 .nav .btn{padding:11px 22px; font-size:14.5px}
+.nav .btn-gold{box-shadow:0 3px 0 var(--gold-d), 0 4px 10px rgba(245,166,35,.28)}
 .nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
 .burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
 @media(max-width:1100px){ /* text links collapse behind the burger; the gold CTA stays in the bar with its short label (Cori 2026-11-16) */
@@ -75,6 +76,15 @@ a{color:inherit; -webkit-tap-highlight-color:transparent}
   .nav .brand{letter-spacing:.16em}
   .nav .btn.nav-cta{padding:9px 12px; font-size:12.5px}
   .nav .burger{padding:6px}
+}
+@media(max-width:480px){ /* F1 safety: guarantee brand + short gold pill + burger fit inside 390px with slack */
+  .nav .wrap{padding:0 12px}
+  .nav-inner{gap:10px}
+  .nav .brand{letter-spacing:.12em; font-size:18px}
+  .nav .brand .mark{width:32px; height:32px}
+  .nav .btn.nav-cta{padding:8px 10px; font-size:12px}
+  .nav-right{gap:8px}
+  .nav .burger{flex:none; padding:6px}
 }
 footer{border-top:1px solid var(--line); padding:52px 0 34px; margin-top:20px}
 .fgrid2{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:36px}
@@ -165,7 +175,7 @@ footer{margin-top:0}
     <div class="fgrid2">
       <div class="fcol">
         <div class="fbrand">BYTEBAR</div>
-        <p>Video books that teach it. Practice exams that prove it. 29 certifications, one price. No racket.</p>
+        <p>Video books that teach it. Practice exams that prove it. 30 certifications, one price. No racket.</p>
         <p style="margin-top:16px">Questions? Email us at</p>
         <p><a class="tlink" href="mailto:bytebarco@proton.me">bytebarco@proton.me</a></p>
       </div>

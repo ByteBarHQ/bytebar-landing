@@ -132,6 +132,7 @@ a{color:inherit}
 .nav-links a.nl:hover{opacity:1; color:var(--navy)}
 .nav-links a.nl.dim{opacity:.55; font-weight:500}
 .nav .btn{padding:11px 22px; font-size:14.5px}
+.nav .btn-gold{box-shadow:0 3px 0 var(--gold-d), 0 4px 10px rgba(245,166,35,.28)}
 .nav-right{display:flex; align-items:center; gap:26px; margin-left:auto}
 .burger{display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--navy); padding:8px}
 @media(max-width:1100px){ /* text links collapse behind the burger; the gold CTA stays in the bar with its short label (Cori 2026-11-16) */
@@ -750,7 +751,7 @@ a,button{-webkit-tap-highlight-color:transparent}
       <p>Watch the first three chapters of any book free, and try 10 questions free on any exam — no signup. $9.99 unlocks every book and every exam — forever.</p>
       <div class="row">
         <a class="btn btn-gold btn-lg" href="https://bytebarhq.com/get" rel="noopener"><span class="lbl-full">Get ByteBar Complete — $9.99</span><span class="lbl-short">Get Complete — $9.99</span></a>
-        <a class="btn btn-outline btn-lg" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener">Try 10 Free First</a>
+        <a class="btn btn-outline btn-lg" href="https://sim.bytebarhq.com/sim-preview/" rel="noopener">Open the simulator →</a>
       </div>
     </div>
   </div>
@@ -1032,7 +1033,7 @@ function bbAuthStorage() {
         '<p class="lead">Every video book and every practice exam is already yours \u2014 no pitch, promise. Pick up right where you left off.</p>' +
         '<div style="display:flex; gap:12px; flex-wrap:wrap">' +
         '<a class="btn btn-primary btn-lg" href="https://bytebarhq.com/library/">Open the Library</a>' +
-        '<a class="btn btn-ghost btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Open the Simulator</a>' +
+        '<a class="btn btn-ghost btn-lg" href="https://sim.bytebarhq.com/sim-preview/">Open the simulator →</a>' +
         '</div></div>';
     }
     var pc = document.querySelector(".price-card");
