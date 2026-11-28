@@ -379,6 +379,15 @@ footer{margin-top:0}
   transition:text-decoration-color .15s var(--ease)}
 .ppanel a.txtlink:hover{text-decoration-color:currentColor}
 </style>
+<style id="fixlist-20261128">
+/* Fix list 2026-11-28 (F10): breadcrumb links get >=24px hit height,
+   visual size unchanged. */
+.crumb a{display:inline-block; padding:6px 2px; margin:-6px -2px}
+/* Fix list 2026-11-28 (F6): collapsed guest sign-in link under the player. */
+.acct-signin-link{margin-top:14px; font-size:14px; font-weight:600; color:var(--mut)}
+.acct-signin-link a{color:var(--cyan-d); font-weight:700; text-decoration:none; display:inline-block; padding:5px 2px}
+.acct-signin-link a:hover{text-decoration:underline}
+</style>
 </head>
 
 <body>
@@ -428,6 +437,7 @@ footer{margin-top:0}
   </div>
 </div>
 
+  <p class="acct-signin-link" id="acctSigninLink" style="display:none">Already own Complete? <a href="#acctCard" id="acctSigninA">Sign in →</a></p>
   <a class="nextcard" id="nextCard" href="https://sim.bytebarhq.com/sim-preview/?exam=hesi_a2"><span class="chchip exam" id="nextChip">Exam</span><div class="ttl"><b id="nextTitle">The Final Exam — HESI A2</b><div class="sub" id="nextSub">The final exam · 1,000 questions · readiness score</div></div><div class="st" id="nextSt"><span class="simlink">In the Simulator →</span></div></a>
   <a class="backlink" href="book-hesia2.html">← Back to the chapter index</a>
 </section></div>
@@ -780,15 +790,48 @@ function bbAuthStorage() {
     chip.className = "chchip";
     chip.textContent = "CH " + m;
     ttl.textContent = "Up next: " + META[m].t;
-    if (session) {
+    if (session || m <= 2) {
       card.setAttribute("href", "watch.html?chapter=" + m);
-      sub.textContent = "Chapter " + m + " · " + META[m].r;
+      sub.textContent = "Chapter " + m + " · " + META[m].r + (session ? "" : " · Free");
       st.innerHTML = PLAYBTN;
     } else {
       card.setAttribute("href", "https://bytebarhq.com/get");
       sub.textContent = "Unlocks with ByteBar Complete";
       st.innerHTML = LOCKHTML;
     }
+  }
+
+
+  /* Fix list 2026-11-28 (F6): for guests on a free chapter, the sign-in
+     panel collapses to a one-line link so the next-chapter path leads
+     under the player. Signed-in owners keep the full panel. Expanding
+     the link restores the panel and focuses the email field; the
+     sign-in form itself is unchanged. */
+  var acctExpanded = false;
+  function paintGuest(session) {
+    var acard = document.getElementById("acctCard");
+    var alink = document.getElementById("acctSigninLink");
+    if (!acard || !alink) return;
+    if (!session && valid && n <= 2 && !acctExpanded) {
+      acard.style.display = "none";
+      alink.style.display = "block";
+    } else {
+      acard.style.display = "";
+      alink.style.display = "none";
+    }
+  }
+  var slink = document.getElementById("acctSigninA");
+  if (slink) {
+    slink.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      acctExpanded = true;
+      var acard = document.getElementById("acctCard");
+      var alink = document.getElementById("acctSigninLink");
+      if (acard) { acard.style.display = ""; acard.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      if (alink) alink.style.display = "none";
+      var em = document.getElementById("acctEmail");
+      if (em) em.focus({ preventScroll: true });
+    });
   }
 
   /* Headings for the requested chapter. */
@@ -815,10 +858,12 @@ function bbAuthStorage() {
   if (window.BB && BB.onSession) {
     BB.onSession(function (session) {
       paintNext(session);
+      paintGuest(session);
       if (valid && (mode === "idle" || mode === "locked")) load();
     });
   } else {
     paintNext(null);
+    paintGuest(null);
     if (valid) load();
   }
   if (!valid) showNA();

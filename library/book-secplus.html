@@ -294,6 +294,7 @@ a.irow.free:hover{background:#e2f1fb}
    phone height; taller stacks grow the cover instead of clipping. */
 .bookhead .cover{aspect-ratio:auto; min-height:240px; padding:30px 22px}
 .bookhead .cov-title{font-size:40px}
+.bookhead .cov-title.fit{font-size:33px; line-height:1.12}
 .bookhead .cov-code{font-size:17px}
 .bookhead .cov-spec{position:relative; font-size:10px; font-weight:700; letter-spacing:.22em; color:#cfe3f5; margin-top:13px}
 .bookhead h1{font-size:54px; line-height:1.02; letter-spacing:-.03em; color:var(--navy); margin:10px 0 14px}
@@ -397,6 +398,11 @@ footer{margin-top:0}
   transition:text-decoration-color .15s var(--ease)}
 .ppanel a.txtlink:hover{text-decoration-color:currentColor}
 </style>
+<style id="fixlist-20261128">
+/* Fix list 2026-11-28 (F10): breadcrumb links get >=24px hit height,
+   visual size unchanged. */
+.crumb a{display:inline-block; padding:6px 2px; margin:-6px -2px}
+</style>
 </head>
 
 <body>
@@ -490,7 +496,7 @@ footer{margin-top:0}
       <p class="per">one time · <b>yours forever</b> · ByteBar Complete</p>
       <ul class="plist">
         <li><span class="ck">✓</span><span><b>This book, unlocked</b> — all 31 chapters + the final exam</span></li>
-        <li><span class="ck">✓</span><span><b>Every other book too</b> — 29 books, 200+ chapters</span></li>
+        <li><span class="ck">✓</span><span><b>Every other book too</b> — 30 books in all, 200+ chapters</span></li>
         <li><span class="ck">✓</span><span><b>The Simulator</b> — 30 exams, 1,000 questions each</span></li>
       </ul>
       <a class="btn btn-gold btn-lg" style="width:100%" href="https://bytebarhq.com/get">Get ByteBar Complete</a>

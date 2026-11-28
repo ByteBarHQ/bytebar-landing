@@ -332,6 +332,15 @@ a.irow.free:hover{background:#e2f1fb}
 @media(max-width:660px){.pframe.tall{min-height:358px}}
 @media(max-width:400px){.pframe.tall{min-height:428px}}
 </style>
+<style id="fixlist-20261128">
+/* Fix list 2026-11-28 (F10): breadcrumb links get >=24px hit height,
+   visual size unchanged. */
+.crumb a{display:inline-block; padding:6px 2px; margin:-6px -2px}
+/* Fix list 2026-11-28 (F6): collapsed guest sign-in link under the player. */
+.acct-signin-link{margin-top:14px; font-size:14px; font-weight:600; color:var(--mut)}
+.acct-signin-link a{color:var(--cyan-d); font-weight:700; text-decoration:none; display:inline-block; padding:5px 2px}
+.acct-signin-link a:hover{text-decoration:underline}
+</style>
 </head>
 
 <body>
@@ -379,7 +388,8 @@ a.irow.free:hover{background:#e2f1fb}
   </div>
 </div>
 
-  <a class="nextcard" id="nextCard" href="https://bytebarhq.com/get"><span class="chchip" id="nextChip">CH 1</span><div class="ttl"><b id="nextTitle">Up next: Network Fundamentals: Every Piece, One Map</b><div class="sub" id="nextSub">Unlocks with ByteBar Complete</div></div><div class="st" id="nextSt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Locked</span></div></a>
+  <p class="acct-signin-link" id="acctSigninLink" style="display:none">Already own Complete? <a href="#acctCard" id="acctSigninA">Sign in →</a></p>
+  <a class="nextcard" id="nextCard" href="watch-ccna.html?chapter=1"><span class="chchip" id="nextChip">CH 1</span><div class="ttl"><b id="nextTitle">Up next: Network Fundamentals: Every Piece, One Map</b><div class="sub" id="nextSub">Chapter 1 · 11:19 · Free</div></div><div class="st" id="nextSt"><span class="playbtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.8v14.4c0 .9 1 1.5 1.8 1L20 13a1.2 1.2 0 0 0 0-2L8.8 3.9C8 3.4 7 4 7 4.8z"/></svg></span></div></a>
   <a class="backlink" href="book-ccna.html">← Back to the chapter index</a>
 </section></div>
 
@@ -731,15 +741,48 @@ function bbAuthStorage() {
     chip.className = "chchip";
     chip.textContent = "CH " + m;
     ttl.textContent = "Up next: " + META[m].t;
-    if (session) {
+    if (session || m <= 2) {
       card.setAttribute("href", "watch-ccna.html?chapter=" + m);
-      sub.textContent = "Chapter " + m + " · " + META[m].r;
+      sub.textContent = "Chapter " + m + " · " + META[m].r + (session ? "" : " · Free");
       st.innerHTML = PLAYBTN;
     } else {
       card.setAttribute("href", "https://bytebarhq.com/get");
       sub.textContent = "Unlocks with ByteBar Complete";
       st.innerHTML = LOCKHTML;
     }
+  }
+
+
+  /* Fix list 2026-11-28 (F6): for guests on a free chapter, the sign-in
+     panel collapses to a one-line link so the next-chapter path leads
+     under the player. Signed-in owners keep the full panel. Expanding
+     the link restores the panel and focuses the email field; the
+     sign-in form itself is unchanged. */
+  var acctExpanded = false;
+  function paintGuest(session) {
+    var acard = document.getElementById("acctCard");
+    var alink = document.getElementById("acctSigninLink");
+    if (!acard || !alink) return;
+    if (!session && valid && n <= 2 && !acctExpanded) {
+      acard.style.display = "none";
+      alink.style.display = "block";
+    } else {
+      acard.style.display = "";
+      alink.style.display = "none";
+    }
+  }
+  var slink = document.getElementById("acctSigninA");
+  if (slink) {
+    slink.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      acctExpanded = true;
+      var acard = document.getElementById("acctCard");
+      var alink = document.getElementById("acctSigninLink");
+      if (acard) { acard.style.display = ""; acard.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      if (alink) alink.style.display = "none";
+      var em = document.getElementById("acctEmail");
+      if (em) em.focus({ preventScroll: true });
+    });
   }
 
   /* Headings for the requested chapter. */
@@ -766,10 +809,12 @@ function bbAuthStorage() {
   if (window.BB && BB.onSession) {
     BB.onSession(function (session) {
       paintNext(session);
+      paintGuest(session);
       if (valid && (mode === "idle" || mode === "locked")) load();
     });
   } else {
     paintNext(null);
+    paintGuest(null);
     if (valid) load();
   }
   if (!valid) showNA();
